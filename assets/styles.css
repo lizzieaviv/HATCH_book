@@ -1,0 +1,30 @@
+/* Force tables to scroll horizontally if they are wider than the page */
+table {
+  display: block;
+  overflow-x: auto;
+  white-space: nowrap;
+  width: max-content;
+  max-width: 100%;
+}
+
+/* Add vertical borders */
+table, table th, table td {
+  border: 1px solid #ccc;
+  border-collapse: collapse;
+}
+
+
+/* Vertically center all table cells */
+table td, table th {
+  vertical-align: middle;
+}
+
+/* Horizontally center all column headers */
+table th {
+  text-align: center;
+}
+
+/* Add a custom class that JS can apply to numeric cells */
+td.numeric {
+  text-align: center;
+}

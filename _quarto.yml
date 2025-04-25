@@ -1,0 +1,36 @@
+project:
+  type: book
+  output-dir: docs
+
+book:
+  title: "HATCH Data"
+  chapters:
+    - index.qmd
+    - part: Inventory Cleaning
+      chapters:
+      - chapters/clean_inventory/HATCH_0pn_inventories.qmd
+      - chapters/clean_inventory/HATCH_3pp_inventories.qmd
+      - chapters/clean_inventory/HATCH_6pp_inventories.qmd
+      - chapters/clean_inventory/HATCH_12pp_inventories.qmd
+
+format:
+  html:
+    df-print: default
+    html-table-processing: none
+    css: assets/styles.css
+    include-after-body: assets/scroll-tables.js
+    toc: true                    # hide right-hand TOC
+    toc-depth: 3                 # allow deeper levels
+    number-sections: false
+    number-depth: 0
+
+# 🔄 To update site:
+# 1. Make desired changes
+# 2. quarto render --cache
+# 3. git add .
+# 4. git commit -m "commit note"
+# 5. git push
+
+# 🔄 To view site locally: open project-name/docs/index.html
+# 🔄 To view site online: https://lizzieaviv.github.io/hatch-book-test/
+

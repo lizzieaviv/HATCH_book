@@ -1,0 +1,15 @@
+---
+title: "Welcome Page"
+author: "NEST Lab"
+date: last-modified
+format: html
+---
+
+# Welcome
+
+This book contains inventories from different timepoints in the HATCH study:
+
+-   0pn (prenatal)
+-   3pp (3 months postpartum)
+-   6pp (6 months postpartum)
+-   12pp (12 months postpartum)

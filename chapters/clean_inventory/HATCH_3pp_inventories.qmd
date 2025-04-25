@@ -1,0 +1,3799 @@
+---
+title: "3-Month Postpartum"
+subtitle: "Inventory Cleaning"
+format:
+  html:
+    toc: true
+    toc-float: true
+    df-print: paged
+    code-folding: show
+editor_options: 
+  markdown: 
+    wrap: 72
+---
+
+```{r, include=FALSE}
+knitr::opts_chunk$set(fig.width=2, fig.height=2, fig.align = "center")
+```
+
+# To Do List
+
+## Specific measures
+
+-   MAT cronbach's alpha is low (.686)
+-   PSQI cronbach's alpha is low (.611)
+-   ASQ2 cronbach's alphas are low (\~.550)
+-   MPAS hostility and pleasure scales cronbach's alpha are low (.67 and
+    .52)
+-   PPAS pleasure and affection scales cronbach's alpha are low (.68
+    and.61)
+
+## For overall data and document
+
+-   add notes for "set up" to give idea of the contents of the document
+
+# Set Up
+
+::: panel-tabset
+## Notes
+
+> **SPSS File Name:** HATCH Syntax for 3-M Qs.sps
+
+## Packages
+
+```{r}
+library(tidyverse) # for data cleaning
+library(here) # to quickly find data files
+library(haven) # to manipulate SPSS files and add SPSS-style labels
+library(chron) # to manipulate time and date variables
+library(sjmisc) # for rowwise functions (row_count function)
+library(data.table) # for renaming variables (setnames function)
+library(kableExtra) # to print tables more neatly (kbl wrapping function) 
+library(nestclean) # the package I wrote to help check our work
+library(nestPSQI) # the package I wrote to help clean up PSQI
+```
+
+## Load Data
+
+```{r}
+df <- read_sav(here("data/qualtrics/4_demographics", "3pp_demo.sav")) %>%
+  mutate(across(where(is.character), ~ na_if(.x, ""))) # replace blank cells with NA
+
+df.old <- read_sav(here("data/qualtrics/3_renamed", "3pp_renamed.sav")) %>%
+  mutate(across(where(is.character), ~ na_if(.x, ""))) # replace blank cells with NA
+```
+:::
+
+# Inventories
+
+## ASQ2: Ages and Stages Questionnaire, 2-month
+
+::: panel-tabset
+### Notes
+
+-   Squires & Bricker, 2009
+-   6 questions per developmental domain + 8 additional overall
+    questions
+-   For developmental questions: 3-point Likert scale
+    -   0 = not yet
+    -   5 = sometimes
+    -   10 = yes
+-   For overall questions: 0-1 binary
+    -   0 = no
+    -   1 = not yet
+-   Sum scores
+    -   Higher scores = more advanced development
+-   Subscales:
+    -   Communication
+    -   Gross motor
+    -   Fine motor
+    -   Problem solving
+    -   Personal/social
+    -   Overall
+-   No reverse scores
+-   Other scores notes:
+    -   If three or more items are missing, do not score the
+        area—screening results may not be accurate.
+    -   If one or two items are missing, you will need to calculate an
+        adjusted score.
+        -   Replace missing items with mean score of other items in the
+            section
+    -   Refer to scoring guidelines for cut-off information and
+        information on "overall" items
+
+### Script
+
+#### Recode item scores
+
+```{r}
+df <- df %>%
+  # Yes, Sometimes, Not Yet
+  mutate(across(ASQ2_c1.3pp:ASQ2_s6.3pp, 
+            ~case_when( 
+                        . == 1 ~ 10,
+                        . == 2 ~ 5,
+                        . == 3 ~ 0,
+                        .default = NA))) %>%
+  # Yes/No
+  mutate(across(ASQ2_o1.3pp:ASQ2_o6.3pp,
+            ~case_when(
+              . == 2 ~ 0, 
+              .default = .)))
+```
+
+#### Mean-replace missing items
+
+```{r}
+df <- df %>%
+  
+  # Tell R that we want to work across a row
+  rowwise() %>%
+  
+  # Find rows with 2 or fewer NAs and replace NA with subscale mean
+  mutate(across(ASQ2_c1.3pp:ASQ2_c6.3pp, 
+            ~ case_when(
+              is.na(.) == T & sum(is.na(c_across(ASQ2_c1.3pp:ASQ2_c6.3pp))) <= 2 ~ mean(c_across(ASQ2_c1.3pp:ASQ2_c6.3pp), na.rm = T), 
+              .default = .))) %>%
+  mutate(across(ASQ2_gm1.3pp:ASQ2_gm6.3pp, 
+            ~ case_when(
+              is.na(.) == T & sum(is.na(c_across(ASQ2_gm1.3pp:ASQ2_gm6.3pp))) <= 2 ~ mean(c_across(ASQ2_gm1.3pp:ASQ2_gm6.3pp), na.rm = T), 
+              .default = .))) %>%
+  mutate(across(ASQ2_fm1.3pp:ASQ2_fm6.3pp, 
+            ~ case_when(
+              is.na(.) == T & sum(is.na(c_across(ASQ2_fm1.3pp:ASQ2_fm6.3pp))) <= 2 ~ mean(c_across(ASQ2_fm1.3pp:ASQ2_fm6.3pp), na.rm = T), 
+              .default = .))) %>%
+  mutate(across(ASQ2_ps1.3pp:ASQ2_ps6.3pp, 
+            ~ case_when(
+              is.na(.) == T & sum(is.na(c_across(ASQ2_ps1.3pp:ASQ2_ps6.3pp))) <= 2 ~ mean(c_across(ASQ2_ps1.3pp:ASQ2_ps6.3pp), na.rm = T), 
+              .default = .))) %>%
+  mutate(across(ASQ2_s1.3pp:ASQ2_s6.3pp, 
+            ~ case_when(
+              is.na(.) == T & sum(is.na(c_across(ASQ2_s1.3pp:ASQ2_s6.3pp))) <= 2 ~ mean(c_across(ASQ2_s1.3pp:ASQ2_s6.3pp), na.rm = T), 
+              .default = .)))
+  
+```
+
+#### Calculate summary scores
+
+```{r}
+df <- df %>% 
+  
+  # Tell R that we want to take the sum across a row
+  rowwise() %>%
+  
+  # Calculate total scores/subscales
+  mutate(ASQ2_comm.3pp = sum(c_across(ASQ2_c1.3pp:ASQ2_c6.3pp), na.rm = T),
+         ASQ2_gross.3pp = sum(c_across(ASQ2_gm1.3pp:ASQ2_gm6.3pp), na.rm = T),
+         ASQ2_fine.3pp = sum(c_across(ASQ2_fm1.3pp:ASQ2_fm6.3pp), na.rm = T),
+         ASQ2_probsolve.3pp = sum(c_across(ASQ2_ps1.3pp:ASQ2_ps6.3pp), na.rm = T),
+         ASQ2_social.3pp = sum(c_across(ASQ2_s1.3pp:ASQ2_s6.3pp), na.rm = T)) %>% 
+  
+  # Replace 0's with NA
+  mutate(across(ASQ2_comm.3pp:ASQ2_social.3pp, ~na_if(., 0))) %>%
+  
+  # Move the total score/subscales so they come immediately after the measures
+  relocate(ASQ2_comm.3pp:ASQ2_social.3pp, .after = ASQ2_o6.3pp)
+```
+
+### Label
+
+```{r}
+df <- df %>% 
+  
+  # Tell R that scores are numeric
+  mutate(across(ASQ2_c1.3pp:ASQ2_s6.3pp, as.numeric)) %>%
+  
+  # Create value and variable labels
+  mutate(across(ASQ2_c1.3pp:ASQ2_c6.3pp,
+            ~ labelled(., 
+                       c("Yes" = 10, "Sometimes" = 5, "Not yet" = 0, 
+                         "Mean-replaced" = 8, "Mean-replaced" = 9), 
+                       label = "ASQ 2-Month: Communication"))) %>%
+  mutate(across(ASQ2_gm1.3pp:ASQ2_gm6.3pp,
+            ~ labelled(., 
+                       c("Yes" = 10, "Sometimes" = 5, "Not yet" = 0, 
+                         "Mean-replaced" = 8, "Mean-replaced" = 9), 
+                       label = "ASQ 2-Month: Gross Motor"))) %>% 
+  mutate(across(ASQ2_fm1.3pp:ASQ2_fm6.3pp,
+            ~ labelled(., 
+                       c("Yes" = 10, "Sometimes" = 5, "Not yet" = 0, 
+                         "Mean-replaced" = 8, "Mean-replaced" = 9), 
+                       label = "ASQ 2-Month: Fine Motor"))) %>% 
+  mutate(across(ASQ2_ps1.3pp:ASQ2_ps6.3pp,
+            ~ labelled(., 
+                       c("Yes" = 10, "Sometimes" = 5, "Not yet" = 0, 
+                         "Mean-replaced" = 8, "Mean-replaced" = 9), 
+                       label = "ASQ 2-Month: Problem Solving"))) %>% 
+  mutate(across(ASQ2_s1.3pp:ASQ2_s6.3pp,
+            ~ labelled(., 
+                       c("Yes" = 10, "Sometimes" = 5, "Not yet" = 0, 
+                         "Mean-replaced" = 8, "Mean-replaced" = 9), 
+                       label = "ASQ 2-Month: Personal-Social"))) %>%
+  mutate(across(ASQ2_o1.3pp:ASQ2_o6.3pp,
+            ~ labelled(., 
+                       c("Yes" = 1, "No" = 0), 
+                       label = "ASQ 2-Month: Overall"))) %>%
+  mutate(ASQ2_comm.3pp = labelled(ASQ2_comm.3pp, label = "ASQ 2-Month: Communication Total"), 
+         ASQ2_gross.3pp = labelled(ASQ2_gross.3pp, label = "ASQ 2-Month: Gross Motor Total"),
+         ASQ2_fine.3pp = labelled(ASQ2_fine.3pp, label = "ASQ 2-Month: Fine Motor Total"), 
+         ASQ2_probsolve.3pp = labelled(ASQ2_probsolve.3pp, label = "ASQ 2-Month: Problem Solving Total"), 
+         ASQ2_social.3pp = labelled(ASQ2_social.3pp, label = "ASQ 2-Month: Personal-Social Total"), )
+```
+
+### Check and Print
+
+::: panel-tabset
+#### Check
+
+::: panel-tabset
+##### Check Counts
+
+```{r}
+#| echo: false
+check_categorical(df, c(ASQ2_c1.3pp:ASQ2_s6.3pp)) %>% arrange(value) %>% knitr::kable()
+check_categorical(df, c(ASQ2_o1.3pp:ASQ2_o6.3pp))  %>% knitr::kable()
+```
+
+##### Check Numbers
+
+```{r}
+#| echo: false
+check_continuous(df, ASQ2_comm.3pp:ASQ2_social.3pp) %>% knitr::kable()
+```
+
+##### Check Reliability
+
+```{r}
+#| echo: false
+ltm::cronbach.alpha(data = select(df, ASQ2_c1.3pp:ASQ2_c6.3pp), na.rm = T)
+ltm::cronbach.alpha(data = select(df, ASQ2_gm1.3pp:ASQ2_gm6.3pp), na.rm = T)
+ltm::cronbach.alpha(data = select(df, ASQ2_fm1.3pp:ASQ2_fm6.3pp), na.rm = T)
+ltm::cronbach.alpha(data = select(df, ASQ2_ps1.3pp:ASQ2_ps6.3pp), na.rm = T)
+ltm::cronbach.alpha(data = select(df, ASQ2_s1.3pp:ASQ2_s6.3pp), na.rm = T)
+```
+
+##### Check Variable Labels
+
+```{r}
+#| echo: false
+inspect_labels(df, contains("ASQ2")) 
+```
+:::
+
+#### Print
+
+```{r}
+#| echo: false
+print_slice(df, contains("ASQ2"))
+```
+:::
+:::
+
+## ASQ4: Ages and Stages Questionnaire, 4-month
+
+::: panel-tabset
+### Notes
+
+-   Yes = 10; 5 = Sometimes; 0 = Not yet
+-   If three or more items are missing, do not score the area—screening
+    results may not be accurate.
+-   If one or two items are missing, you will need to calculate an
+    adjusted score.
+    -   Replace missing items with mean score of other items in the
+        section
+-   Refer to scoring guidelines for cut-off information and information
+    on "overall" items
+
+### Script
+
+#### Recode item scores
+
+```{r}
+df <- df %>%
+  # Yes, Sometimes, Not Yet
+  mutate(across(ASQ4_c1.3pp:ASQ4_s6.3pp,
+            ~case_when( 
+                        . == 1 ~ 10,
+                        . == 2 ~ 5,
+                        . == 3 ~ 0,
+                        .default = NA))) %>%
+  # Yes/No
+  mutate(across(ASQ4_o1.3pp:ASQ4_o8.3pp,
+            ~case_when(
+              . == 2 ~ 0, 
+              .default = .)))
+```
+
+#### Mean-replace missing items
+
+```{r}
+df <- df %>%
+  rowwise() %>%
+  mutate(across(ASQ4_c1.3pp:ASQ4_c6.3pp,
+                ~ case_when(
+                  is.na(.) & sum(is.na(c_across(ASQ4_c1.3pp:ASQ4_c6.3pp))) <= 2 ~ mean(c_across(ASQ4_c1.3pp:ASQ4_c6.3pp), na.rm = TRUE),
+                  .default = .))) %>%
+  mutate(across(ASQ4_gm1.3pp:ASQ4_gm6.3pp,
+                ~ case_when(
+                  is.na(.) & sum(is.na(c_across(ASQ4_gm1.3pp:ASQ4_gm6.3pp))) <= 2 ~ mean(c_across(ASQ4_gm1.3pp:ASQ4_gm6.3pp), na.rm = TRUE),
+                  .default = .))) %>%
+  mutate(across(ASQ4_fm1.3pp:ASQ4_fm6.3pp,
+                ~ case_when(
+                  is.na(.) & sum(is.na(c_across(ASQ4_fm1.3pp:ASQ4_fm6.3pp))) <= 2 ~ mean(c_across(ASQ4_fm1.3pp:ASQ4_fm6.3pp), na.rm = TRUE),
+                  .default = .))) %>%
+  mutate(across(ASQ4_ps1.3pp:ASQ4_ps6.3pp,
+                ~ case_when(
+                  is.na(.) & sum(is.na(c_across(ASQ4_ps1.3pp:ASQ4_ps6.3pp))) <= 2 ~ mean(c_across(ASQ4_ps1.3pp:ASQ4_ps6.3pp), na.rm = TRUE),
+                  .default = .))) %>%
+  mutate(across(ASQ4_s1.3pp:ASQ4_s6.3pp,
+                ~ case_when(
+                  is.na(.) & sum(is.na(c_across(ASQ4_s1.3pp:ASQ4_s6.3pp))) <= 2 ~ mean(c_across(ASQ4_s1.3pp:ASQ4_s6.3pp), na.rm = TRUE),
+                  .default = .)))
+  
+```
+
+#### Calculate summary scores
+
+```{r}
+df <- df %>% 
+  
+  # Tell R that we want to take the sum across a row
+  rowwise() %>%
+  
+  # Calculate total scores/subscales
+  mutate(ASQ4_comm.3pp = sum(c_across(ASQ4_c1.3pp:ASQ4_c6.3pp), na.rm = T),
+         ASQ4_gross.3pp = sum(c_across(ASQ4_gm1.3pp:ASQ4_gm6.3pp), na.rm = T),
+         ASQ4_fine.3pp = sum(c_across(ASQ4_fm1.3pp:ASQ4_fm6.3pp), na.rm = T),
+         ASQ4_probsolve.3pp = sum(c_across(ASQ4_ps1.3pp:ASQ4_ps6.3pp), na.rm = T),
+         ASQ4_social.3pp = sum(c_across(ASQ4_s1.3pp:ASQ4_s6.3pp), na.rm = T)) %>% 
+  
+  # Replace 0's with NA
+  mutate(across(ASQ4_comm.3pp:ASQ4_social.3pp, ~na_if(., 0))) %>%
+  
+  # Move the total score/subscales so they come immediately after the measures
+  relocate(ASQ4_comm.3pp:ASQ4_social.3pp, .after = ASQ4_o8.3pp)
+```
+
+### Label
+
+```{r}
+df <- df %>% 
+  
+  # Tell R that scores are numeric
+  mutate(across(ASQ4_c1.3pp:ASQ4_s6.3pp, as.numeric)) %>%
+  
+  # Create value and variable labels
+  mutate(across(ASQ4_c1.3pp:ASQ4_c6.3pp,
+            ~ labelled(., 
+                       c("Yes" = 10, "Sometimes" = 5, "Not yet" = 0, 
+                         "Mean-replaced" = 8, "Mean-replaced" = 7), 
+                       label = "ASQ 4-Month: Communication"))) %>%
+  mutate(across(ASQ4_gm1.3pp:ASQ4_gm6.3pp,
+            ~ labelled(., 
+                       c("Yes" = 10, "Sometimes" = 5, "Not yet" = 0, 
+                         "Mean-replaced" = 8, "Mean-replaced" = 7), 
+                       label = "ASQ 4-Month: Gross Motor"))) %>% 
+  mutate(across(ASQ4_fm1.3pp:ASQ4_fm6.3pp,
+            ~ labelled(., 
+                       c("Yes" = 10, "Sometimes" = 5, "Not yet" = 0, 
+                         "Mean-replaced" = 8, "Mean-replaced" = 7), 
+                       label = "ASQ 4-Month: Fine Motor"))) %>% 
+  mutate(across(ASQ4_ps1.3pp:ASQ4_ps6.3pp,
+            ~ labelled(., 
+                       c("Yes" = 10, "Sometimes" = 5, "Not yet" = 0, 
+                         "Mean-replaced" = 8, "Mean-replaced" = 7), 
+                       label = "ASQ 4-Month: Problem Solving"))) %>% 
+  mutate(across(ASQ4_s1.3pp:ASQ4_s6.3pp,
+            ~ labelled(., 
+                       c("Yes" = 10, "Sometimes" = 5, "Not yet" = 0, 
+                         "Mean-replaced" = 8, "Mean-replaced" = 7), 
+                       label = "ASQ 4-Month: Personal-Social"))) %>%
+  mutate(across(ASQ4_o1.3pp:ASQ4_o8.3pp,
+            ~ labelled(., 
+                       c("Yes" = 1, "No" = 0), 
+                       label = "ASQ 4-Month: Overall"))) %>%
+  mutate(ASQ4_comm.3pp = labelled(ASQ4_comm.3pp, label = "ASQ 4-Month: Communication Total"), 
+         ASQ4_gross.3pp = labelled(ASQ4_gross.3pp, label = "ASQ 4-Month: Gross Motor Total"),
+         ASQ4_fine.3pp = labelled(ASQ4_fine.3pp, label = "ASQ 4-Month: Fine Motor Total"), 
+         ASQ4_probsolve.3pp = labelled(ASQ4_probsolve.3pp, label = "ASQ 4-Month: Problem Solving Total"), 
+         ASQ4_social.3pp = labelled(ASQ4_social.3pp, label = "ASQ 4-Month: Personal-Social Total"))
+```
+
+### Check and Print
+
+::: panel-tabset
+#### Check
+
+::: panel-tabset
+##### Check Counts
+
+```{r}
+#| echo: false
+check_categorical(df, c(ASQ4_c1.3pp:ASQ4_s6.3pp)) %>% arrange(value) %>% knitr::kable()
+check_categorical(df, c(ASQ4_o1.3pp:ASQ4_o8.3pp))  %>% knitr::kable()
+```
+
+##### Check Numbers
+
+```{r}
+#| echo: false
+check_continuous(df, c(ASQ4_comm.3pp:ASQ4_social.3pp)) %>% knitr::kable()
+```
+
+##### Check Reliability
+
+```{r}
+#| echo: false
+ltm::cronbach.alpha(data = select(df, ASQ4_c1.3pp:ASQ4_c6.3pp), na.rm = T)
+ltm::cronbach.alpha(data = select(df, ASQ4_gm1.3pp:ASQ4_gm6.3pp), na.rm = T)
+ltm::cronbach.alpha(data = select(df, ASQ4_fm1.3pp:ASQ4_fm6.3pp), na.rm = T)
+ltm::cronbach.alpha(data = select(df, ASQ4_ps1.3pp:ASQ4_ps6.3pp), na.rm = T)
+ltm::cronbach.alpha(data = select(df, ASQ4_s1.3pp:ASQ4_s6.3pp), na.rm = T)
+```
+
+##### Check Variable Labels
+
+```{r}
+#| echo: false
+inspect_labels(df, contains("ASQ4")) 
+```
+:::
+
+#### Print
+
+```{r}
+#| echo: false
+print_slice(df, contains("ASQ4"))
+```
+:::
+:::
+
+## BCQ: Baby Care Questionnaire
+
+::: panel-tabset
+### Notes
+
+-   Winstanley & Gattis, 2013
+-   30 items
+    -   3 sections: Sleeping, Feeding, Soothing
+-   1-4 Likert scale
+    -   1=strongly disagree
+    -   4=strongly agree
+-   Mean scores
+    -   Higher scores = higher structure/attunement
+-   Subscales:
+    -   Structure
+        -   S1-S6
+        -   E1-E3, E6, E7, E10
+        -   So1, So2, So4, So9, So10
+    -   Attunement
+        -   S7-S9
+        -   E4, E5, E8, E9
+        -   So3, So5, So6-So8, So11
+-   Reverse score for
+    -   S1-S3, S9
+    -   E2, E3, E5, E6, E9, E10
+    -   So2-So5, So7, So10
+
+### Script
+
+#### Reverse item scores
+
+```{r}
+df <- df %>%
+  mutate(across(c(BCQ_S1.3pp:BCQ_S3.3pp, BCQ_S9.3pp, 
+                  BCQ_E2.3pp, BCQ_E3.3pp, BCQ_E5.3pp, BCQ_E6.3pp, BCQ_E9.3pp, BCQ_E10.3pp,
+                  BCQ_So2.3pp:BCQ_So5.3pp, BCQ_So7.3pp, BCQ_So10.3pp),
+                ~ 5 -.))
+
+setnames(x = df, 
+         old = c("BCQ_S1.3pp", "BCQ_S2.3pp", "BCQ_S3.3pp","BCQ_S9.3pp",
+                 "BCQ_E2.3pp", "BCQ_E3.3pp", "BCQ_E5.3pp", "BCQ_E6.3pp", "BCQ_E9.3pp", "BCQ_E10.3pp",
+                 "BCQ_So2.3pp", "BCQ_So3.3pp", "BCQ_So4.3pp", "BCQ_So5.3pp", "BCQ_So7.3pp", "BCQ_So10.3pp"), 
+         new = gsub(pattern = ".3pp", 
+                    replacement = "_r.3pp", 
+                    x = c("BCQ_S1.3pp", "BCQ_S2.3pp", "BCQ_S3.3pp","BCQ_S9.3pp",
+                 "BCQ_E2.3pp", "BCQ_E3.3pp", "BCQ_E5.3pp", "BCQ_E6.3pp", "BCQ_E9.3pp", "BCQ_E10.3pp",
+                 "BCQ_So2.3pp", "BCQ_So3.3pp", "BCQ_So4.3pp", "BCQ_So5.3pp", "BCQ_So7.3pp", "BCQ_So10.3pp")))
+```
+
+#### Calculate summary scores
+
+```{r}
+df <- df %>%  
+  
+  # Tell R that we want to take the mean across a row
+  rowwise() %>%
+  
+  # Calculate total scores/subscales
+  mutate(BCQ_structure.3pp = round(mean(c(c_across(BCQ_S1_r.3pp:BCQ_S6.3pp), 
+                                          BCQ_E1.3pp, BCQ_E2_r.3pp, BCQ_E3_r.3pp, BCQ_E6_r.3pp, BCQ_E7.3pp, BCQ_E10_r.3pp, 
+                                          BCQ_So1.3pp, BCQ_So2_r.3pp, BCQ_So4_r.3pp, BCQ_So9.3pp, BCQ_So10_r.3pp),
+                                        na.rm = T), 3)) %>%
+  mutate(BCQ_attune.3pp = round(mean(c(c_across(BCQ_S7.3pp:BCQ_S9_r.3pp), 
+                                       BCQ_E4.3pp, BCQ_E5_r.3pp, BCQ_E8.3pp, BCQ_E9_r.3pp, 
+                                       BCQ_So3_r.3pp, c_across(BCQ_So5_r.3pp:BCQ_So8.3pp), BCQ_So11.3pp),
+                                        na.rm = T), 3)) %>%
+  
+  # Convert NaN to NA
+  mutate(across(c(BCQ_structure.3pp:BCQ_attune.3pp), ~coalesce(., NA_real_))) %>%
+  
+  # Move the total score/subscales so they come immediately after the measures
+  relocate(BCQ_structure.3pp, BCQ_attune.3pp, .after = BCQ_So11.3pp)
+```
+
+### Label
+
+```{r}
+df <- df %>% 
+  # Create value and variable labels
+  mutate(across(contains("BCQ") & !contains("_r") & !contains("structure") & !contains("attune"),
+            ~ labelled(., 
+                     c("Strongly agree" = 4, 
+                       "Agree" = 3, 
+                       "Disagree" = 2, 
+                       "Strongly Disagree" = 1), 
+                     label = "Baby-Care Questionnaire"))) %>%
+  
+  mutate(across(contains("BCQ") & contains("_r"),
+            ~ labelled(., 
+                     c("Strongly agree" = 1, 
+                       "Agree" = 2, 
+                       "Disagree" = 3, 
+                       "Strongly Disagree" = 4), 
+                     label = "Baby-Care Questionnaire (reverse-coded)"))) %>%
+  mutate(BCQ_structure.3pp = labelled(BCQ_structure.3pp, label = "BCQ: Structure Subscore"), 
+         BCQ_attune.3pp = labelled(BCQ_attune.3pp, label = "BCQ: Attunement Subscore"))
+```
+
+### Check and Print
+
+::: panel-tabset
+#### Check
+
+::: panel-tabset
+##### Check Counts
+
+```{r}
+#| echo: false
+# Direct Score
+check_categorical(df, contains("BCQ") & !contains("_r") & !contains("structure") & !contains("attune")) %>% knitr::kable()
+# Reverse Score
+check_categorical(df, contains("BCQ") & contains("_r")) %>% knitr::kable()
+```
+
+##### Check Numbers
+
+```{r}
+#| echo: false
+check_continuous(df, BCQ_structure.3pp:BCQ_attune.3pp) %>% knitr::kable()
+```
+
+##### Check Reliability
+
+```{r}
+#| echo: false
+ltm::cronbach.alpha(data = select(df, c(BCQ_S1_r.3pp:BCQ_S6.3pp, 
+                                          BCQ_E1.3pp, BCQ_E2_r.3pp, BCQ_E3_r.3pp, BCQ_E6_r.3pp, BCQ_E7.3pp, BCQ_E10_r.3pp, 
+                                          BCQ_So1.3pp, BCQ_So2_r.3pp, BCQ_So4_r.3pp, BCQ_So9.3pp, BCQ_So10_r.3pp)), na.rm = T)
+ltm::cronbach.alpha(data = select(df, c(BCQ_S7.3pp:BCQ_S9_r.3pp, 
+                                       BCQ_E4.3pp, BCQ_E5_r.3pp, BCQ_E8.3pp, BCQ_E9_r.3pp, 
+                                       BCQ_So3_r.3pp, BCQ_So5_r.3pp:BCQ_So8.3pp, BCQ_So11.3pp)), na.rm = T)
+```
+
+##### Check Variable Labels
+
+```{r}
+#| echo: false
+inspect_labels(df, contains("BCQ")) 
+```
+:::
+
+#### Print
+
+```{r}
+#| echo: false
+print_slice(df, contains("BCQ"))
+```
+:::
+:::
+
+## BDI: Beck Depression Inventory
+
+::: panel-tabset
+### Notes
+
+-   Beck, 1996
+-   21 items
+    -   We removed item 9 for IRB purposes (suicidality)
+-   0-3 Likert scale (different anchor labels for each question)
+-   Sum score
+    -   Higher score = more depressive symptoms
+-   No subscales
+-   No reverse scores
+
+### Script
+
+#### Recode item scores
+
+```{r}
+df <- df %>%
+# Code Items 1-15, 17, 19-21
+  mutate(across(c(BDI1.3pp:BDI15.3pp, BDI17.3pp, BDI19.3pp:BDI21.3pp),
+            ~ case_when(
+              . == 1 ~ 0, 
+              . == 2 ~ 1, 
+              . == 3 ~ 2,
+              . == 4 ~ 3, 
+              .default = NA))) %>%
+  
+  # Code Items 16, 18
+  mutate(across(c(BDI16.3pp, BDI18.3pp),
+            ~ case_when(
+              . == 1 ~ 0, 
+              . == 2 | . == 3 ~ 1, 
+              . == 4 | . == 5 ~ 2, 
+              . == 6 | . == 7 ~ 3, 
+              .default = NA)))
+```
+
+#### Calculate summary scores
+
+```{r}
+df <- df %>% 
+  
+  # Tell R that we want to take the mean across a row
+  rowwise() %>%
+  
+  # Tell R that scores are numeric
+  mutate(across(BDI1.3pp:BDI21.3pp, as.numeric)) %>%
+  
+  # Calculate total score
+  mutate(BDI_tot.3pp = sum(c_across(BDI1.3pp:BDI21.3pp))) %>%
+  
+  # Move the total score so they come immediately after the measures
+  relocate(BDI_tot.3pp, .after = BDI21.3pp) 
+```
+
+### Label
+
+```{r}
+df <- df %>%
+  mutate(across(contains("BDI"), 
+            ~ labelled(., label = "Beck Depression Inventory"))) %>%
+  mutate(BDI_tot.3pp = labelled(BDI_tot.3pp, label = "Beck Depression Inventory: Total")) 
+```
+
+### Check and Print
+
+::: panel-tabset
+#### Check
+
+::: panel-tabset
+##### Check Counts
+
+```{r}
+#| echo: false
+check_categorical(df, BDI1.3pp:BDI21.3pp) %>% select(-label) %>% arrange(value) %>% knitr::kable()
+```
+
+##### Check Numbers
+
+```{r}
+#| echo: false
+check_continuous(df, BDI_tot.3pp) %>% knitr::kable()
+```
+
+##### Check Reliability
+
+```{r}
+#| echo: false
+ltm::cronbach.alpha(data = select(df, BDI1.3pp:BDI21.3pp), 
+                    CI = T, 
+                    na.rm = T)
+```
+
+##### Check Variable Labels
+
+```{r}
+#| echo: false
+inspect_labels(df, BDI1.3pp:BDI_tot.3pp)
+```
+:::
+
+#### Print
+
+```{r}
+print_slice(df, contains("BDI"))
+```
+:::
+:::
+
+## DAS: Dyadic Adjustment Scale
+
+::: panel-tabset
+### Notes
+
+-   Spanier, 1976
+-   32 items
+-   Variable Likert Scales:
+    -   Items 1-22: 0-5 Likert Scale
+        -   0 = Always disagree/Never
+        -   5 = Always agree/All the time
+    -   Items 23-24: 0-4 Likert Scale
+        -   0 = Never/None of them
+        -   4 = Every day/All of them
+    -   Items 25-28: 0-5 Likert Scale
+        -   0 = Never
+        -   5 = More often
+    -   Items 29-30: 0-1 Binary Scale
+        -   0 = Yes
+        -   1 = No
+    -   Item 31: 0-6 Likert Scale
+    -   Item 32: 0-5 Likert Scale
+-   Sum score
+    -   Higher scores = healthier relationships
+-   4 subscales:
+    -   Dyadic consensus: 1, 2, 3, 5, 7-15
+    -   Dyadic satisfaction: 16-23, 31-32
+    -   Dyadic cohesion: 24-28
+    -   Affectional expression: 4, 6, 29-30
+-   Reverse score: 16, 17, 20, 21, 22
+
+### Script
+
+#### Recode item scores
+
+```{r}
+df <- df %>%
+# Recode Items 1-15
+  mutate(across(c(DAS1.3pp:DAS15.3pp, DAS18.3pp, DAS19.3pp),
+            ~case_when(
+              . == 1 ~ 5, 
+              . == 2 ~ 4, 
+              . == 3 ~ 3, 
+              . == 4 ~ 2, 
+              . == 5 ~ 1, 
+              . == 6 ~ 0, 
+              .default = NA))) %>%
+  
+  # Recode Items 16, 17, 20, 21, 22
+  mutate(across(c(DAS16.3pp, DAS17.3pp, 
+                   DAS20.3pp, DAS21.3pp, DAS22.3pp),
+            ~case_when(
+              . == 1 ~ 0, 
+              . == 2 ~ 1, 
+              . == 3 ~ 2, 
+              . == 4 ~ 3, 
+              . == 5 ~ 4, 
+              . == 6 ~ 5, 
+              .default = NA))) %>%
+  
+  # Recode Items 23-24
+  mutate(across(DAS23.3pp:DAS24.3pp,
+            ~case_when(
+              . == 1 ~ 4, 
+              . == 2 ~ 3, 
+              . == 3 ~ 2,
+              . == 4 ~ 1, 
+              . == 5 ~ 0, 
+              .default = NA))) %>%
+  
+  # Recode Items 25-30
+  mutate(across(DAS25.3pp:DAS30.3pp,
+            ~case_when(
+              . == 1 ~ 0, 
+              . == 2 ~ 1, 
+              . == 3 ~ 2, 
+              . == 4 ~ 3, 
+              . == 5 ~ 4, 
+              . == 6 ~ 5, 
+              .default = NA))) %>%
+  
+  # Recode Item 31
+  mutate(across(DAS31.3pp,
+            ~case_when(
+              . == 1 ~ 0, 
+              . == 2 ~ 1, 
+              . == 3 ~ 2, 
+              . == 4 ~ 3, 
+              . == 5 ~ 4, 
+              . == 6 ~ 5, 
+              . == 7 ~ 6,
+              .default = NA))) %>%
+  
+  # Recode Item 32
+  mutate(across(DAS32.3pp,
+            ~case_when(
+              . == 1 ~ 5, 
+              . == 2 ~ 4, 
+              . == 3 ~ 3, 
+              . == 4 ~ 2, 
+              . == 5 ~ 1, 
+              . == 6 ~ 0, 
+              .default = NA)))
+```
+
+#### Rename reverse-coded items
+
+```{r}
+# Mark reversed scores with `_r`
+setnames(x = df, 
+                     old = c("DAS16.3pp", "DAS17.3pp", "DAS20.3pp", "DAS21.3pp", 
+                             "DAS22.3pp"), 
+                     new = gsub(pattern = ".3pp", 
+                          replacement = "_r.3pp", 
+                          x = c("DAS16.3pp", "DAS17.3pp", "DAS20.3pp", "DAS21.3pp", 
+                             "DAS22.3pp")))
+```
+
+#### Calculate summary scores
+
+```{r}
+df <- df %>%
+  
+  # Tell R that scores are numeric
+  mutate(across(DAS1.3pp:DAS32.3pp, as.numeric))%>% 
+  
+  # Tell R that we want to take the mean across a row
+  rowwise() %>%
+  
+  # Calculate total score and subscales 
+  mutate(DAS_con.3pp = sum(c(c_across(DAS1.3pp:DAS3.3pp), DAS5.3pp, c_across(DAS7.3pp:DAS15.3pp)), na.rm = T),
+         DAS_sat.3pp = sum(c(c_across(DAS16_r.3pp:DAS23.3pp), c_across(DAS31.3pp:DAS32.3pp)), na.rm = T),
+         DAS_coh.3pp = sum(c_across(DAS24.3pp:DAS28.3pp), na.rm = T),
+         DAS_aff.3pp = sum(c(DAS4.3pp, DAS6.3pp, c_across(DAS29.3pp:DAS30.3pp)), na.rm = T),
+         DAS_tot.3pp = sum(c_across(DAS1.3pp:DAS32.3pp), na.rm = T)) %>%
+  
+  # Convert 0 to NA
+  mutate(across(c(DAS_con.3pp:DAS_tot.3pp), ~na_if(., 0))) %>%
+  
+    # Move the total score and subscales so they come immediately after the measures
+  relocate(c(DAS_con.3pp, DAS_sat.3pp, DAS_coh.3pp, DAS_aff.3pp, DAS_tot.3pp), .after = DAS32.3pp) 
+```
+
+### Label
+
+```{r}
+df <- df %>% 
+  # Create value and variable labels
+  mutate(across(DAS1.3pp:DAS32.3pp,
+            ~ labelled(., label = "Dyadic Adjustment Scale"))) %>%
+  mutate(DAS_con.3pp = labelled(DAS_con.3pp, label = "DAS: Dyadic Consensus"),
+         DAS_sat.3pp = labelled(DAS_sat.3pp, label = "DAS: Dyadic Satisfaction"),
+         DAS_coh.3pp = labelled(DAS_coh.3pp, label = "DAS: Dyadic Cohesion"),
+         DAS_aff.3pp = labelled(DAS_aff.3pp, label = "DAS: Affectional Expression"),
+         DAS_tot.3pp = labelled(DAS_tot.3pp, label = "Dyadic Adjustment Scale Total"))
+```
+
+### Check and Print
+
+::: panel-tabset
+#### Check
+
+::: panel-tabset
+##### Check Counts
+
+```{r}
+#| echo: false
+# Direct Score
+check_categorical(df, contains("DAS") & !contains("_")) %>% select(-label) %>% arrange(value) %>% knitr::kable()
+# Reverse Score
+check_categorical(df, contains("DAS") & contains("_r")) %>% select(-label) %>% arrange(value) %>% knitr::kable()
+```
+
+##### Check Numbers
+
+```{r}
+#| echo: false
+check_continuous(df, DAS_con.3pp:DAS_tot.3pp) %>% knitr::kable()
+```
+
+##### Check Reliability
+
+```{r}
+#| echo: false
+ltm::cronbach.alpha(data = select(df, DAS1.3pp:DAS32.3pp), 
+                    CI = T, 
+                    na.rm = T)
+```
+
+##### Check Variable Labels
+
+```{r}
+#| echo: false
+inspect_labels(df, contains("DAS")) 
+```
+:::
+
+#### Print
+
+```{r}
+print_slice(df, contains("DAS")) 
+```
+:::
+:::
+
+## EPDS: Edinburgh Postnatal Depression Scale
+
+::: panel-tabset
+### Notes
+
+-   Cox et al., 1987
+-   9 items (originally 10, but removed suicidality item)
+-   0-3 Likert Scale (different anchor labels for question)
+-   Sum score
+    -   Higher scores = greater depressive symptoms
+    -   Darby's syntax, it was a mean score, but online says it should
+        be a sum score
+-   No subscales
+-   Reverse score: 3, 5, 6, 7, 8, 9
+-   According to Darby's syntax, Question 2 was phrased incorrectly
+    until Couple 10 and requires reverse scoring
+
+### Script
+
+#### Recode item scores
+
+```{r}
+df <- df %>%
+  mutate(across(EPDS1.3pp:EPDS9.3pp,
+            ~ case_when(
+                     . == 1 ~ 0,
+                     . == 2 ~ 1,
+                     . == 3 ~ 2,
+                     . == 4 ~ 3,
+                     .default = NA))) %>%
+  mutate(EPDS2.3pp = case_when(
+    CoupleID < 10  ~ 4-EPDS3.3pp, 
+    .default = EPDS2.3pp
+  )) # fixing EPDS2 for couples 1-9
+```
+
+#### Reverse item score
+
+```{r}
+df <- df %>%
+  mutate(across(c(EPDS3.3pp, EPDS5.3pp:EPDS9.3pp),
+            ~3-.)) 
+
+# Mark reversed scores with `_r`
+setnames(x = df, 
+         old = c("EPDS3.3pp", "EPDS5.3pp", "EPDS6.3pp", "EPDS7.3pp", "EPDS8.3pp", "EPDS9.3pp"), 
+         new = gsub(pattern = ".3pp", 
+                    replacement = "_r.3pp", 
+                    x = c("EPDS3.3pp", "EPDS5.3pp", "EPDS6.3pp", "EPDS7.3pp", "EPDS8.3pp", "EPDS9.3pp")))
+```
+
+#### Calculate summary scores
+
+```{r}
+df <- df %>% 
+  
+  # Tell R that we want to take the mean across a row
+  rowwise() %>%
+  
+  # Calculate total scores/subscales
+  mutate(EPDS_tot.3pp = sum(c_across(EPDS1.3pp:EPDS9_r.3pp), na.rm = F))%>%
+  
+  # Move the total score/subscales so they come immediately after the measures
+  relocate(EPDS_tot.3pp, .after = EPDS_tot.3pp)
+```
+
+### Label
+
+```{r}
+df <- df %>% 
+  # Direct Score
+  mutate(across(c(contains("EPDS") & !contains("_")), 
+            ~ labelled(., label = "Edinburgh Postnatal Depression Scale"))) %>%
+  #Reverse Score
+  mutate(across(c(contains("EPDS") & contains("_r")), 
+            ~ labelled(., label = "Edinburgh Postnatal Depression Scale (reverse-scored)"))) %>%
+  # Total Score
+  mutate(EPDS_tot.3pp = labelled(EPDS_tot.3pp, label = "EPDS: Total Score"))
+```
+
+### Check and Print
+
+::: panel-tabset
+#### Check
+
+::: panel-tabset
+##### Check Counts
+
+```{r}
+#| echo: false
+# Direct Score
+check_categorical(df, contains("EPDS") & !contains("_")) %>% arrange(value) %>% knitr::kable()
+# Reverse Score
+check_categorical(df, contains("EPDS") & contains("_r")) %>% knitr::kable()
+```
+
+##### Check Numbers
+
+```{r}
+#| echo: false
+check_continuous(df, EPDS_tot.3pp) %>% knitr::kable()
+```
+
+##### Check Reliability
+
+```{r}
+#| echo: false
+ltm::cronbach.alpha(data = select(df, EPDS1.3pp:EPDS9_r.3pp), 
+                    CI = T, 
+                    na.rm = T)
+```
+
+##### Check Variable Labels
+
+```{r}
+#| echo: false
+inspect_labels(df, contains("EPDS")) 
+```
+:::
+
+#### Print
+
+```{r}
+#| echo: false
+print_slice(df, contains("EPDS"))
+```
+:::
+:::
+
+## IBQR: Infant Behavior Questionnaire
+
+::: panel-tabset
+### Notes
+
+-   Putman et al., 2014
+-   37 items
+-   1-7 Likert Scale
+    -   1 = Never
+    -   7 = Always
+-   Mean score
+    -   Higher scores = more frequent expression of temperament trait
+-   3 Subscales:
+    -   Surgency: 1, 2, 7, 8, 13, 14, 15, 20, 21, 26, 27, 36, 37
+    -   Negative Affect: 3, 4, 9, 10, 16, 17, 22. 23, 28, 29, 32, 33
+    -   Effortful control: 5, 6, 11R, 12, 18, 19, 24, 25, 30, 31, 34, 35
+-   Reverse score: 11
+
+### Script
+
+#### Recode item scores
+
+```{r}
+df <- df %>%
+  mutate(across(contains("IBQR"),
+            ~ case_when(
+                     . == 8 ~ NA,
+                     .default = .))) 
+```
+
+#### Reverse item scores
+
+```{r}
+df <- df %>%
+  mutate(IBQR11_r.3pp = 8-IBQR11.3pp, 
+         .keep = "unused", .after = IBQR10.3pp)
+```
+
+#### Calculate summary scores
+
+```{r}
+df <- df %>% 
+  
+  # Tell R that we want to take the mean across a row
+  rowwise() %>%
+  
+  # Calculate total scores/subscales
+  mutate(IBQR_surgency.3pp = round(mean(c(IBQR1.3pp, IBQR2.3pp, IBQR7.3pp, IBQR8.3pp, 
+                                             IBQR13.3pp, IBQR14.3pp, IBQR15.3pp, 
+                                             IBQR20.3pp, IBQR21.3pp, IBQR26.3pp, IBQR27.3pp, 
+                                             IBQR36.3pp, IBQR37.3pp), 
+                                    na.rm = T), 3),
+         IBQR_negaffect.3pp = round(mean(c(IBQR3.3pp, IBQR4.3pp, IBQR9.3pp, 
+                                              IBQR10.3pp, IBQR16.3pp, IBQR17.3pp, 
+                                              IBQR22.3pp, IBQR23.3pp, IBQR28.3pp, IBQR29.3pp, 
+                                              IBQR32.3pp, IBQR33.3pp), 
+                                     na.rm = T), 3),
+         IBQR_effcontrol.3pp = round(mean(c(IBQR5.3pp, IBQR6.3pp, 
+                                               IBQR11_r.3pp, IBQR12.3pp, IBQR18.3pp, IBQR19.3pp, 
+                                               IBQR24.3pp, IBQR25.3pp, 
+                                               IBQR30.3pp, IBQR31.3pp, IBQR34.3pp, IBQR35.3pp), 
+                                      na.rm = T), 3)) %>%
+  
+  # Convert NaN to NA
+  mutate(across(IBQR_surgency.3pp:IBQR_effcontrol.3pp, ~coalesce(., NA_real_))) %>%
+  
+  # Move the total score/subscales so they come immediately after the measures
+  relocate(IBQR_surgency.3pp:IBQR_effcontrol.3pp, .after = IBQR37.3pp)
+```
+
+### Label
+
+```{r}
+df <- df %>% 
+  # Create value and variable labels
+  mutate(across(contains("IBQR") & !contains("_"),
+            ~ labelled(., 
+                     c("Never" = 1, 
+                       "Very rarely" = 2, 
+                       "Less than half the time" = 3,
+                       "About half the time" = 4, 
+                       "More than half the time" = 5, 
+                       "Almost always" = 6, 
+                       "Always" = 7),
+                     label = "Infant Behavior Questionnaire, Revised Very Short Form"))) %>%
+  mutate(IBQR11_r.3pp = labelled(IBQR11_r.3pp, 
+                                 c("Never" = 7, 
+                                   "Very rarely" = 6, 
+                                   "Less than half the time" = 5,
+                                   "About half the time" = 4, 
+                                   "More than half the time" = 3, 
+                                   "Almost always" = 2, 
+                                   "Always" = 1),
+                                 label = "Infant Behavior Questionnaire, Revised Very Short Form (reverse-scored)" )) %>%
+  mutate(IBQR_surgency.3pp = labelled(IBQR_surgency.3pp, label = "IBQ-R: Surgency Subscale"), 
+         IBQR_negaffect.3pp = labelled(IBQR_negaffect.3pp, label = "IBQ-R: Negative Affect Subscale"), 
+         IBQR_effcontrol.3pp = labelled(IBQR_effcontrol.3pp, label = "IBQ-R: Effortful Control"))
+```
+
+### Check and Print
+
+::: panel-tabset
+#### Check
+
+::: panel-tabset
+##### Check Counts
+
+```{r}
+#| echo: false
+# Direct Score
+check_categorical(df, contains("IBQR") & !contains("_")) %>% knitr::kable()
+# Reverse Score
+check_categorical(df, IBQR11_r.3pp) %>% knitr::kable()
+```
+
+##### Check Numbers
+
+```{r}
+#| echo: false
+check_continuous(df, IBQR_surgency.3pp:IBQR_effcontrol.3pp) %>% knitr::kable()
+```
+
+##### Check Reliability
+
+```{r}
+#| echo: false
+# Surgency
+ltm::cronbach.alpha(data = select(df, IBQR1.3pp, IBQR2.3pp, IBQR7.3pp, IBQR8.3pp, 
+                                  IBQR13.3pp, IBQR14.3pp, IBQR15.3pp, 
+                                  IBQR20.3pp, IBQR21.3pp, IBQR26.3pp, IBQR27.3pp, 
+                                  IBQR36.3pp, IBQR37.3pp), na.rm = T)
+# Negative Affect
+ltm::cronbach.alpha(data = select(df, IBQR3.3pp, IBQR4.3pp, IBQR9.3pp, 
+                                              IBQR10.3pp, IBQR16.3pp, IBQR17.3pp, 
+                                              IBQR22.3pp, IBQR23.3pp, IBQR28.3pp, IBQR29.3pp, 
+                                              IBQR32.3pp, IBQR33.3pp), na.rm = T)
+# Effortful Control 
+ltm::cronbach.alpha(data = select(df, IBQR5.3pp, IBQR6.3pp, 
+                                  IBQR11_r.3pp, IBQR12.3pp, IBQR18.3pp, IBQR19.3pp, 
+                                  IBQR24.3pp, IBQR25.3pp, 
+                                  IBQR30.3pp, IBQR31.3pp, IBQR34.3pp, IBQR35.3pp), na.rm = T)
+```
+
+##### Check Variable Labels
+
+```{r}
+#| echo: false
+inspect_labels(df, contains("IBQR")) 
+```
+:::
+
+#### Print
+
+```{r}
+#| echo: false
+print_slice(df, contains("IBQR"))
+```
+:::
+:::
+
+## MAI: Maternal Attachment Inventory
+
+::: panel-tabset
+### Notes
+
+-   Müller, 1994
+-   26 items
+-   1-4 Likert Scale
+    -   1 = Almost never
+    -   4 = Almost always
+-   Sum score
+    -   Higher scores = more secure/positive attachment
+-   No subscales
+-   Reverse score: none
+
+### Script
+
+#### Recode item scores
+
+```{r}
+df <- df %>%
+  mutate(across(MAI1.3pp:MAI26.3pp,
+            ~ case_when(
+                     . == 1 ~ 4,
+                     . == 2 ~ 3,
+                     . == 3 ~ 2,
+                     . == 4 ~ 1,
+                     .default = NA)))
+```
+
+#### Caculate summary scores
+
+```{r}
+df <- df %>% 
+  
+  # Tell R that we want to take the mean across a row
+  rowwise() %>%
+  
+  # Calculate total scores/subscales
+  mutate(MAI_tot.3pp = sum(c_across(MAI1.3pp:MAI26.3pp), na.rm = F)) %>%
+  
+  # Move the total score/subscales so they come immediately after the measures
+  relocate(MAI_tot.3pp, .after = MAI26.3pp)
+```
+
+### Label
+
+```{r}
+df <- df %>% 
+  # Create value and variable labels
+  mutate(across(contains("MAI") & !contains("_"),
+            ~ labelled(., 
+                     c("Almost always" = 4, 
+                       "Often" = 3, 
+                       "Sometimes" = 2, 
+                       "Almost never" = 1), 
+                     label = "Maternal Attachment Inventory"))) %>%
+  mutate(MAI_tot.3pp = labelled(MAI_tot.3pp, label = "MAI: Total Score"))
+```
+
+### Check and Print
+
+::: panel-tabset
+#### Check
+
+::: panel-tabset
+##### Check Counts
+
+```{r}
+#| echo: false
+check_categorical(df, contains("MAI") & !contains("_")) %>% knitr::kable()
+```
+
+##### Check Numbers
+
+```{r}
+#| echo: false
+check_continuous(df, MAI_tot.3pp) %>% knitr::kable()
+```
+
+##### Check Reliability
+
+```{r}
+#| echo: false
+ltm::cronbach.alpha(data = select(df, MAI1.3pp:MAI26.3pp), 
+                    CI = T, 
+                    na.rm = T)
+```
+
+##### Check Variable Labels
+
+```{r}
+#| echo: false
+inspect_labels(df, contains("MAI")) 
+```
+:::
+
+#### Print
+
+```{r}
+#| echo: false
+print_slice(df, contains("MAI"))
+```
+:::
+:::
+
+## MAT: Marital Adjustment Test
+
+::: panel-tabset
+### Notes
+
+-   Locke & Wallace, 1959
+-   15 items
+-   Variable Likert Scales:
+    -   Item 1: 7-point Likert scale (0-35)
+    -   Items 2-9: 0-5 Likert scale (varying numbers) - Lowest = Always
+        disagree - Highest = Always agree
+    -   Item 10: 3-point Likert scale (0-10)
+    -   Item 11: 4-point Likert scale (0-10)
+    -   Item 12: 2-10 points depending on agreement
+    -   Item 13: 4-point Likert scale (0-15)
+    -   Item 14: 3-point Likert scale (0-15)
+    -   Item 15: 4-point Likert scale (0-10)
+-   Sum score
+    -   Higher scores = greater satisfaction
+-   No subscales
+-   Reverse score: none
+
+### Script
+
+#### Recode item scores
+
+```{r}
+df <- df %>%
+
+  # Convert MAT Q1
+  mutate(across(MAT1.3pp,
+            ~ case_when(
+                        . == 1 ~ 0,
+                        . == 2 ~ 2,
+                        . == 3 ~ 7,
+                        . == 4 ~ 15,
+                        . == 5 ~ 20,
+                        . == 6 ~ 25, 
+                        . == 7 ~ 35, 
+                        .default = NA))) %>%
+  # Convert MAT Q4
+  mutate(across(MAT4.3pp,
+            ~ case_when( 
+                        . == 1 ~ 8,
+                        . == 2 ~ 6, 
+                        . == 3 ~ 4,
+                        . == 4 ~ 2,
+                        . == 5 ~ 1,
+                        . == 6 ~ 0, 
+                        .default = NA))) %>%
+  # Convert MAT Q6
+  mutate(across(MAT6.3pp,
+            ~ case_when( 
+                        . == 1 ~ 15,
+                        . == 2 ~ 12, 
+                        . == 3 ~ 9,
+                        . == 4 ~ 4,
+                        . == 5 ~ 1,
+                        . == 6 ~ 0, 
+                        .default = NA))) %>%
+  # Convert MAT Q10
+  mutate(across(MAT10.3pp,
+            ~ case_when( 
+                        . == 1 ~ 0,
+                        . == 2 ~ 2, 
+                        . == 3 ~ 10, 
+                        .default = NA))) %>%
+  # Convert MAT Q11
+  mutate(across(MAT11.3pp,
+            ~ case_when( 
+                        . == 1 ~ 10,
+                        . == 2 ~ 8, 
+                        . == 3 ~ 3,
+                        . == 4 ~ 0, 
+                        .default = NA))) %>%
+  # Convert MAT 13
+  mutate(across(MAT13.3pp,
+            ~ case_when( 
+                        . == 1 ~ 0,
+                        . == 2 ~ 3, 
+                        . == 3 ~ 8,
+                        . == 4 ~ 15, 
+                        .default = NA))) %>%
+  # Convert MAT 14
+  mutate(across(MAT14.3pp,
+            ~ case_when( 
+                        . == 1 ~ 15,
+                        . == 2 ~ 0, 
+                        . == 3 ~ 1, 
+                        .default = NA))) %>%
+  # Convert MAT 15
+  mutate(across(MAT15.3pp,
+            ~ case_when( 
+                        . == 1 ~ 0,
+                        . == 2 ~ 2, 
+                        . == 3 ~ 10,
+                        . == 4 ~ 10, 
+                        .default = NA))) %>%
+  
+  # Convert MAT Qs 2, 3, 5, 7, 8, 9
+  mutate(across(c(MAT2.3pp, MAT3.3pp, MAT5.3pp,
+                   MAT7.3pp:MAT9.3pp),
+            ~ case_when( 
+                        . == 1 ~ 5,
+                        . == 2 ~ 4, 
+                        . == 3 ~ 3,
+                        . == 4 ~ 2,
+                        . == 5 ~ 1,
+                        . == 6 ~ 0, 
+                        .default = NA))) %>%
+  # Convert MAT 12
+  mutate(MAT12.3pp = 
+           case_when(MAT12a.3pp != MAT12b.3pp ~ 2, 
+                     MAT12a.3pp == 1 ~ 3, 
+                     MAT12a.3pp == 2 ~ 10, 
+                     .default = NA),
+         .after = MAT11.3pp, .keep = "unused")
+```
+
+#### Calculate summary scores
+
+```{r}
+df <- df %>% 
+  
+  # Tell R that we want to take the mean across a row
+  rowwise() %>%
+  
+  # Tell R that scores are numeric
+  mutate(across(MAT1.3pp:MAT15.3pp, as.numeric)) %>%
+  
+  # Calculate total scores
+  mutate(MAT_tot.3pp = sum(c_across(MAT1.3pp:MAT15.3pp))) %>%
+  
+  # Move the total score so they come immediately after the measures
+  relocate(MAT_tot.3pp, .after = MAT15.3pp) 
+```
+
+### Label
+
+```{r}
+df <- df %>% 
+  # Create value and variable labels
+  mutate(across(MAT1.3pp:MAT15.3pp,
+            ~ labelled(., 
+                     label = "Marital Adjustment Test"))) %>%
+  mutate(MAT_tot.3pp = labelled(MAT_tot.3pp, label = "Marital Adjustment Test: Total Score")) 
+```
+
+### Check and Print
+
+::: panel-tabset
+#### Check
+
+::: panel-tabset
+##### Check Numbers
+
+```{r}
+#| echo: false
+check_continuous(df, MAT_tot.3pp) %>% knitr::kable()
+```
+
+##### Check Reliability
+
+```{r}
+#| echo: false
+ltm::cronbach.alpha(data = select(df, MAT1.3pp:MAT15.3pp), 
+                    CI = T, 
+                    na.rm = T)
+```
+
+##### Check Variable Labels
+
+```{r}
+#| echo: false
+inspect_labels(df, contains("MAT")) 
+```
+:::
+
+#### Print
+
+```{r}
+#| echo: false
+print_slice(df, contains("MAT"))
+```
+:::
+:::
+
+## MOS: Medical Outcomes Study Social Support Survey
+
+::: panel-tabset
+### Notes
+
+-   Sherborne & Stewart, 1991
+-   19 items
+-   1-5 Likert scale
+    -   1 = None of the time
+    -   5 = All of the time
+-   Mean score
+    -   Higher score = higher levels of social support
+-   4 Subscales:
+    -   Emotional/ informational social support: 1-8
+    -   Tangible social support: 9-12
+    -   Positive interaction social support: 13-15
+    -   Affectionate social support: 16-18
+-   Revere score: None
+
+### Script
+
+#### Calculate summary scores
+
+```{r}
+df <- df %>%
+  
+  # Then tell R that we want to take the mean across a row
+  rowwise() %>%
+  
+  # Tell R scores are numeric
+  mutate(across(MOS1.3pp:MOS19.3pp, as.numeric)) %>% 
+  
+  # Calculate the summary scores 
+  mutate(MOS_emo.3pp = round(mean(c_across(MOS1.3pp:MOS8.3pp), na.rm = T), 2),
+         MOS_tang.3pp = round(mean(c_across(MOS9.3pp:MOS12.3pp), na.rm = T),2),
+         MOS_aff.3pp = round(mean(c_across(MOS13.3pp:MOS15.3pp), na.rm = T),2),
+         MOS_soc.3pp = round(mean(c_across(MOS16.3pp:MOS18.3pp), na.rm = T),2),
+         MOS_tot.3pp = round(mean(c_across(MOS1.3pp:MOS19.3pp), na.rm = T),2)) %>%
+  
+  # Finally, move the summary scores so that they come immediately after the measures
+  relocate(c(MOS_emo.3pp:MOS_tot.3pp), .after = MOS19.3pp) %>%
+
+ #Clean up NaN
+  mutate(across(c(MOS_emo.3pp:MOS_tot.3pp), ~coalesce(., NA_real_)))
+```
+
+### Label
+
+```{r}
+df <- df %>% 
+  # Create value and variable labels
+  mutate(across(MOS1.3pp:MOS19.3pp,
+            ~ labelled(., 
+                     c("None of the time" = 1, 
+                       "A little of the time" = 2, 
+                       "Some of the time" = 3, 
+                       "Most of the time" = 4, 
+                       "All of the time" = 5), 
+                     label = "MOS Social Support"))) %>%
+  mutate(MOS_emo.3pp = labelled(MOS_emo.3pp, label = "MOS: Emotional/Informational Social Support"),
+         MOS_tang.3pp = labelled(MOS_tang.3pp, label = "MOS: Tangible Social Support"),
+         MOS_aff.3pp = labelled(MOS_aff.3pp, label = "MOS: Positive Interaction Social Support"),
+         MOS_soc.3pp = labelled(MOS_soc.3pp, label = "MOS: Affectionate Social Support"),
+         MOS_tot.3pp = labelled(MOS_tot.3pp, label = "MOS: Total Social Support"))
+```
+
+### Check and Print
+
+::: panel-tabset
+#### Check
+
+::: panel-tabset
+##### Check Counts
+
+```{r}
+#| echo: false
+check_categorical(df, contains("MOS") & !contains("_")) %>% arrange(value) %>% knitr::kable()
+```
+
+##### Check Numbers
+
+```{r}
+#| echo: false
+check_continuous(df, MOS_emo.3pp:MOS_tot.3pp) %>% knitr::kable()
+```
+
+##### Check Reliability
+
+```{r}
+#| echo: false
+ltm::cronbach.alpha(data = select(df, MOS1.3pp:MOS19.3pp), 
+                    CI = T, 
+                    na.rm = T)
+```
+
+##### Check Variable Labels
+
+```{r}
+#| echo: false
+inspect_labels(df, contains("MOS")) 
+```
+:::
+
+#### Print
+
+```{r}
+#| echo: false
+print_slice(df, contains("MOS"))
+```
+:::
+:::
+
+## MPAS/PPAS: Maternal/Paternal Postnatal Attachment Scale
+
+::: panel-tabset
+### Notes
+
+-   Condon & Corkindale, 1998
+
+#### MPAS
+
+-   19 items
+-   Varying Likert Scales
+    -   Recode 2- and 4-option items to be comparable to a 5-point
+        likert scale
+    -   1 = nevere
+    -   5 = very frequently
+-   Sum scores
+    -   Higher scores = higher attachment
+-   3 subscales:
+    -   Quality of attachment: 3, 4, 5, 6, 7, 10, 14, 18, 19
+    -   Absence of hostility: 1, 2, 15, 16, 17
+    -   Pleasure in interaction: 8, 9, 11, 12, 13
+-   Reverse score: 7-14
+
+#### PPAS
+
+-   19 items
+-   Varying Likert Scales
+    -   Recode 2- and 4-option items to be comparable to a 5-point
+        likert scale
+    -   1 = nevere
+    -   5 = very frequently
+-   Sum scores
+    -   Higher scores = higher attachment
+-   3 subscales:
+    -   Patience and tolerance: 1, 2, 6, 11, 13, 17, 18, 19
+    -   Pleasure in interaction:4, 5, 8, 9, 10, 12, 15
+    -   Affection and pride: 3, 7, 14, 16
+-   Reverse score: 4, 5, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16
+
+### Script
+
+::: panel-tabset
+#### Recode item scores
+
+##### MPAS
+
+```{r}
+df <- df %>%
+  # 5-option items (direct): MPAS1, MPAS2, MPAS3
+  # 5-option items (reverse): MPAS9, MPAS11, MPAS13
+  mutate(across(c(MPAS9.3pp, MPAS11.3pp, MPAS13.3pp), 
+                ~ case_when(
+                  . == 1 ~ 5, 
+                  . == 2 ~ 4, 
+                  . == 3 ~ 3, 
+                  . == 4 ~ 2,
+                  . == 5 ~ 1,
+                  .default = NA))) %>%
+  
+  # 4-option items (direct): MPAS4-MPAS6, MPAS15-MPAS19
+  mutate(across(c(MPAS4.3pp:MPAS6.3pp, MPAS15.3pp:MPAS19.3pp), 
+                ~ case_when(
+                  . == 1 ~ 1, 
+                  . == 2 ~ 2.3, 
+                  . == 3 ~ 3.6, 
+                  . == 4 ~ 5, 
+                  .default = NA))) %>%
+  
+  # 4-option items (reverse): MPAS7, MPAS10
+  mutate(across(c(MPAS7.3pp, MPAS10.3pp),
+                ~ case_when(
+                  . == 1 ~ 5, 
+                  . == 2 ~ 3.6, 
+                  . == 3 ~ 2.3, 
+                  . == 4 ~ 1, 
+                  .default = NA))) %>%
+  
+  # 3-option items (reverse): MPAS14
+  mutate(MPAS14.3pp = case_when(
+                  MPAS14.3pp == 1 ~ 5, 
+                  MPAS14.3pp == 2 ~ 3, 
+                  MPAS14.3pp == 3 ~ 1,
+                  .default = NA)) %>%
+                
+  # 2-option items (reverse): MPAS8, MPAS12
+  mutate(across(c(MPAS8.3pp, MPAS12.3pp), 
+                ~ case_when(
+                  . == 1 ~ 5, 
+                  . == 2 ~ 1, 
+                  .default = NA))) 
+  
+```
+
+##### PPAS
+
+```{r}
+df <- df %>%
+  # 5-option items (direct): PPAS1, PPAS2, PPAS3
+  # 5-option items (reverse): PPAS4.3pp, PPAS5.3pp, PPAS10.3pp, PPAS12.3pp, PPAS14.3pp
+  mutate(across(c(PPAS4.3pp, PPAS5.3pp, PPAS10.3pp, PPAS12.3pp, PPAS14.3pp), 
+                ~ case_when(
+                  . == 1 ~ 5, 
+                  . == 2 ~ 4, 
+                  . == 3 ~ 3, 
+                  . == 4 ~ 2,
+                  . == 5 ~ 1,
+                  .default = NA))) %>%
+  
+  # 4-option items (direct): PPAS6, PPAS17, PPAS18, PPAS19
+  mutate(across(c(PPAS6.3pp, PPAS17.3pp, PPAS18.3pp, PPAS19.3pp), 
+                ~ case_when(
+                  . == 1 ~ 1, 
+                  . == 2 ~ 2.3, 
+                  . == 3 ~ 3.6, 
+                  . == 4 ~ 5, 
+                  .default = NA))) %>%
+  
+  # 4-option items (reverse): PPAS7.3pp, PPAS9.3pp, PPAS11.3pp, PPAS15.3pp
+  mutate(across(c(PPAS7.3pp, PPAS9.3pp, PPAS11.3pp, PPAS15.3pp),
+                ~ case_when(
+                  . == 1 ~ 5, 
+                  . == 2 ~ 3.6, 
+                  . == 3 ~ 2.3, 
+                  . == 4 ~ 1, 
+                  .default = NA))) %>%
+  
+  # 3-option items (reverse): PPAS13.3pp, PPAS16.3pp
+  mutate(across(c(PPAS13.3pp, PPAS16.3pp),
+                ~ case_when(
+                  . == 1 ~ 5, 
+                  . == 2 ~ 3, 
+                  . == 3 ~ 1,
+                  .default = NA))) %>%
+                
+  # 2-option items (reverse): PPAS8.3pp
+  mutate(PPAS8.3pp = case_when(
+                  PPAS8.3pp == 1 ~ 5, 
+                  PPAS8.3pp == 2 ~ 1, 
+                  .default = NA))
+  
+```
+
+#### Rename reverse scored items
+
+```{r}
+setnames(x = df, 
+         old = c("MPAS7.3pp", "MPAS8.3pp", "MPAS9.3pp", "MPAS10.3pp", "MPAS11.3pp", "MPAS12.3pp", "MPAS13.3pp", "MPAS14.3pp"), 
+         new = gsub(pattern = ".3pp", 
+                    replacement = "_r.3pp", 
+                    x = c("MPAS7.3pp", "MPAS8.3pp", "MPAS9.3pp", "MPAS10.3pp", "MPAS11.3pp", "MPAS12.3pp", "MPAS13.3pp", "MPAS14.3pp")))
+
+setnames(x = df, 
+         old = c("PPAS4.3pp", "PPAS5.3pp", "PPAS7.3pp", "PPAS8.3pp", "PPAS9.3pp",
+                 "PPAS10.3pp", "PPAS11.3pp", "PPAS12.3pp", "PPAS13.3pp", "PPAS14.3pp", "PPAS15.3pp", "PPAS16.3pp"), 
+         new = gsub(pattern = ".3pp", 
+                    replacement = "_r.3pp", 
+                    x = c("PPAS4.3pp", "PPAS5.3pp", "PPAS7.3pp", "PPAS8.3pp", "PPAS9.3pp", 
+                          "PPAS10.3pp", "PPAS11.3pp", "PPAS12.3pp", "PPAS13.3pp", "PPAS14.3pp", "PPAS15.3pp", "PPAS16.3pp")))
+```
+
+#### Calculate summary scores
+
+```{r}
+df <- df %>% 
+  
+  # Tell R that we want to take the mean across a row
+  rowwise() %>%
+  
+  # Calculate total scores/subscales (MPAS)
+  mutate(MPAS_attach.3pp = sum(c(c_across(MPAS3.3pp:MPAS7_r.3pp), 
+                                 MPAS10_r.3pp, MPAS14_r.3pp, MPAS18.3pp, MPAS19.3pp), na.rm = F),
+         MPAS_host.3pp = sum(c(MPAS1.3pp, MPAS2.3pp, c_across(MPAS15.3pp:MPAS17.3pp)), na.rm = F), 
+         MPAS_pleasure.3pp = sum(c(MPAS8_r.3pp, MPAS9_r.3pp, c_across(MPAS11_r.3pp:MPAS13_r.3pp)), na.rm = F)) %>%
+  
+  
+  # Calculate total scores/subscales (PPAS)
+  mutate(PPAS_patience.3pp = sum(c(PPAS1.3pp, PPAS2.3pp, PPAS6.3pp, PPAS11_r.3pp, PPAS13_r.3pp, 
+                                   PPAS17.3pp, PPAS18.3pp, PPAS19.3pp), na.rm = F),
+         PPAS_pleasure.3pp = sum(c(PPAS4_r.3pp, PPAS5_r.3pp, PPAS8_r.3pp, PPAS9_r.3pp, PPAS10_r.3pp, PPAS12_r.3pp, PPAS15_r.3pp), na.rm = F), 
+         PPAS_affection.3pp = sum(c(PPAS3.3pp, PPAS7_r.3pp, PPAS14_r.3pp, PPAS16_r.3pp), na.rm = F)) %>%
+  
+  # Move the total score/subscales so they come immediately after the measures
+  relocate(MPAS_attach.3pp:MPAS_pleasure.3pp, .after = MPAS19.3pp) %>%
+  relocate(PPAS_patience.3pp:PPAS_affection.3pp, .after = PPAS19.3pp)
+```
+:::
+
+### Label
+
+```{r}
+df <- df %>% 
+  # Direct
+  mutate(across(contains("MPAS") & !contains("_"),
+            ~ labelled(., label = "Maternal Postnatal Attachment Scale"))) %>%
+  mutate(across(contains("PPAS") & !contains("_"),
+            ~ labelled(., label = "Paternal Postnatal Attachment Scale"))) %>%
+  
+  # Reverse
+  mutate(across(contains("MPAS") & contains("_r"),
+            ~ labelled(., label = "Maternal Postnatal Attachment Scale (reverse-scored)"))) %>%
+  mutate(across(contains("PPAS") & contains("_r"),
+            ~ labelled(., label = "Paternal Postnatal Attachment Scale (reverse-scored)"))) %>%
+  
+  # MPAS Summary
+  mutate(MPAS_attach.3pp = labelled(MPAS_attach.3pp, label = "MPAS: Quality of Attachment Scale"), 
+         MPAS_host.3pp = labelled(MPAS_host.3pp, label = "MPAS: Absence of Hostility Scale"), 
+         MPAS_pleasure.3pp = labelled(MPAS_pleasure.3pp, label = "MPAS: Pleasure in Interaction Scale")) %>%
+  
+  # PPAS Summary
+  mutate(PPAS_patience.3pp = labelled(MPAS_attach.3pp, label = "PPAS: Patience and Tolerance Scale"), 
+         PPAS_pleasure.3pp = labelled(MPAS_pleasure.3pp, label = "PPAS: Pleasure in Interaction Scale"),
+         PPAS_affection.3pp = labelled(MPAS_host.3pp, label = "PPAS: Affection and Pride Scale"))
+```
+
+### Check and Print
+
+::: panel-tabset
+#### Check
+
+::: panel-tabset
+##### Check Counts
+
+```{r}
+#| echo: false
+# Direct Score
+check_categorical(df, contains("MPAS") & !contains("_")) %>% arrange(value) %>% knitr::kable()
+check_categorical(df, contains("PPAS") & !contains("_")) %>% arrange(value) %>% knitr::kable()
+# Reverse Score
+check_categorical(df, contains("MPAS") & contains("_r")) %>% arrange(value) %>% knitr::kable()
+check_categorical(df, contains("PPAS") & contains("_r")) %>% arrange(value) %>% knitr::kable()
+```
+
+##### Check Numbers
+
+```{r}
+#| echo: false
+check_continuous(df, c(MPAS_attach.3pp:MPAS_pleasure.3pp, PPAS_patience.3pp:PPAS_affection.3pp)) %>% knitr::kable()
+```
+
+##### Check Reliability
+
+::: panel-tabset
+###### MPAS
+
+```{r}
+#| echo: false
+# MPAS Attach
+ltm::cronbach.alpha(data = select(df, MPAS3.3pp:MPAS7_r.3pp, MPAS10_r.3pp, MPAS14_r.3pp, MPAS18.3pp, MPAS19.3pp), na.rm = T)
+
+# MPAS Absence of Hostility
+ltm::cronbach.alpha(data = select(df, MPAS1.3pp, MPAS2.3pp, MPAS15.3pp:MPAS17.3pp), na.rm = T)
+
+# MPAS: Pleasure in Interaction
+ltm::cronbach.alpha(data = select(df, MPAS8_r.3pp, MPAS9_r.3pp, MPAS11_r.3pp:MPAS13_r.3pp), na.rm = T)
+
+```
+
+###### PPAS
+
+```{r}
+#| echo: false
+# PPAS Patience
+ltm::cronbach.alpha(data = select(df, PPAS1.3pp, PPAS2.3pp, PPAS6.3pp, PPAS11_r.3pp, PPAS13_r.3pp, 
+                                   PPAS17.3pp, PPAS18.3pp, PPAS19.3pp), na.rm = T)
+
+# PPAS Pleasure
+ltm::cronbach.alpha(data = select(df, PPAS4_r.3pp, PPAS5_r.3pp, PPAS8_r.3pp, PPAS9_r.3pp, PPAS10_r.3pp, PPAS12_r.3pp, PPAS15_r.3pp), na.rm = T)
+
+# PPAS Affection
+ltm::cronbach.alpha(data = select(df, PPAS3.3pp, PPAS7_r.3pp, PPAS14_r.3pp, PPAS16_r.3pp), na.rm = T)
+
+
+```
+:::
+
+##### Check Variable Labels
+
+```{r}
+#| echo: false
+inspect_labels(df, contains("MPAS")) 
+inspect_labels(df, contains("PPAS")) 
+```
+:::
+
+#### Print
+
+```{r}
+#| echo: false
+print_slice(df, contains("MPAS"))
+print_slice(df, contains("PPAS"))
+```
+:::
+:::
+
+## PBQ: Postpartum Bonding Questionnaire
+
+::: panel-tabset
+### Notes
+
+-   Brockington et al., 2001
+-   25 items
+-   0-5 Likert Scale
+    -   0 = Always/Never
+    -   5 = Never/Always
+-   Sum score
+    -   Higher scores = more impaired bonding Darby's SPSS script, it's
+        a mean. but scoring instructions say to take a sum
+-   Subscales:
+    -   Impaired bonding: 1, 2, 6, 7, 8, 9, 10, 12, 13, 15, 16, 17
+    -   Rejection and pathological anger: 3, 4, 5, 11, 14, 21, 23
+    -   Anxiety about the infant: 19, 20, 22, 25 cipient abuse: 18, 24
+-   Reverse score: 1, 4, 8, 9, 11, 16, 22, 25
+
+### Script
+
+#### Recode item scores
+
+```{r}
+df <- df %>%
+  mutate(across(contains("PBQ"),
+            ~ case_when(
+                     . == 1 ~ 5, # always
+                     . == 2 ~ 4,
+                     . == 3 ~ 3,
+                     . == 4 ~ 2,
+                     . == 5 ~ 1, 
+                     . == 6 ~ 0, # never
+                     .default = NA)))
+```
+
+#### Reverse item scoress
+
+```{r}
+df <- df %>%
+  mutate(across(c(PBQ1.3pp, PBQ4.3pp, PBQ8.3pp, PBQ9.3pp, 
+                  PBQ11.3pp, PBQ16.3pp, PBQ22.3pp, PBQ25.3pp),
+            ~5-.))
+
+# Mark reversed scores with `_r`
+setnames(x = df, 
+         old = c("PBQ1.3pp", "PBQ4.3pp", "PBQ8.3pp", "PBQ9.3pp", 
+                 "PBQ11.3pp", "PBQ16.3pp", "PBQ22.3pp", "PBQ25.3pp"), 
+         new = gsub(pattern = ".3pp", 
+                    replacement = "_r.3pp", 
+                    x = c("PBQ1.3pp", "PBQ4.3pp", "PBQ8.3pp", "PBQ9.3pp", 
+                          "PBQ11.3pp", "PBQ16.3pp", "PBQ22.3pp", "PBQ25.3pp")))
+```
+
+#### Calculate summary scores
+
+```{r}
+df <- df %>% 
+  
+  # Tell R that we want to take the mean across a row
+  rowwise() %>%
+  
+  # Calculate total scores/subscales
+  mutate(PBQ_impaired.3pp = sum(c(PBQ1_r.3pp, PBQ2.3pp, 
+                                  c_across(PBQ6.3pp:PBQ10.3pp), 
+                                  PBQ12.3pp, PBQ13.3pp, 
+                                  c_across(PBQ15.3pp:PBQ17.3pp)), na.rm = F),
+         PBQ_anger.3pp = sum(c(c_across(PBQ3.3pp:PBQ5.3pp), 
+                               PBQ11_r.3pp, PBQ14.3pp, PBQ21.3pp, PBQ23.3pp), na.rm = T), 
+         PBQ_anxiety.3pp = sum(c(PBQ19.3pp, PBQ20.3pp, PBQ22_r.3pp, PBQ25_r.3pp), na.rm = T), 
+         PBQ_abuse.3pp = sum(c(PBQ18.3pp, PBQ24.3pp), na.rm = T)) %>%
+  
+  # Recode 0's that should be NA 
+  mutate(across(PBQ_impaired.3pp:PBQ_abuse.3pp, 
+                ~case_when(all(is.na(c_across(PBQ1_r.3pp:PBQ25_r.3pp))) ~ NA_real_, 
+                           .default = .))) %>%
+  
+  # Move the total score/subscales so they come immediately after the measures
+  relocate(PBQ_impaired.3pp:PBQ_abuse.3pp, .after = PBQ25_r.3pp)
+```
+
+### Label
+
+```{r}
+df <- df %>% 
+  # Direct Score
+  mutate(across(contains("PBQ") & !contains("_"),
+            ~ labelled(., 
+                     c("Always" = 5, 
+                       "Very often" = 4, 
+                       "Quite often" = 3, 
+                       "Sometimes" = 2, 
+                       "Rarely" = 1, 
+                       "Never" = 0), 
+                     label = "Postpartum Bonding Questionnaire"))) %>%
+  # Reverse score
+  mutate(across(contains("PBQ") & contains("_r"),
+            ~ labelled(., 
+                     c("Always" = 0, 
+                       "Very often" = 1, 
+                       "Quite often" = 2, 
+                       "Sometimes" = 3, 
+                       "Rarely" = 4, 
+                       "Never" = 5), 
+                     label = "Postpartum Bonding Questionnaire (reverse-scored)"))) %>%
+  # Summary scores
+  mutate(PBQ_impaired.3pp = labelled(PBQ_impaired.3pp, label = "PBQ: Impaired Bonding"), 
+         PBQ_anger.3pp = labelled(PBQ_anger.3pp, label = "PBQ: Rejection and Pathological Anger"), 
+         PBQ_anxiety.3pp = labelled(PBQ_anxiety.3pp, label = "PBQ: Anxiety about the Infant"), 
+         PBQ_abuse.3pp = labelled(PBQ_abuse.3pp, label = "PBQ: Incipient Abuse"))
+```
+
+### Check and Print
+
+::: panel-tabset
+#### Check
+
+::: panel-tabset
+##### Check Counts
+
+```{r}
+#| echo: false
+# Direct Score
+check_categorical(df, contains("PBQ") & !contains("_")) %>% knitr::kable()
+# Reverse Score
+check_categorical(df, contains("PBQ") & contains("_r")) %>% arrange(value) %>% knitr::kable()
+```
+
+##### Check Numbers
+
+```{r}
+#| echo: false
+check_continuous(df, PBQ_impaired.3pp:PBQ_abuse.3pp) %>% knitr::kable()
+```
+
+##### Check Reliability
+
+```{r}
+#| echo: false
+ltm::cronbach.alpha(data = select(df, PBQ1_r.3pp:PBQ25_r.3pp), 
+                    CI = T, 
+                    na.rm = T)
+```
+
+##### Check Variable Labels
+
+```{r}
+#| echo: false
+inspect_labels(df, contains("PBQ")) 
+```
+:::
+
+#### Print
+
+```{r}
+#| echo: false
+print_slice(df, contains("PBQ"))
+```
+:::
+:::
+
+## PingSS: Parenting Stress Scale
+
+::: panel-tabset
+### Notes
+
+-   Berry & Jones, 1995
+-   18 items
+-   1-5 Likert scale:
+    -   1 = Strongly disagree
+    -   5 = Strongly agree
+-   Sum score
+    -   Higher score = more stress
+    -   But SPSS syntax calculated a mean
+-   No subscales
+-   Reverse score: 1, 2, 5, 6, 7, 8, 17, 18
+
+### Script
+
+#### Reverse item scores
+
+```{r}
+df <- df %>%
+  mutate(across(c(PingSS1.3pp, PingSS2.3pp, PingSS5.3pp:PingSS8.3pp,
+                  PingSS17.3pp, PingSS18.3pp),
+            ~6-.))
+
+# Mark reversed scores with `_r`
+setnames(x = df, 
+         old = c("PingSS1.3pp", "PingSS2.3pp", "PingSS5.3pp",
+                 "PingSS6.3pp", "PingSS7.3pp", "PingSS8.3pp",
+                 "PingSS17.3pp", "PingSS18.3pp"), 
+         new = gsub(pattern = ".3pp", 
+                    replacement = "_r.3pp", 
+                    x = c("PingSS1.3pp", "PingSS2.3pp", "PingSS5.3pp",
+                          "PingSS6.3pp", "PingSS7.3pp", "PingSS8.3pp",
+                          "PingSS17.3pp", "PingSS18.3pp")))
+```
+
+#### Calculate summary scores
+
+```{r}
+df <- df %>% 
+  
+  # Tell R that we want to take the mean across a row
+  rowwise() %>%
+  
+  # Calculate total scores/subscales
+  mutate(PingSS_tot.3pp = sum(c_across(PingSS1_r.3pp:PingSS18_r.3pp), na.rm = T)) %>%
+  
+   # Recode 0's that should be NA 
+  mutate(PingSS_tot.3pp = case_when(
+    all(is.na(c_across(PingSS1_r.3pp:PingSS18_r.3pp))) ~ NA_real_,
+    .default = PingSS_tot.3pp)) %>%
+  
+  # Move the total score/subscales so they come immediately after the measures
+  relocate(PingSS_tot.3pp, .after = PingSS18_r.3pp)
+```
+
+### Label
+
+```{r}
+df <- df %>% 
+  # Direct scores
+  mutate(across(contains("PingSS") & !contains("_"),
+            ~ labelled(., 
+                     c("Strongly disagree" = 1, 
+                       "Disagree" = 2, 
+                       "Undecided" = 3, 
+                       "Agree" = 4, 
+                       "Strongly agree" = 5),
+                     label = "Parenting Stress Scale"))) %>%
+  # Reverse scores
+  mutate(across(contains("PingSS") & contains("_r"),
+            ~ labelled(., 
+                     c("Strongly disagree" = 5, 
+                       "Disagree" = 4, 
+                       "Undecided" = 3, 
+                       "Agree" = 2, 
+                       "Strongly agree" = 1),
+                     label = "Parenting Stress Scale (reverse-scored)"))) %>%
+  # Sum Score
+  mutate(PingSS_tot.3pp = labelled(PingSS_tot.3pp, label = "Parenting Stress Scale: Total Score"))
+```
+
+### Check and Print
+
+::: panel-tabset
+#### Check
+
+::: panel-tabset
+##### Check Counts
+
+```{r}
+#| echo: false
+# Direct Score
+check_categorical(df, contains("PingSS") & !contains("_")) %>% knitr::kable()
+# Reverse Score
+check_categorical(df, contains("PingSS") & contains("_r")) %>% knitr::kable()
+```
+
+##### Check Numbers
+
+```{r}
+#| echo: false
+check_continuous(df, PingSS_tot.3pp) %>% knitr::kable()
+```
+
+##### Check Reliability
+
+```{r}
+#| echo: false
+ltm::cronbach.alpha(data = select(df, PingSS1_r.3pp:PingSS18_r.3pp), 
+                    CI = T, 
+                    na.rm = T)
+```
+
+##### Check Variable Labels
+
+```{r}
+#| echo: false
+inspect_labels(df, contains("PingSS")) 
+```
+:::
+
+#### Print
+
+```{r}
+#| echo: false
+print_slice(df, contains("PingSS"))
+```
+:::
+:::
+
+## PSI: Parenting Stress Index
+
+::: panel-tabset
+### Notes
+
+-   Abidin, 2012
+-   36 items
+-   1-5 Likert scale:
+    -   1 = Strongly disagree
+    -   5 = Strongly agree
+    -   The scoring instructions seem to be reversed
+-   Sum score
+    -   Higher scores for PD, PCDI, DC= more parenting stress
+    -   Higher scores for DR = increased social desirability bias
+-   Subscales:
+    -   Defensive responding (DR): 1, 2, 3, 7, 8, 9, 11
+    -   Parental distress (PD): 1-12
+    -   Parent-Child Dysfunctional Interaction (PCDI): 13-24
+    -   Difficult Child (DC): 25-36
+    -   Total score: PD+PCDI+DC
+-   Reverse score: all
+
+### Script
+
+#### Recode item scores
+
+```{r}
+df <- df %>%
+  mutate(across(PSI1.3pp:PSI36.3pp,
+                ~ 6-.))
+```
+
+#### Calculate summary scores
+
+```{r}
+df <- df %>% 
+  
+  # Tell R that we want to take the mean across a row
+  rowwise() %>%
+  
+  
+  # Calculate subscales/total score
+  mutate(PSI_dr.3pp = sum(c(PSI1.3pp, PSI2.3pp, PSI3.3pp, 
+                            PSI7.3pp, PSI8.3pp, PSI9.3pp, PSI11.3pp),
+                          na.rm = F), 
+         PSI_pd.3pp = sum(c_across(PSI1.3pp:PSI12.3pp), na.rm = F), 
+         PSI_pcdi.3pp = sum(c_across(PSI13.3pp:PSI24.3pp), na.rm = F), 
+         PSI_dc.3pp = sum(c_across(PSI25.3pp:PSI36.3pp), na.rm = F),
+         PSI_tot.3pp = sum(c_across(PSI1.3pp:PSI36.3pp), na.rm = F)) %>%
+  
+  # Move the total score/subscales so they come immediately after the measures
+  relocate(PSI_dr.3pp:PSI_tot.3pp, .after = PSI36.3pp)
+```
+
+### Label
+
+```{r}
+df <- df %>% 
+  # Label Majority of Items
+  mutate(across(c(PSI1.3pp:PSI21.3pp, PSI23.3pp:PSI31.3pp, PSI34.3pp:PSI36.3pp),
+            ~ labelled(., 
+                     c("Strongly agree" = 1, 
+                       "Agree" = 2, 
+                       "Not sure" = 3, 
+                       "Disagree" = 4, 
+                       "Strongly disagree" = 5),
+                     label = "Parenting Stress Index"))) %>%
+  # Label special items
+  mutate(PSI22.3pp = labelled(PSI22.3pp, 
+                              c("Not very good at being a parent" = 1, 
+                                "A person who has some trouble being a parent" = 2, 
+                                "An average parent" = 3, 
+                                "A better than average parent" = 4, 
+                                "A very good parent" = 5), 
+                              label = "Parenting Stress Index"), 
+         PSI32.3pp = labelled(PSI32.3pp, 
+                              c("Much harder than I expected" = 1, 
+                                "Somewhat harder than I expected" = 2, 
+                                "About as hard as I expected" = 3, 
+                                "Somewhat easier than I expected" = 4, 
+                                "Much easier than I expected" = 5), 
+                              label = "Parenting Stress Index"), 
+         PSI33.3pp = labelled(PSI33.3pp, 
+                              c("10+" = 1, 
+                                "8-9" = 2, 
+                                "6-7" = 3, 
+                                "4-5" = 4, 
+                                "1-3" = 5), 
+                              label = "Parenting Stress Index")) %>%
+  # Label Subscales and Total Score
+  mutate(PSI_dr.3pp = labelled(PSI_dr.3pp, label = "PSI: Defensive Responding Scale"), 
+         PSI_pd.3pp = labelled(PSI_pd.3pp, label = "PSI: Parental Distress Scale"), 
+         PSI_pcdi.3pp = labelled(PSI_pcdi.3pp, label = "PSI: Parent-Child Dysfunctional Interaction"), 
+         PSI_dc.3pp = labelled(PSI_dc.3pp, label = "PSI: Difficult Child Scale"), 
+         PSI_tot.3pp = labelled(PSI_tot.3pp, label = "PSI: Total Score"))
+```
+
+### Check and Print
+
+::: panel-tabset
+#### Check
+
+::: panel-tabset
+##### Check Counts
+
+```{r}
+#| echo: false
+check_categorical(df, c(PSI1.3pp:PSI21.3pp, PSI23.3pp:PSI31.3pp, PSI34.3pp:PSI36.3pp)) %>% arrange(value) %>% knitr::kable()
+check_categorical(df, PSI22.3pp) %>% knitr::kable()
+check_categorical(df, PSI32.3pp) %>% knitr::kable()
+check_categorical(df, PSI33.3pp) %>% knitr::kable()
+
+```
+
+##### Check Numbers
+
+```{r}
+#| echo: false
+check_continuous(df, PSI_dr.3pp:PSI_tot.3pp) %>% knitr::kable()
+```
+
+##### Check Reliability
+
+```{r}
+#| echo: false
+ltm::cronbach.alpha(data = select(df, PSI1.3pp:PSI36.3pp), na.rm = T)
+```
+
+##### Check Variable Labels
+
+```{r}
+#| echo: false
+inspect_labels(df, contains("PSI"))
+```
+:::
+
+#### Print
+
+```{r}
+#| echo: false
+print_slice(df, contains("PSI"))
+```
+:::
+:::
+
+## PSQI: Pittsburgh Sleep Quality Index
+
+::: panel-tabset
+### Notes
+
+-   Buysee et al., 1989
+-   9 items (item 5 has A-J)
+-   0-3 Likert scale
+    -   Items 1-4 are open-ended
+    -   Items 5-8: 0 = not during the past month; 3 = three or more
+        times a week
+    -   Item 9: 0 = very good; 3 = very bad
+-   Sum score of "components"
+    -   For global PSQI, a score over 5 indicates poor sleep quality
+    -   See below for component score calculations
+-   No reverse scores
+-   Other notes:
+    -   Item 1: if they listed a range of times, we took the average
+    -   Item 2: if they listed a range of times, we took the average
+    -   Item 3: if they listed a range of times, we took the average
+    -   Item 4: if they listed a range of times, we took the average
+    -   Component 5: I replaced missing values in 5b-5j with the mean of
+        5b-5j and then took the sum before recoding
+
+### Script
+
+::: panel-tabset
+#### Recode item scores/responses
+
+::: panel-tabset
+##### Item 1
+
+```{r}
+df <- df %>%
+  
+  ungroup() %>%
+  
+  # Create raw variable that duplicates original column for reference
+  mutate(PSQI1_raw.3pp = PSQI1.3pp, .after = PSQI1.3pp) %>%
+  
+  # Create helper variable that standardizes time
+  clean_time_range(PSQI1.3pp) %>% # creates helper_clean variable
+  
+  # Create helper variables that split up ranges 
+  extract_time_range(helper_clean) %>% # creates helper_start and helper_end variables
+  
+  # Convert helpers to military time
+  convert_to_military_night(c("helper_start", "helper_end")) %>%
+  
+  # Rewrite PSQI1.3pp as midpoint or start time 
+  finalize_time(c("helper_start", "helper_end"), "PSQI1.3pp") %>%
+  
+  # Clean Specific Cases 
+  mutate(PSQI1.3pp = case_when(
+    CoupleID == 90 & Parent == "dad" ~ times("22:45:00"),
+    CoupleID == 62 & Parent == "dad" ~ times("23:30:00"),
+    CoupleID == 32 & Parent == "mom" ~ times("00:00:00"),
+    CoupleID == 95 & Parent == "mom" ~ times("00:45:00"),
+    .default = PSQI1.3pp
+  )) %>%
+  
+  # Remove helper variables
+  select(-contains("helper")) %>%
+  relocate(PSQI1_raw.3pp, .after = PSQI9.3pp)
+```
+
+##### Item 2
+
+```{r}
+df <- df %>%
+  
+  ungroup() %>%
+  
+  # Create raw variable that duplicates original column for reference
+  mutate(PSQI2_raw.3pp = PSQI2.3pp, .after = PSQI2.3pp) %>%
+  
+  # Create helper variable that standardizes times, ranges, and units
+  standardize_latency(PSQI2.3pp) %>%
+  
+  # Extract time range
+  extract_latency_times(helper_clean) %>%
+  
+  # Convert to minutes
+  convert_to_minutes(helper_start, helper_end, helper_unit) %>%
+  
+  # Finalize PSQI2.3pp
+  finalize_latency(PSQI2.3pp, helper_start, helper_end) %>%
+  
+  # Clean Specific Cases
+  mutate(PSQI2.3pp = case_when(
+    CoupleID == 23 & Parent == "dad" ~ 0.0,
+    CoupleID == 58 & Parent == "dad" ~ 5.0,
+    CoupleID == 78 & Parent == "mom" ~ 5.0,
+    CoupleID == 90 & Parent == "mom" ~ 0.0,
+    .default = PSQI2.3pp)) %>%
+  
+  # Remove helper variables
+  select(-contains("helper")) %>%
+  relocate(PSQI2_raw.3pp, .after = PSQI1_raw.3pp)
+```
+
+##### Item 3
+
+```{r}
+df <- df %>%
+  
+  ungroup() %>%
+  
+  # Create raw variable that duplicates original column for reference
+  mutate(PSQI3_raw.3pp = PSQI3.3pp, .after = PSQI3.3pp)  %>%
+  
+  # Create helper variable that standardizes time
+  clean_time_range(PSQI3.3pp) %>% # creates helper_clean variable
+  
+  # Create helper variables that split up ranges 
+  extract_time_range(helper_clean) %>% # creates helper_start and helper_end variables
+  
+  # Convert helpers to military time
+  convert_to_military_morning(c("helper_start", "helper_end")) %>%
+  
+  # Rewrite PSQI3.3pp as midpoint or start time 
+  finalize_time(c("helper_start", "helper_end"), "PSQI3.3pp") %>% 
+  
+  # Clean Specific Cases 
+  mutate(PSQI3.3pp = case_when(
+    CoupleID == 62 & Parent == "dad" ~ times("06:30:00"),
+    CoupleID == 93 & Parent == "dad" ~ NA,
+    CoupleID == 49 & Parent == "mom" ~ times("07:45:00"),
+    CoupleID == 58 & Parent == "dad" ~ times("07:30:00"),
+    .default = PSQI3.3pp)) %>%
+  
+  # Remove helper variables
+  select(-contains("helper")) %>%
+  relocate(PSQI3_raw.3pp, .after = PSQI2_raw.3pp)
+```
+
+##### Item 4
+
+```{r}
+df <- df %>%
+  
+  ungroup() %>%
+  
+  # Create raw variable that duplicates original column for reference
+  mutate(PSQI4_raw.3pp = PSQI4.3pp, .after = PSQI4.3pp)  %>%
+  
+  # Create helper variable that standardizes time
+  standardize_hours(PSQI4.3pp) %>%
+  
+  # Create helper variables that split up ranges 
+  extract_hours(helper_clean) %>%
+  
+  # Rewrite PSQI4.3pp as midpoint or start time 
+  finalize_hours(PSQI4.3pp, helper_start, helper_end) %>%
+
+  # Clean Specific Cases 
+  mutate(PSQI4.3pp = case_when(
+    CoupleID == 43 & Parent == "mom" ~ NA,
+    CoupleID == 94 & Parent == "mom" ~ 6.5,
+    .default = PSQI4.3pp)) %>%
+  
+  # Remove helper variables
+  select(-contains("helper")) %>%
+  relocate(PSQI4_raw.3pp, .after = PSQI3_raw.3pp)
+```
+
+##### Items 5-9
+
+```{r}
+df <- df %>%
+  
+  rowwise() %>%
+  
+  # Recode values
+  mutate(across(PSQI5a.3pp:PSQI9.3pp, 
+            ~ case_when(
+                     . == 1 ~ 0,
+                     . == 2 ~ 1, 
+                     . == 3 ~ 2, 
+                     . == 4 ~ 3, 
+                     .default = NA))) %>%
+  
+  # Convert PSQI5j to 0 when blank (per Buysse 2005) 
+  mutate(PSQI5j.3pp = case_when(
+    is.na(PSQI5j.3pp) == T & is.na(PSQI5a.3pp) == F ~ 0, 
+    is.na(PSQI5a.3pp) == T ~ NA, 
+    .default = PSQI5j.3pp)) 
+```
+:::
+
+#### Calculate component scores
+
+::: panel-tabset
+##### Component 1: Overall Quality
+
+-   Equal to PSQI9
+
+```{r}
+df <- df %>%
+  mutate(PSQI_qual.3pp = PSQI9.3pp)%>%
+  relocate(PSQI_qual.3pp, .after = PSQI4_raw.3pp)
+```
+
+##### Component 2: Latency
+
+-   First transform PSQI2
+-   Then add transformed score to PSQI5a
+-   Finally transform the sum
+
+```{r}
+df <- df %>%
+  
+  rowwise() %>%
+  
+  # Step 1: PSQI2 score transformed to <15m=0; 16-30m=1; 31-60m=2; >60m=3
+  mutate(PSQI_c2_helper = 
+           case_when(
+             PSQI2.3pp <= 15 ~ 0, 
+             PSQI2.3pp > 15 & PSQI2.3pp <=30 ~ 1,
+             PSQI2.3pp > 30 & PSQI2.3pp <= 60 ~ 2, 
+             PSQI2.3pp > 60 ~ 3,
+             .default = NA)) %>%
+  
+  # Step 2: Add score from step #1 to PSQI5a
+  mutate(PSQI_c2_helper2 = PSQI_c2_helper + PSQI5a.3pp) %>%
+  
+  # Step 3: Combined score transformed to 0=0; 1-2=1; 3-4=2; 5-6=3
+  mutate(PSQI_lat.3pp = 
+           case_when(
+             PSQI_c2_helper2 == 0 ~ 0, 
+             PSQI_c2_helper2 == 1 | PSQI_c2_helper2 == 2 ~ 1, 
+             PSQI_c2_helper2 == 3 | PSQI_c2_helper2 == 4 ~ 2, 
+             PSQI_c2_helper2 == 5 | PSQI_c2_helper2 == 6 ~ 3)) %>%
+  
+  # Clean Up
+  select(-contains("helper")) %>%
+  relocate(PSQI_lat.3pp, .after = PSQI_qual.3pp)
+```
+
+##### Component 3: Duration
+
+-   Transform PSQI4
+
+```{r}
+df <- df %>%
+  
+  rowwise() %>%
+  
+  mutate(PSQI_dur.3pp =
+           case_when(PSQI4.3pp > 7 ~ 0, 
+                     PSQI4.3pp <= 7 & PSQI4.3pp > 6 ~ 1, 
+                     PSQI4.3pp <= 6 & PSQI4.3pp > 5 ~ 2, 
+                     PSQI4.3pp <= 5 ~ 3, 
+                     .default = NA)) %>%
+  
+  # Clean up 
+  relocate(PSQI_dur.3pp, .after = PSQI_lat.3pp)
+```
+
+##### Component 4: Efficiency
+
+-   First calculate time in bed (PSQI3-PSQI1)
+-   Then divide PSQI4 by time in bed and multiply by 100
+-   Finally transform the percentage
+
+```{r}
+df <- df %>%
+  
+  rowwise() %>%
+  
+  # Add fake date so that R knows that parents are waking up the day after they go to bed 
+  mutate(PSQI_pm_helper = as.POSIXct(chron(dates. = "06/26/2022", times. = PSQI1.3pp))+25200) %>%
+  mutate(PSQI_am_helper = as.POSIXct(chron(dates. = "06/27/2022", times. = PSQI3.3pp))+25200) %>%
+  
+  # Tell R that parents who go to bed after midnight are actually sleeping the following day
+  mutate(PSQI_pm_helper = as.POSIXct(case_when(
+    PSQI_pm_helper <= "2022-06-26 13:00:00" ~ PSQI_pm_helper+86400, 
+    .default = PSQI_pm_helper), 
+    origin = "1970-01-01")) %>%
+  
+  # Calculate hours in bed
+  mutate(PSQI_hib_helper = as.numeric(difftime(PSQI_am_helper, PSQI_pm_helper, units = "hours"))) %>%
+  
+  # Divide sleeping hours by hours in bed
+  mutate(PSQI_c4_helper = (PSQI4.3pp/PSQI_hib_helper)*100) %>%
+  
+  # Recode 4
+  mutate(PSQI_effic.3pp = case_when(
+    PSQI_c4_helper >= 85 ~ 0,
+    PSQI_c4_helper < 85 & PSQI_c4_helper >= 75 ~ 1, 
+    PSQI_c4_helper < 75 & PSQI_c4_helper >= 65 ~ 2, 
+    PSQI_c4_helper < 65 ~ 3, 
+    .default = NA)) %>%
+  
+  # Remove helper variables
+  select(-contains("helper")) %>%
+  relocate(PSQI_effic.3pp, .after = PSQI_dur.3pp)
+```
+
+##### Component 5: Disturbance
+
+-   First sum scores 5b through 5j
+-   Then transform the sum
+
+```{r}
+df <- df %>% 
+  
+  rowwise() %>%
+  
+  # Calculate 5
+  mutate(PSQI_c5_helper = sum(c_across(PSQI5b.3pp:PSQI5j.3pp))) %>%
+  
+  # Recode 5
+  mutate(PSQI_disturb.3pp = case_when(
+    PSQI_c5_helper == 0 ~ 0, 
+    PSQI_c5_helper >= 1 & PSQI_c5_helper <= 9 ~ 1, 
+    PSQI_c5_helper > 9 & PSQI_c5_helper <= 18 ~ 2, 
+    PSQI_c5_helper > 18 ~ 3, 
+    .default = NA)) %>%
+  
+  # Remove helper variables
+  select(-contains("helper")) %>%
+  relocate(PSQI_disturb.3pp, .after = PSQI_effic.3pp)
+```
+
+##### Component 6: Meds
+
+-   Equal to PSQI6
+
+```{r}
+df <- df %>%
+  mutate(PSQI_med.3pp = PSQI6.3pp) %>%
+  
+  # Clean up
+  relocate(PSQI_med.3pp, .after = PSQI_disturb.3pp)
+```
+
+##### Component 7: Dysfunction during Day
+
+-   First add PSQI7 and PSQI8
+-   Then transform the sum
+
+```{r}
+df <- df %>%
+  
+  rowwise() %>%
+  
+  mutate(PSQI_c7_helper = sum(c(PSQI7.3pp, PSQI8.3pp))) %>%
+  
+  mutate(PSQI_daydys.3pp = case_when(
+    PSQI_c7_helper == 0 ~ 0,
+    PSQI_c7_helper == 1 | PSQI_c7_helper == 2 ~ 1, 
+    PSQI_c7_helper == 3 | PSQI_c7_helper == 4 ~ 2, 
+    PSQI_c7_helper == 5 | PSQI_c7_helper == 6 ~ 3, 
+    .default = NA)) %>%
+  
+  # Remove helper variables
+  select(-contains("helper")) %>%
+  relocate(PSQI_daydys.3pp, .after = PSQI_med.3pp)
+```
+:::
+
+#### Calculate Global Score
+
+```{r}
+df <- df %>%
+  rowwise() %>%
+  
+  # Calculate total score
+  mutate(PSQI_global.3pp = sum(c_across(PSQI_qual.3pp:PSQI_daydys.3pp))) %>%
+  
+  # Clean up
+  relocate(PSQI_global.3pp, .after = PSQI_daydys.3pp)
+  
+```
+:::
+
+### Label
+
+```{r}
+df <- df %>%
+  
+  # Items 1-4
+  mutate(PSQI1.3pp = labelled(PSQI1.3pp, label = "PSQI: Bedtime"),
+         PSQI2.3pp = labelled(PSQI2.3pp, label = "PSQI: Minutes to fall asleep"),
+         PSQI3.3pp = labelled(PSQI3.3pp, label = "PSQI: Wake time"),
+         PSQI4.3pp = labelled(PSQI4.3pp, label = "PSQI: Hours of actual sleep")) %>%
+  
+  # Items 1-4 (raw)
+  mutate(PSQI1_raw.3pp = labelled(PSQI1_raw.3pp, label = "PSQI: Bedtime (raw)"),
+         PSQI2_raw.3pp = labelled(PSQI2_raw.3pp, label = "PSQI: Minutes to fall asleep (raw)"),
+         PSQI3_raw.3pp = labelled(PSQI3_raw.3pp, label = "PSQI: Wake time (raw)"),
+         PSQI4_raw.3pp = labelled(PSQI4_raw.3pp, label = "PSQI: Hours of actual sleep (raw)")) %>%
+  
+  # Items 5a-5J
+  mutate(across(PSQI5a.3pp:PSQI5j.3pp,
+                ~ labelled(., 
+                           label = "PSQI: Reasons for trouble sleeping",
+                           labels = c("Not during the last month" = 0,
+                                      "Less than once a week" = 1, 
+                                      "Once or twice a week" = 2, 
+                                      "Three or more times a week" = 3)))) %>%
+  
+  # Items 6-8
+  mutate(across(PSQI6.3pp:PSQI8.3pp, 
+                ~ labelled(., 
+                           label = "PSQI: Misc. questions",
+                           labels = c("Not during the last month" = 0,
+                                      "Less than once a week" = 1, 
+                                      "Once or twice a week" = 2, 
+                                      "Three or more times a week" = 3)))) %>%
+  
+  # Item 9 
+  mutate(PSQI9.3pp = labelled(PSQI9.3pp, 
+                              label = "PSQI: How would you rate your sleep quality?", 
+                              labels = c("Very good" = 0,
+                                         "Fairly good" = 1, 
+                                         "Fairly bad" = 2, 
+                                         "Very bad" = 3))) %>%
+  
+  # Components
+  mutate(PSQI_qual.3pp = labelled(PSQI_qual.3pp, label = "PSQI: Component 1, Sleep Quality"),
+         PSQI_lat.3pp = labelled(PSQI_lat.3pp, label = "PSQI: Component 2, Sleep Latency"),
+         PSQI_dur.3pp = labelled(PSQI_dur.3pp, label = "PSQI: Component 3, Sleep Duration"),
+         PSQI_effic.3pp = labelled(PSQI_effic.3pp, label = "PSQI: Component 4, Sleep Efficiency"),
+         PSQI_disturb.3pp = labelled(PSQI_disturb.3pp, label = "PSQI: Component 5, Sleep Disturbance"),
+         PSQI_med.3pp = labelled(PSQI_med.3pp, label = "PSQI: Component 6, Sleep Medication"),
+         PSQI_daydys.3pp = labelled(PSQI_daydys.3pp, label = "PSQI: Component 7, Dysfunction during the Day"),
+         PSQI_global.3pp = labelled(PSQI_global.3pp, label = "Pittsburgh Sleep Quality Index: Global Score"))
+  
+```
+
+### Check and Print
+
+::: panel-tabset
+#### Check
+
+::: panel-tabset
+##### Check Counts
+
+```{r}
+#| echo: false
+check_categorical(df, c(PSQI5a.3pp:PSQI8.3pp)) %>% knitr::kable()
+check_categorical(df, PSQI9.3pp) %>% knitr::kable()
+```
+
+##### Check Numbers
+
+```{r}
+#| echo: false
+check_continuous(df, PSQI_global.3pp) %>% knitr::kable()
+```
+
+##### Check Reliability
+
+```{r}
+#| echo: false
+ltm::cronbach.alpha(data = select(df, PSQI_qual.3pp:PSQI_daydys.3pp), na.rm = T)
+```
+
+##### Check Variable Labels
+
+```{r}
+#| echo: false
+inspect_labels(df, contains("PSQI")) 
+```
+:::
+
+#### Print
+
+::: panel-tabset
+##### Component 1: Quality
+
+```{r}
+#| echo: false
+print_slice(df, c(PSQI9.3pp, PSQI_qual.3pp))
+```
+
+##### Component 2: Latency
+
+```{r}
+#| echo: false
+print_slice(df, c(PSQI2.3pp, PSQI5a.3pp, PSQI_lat.3pp))
+```
+
+##### Component 3: Duration
+
+```{r}
+#| echo: false
+print_slice(df, c(PSQI4.3pp, PSQI_dur.3pp))
+```
+
+##### Component 4: Efficiency
+
+```{r}
+#| echo: false
+print_slice(df,  c(PSQI1_raw.3pp, PSQI3_raw.3pp, PSQI4.3pp, PSQI_effic.3pp)) 
+```
+
+##### Component 5: Disturbance
+
+```{r}
+#| echo: false
+print_slice(df, c(PSQI5b.3pp:PSQI5j.3pp, PSQI_disturb.3pp)) 
+```
+
+##### Component 6: Medication
+
+```{r}
+#| echo: false
+print_slice(df, c(PSQI6.3pp, PSQI_med.3pp)) 
+```
+
+##### Component 7: Dysfunction during the day
+
+```{r}
+#| echo: false
+print_slice(df, c(PSQI7.3pp, PSQI8.3pp, PSQI_daydys.3pp)) 
+```
+:::
+:::
+
+## PSS: Perceived Stress Scale
+
+::: panel-tabset
+### Notes
+
+-   Cohen et al., 1983
+-   14 items
+-   0-4 Likert Scale
+    -   0 = Never
+    -   4 = Very often
+-   Sum score
+    -   Higher scores = increased stress level
+-   No subscale
+-   Reverse score: 4, 5, 6, 7, 9, 10, 13
+
+### Script
+
+#### Recode item scores
+
+```{r}
+df <- df %>%
+# Re-code items
+  mutate(across(PSS1.3pp:PSS14.3pp,
+            ~case_when(
+              . == 1  ~ 0,
+              . == 2  ~ 1,
+              . == 3  ~ 2,
+              . == 4  ~ 3, 
+              . == 5  ~ 4,
+              .default = NA)))
+```
+
+#### Reverse item scores
+
+```{r}
+# Reverse Score Q's 4, 5, 6, 7, 9, 10, 13
+df <- df %>%
+  mutate(across(c(PSS4.3pp, PSS5.3pp, PSS6.3pp, 
+                   PSS7.3pp, PSS9.3pp, PSS10.3pp, 
+                   PSS13.3pp),
+                   ~4-.))
+
+# Mark reversed scores with `_r`
+setnames(x = df, 
+                     old = c("PSS4.3pp", "PSS5.3pp", "PSS6.3pp", 
+                             "PSS7.3pp", "PSS9.3pp", "PSS10.3pp", 
+                             "PSS13.3pp"), 
+                     new = gsub(pattern = ".3pp", 
+                          replacement = "_r.3pp", 
+                          x = c("PSS4.3pp", "PSS5.3pp", "PSS6.3pp", 
+                             "PSS7.3pp", "PSS9.3pp", "PSS10.3pp", 
+                             "PSS13.3pp")))
+```
+
+#### Calculate summary scores
+
+```{r}
+df <- df %>% 
+  
+  # Tell R that we want to take the mean across a row
+  rowwise() %>%
+  
+  # Tell R that scores are numeric
+  mutate(across(PSS1.3pp:PSS14.3pp, as.numeric)) %>%
+  
+  # Calculate total scores/subscales
+  mutate(PSS_tot.3pp = sum(c_across(PSS1.3pp:PSS14.3pp), na.rm = T)) %>%
+  
+  # Clean up NAs
+  mutate(across(PSS_tot.3pp, ~na_if(., 0))) %>%
+  
+  # Move the total score/subscales so they come immediately after the measures
+  relocate(PSS_tot.3pp, .after = PSS14.3pp)
+  
+```
+
+### Label
+
+```{r}
+df <- df %>% 
+  # Create value and variable labels
+  mutate(across(contains("PSS") & !contains("_"),
+            ~ labelled(., 
+                     c("Never" = 0, 
+                       "Almost never" = 1, 
+                       "Sometimes" = 2, 
+                       "Fairly often" = 3, 
+                       "Very often" = 4), 
+                     label = "Perceived Stress Scale"))) %>%
+  mutate(across(contains("PSS") & contains("_r"),
+            ~ labelled(., 
+                     c("Never" = 4, 
+                       "Almost never" = 3,
+                       "Sometimes" = 2,
+                       "Fairly often" = 1, 
+                       "Very often" = 0), 
+                     label = "Perceived Stress Scale (reverse-scored"))) %>%
+  mutate(PSS_tot.3pp = labelled(PSS_tot.3pp, label = "Perceived Stress Scale: Total Score"))
+```
+
+### Check and Print
+
+::: panel-tabset
+#### Check
+
+::: panel-tabset
+##### Check Counts
+
+```{r}
+#| echo: false
+# Direct Score
+check_categorical(df, contains("PSS") & !contains("_")) %>% knitr::kable()
+# Reverse Score
+check_categorical(df, contains("PSS") & contains("_r")) %>% knitr::kable()
+```
+
+##### Check Numbers
+
+```{r}
+#| echo: false
+check_continuous(df, PSS_tot.3pp) %>% knitr::kable()
+```
+
+##### Check Reliability
+
+```{r}
+#| echo: false
+ltm::cronbach.alpha(data = select(df, PSS1.3pp:PSS14.3pp), 
+                    CI = T, 
+                    na.rm = T)
+```
+
+##### Check Variable Labels
+
+```{r}
+#| echo: false
+inspect_labels(df, contains("PSS")) 
+```
+:::
+
+#### Print
+
+```{r}
+#| echo: false
+print_slice(df, contains("PSS"))
+```
+:::
+:::
+
+## SCL: Symptom Checklist—90
+
+::: panel-tabset
+### Notes
+
+-   Derogatis et al., 1973
+-   90 items
+    -   HATCH only includes 87 items
+    -   2 suicidality items omitted:
+        -   "Thoughts of ending your life" (#15) - depression subscale
+        -   "Thoughts of death or dying" (#59) - additional items
+    -   1 aggression item omitted:
+        -   "Having urges to beat, injure, or harm someone." (#63) -
+            anger-hostility subscale
+-   0-4 Likert Scale
+    -   0 = Not at all
+    -   4 = Extremely
+-   Mean scores
+    -   Higher scores = higher distress
+-   9 subscales, 3 global scales, and an "additional items" category:
+    -   Subscales:
+        -   Somatization (1, 4, 12, 27, 40, 42, 48, 49, 52, 53, 56, and
+            58) 
+        -   Obsessive-Compulsive (3, 9, 10, 28, 38, 45, 46, 51, 55, and
+            65) terpersonal Sensitivity (6, 21, 34, 36, 37, 41, 61, 69,
+                and 73)
+        -   Depression (5, 14, 20, 22, 26, 29, 30, 31, 32, 54, 71, and
+            79) 
+        -   Anxiety (17, 23, 33, 39, 57, 72, 78, 80, and 86)
+        -   Hostility (11, 24, 63, 67, 74, and 81)
+        -   Phobic-Anxiety (13, 25, 47, 50, 70, 75, and 82)
+        -   Paranoid Ideation (8, 18, 43, 68, 76, and 83)
+        -   Psychoticism (7, 16, 35, 62, 77, 84, 85, 87, 88, and 90)
+    -   Global scales:
+        -   Global Severity Index (All items)
+        -   Positive Symptom Distress Index (Mean of non-zero responses)
+        -   Positive Symptom Total (Count of non-zero items)
+    -   "Additional Items" category (19, 44, 59, 60, 64, and 89)
+-   Reverse scored items: none
+-   Other notes: Add .005 based on most recent scoring instructions in
+    QGlobal
+
+### Script
+
+#### Recode item scores
+
+```{r}
+df <- df %>%
+# Re-code items
+  mutate(across(SCL1.3pp:SCL90.3pp,
+            ~case_when( 
+                        . == 1 ~ 0,
+                        . == 2 ~ 1,
+                        . == 3 ~ 2,
+                        . == 4 ~ 3,
+                        . == 5 ~ 4, 
+                        .default = NA)))
+```
+
+#### Calculate subscales
+
+```{r}
+df <- df %>% 
+  
+  # Tell R that we want to take the mean across a row
+  rowwise() %>%
+  
+  # Tell R that scores are numeric
+  mutate(across(SCL1.3pp:SCL90.3pp, as.numeric)) %>%
+  
+  # Calculate subscales
+  mutate(SCL_som.3pp = mean(c(SCL1.3pp, SCL4.3pp, SCL12.3pp, 
+                             SCL27.3pp, SCL40.3pp, SCL42.3pp, 
+                             SCL48.3pp, SCL49.3pp, SCL50.3pp, 
+                             SCL53.3pp, SCL56.3pp, SCL58.3pp), 
+                           na.rm = T) + .005, #12
+         SCL_oc.3pp = mean(c(SCL3.3pp, SCL9.3pp, SCL10.3pp, 
+                            SCL28.3pp, SCL38.3pp, SCL45.3pp, 
+                            SCL46.3pp, SCL51.3pp, SCL55.3pp, SCL65.3pp), 
+                          na.rm = T) + .005, #10
+         SCL_is.3pp = mean(c(SCL6.3pp, SCL21.3pp, SCL34.3pp,
+                            SCL36.3pp, SCL37.3pp, SCL41.3pp, 
+                            SCL61.3pp, SCL69.3pp, SCL73.3pp), 
+                          na.rm = T) + .005, #9
+         SCL_dep.3pp = mean(c(SCL5.3pp, SCL14.3pp, SCL20.3pp, 
+                             SCL22.3pp, SCL26.3pp, SCL29.3pp, 
+                             SCL30.3pp, SCL31.3pp, SCL32.3pp, 
+                             SCL54.3pp, SCL71.3pp, SCL79.3pp), 
+                           na.rm = T) + .005, #13-1
+         SCL_anx.3pp = mean(c(SCL2.3pp, SCL17.3pp, SCL23.3pp, 
+                             SCL33.3pp, SCL39.3pp, SCL57.3pp, 
+                             SCL72.3pp, SCL78.3pp, SCL80.3pp, SCL86.3pp), 
+                           na.rm = T) + .005, #the screenshot doesn't include 2, but 2 is included on the anxiety scale in the manual
+         SCL_hos.3pp = mean(c(SCL11.3pp, SCL24.3pp, SCL67.3pp,
+                              SCL74.3pp, SCL81.3pp), 
+                            na.rm = T) + .005, #6-1
+         SCL_phob.3pp = mean(c(SCL13.3pp, SCL25.3pp, SCL47.3pp, 
+                              SCL50.3pp, SCL70.3pp, SCL75.3pp, SCL82.3pp), 
+                            na.rm = T) + .005, #7
+         SCL_par.3pp = mean(c(SCL8.3pp, SCL18.3pp, SCL43.3pp, 
+                             SCL68.3pp, SCL76.3pp, SCL83.3pp), 
+                           na.rm = T) + .005, #6
+         SCL_psy.3pp = mean(c(SCL7.3pp, SCL16.3pp, SCL35.3pp, 
+                             SCL62.3pp, SCL77.3pp, SCL84.3pp, 
+                             SCL85.3pp, SCL88.3pp, SCL90.3pp), 
+                           na.rm = T) + .005, #10
+         SCL_add.3pp = mean(c(SCL19.3pp, SCL44.3pp,SCL60.3pp, 
+                             SCL64.3pp, SCL66.3pp, SCL89.3pp), 
+                           na.rm = T) + .005 #7-1
+         ) %>%
+  
+  # Round to two decimals
+  mutate(across(c(SCL_som.3pp:SCL_add.3pp), ~round(., 2))) %>%
+  
+  # Replace NaN with NAs
+  mutate(across(c(SCL_som.3pp:SCL_add.3pp), ~coalesce(., NA_real_)))
+```
+
+#### Calculate Global Scales
+
+##### Calculate Global Severity Index
+
+```{r}
+df <- df %>% 
+  
+  # Tell R that we want to take the mean across a row
+  rowwise() %>%
+  
+  # Count number of NAs in a row
+  row_count(SCL1.3pp:SCL90.3pp, count = NA, var = "SCL_count_NA", append = T) %>%
+  
+  # Calculate total number of responses in a row
+  mutate(SCL_totr = 87 - SCL_count_NA) %>%
+
+  # Calculate Global Severity Index by dividing the sum of all responses by the total number of responses and adding .005
+  mutate(SCL_gsi.3pp = sum(c_across(SCL1.3pp:SCL90.3pp), na.rm = T)/SCL_totr + .005) %>%
+  
+  # Round to two decimals
+  mutate(SCL_gsi.3pp = round(SCL_gsi.3pp, 2))
+```
+
+##### Calculate Positive Symptom Total
+
+```{r}
+df <- df %>%
+  
+  # Tell R that we want to take the mean across a row
+  rowwise() %>%
+  
+  # Count number of zero-scored items in a row
+  row_count(SCL1.3pp:SCL90.3pp, count = 0, var = "SCL_count_0", append = T) %>%
+
+  # Calculate the Positive Symptom Total by subtracting the number of zero-value responses from the total number of responses
+  mutate(SCL_pst.3pp = SCL_totr - SCL_count_0)
+```
+
+##### Calculate Positive Symptoms Distress Index
+
+```{r}
+df <- df %>%
+  
+  # Tell R that we want to take the mean across a row
+  rowwise() %>%
+  
+  # Calculate the Positive Symptoms Distress Index by dividing the sum of all responses by the PST  and adding .005
+  mutate(SCL_psdi.3pp = sum(c_across(SCL1.3pp:SCL90.3pp), na.rm = T)/SCL_pst.3pp + .005) %>%
+  
+  # Round to two decimals
+  mutate(SCL_psdi.3pp = round(SCL_psdi.3pp, 2))
+```
+
+#### Clean Up Subscales and Global Scores
+
+```{r}
+ df <- df %>%
+  
+  # Remove helper variables
+  select(-c(SCL_count_NA, SCL_count_0, SCL_totr)) %>% 
+
+  # Replace NaN with NAs
+   mutate(across(c(SCL_som.3pp:SCL_psdi.3pp), ~coalesce(., NA_real_))) %>%
+  
+  # Move the subscales so they come immediately after the measures
+  relocate(SCL_som.3pp:SCL_psdi.3pp, .after = SCL90.3pp)
+```
+
+### Label
+
+```{r}
+df <- df %>% 
+  # Raw Items
+  mutate(across(SCL1.3pp:SCL90.3pp,
+            ~ labelled(., 
+                     c("Not at all" = 0, 
+                       "A little bit" = 1, 
+                       "Moderately" = 2, 
+                       "Quite a bit" = 3, 
+                       "Extremely" = 4),
+                     label = "Symptom Checklist 90"))) %>%
+  
+  # Subscales
+  mutate(SCL_som.3pp = labelled(SCL_som.3pp, label = "SCL: Somatization Scale"), 
+         SCL_oc.3pp = labelled(SCL_oc.3pp, label = "SCL: Obsessive Compulsive Scale"), 
+         SCL_is.3pp = labelled(SCL_is.3pp, label = "SCL: Interpersonal Sensitivity Scale"), 
+         SCL_dep.3pp = labelled(SCL_dep.3pp, label = "SCL: Depression Scale"),
+         SCL_anx.3pp = labelled(SCL_anx.3pp, label = "SCL: Anxiety Scale"),
+         SCL_hos.3pp = labelled(SCL_hos.3pp, label = "SCL: Hostility Scale"),
+         SCL_phob.3pp = labelled(SCL_phob.3pp, label = "SCL: Phobic Anxiety Scale"),
+         SCL_par.3pp = labelled(SCL_par.3pp, label = "SCL: Paranoid Ideation Scale"),
+         SCL_psy.3pp = labelled(SCL_psy.3pp, label = "SCL: Psychoticism Scale"),
+         SCL_add.3pp = labelled(SCL_add.3pp, label = "SCL: Additional Items")) %>%
+  
+  # Global Scales
+  mutate(SCL_gsi.3pp = labelled(SCL_gsi.3pp, label = "SCL: Global Severity Index"), 
+         SCL_pst.3pp = labelled(SCL_pst.3pp, label = "SCL: Positive Symptom Total"), 
+         SCL_psdi.3pp = labelled(SCL_psdi.3pp, label = "SCL: Positive Symptom Distress Index"))
+```
+
+### Check and Print
+
+::: panel-tabset
+#### Check
+
+::: panel-tabset
+##### Check Counts
+
+```{r}
+#| echo: false
+check_categorical(df, contains("SCL") & !contains("_")) %>% knitr::kable()
+```
+
+##### Check Numbers
+
+```{r}
+#| echo: false
+check_continuous(df, SCL_som.3pp:SCL_psdi.3pp) %>% knitr::kable()
+```
+
+##### Check Reliability
+
+```{r}
+#| echo: false
+ltm::cronbach.alpha(data = select(df, SCL1.3pp:SCL90.3pp), 
+                    CI = T, 
+                    na.rm = T)
+```
+
+##### Check Variable Labels
+
+```{r}
+#| echo: false
+inspect_labels(df, contains("SCL")) 
+```
+:::
+
+#### Print
+
+```{r}
+#| echo: false
+print_slice(df, contains("SCL"))
+```
+:::
+:::
+
+# HATCH-Designed Questions
+
+## PRQ: Parenting Responsibilities Questionnaire
+
+::: panel-tabset
+### Notes
+
+-   will reverse score the items so that higher numbers mean more time
+-   WeekTot and WkendTot are 1-6
+-   WeekPrimary, WkendPrimary, and Share are 1-5 \### Script \####
+    Reverse item scores
+
+```{r}
+df <- df %>% 
+  mutate(across(c(PRQ_WeekTot.3pp, PRQ_WkendTot.3pp), 
+                ~7-.)) %>%
+  
+  mutate(across(c(PRQ_WeekPrimary.3pp, PRQ_WkendPrimary.3pp, PRQ_Share.3pp), 
+                ~6-.))
+```
+
+### Label
+
+```{r}
+df <- df %>% 
+  # Weekday Hours
+  mutate(PRQ_WeekTot.3pp = labelled(PRQ_WeekTot.3pp, 
+                     c("8+ hours" = 6, 
+                       "5-8 hours" = 5,
+                       "3-4 hours" = 4, 
+                       "2-3 hours" = 3, 
+                       "1-2 hours" = 2, 
+                       "0-1 hours" = 1),
+                     label = "Waking hours with baby, average weekday")) %>%
+  
+  # Weekday Primary
+  mutate(PRQ_WeekPrimary.3pp = labelled(PRQ_WeekPrimary.3pp, 
+                     c("75-100%" = 5,
+                       "50-75%" = 4, 
+                       "About 50%" = 3, 
+                       "25-50%" = 2, 
+                       "0-25%" = 1),
+                     label = "Percent of weekday hours spent alone with baby or as main caregiver")) %>%
+  
+    # Weekend Hours
+  mutate(PRQ_WkendTot.3pp = labelled(PRQ_WkendTot.3pp, 
+                     c("The whole day" = 6,
+                       "8+ hours" = 5, 
+                       "5-8 hours" = 4,
+                       "3-4 hours" = 3, 
+                       "1-3 hours" = 2, 
+                       "0-1 hours" = 1),
+                     label = "Waking hours with baby, average weekend day")) %>%
+  
+  # Weekend Primary
+  mutate(PRQ_WkendPrimary.3pp = labelled(PRQ_WkendPrimary.3pp, 
+                     c("75-100%" = 5,
+                       "50-75%" = 4, 
+                       "About 50%" = 3, 
+                       "25-50%" = 2, 
+                       "0-25%" = 1),
+                     label = "Percent of weekend day hours spent alone with baby or as main caregiver")) %>%
+  
+  # Share of Infant Care
+  mutate(PRQ_Share.3pp = labelled(PRQ_Share.3pp, 
+                     c("I do 80% or more" = 5,
+                       "I do 60% or more" = 4, 
+                       "50-50" = 3, 
+                       "I do 40% or less" = 2, 
+                       "I do 20% or less" = 1),
+                     label = "Compared to partner, what is your overall share of infant care")) 
+```
+
+### Check and Print
+
+::: panel-tabset
+#### Check
+
+::: panel-tabset
+##### Check Counts
+
+```{r}
+#| echo: false
+check_categorical(df, PRQ_WeekTot.3pp) %>% knitr::kable()
+check_categorical(df, PRQ_WkendTot.3pp) %>% knitr::kable()
+check_categorical(df, contains("PRQ") & contains("Primary")) %>% knitr::kable()
+check_categorical(df, PRQ_Share.3pp) %>% knitr::kable()
+```
+
+##### Check Reliability
+
+```{r}
+#| echo: false
+ltm::cronbach.alpha(data = select(df, contains("PRQ")), na.rm = T)
+```
+
+##### Check Variable Labels
+
+```{r}
+#| echo: false
+inspect_labels(df, contains("PRQ")) 
+```
+:::
+
+#### Print
+
+```{r}
+#| echo: false
+print_slice(df, contains("PRQ"))
+```
+:::
+:::
+
+## COVID Parenting Questions
+
+::: panel-tabset
+### Notes
+
+### Script
+
+#### Recode `Precautions`
+
+::: panel-tabset
+##### Recode Values
+
+```{r}
+# Create a named vector for replacements
+replace_map <- c(
+  "1" = "1",   # avoid social gathering
+  "6" = "2",   # social distance
+  "3" = "3",   # wfh
+  "4" = "4",   # only go outside for essentials
+  "13" = "5",  # cancelled medical appts
+  "7" = "6",   # cancelled trips
+  "9" = "7",   # cancelled events
+  "10" = "8",  # changed hygiene habits
+  "15" = "9",  # reduced baby's social contact with family
+  "16" = "10", # reduced baby's social contact with friends
+  "14" = "11"  # other
+)
+
+# Apply the replacements
+df <- df %>%
+  mutate(COVID_precautions.3pp = COVID_precautions.3pp %>%
+           str_split(",") %>%  # Split the string into individual numbers
+           map(~replace_map[.x]) %>%  # Replace each number using replace_map
+           map_chr(~paste(.x, collapse = ","))) %>% # Combine back into a string
+  mutate(COVID_precautions.3pp = na_if(COVID_precautions.3pp, "NA")) # convert "NA" to NA
+```
+
+##### Split Up Multi-Select
+
+```{r}
+df <- df %>%
+  separate_wider_delim(COVID_precautions.3pp, 
+  delim = ",", 
+  names = paste0("COVID_precautions_", 1:10, ".3pp"),
+  too_few = "align_start")
+```
+:::
+
+#### Recode `Impact`
+
+::: panel-tabset
+##### Recode Values
+
+```{r}
+# Create a named vector for replacements
+replace_map <- c(
+  "1" = "1",   # Lost my job
+  "11" = "2",  # Changes to my job
+  "5" = "3",   # Changes in partner's employment
+  "35" = "4",  # Decrease in household income
+  "22" = "5",  # Changes in childcare arrangements
+  "12" = "6",  # Decreased number of in-person healthcare visits
+  "31" = "7",  # Worry about contracting COVID-19
+  "18" = "8",  # Worry about a family member's health
+  "30" = "9",  # Death of someone I am close to
+  "29" = "10", # Loneliness
+  "32" = "11"  # Boredom
+)
+
+# Apply the replacements
+df <- df %>%
+  mutate(COVID_impact.3pp = COVID_impact.3pp %>%
+           str_split(",") %>%  # Split the string into individual numbers
+           map(~replace_map[.x]) %>%  # Replace each number using replace_map
+           map_chr(~paste(.x, collapse = ",")))  %>% # Combine back into a string
+  mutate(COVID_impact.3pp = na_if(COVID_impact.3pp, "NA")) # convert "NA" to NA
+```
+
+##### Split Up Multi-Select
+
+```{r}
+df <- df %>%
+  separate_wider_delim(COVID_impact.3pp, 
+  delim = ",", 
+  names = paste0("COVID_impact_", 1:6, ".3pp"),
+  too_few = "align_start")
+```
+:::
+
+#### Recode `Contact`
+
+```{r}
+df <- df %>%
+  mutate(across(COVID_contact_community.3pp:COVID_contact_partner.3pp, 
+                ~ case_when(
+                  . == 1 ~ 1, #much less
+                  . == 4 ~ 2, #somewhat less
+                  . == 2 ~ 3, #about the same
+                  . == 3 ~ 4, #somewhat more
+                  . == 5 ~ 5, #much more
+                  .default = NA)))
+```
+
+#### Recode `Social`
+
+```{r}
+df <- df %>%
+  mutate(COVID_social.3pp = case_when(
+    COVID_social.3pp == 1 ~ 1, #very negative
+    COVID_social.3pp == 14 ~ 2, #somewhat negative
+    COVID_social.3pp == 15 ~ 3, #no impact
+    COVID_social.3pp == 16 ~ 4, #somewhat positive
+    COVID_social.3pp == 17 ~ 5, #very positive
+    .default = NA))
+```
+
+#### Recode `Parenting`
+
+```{r}
+df <- df %>%
+  mutate(COVID_parenting.3pp = COVID_parenting.3pp-1)
+```
+
+#### Recode `Work`
+
+```{r}
+df <- df %>%
+  mutate(COVID_work.3pp = case_when(
+    COVID_work.3pp == 5 ~ 3, #not currently working because pandemic
+    COVID_work.3pp == 6 ~ 4, #on leave
+    .default = COVID_work.3pp))
+```
+
+#### Recode `Contracted` & `Baby`
+
+```{r}
+df <- df %>%
+  mutate(COVID_contracted.3pp = case_when(
+    COVID_contracted.3pp == 1 ~ 1, #yes, tested
+    COVID_contracted.3pp == 3 ~ 2, #yes, not tested
+    COVID_contracted.3pp == 4 ~ 0, #no
+    .default = NA)) %>%
+  mutate(COVID_baby.3pp = case_when(
+    COVID_baby.3pp == 3 ~ 0, #no
+    .default = COVID_baby.3pp))
+```
+
+### Label
+
+#### Label `Precautions`
+
+```{r}
+# Define the labels with the new numbering (1-11)
+vec_labels <- c(
+  "Avoiding social gatherings" = 1,
+  "Maintaining social distance" = 2,
+  "Working from home" = 3,
+  "Going outside only for essentials" = 4,
+  "Cancelled or reduced medical care appointments" = 5,
+  "Cancelled trips" = 6,
+  "Cancelled events" = 7,
+  "Changed hygiene habits" = 8,
+  "Reduced baby's social contact with family" = 9,
+  "Reduced baby's social contact with friends" = 10,
+  "Other" = 11
+)
+
+# Apply labels
+df <- df %>%
+  mutate(across(COVID_precautions_1.3pp:COVID_precautions_10.3pp, ~as.numeric(.x))) %>%
+  mutate(across(COVID_precautions_1.3pp:COVID_precautions_10.3pp, 
+                ~ labelled(., 
+                           labels = vec_labels,
+                           label = "What precautions have you taken to avoid COVID-19 (multi-select)?")))
+```
+
+#### Label `Impact`
+
+```{r}
+# Define the labels with new numbering
+vec_labels <- c(
+  "Lost my job" = 1,
+  "Changes to my job" = 2,
+  "Changes in partner's employment" = 3,
+  "Decrease in household income" = 4,
+  "Changes in childcare arrangements" = 5,
+  "Decreased number of in-person healthcare visits" = 6,
+  "Worry about contracting COVID-19" = 7,
+  "Worry about a family member's health" = 8,
+  "Death of someone I am close to" = 9,
+  "Loneliness" = 10,
+  "Boredom" = 11
+)
+
+# Apply labels to COVID_impact without altering the original strings
+df <- df %>%
+  mutate(across(COVID_impact_1.3pp:COVID_impact_6.3pp, ~as.numeric(.x))) %>%
+  mutate(across(COVID_impact_1.3pp:COVID_impact_6.3pp, 
+                ~ labelled(., 
+                           labels = vec_labels,
+                           label = "What has occurred since your baby's birth as a result of COVID-19? (multi-select")))
+```
+
+#### Label `Contact`
+
+```{r}
+vec_labels <- c("Much less" = 1, 
+                "Somewhat less" = 2, 
+                "About the same" = 3, 
+                "Somewhat more" = 4, 
+                "Much more" = 5)
+
+df <- df %>%
+  mutate(COVID_contact_community.3pp = 
+           labelled(COVID_contact_community.3pp, 
+                    vec_labels, 
+                    label = "Compared to before COVID, how much contact do you have with neighbors/community members?")) %>%
+  mutate(COVID_contact_coworkers.3pp = 
+           labelled(COVID_contact_coworkers.3pp, 
+                    vec_labels, 
+                    label = "Compared to before COVID, how much contact do you have with coworkers?")) %>%
+  mutate(COVID_contact_friends.3pp = 
+           labelled(COVID_contact_friends.3pp, 
+                    vec_labels, 
+                    label = "Compared to before COVID, how much contact do you have with close friends?")) %>%
+  mutate(COVID_contact_family.3pp = 
+           labelled(COVID_contact_family.3pp, 
+                    vec_labels, 
+                    label = "Compared to before COVID, how much contact do you have with your family?")) %>%
+  mutate(COVID_contact_partner.3pp = 
+           labelled(COVID_contact_partner.3pp, 
+                    vec_labels, 
+                    label = "Compared to before COVID, how much contact do you have with your partner?"))
+  
+```
+
+#### Label `Social` & `Mental Health`
+
+```{r}
+vec_labels <- c("Very negative" = 1, 
+                "Somewhat negative" = 2, 
+                "No impact" = 3, 
+                "Somewhat positive" = 4, 
+                "Very positive" = 5)
+
+df <- df %>%
+  mutate(COVID_social.3pp = labelled(COVID_social.3pp, 
+                                     vec_labels,
+                                     label = "COVID's impact on your social relationships?")) %>%
+  mutate(COVID_mh.3pp = labelled(COVID_mh.3pp, 
+                                 vec_labels,
+                                 label = "COVID's impact on your mental health"))
+```
+
+#### Label `Parenting` & `Work`
+
+```{r}
+df <- df %>%
+  mutate(COVID_parenting.3pp = labelled(COVID_parenting.3pp, 
+                                        c("Much worse" = 1, 
+                                          "Slightly worse" = 2, 
+                                          "No change" = 3, 
+                                          "Slightly improved" = 4, 
+                                          "Greatly improved" = 5), 
+                                        label = "COVID's impact on experience of parenting")) %>%
+  mutate(COVID_work.3pp = labelled(COVID_work.3pp, 
+                                   c("Continuing work outside home" = 1, 
+                                     "Working from home" = 2, 
+                                     "Not working because of COVID" = 3, 
+                                     "Not working because of parental leave" = 4), 
+                                   label = "Current work situation"))
+```
+
+#### Label `Contracted` & `Baby` & `Open`
+
+```{r}
+vec_labels <- c("Yes, tested/diagnosed" = 1, 
+                "Yes, not tested/diagnosed" = 2, 
+                "No COVID" = 0)
+
+df <- df %>%
+  mutate(COVID_contracted.3pp = labelled(COVID_contracted.3pp, 
+                                         vec_labels,
+                                         label = "Have you contracted COVID-19 at any point since baby's birth?")) %>%
+  mutate(COVID_baby.3pp = labelled(COVID_baby.3pp, 
+                                   vec_labels, 
+                                   label = "Has your baby contracted COVID-19?")) %>%
+  mutate(COVID_open.3pp = labelled(COVID_open.3pp, label = "Open-ended about parenting during COVID"))
+```
+
+### Check and Print
+
+::: panel-tabset
+#### Check
+
+::: panel-tabset
+##### Check Counts
+
+```{r}
+#| echo: false
+# Precautions
+check_categorical(df, contains("COVID_precautions")) %>% arrange(value) %>% knitr::kable()
+
+# Impact
+check_categorical(df, contains("COVID_impact")) %>% arrange(value) %>% knitr::kable()
+
+# Contact
+check_categorical(df, contains("COVID_contact")) %>% arrange(value) %>% knitr::kable()
+# Social and Mental Health
+check_categorical(df, contains("COVID_social") | contains("COVID_mh")) %>% arrange(value) %>% knitr::kable()
+# Parenting
+check_categorical(df, COVID_parenting.3pp) %>% arrange(value) %>% knitr::kable()
+# Work
+check_categorical(df, COVID_work.3pp) %>% arrange(value) %>% knitr::kable()
+# Contract and Baby
+check_categorical(df, c(COVID_contracted.3pp, COVID_baby.3pp)) %>% arrange(value) %>% knitr::kable()
+```
+
+##### Check Variable Labels
+
+```{r}
+#| echo: false
+inspect_labels(df, contains("COVID")) 
+```
+:::
+
+#### Print
+
+```{r}
+#| echo: false
+print_slice(filter(df, CoupleID>=98), contains("COVID"))
+```
+:::
+:::
+
+# Finishing Up
+
+::: panel-tabset
+## Clean Up
+
+```{r}
+df <- df %>%
+  # Re-order Columns
+  relocate(c(
+    
+    # Demographics
+    Parent:Placenta_form.3pp,
+    
+    # Inventories
+    contains("ASQ2"), 
+    contains("ASQ4"),
+    contains("BCQ"),
+    contains("BDI"), 
+    contains("DAS"), 
+    contains("EPDS"), 
+    contains("IBQR"),
+    contains("MAI"), 
+    contains("MAT"), 
+    contains("MOS"), 
+    contains("MPAS"), 
+    contains("PPAS"), 
+    contains("PBQ"), 
+    contains("PingSS"), 
+    contains("PSI"), 
+    contains("PSQI"), 
+    contains("PSS"), 
+    contains("SCL"), 
+    contains("PRQ"), 
+    contains("COVID")
+    ),
+.after = CoupleID) 
+
+```
+
+## Create Summary File
+
+```{r}
+df_sum <- df %>%
+  select(CoupleID, Parent:Placenta_form.3pp,
+         ASQ2_comm.3pp:ASQ2_social.3pp, 
+         ASQ4_comm.3pp:ASQ4_social.3pp,
+         BCQ_structure.3pp:BCQ_attune.3pp,
+         BDI_tot.3pp, 
+         DAS_con.3pp:DAS_tot.3pp,
+         EPDS_tot.3pp,
+         IBQR_surgency.3pp:IBQR_effcontrol.3pp,
+         MAI_tot.3pp,
+         MAT_tot.3pp,
+         MOS_emo.3pp:MOS_tot.3pp, 
+         MPAS_attach.3pp:MPAS_pleasure.3pp, 
+         PPAS_patience.3pp:PPAS_affection.3pp,
+         PBQ_impaired.3pp:PBQ_abuse.3pp,
+         PingSS_tot.3pp, 
+         PSI_dr.3pp:PSI_tot.3pp,
+         PSQI_global.3pp,
+         PSS_tot.3pp, 
+         SCL_som.3pp:SCL_psdi.3pp, 
+         )
+```
+
+## Write SAV Files
+
+```{r}
+write_sav(df, here("data/qualtrics/5_final", "3pp_complete.sav"))
+write_sav(df_sum, here("data/qualtrics/5_final", "3pp_summary.sav"))
+```
+:::
+:::
