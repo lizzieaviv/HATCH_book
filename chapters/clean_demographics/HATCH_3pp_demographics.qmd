@@ -1,0 +1,348 @@
+---
+title: "3PP HATCH Qualtrics Data: Demographics Cleaning"
+author: "NEST Lab (Lizzie Aviv)"
+date: "`r Sys.Date()`"
+output:
+  html_document:
+    df_print: paged
+    toc: true
+    toc_float: true
+    code_folding: show
+editor_options: 
+  markdown: 
+    wrap: 72
+  chunk_output_type: console
+---
+
+```{r include=FALSE}
+knitr::opts_chunk$set(fig.width=2, fig.height=2, fig.align = "center")
+```
+
+# Set Up
+::: panel-tabset
+## Notes
+> **SPSS  File Name:** HATCH Syntax for 3-M Qs.sps
+
+- 162 participants provided data
+- 38 participants did not provide data
+
+- Demographics for the whole sample include:  
+    1. Birth date, survey date, baby age
+    2. Baby Weight
+    3. Parent Age
+    4. Relationship Status
+    5. Parent Weight and BMI
+    6. Exercise & Sleep
+    7. Smoking
+    8. Breastfeeding, Menstruation, Placenta
+
+## Packages
+```{r load-pkg, message=FALSE, warning=FALSE}
+library(tidyverse) # for data cleaning
+library(here) # to quickly find data files
+library(haven) # to manipulate SPSS files and add SPSS-style labels
+library(chron) # to manipulate time and date variables
+library(sjmisc) # for rowwise functions (row_count function)
+library(data.table) # for renaming variables (setnames function)
+library(kableExtra) # to print tables more neatly (kbl wrapping function) 
+library(nestclean) # the package I wrote to help check our work
+```
+
+## Load Data
+```{r load-data}
+df <- read_sav(here("data/qualtrics/3_renamed", "3pp_renamed.sav")) %>%
+  mutate(across(where(is.character), ~ na_if(.x, ""))) # replace blank cells with NA
+
+df.pn <- read_sav(here("data/qualtrics/4_demographics", "0pn_demo.sav")) %>%
+  select(CoupleID, Parent, contains("Height"))
+```
+:::
+
+# Demographic Variables
+## Birth Date and Baby Age
+
+::: panel-tabset
+### Notes
+- Check to make sure the couples' dates match.
+- Subtract survey date from birth date
+
+### Script
+#### Clean Birth Date Variable
+```{r due-date}
+df <- df %>%
+  group_by(CoupleID) %>% ## tell R we are looking at couples
+  mutate(BirthDate = as.Date(BirthDate)) %>% ## tell R that DueDate is a date variable
+  mutate(BirthDate.mom = as.Date(BirthDate[Parent == "mom"], origin = "1970-01-01"), ## create a mom BirthDate helper variable
+         BirthDate.dad = as.Date(BirthDate[Parent == "dad"], origin = "1970-01-01")) %>% ## create a dad BirthDate helper variable
+  
+  mutate(BirthDate = as.Date(case_when(
+    is.na(BirthDate.mom) == T ~ BirthDate.dad, # replace NA with other parent
+    is.na(BirthDate.dad) == T ~ BirthDate.mom, # replace NA with other parent
+    BirthDate.mom >= BirthDate.dad ~ BirthDate.mom, # for dads who gave their own birthday
+    BirthDate.dad >= SurveyDate.3pp ~ BirthDate.mom, # for dads who gave a birthday after the visit
+    .default = NA), 
+    origin = "1970-01-01")) %>% 
+  
+  select(-c(BirthDate.mom, BirthDate.dad)) %>% ## remove helper variables
+  ungroup()
+```
+
+#### Calculate Baby Age 
+```{r}
+df <- df %>%
+  mutate(BabyAge.3pp = as.numeric(as.Date(SurveyDate.3pp) - as.Date(BirthDate)), 
+         .keep = "all", .after = SurveyDate.3pp)
+```
+
+### Label
+```{r}
+df <- df %>%
+  mutate(BirthDate = labelled(as.character(BirthDate), label = "Baby's Birth Date"),
+         SurveyDate.3pp = labelled(SurveyDate.3pp, label = "3-Month Postpartum Survey Date"),
+         BabyAge.3pp = labelled(BabyAge.3pp, label = "Baby's Age at 3pp Survey (days)"))
+```
+
+### Check
+```{r}
+#| echo: false
+check_continuous(df, BabyAge.3pp) %>% knitr::kable()
+```
+
+### Print
+```{r}
+#| echo: false
+print_slice(df, BirthDate:BabyAge.3pp)
+```
+:::
+
+## Baby Weight
+
+::: panel-tabset
+### Script
+```{r}
+df <- df %>%
+  mutate(BabyWeight_lb.3pp = as.numeric(str_replace(BabyWeight_lb.3pp, "lb", "")),
+         BabyWeight_oz.3pp = as.numeric(str_replace(BabyWeight_oz.3pp, "oz", "")))
+```
+
+### Label
+```{r}
+df <- df %>%
+  mutate(BabyWeight_lb.3pp = labelled(BabyWeight_lb.3pp, label = "Baby birth weight, pounds"), 
+         BabyWeight_oz.3pp = labelled(BabyWeight_oz.3pp, label = "Baby birth weight, ounces"))
+```
+
+### Check
+```{r}
+check_continuous(df, contains("BabyWeight")) %>% knitr::kable()
+```
+:::
+
+## Parent Age
+::: panel-tabset
+### Script
+```{r}
+df <- df %>%
+  mutate(Age.3pp = case_when(Age.3pp < 1 ~ NA, .default = Age.3pp)) # remove incorrect ages  
+```
+
+### Label
+```{r}
+df <- df %>%
+  mutate(Age.3pp = labelled(Age.3pp, label = "Parent's age at 3pp survey"))
+```
+
+### Check 
+```{r}
+#| echo: false
+check_continuous(df, Age.3pp) %>% knitr::kable()
+```
+:::
+
+## Relationship Status
+::: panel-tabset
+### Label
+```{r}
+df <- df %>%
+  mutate(RelStat.3pp = labelled(RelStat.3pp, 
+                     c('Married/Domestic Partnership' = 1, 'Dating/Cohabitating' = 2),
+                     label = "Relationship Status")) 
+```
+
+### Check
+```{r}
+#| echo: false
+check_categorical(df, RelStat.3pp) %>% knitr::kable()
+```
+:::
+
+## Weight & Body-Mass Index (BMI)
+::: panel-tabset
+### Formula
+Divide weight in pounds by height in inches squared and multiply by a
+conversion factor of 703
+$$\text{BMI} = 703*\frac{\text{weight}_{lb}}{\text{height}_{in^2}}$$
+
+### Script
+```{r bmi}
+df <- df %>%
+  ## Add prenatal height variables
+  left_join(df.pn, by = c("CoupleID", "Parent")) %>%
+  ## Recode incorrect weight as NA
+  mutate(Weight.3pp = case_when(Weight.3pp < 50 ~ NA, .default = Weight.3pp)) %>%
+  ## Calculate BMI
+  mutate(BMI.3pp = 703*Weight.3pp/(Height_ft.pn*12 + Height_in.pn)^2,
+         .after = Weight.3pp, .keep = "all") %>%
+  ## Remove Height variables
+  select(-contains("Height"))
+```
+
+### Label
+```{r}
+df <- df %>%
+  mutate(BMI.3pp = labelled(BMI.3pp, label = "Body-Mass Index (3pp)"), 
+         Weight.3pp = labelled(Weight.3pp, label = "Parent Weight (3pp)"))
+```
+
+### Check
+```{r}
+#| echo: false
+check_continuous(df, Weight.3pp:BMI.3pp) %>% knitr::kable()
+```
+
+### Print
+```{r}
+#| echo: false
+print_slice(df,Weight.3pp:BMI.3pp )
+```
+:::
+
+## Exercise & Sleep
+::: panel-tabset
+### Label 
+```{r}
+df <- df %>%
+  ## Create  variable labels
+  mutate(Exercise.3pp = labelled(Exercise.3pp, label = "Hours/week of exercise"), 
+         Sleep.3pp = labelled(Sleep.3pp, label = "Hours/night of sleep"))
+```
+
+### Check
+```{r}
+#| echo: false
+check_continuous(df, Exercise.3pp:Sleep.3pp) %>% knitr::kable()
+```
+:::
+
+## Smoking
+::: panel-tabset
+### Script
+#### Recode `Smoker` Variable
+```{r}
+df <- df %>% 
+  mutate(Smoker.3pp = as.numeric(case_when(
+    Smoker.3pp == 2 ~ 0, 
+    .default = Smoker.3pp
+  )))
+```
+
+### Label
+```{r}
+df <- df %>%
+  mutate(Smoker.3pp = labelled(Smoker.3pp, 
+                     c(yes = 1, no = 0),
+                     label = "Have you ever smoked cigarettes, marijuana, or used any other substances?")) %>%
+  mutate(PackPerDay.3pp = labelled(PackPerDay.3pp, label = "Number of packs you smoked/used to smoke per day")) %>%
+  mutate(YearsSmoker.3pp = labelled(YearsSmoker.3pp, label = "Number of years you smoked")) 
+```
+
+### Check
+```{r}
+#| echo: false
+check_categorical(df, Smoker.3pp) %>% knitr::kable()
+check_continuous(df, PackPerDay.3pp:YearsSmoker.3pp) %>% knitr::kable()
+```
+:::
+
+## Breastfeeding, Menstruation, and Placenta
+::: panel-tabset
+### Script
+#### Convert Binary
+```{r}
+df <- df %>%
+  mutate(across(c(BF_ever.3pp, BF_current.3pp, Menstrual_start.3pp, Placenta_ingest.3pp),
+            ~ case_when(. == 2 ~ 0, 
+                        .default = .)))
+```
+
+#### Fix Menstruation Return Date
+```{r}
+df <- df %>%
+  mutate(Menstrual_date.3pp = case_when(
+    nchar(Menstrual_date.3pp) == 8 ~ as.Date(Menstrual_date.3pp, format = "%m/%d/%y"), 
+    nchar(Menstrual_date.3pp) == 10 ~ as.Date(Menstrual_date.3pp, format = "%m/%d/%Y"), 
+    CoupleID == 44 & Parent == "mom" ~ as.Date("2016-11-08"),
+    CoupleID == 11 & Parent == "mom" ~ as.Date("2015-04-25"),
+    .default = NA))
+```
+
+### Label
+#### Breastfeeding
+```{r}
+df <- df %>%
+  mutate(BF_ever.3pp = labelled(BF_ever.3pp, 
+                                c("Yes" = 1, "No" = 0), 
+                                label = "Have you ever breastfed your baby?"),
+         BF_current.3pp = labelled(BF_current.3pp, 
+                                   c("Yes" = 1, "No" = 0), 
+                                   label = "Are you currently breastfeding?"), 
+         BF_length_months.3pp = labelled(BF_length_months.3pp, label = "How long did you breastfeed (months)?"), 
+         BF_length_day.3pp = labelled(BF_length_day.3pp, label = "How long did you breastfeed (days)?"), 
+         BF_exclusive.3pp = labelled(BF_exclusive.3pp, 
+                                     c("Exclusive breastfeeding" = 1, "Supplementing with formula" =2), 
+                                     label = "Are you breastfeeding exclusively?"))
+```
+
+#### Menstruation and Placenta
+```{r}
+df <- df %>%
+  mutate(Menstrual_start.3pp = labelled(Menstrual_start.3pp, 
+                                        c("Yes" = 1, "No" = 0), 
+                                        label = "Has your period returned?"),
+         Menstrual_date.3pp = labelled(as.character(Menstrual_date.3pp), label = "When did your period return?"), 
+         Placenta_ingest.3pp = labelled(Placenta_ingest.3pp, 
+                                        c("Yes" = 1, "No" = 0),
+                                        label = "Have you ingested your placenta?"), 
+         Placenta_form.3pp = labelled(Placenta_form.3pp, label = "In what form did you ingest your placenta?"))
+```
+
+### Check
+```{r}
+check_categorical(df, c(BF_ever.3pp, BF_current.3pp, Menstrual_start.3pp, Placenta_ingest.3pp)) %>% arrange(value) %>% knitr::kable()
+check_categorical(df, BF_exclusive.3pp) %>% knitr::kable()
+```
+
+### Print 
+```{r}
+print_slice(df, BF_ever.3pp:Placenta_form.3pp)
+```
+:::
+
+# Finishing up
+## Check Variable Labels
+```{r}
+#| echo: false
+inspect_labels(df, CoupleID:ASQ2_c1.3pp)
+```
+
+## Print
+```{r}
+print_slice(df, CoupleID:ASQ2_c1.3pp)
+```
+
+## Write CSV Files
+```{r}
+write_sav(df, here("data/qualtrics/4_demographics", "3pp_demo.sav"))
+```
+
+

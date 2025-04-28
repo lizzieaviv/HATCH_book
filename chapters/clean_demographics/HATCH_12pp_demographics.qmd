@@ -1,0 +1,513 @@
+---
+title: "12PP HATCH Qualtrics Data: Demographics Cleaning"
+author: "NEST Lab (Lizzie Aviv)"
+date: "`r Sys.Date()`"
+output:
+  html_document:
+    df_print: paged
+    toc: true
+    toc_float: true
+    code_folding: show
+editor_options: 
+  markdown: 
+    wrap: 72
+  chunk_output_type: console
+---
+
+```{r include=FALSE}
+knitr::opts_chunk$set(fig.width=2, fig.height=2, fig.align = "center")
+```
+
+# Set Up
+## Notes
+> **SPSS  File Name:** HATCH Syntax for Postpartum Qs updated 6.4.21.sps.sps
+
+- 174 participants provided data
+- 26 participants did not provide data
+
+- Demographics for the whole sample include:  
+    1. Birth date, survey date, baby age
+    2. Baby Weight
+    3. Parent Age
+    4. Relationship Status
+    5. Smoking
+    6. Parent Weight and BMI
+    7. Exercise & Sleep
+    8. Breastfeeding, Menstruation, Placenta
+    9. Paid Leave and Childcare
+    10. Plans for Future Children
+
+## Packages
+```{r load-pkg, message=FALSE, warning=FALSE}
+library(tidyverse) # for data cleaning
+library(here) # to quickly find data files
+library(haven) # to manipulate SPSS files and add SPSS-style labels
+library(chron) # to manipulate time and date variables
+library(sjmisc) # for rowwise functions (row_count function)
+library(data.table) # for renaming variables (setnames function)
+library(kableExtra) # to print tables more neatly (kbl wrapping function) 
+library(nestclean) # the package I wrote to help check our work
+```
+
+
+## Load Data
+```{r load-data}
+df <- read_sav(here("data/qualtrics/3_renamed", "12pp_renamed.sav")) %>%
+  mutate(across(where(is.character), ~ na_if(.x, ""))) # replace blank cells with NA
+
+df.pn <- read_sav(here("data/qualtrics/4_demographics", "0pn_demo.sav")) %>%
+  select(CoupleID, Parent, contains("Height"))
+
+df.6pp <- read_sav(here("data/qualtrics/4_demographics", "6pp_demo.sav")) %>%
+  select(CoupleID, Parent, BirthDate, Menstrual_date.6pp) %>%
+  mutate(across(where(is.character), ~ na_if(.x, ""))) %>% # replace blank cells with NA
+  rename("BirthDate.6pp" = "BirthDate")
+
+df.master <- read.csv(here("data/master", "master.clean.csv")) %>% 
+  select(CoupleID, Parent, Actual.Birth.Date, Peri.Visit.Date) 
+```
+
+
+# Demographic Variables
+## Birth Date and Baby Age
+### Notes
+- Check to make sure the couples' dates match.
+- Subtract survey date from birth date
+
+### Script
+#### Clean Birth Date Variable
+```{r due-date}
+df <- df %>%
+  left_join(df.6pp, by = c("CoupleID", "Parent")) %>%
+  select(-Menstrual_date.6pp) %>%
+  group_by(CoupleID) %>% ## tell R we are looking at couples
+  mutate(BirthDate = as.Date(BirthDate)) %>% ## tell R that BirthDate is a date variable
+  
+  # Create helper variables
+  mutate(BirthDate.mom = as.Date(BirthDate[Parent == "mom"], origin = "1970-01-01"), 
+         BirthDate.dad = as.Date(BirthDate[Parent == "dad"], origin = "1970-01-01"),
+         diff.mom = as.Date(SurveyDate.12pp) - as.Date(BirthDate.mom), 
+         diff.dad = as.Date(SurveyDate.12pp) - as.Date(BirthDate.dad)) %>%
+  
+  # Tell R which BirthDate is accurate
+  mutate(BirthDate = case_when(
+    BirthDate.mom == BirthDate.6pp ~ BirthDate.mom, 
+    BirthDate.dad == BirthDate.6pp ~ BirthDate.dad,
+    is.na(BirthDate.mom) == T ~ BirthDate.dad,
+    is.na(BirthDate.dad) == T ~ BirthDate.mom,
+    diff.mom < 0 ~ BirthDate.dad, 
+    diff.dad < 0 ~ BirthDate.mom, 
+    diff.mom > 10000 ~ BirthDate.dad, 
+    diff.dad > 10000 ~ BirthDate.mom, 
+    CoupleID == 41 ~ as.Date("2016-06-21"),
+    .default = BirthDate
+  )) %>% 
+  
+  # Find inaccuracies between 12pp and 6pp
+  mutate(test = case_when(
+    BirthDate == BirthDate.6pp ~ "same", 
+    BirthDate != BirthDate.6pp ~ "different", 
+    .default = NA
+  )) %>%
+  
+  # Correct inaccuracies
+  mutate(BirthDate = case_when(
+    CoupleID == 72 ~ as.Date("2018-06-20"), 
+    CoupleID == 100 ~ as.Date("2020-05-25"), 
+    .default = BirthDate
+  )) %>%
+  
+  # Remove helper variables
+  select(-c(BirthDate.6pp, BirthDate.mom:test)) %>% 
+  ungroup()
+```
+
+#### Calculate Baby Age 
+```{r}
+df <- df %>%
+  mutate(BabyAge.12pp = as.numeric(as.Date(SurveyDate.12pp) - as.Date(BirthDate)), 
+         .keep = "all", .after = SurveyDate.12pp)
+```
+
+### Label
+```{r}
+df <- df %>%
+  mutate(BirthDate = labelled(as.character(BirthDate), label = "Baby's Birth Date"),
+         SurveyDate.12pp = labelled(SurveyDate.12pp, label = "12-Month Postpartum Survey Date"),
+         BabyAge.12pp = labelled(BabyAge.12pp, label = "Baby's Age at 12pp Visit (days)"))
+```
+
+### Check and Print
+#### Check
+```{r}
+#| echo: false
+check_continuous(df, BabyAge.12pp) %>% knitr::kable()
+```
+
+#### Print
+```{r}
+#| echo: false
+print_slice(df, BirthDate:BabyAge.12pp)
+```
+
+## Baby Weight
+### Notes
+- It looks like someone put in the baby's current weight. But I will leave in 
+
+### Script
+```{r}
+df <- df %>%
+  mutate(BabyWeight_lb.12pp = as.numeric(str_replace(BabyWeight_lb.12pp, "lb", "")),
+         BabyWeight_oz.12pp = as.numeric(str_replace(BabyWeight_oz.12pp, "oz", "")))
+```
+
+### Label
+```{r}
+df <- df %>%
+  mutate(BabyWeight_lb.12pp = labelled(BabyWeight_lb.12pp, label = "Baby birth weight, pounds"), 
+         BabyWeight_oz.12pp = labelled(BabyWeight_oz.12pp, label = "Baby birth weight, ounces"))
+```
+
+### Check
+```{r}
+check_continuous(df, contains("BabyWeight")) %>% knitr::kable()
+```
+
+## Parent Age
+- Some parents put in the age of their baby instead of their own age. 
+
+### Script
+```{r}
+df <- df %>%
+  mutate(Age.12pp = case_when(Age.12pp < 2 ~ NA, .default = Age.12pp)) # remove incorrect ages  
+```
+
+### Label
+```{r}
+df <- df %>%
+  mutate(Age.12pp = labelled(Age.12pp, label = "Parent's age at 12pp visit"))
+```
+
+### Check 
+```{r}
+#| echo: false
+check_continuous(df, Age.12pp) %>% knitr::kable()
+```
+
+## Relationship Status
+### Label
+```{r}
+df <- df %>%
+  mutate(RelStat.12pp = labelled(RelStat.12pp, 
+                     c('Married/Domestic Partnership' = 1, 'Dating/Cohabitating' = 2),
+                     label = "Relationship Status")) 
+```
+
+### Check
+```{r}
+#| echo: false
+check_categorical(df, RelStat.12pp) %>% knitr::kable()
+```
+
+## Smoking
+### Script
+#### Recode `Smoker` Variable
+```{r}
+df <- df %>% 
+  mutate(Smoker.12pp = as.numeric(case_when(
+    Smoker.12pp == 2 ~ 0, 
+    .default = Smoker.12pp
+  )))
+```
+
+### Label
+```{r}
+df <- df %>%
+  mutate(Smoker.12pp = labelled(Smoker.12pp, 
+                     c(Yes = 1, No = 0),
+                     label = "Have you ever smoked?")) %>%
+  mutate(PackPerDay.12pp = labelled(PackPerDay.12pp, label = "Number of packs you smoked/used to smoke per day")) %>%
+  mutate(YearsSmoker.12pp = labelled(YearsSmoker.12pp, label = "Number of years you smoked")) 
+```
+
+### Check
+```{r}
+#| echo: false
+check_categorical(df, Smoker.12pp) %>% knitr::kable()
+check_continuous(df, PackPerDay.12pp:YearsSmoker.12pp) %>% knitr::kable()
+```
+
+
+## Weight & Body-Mass Index (BMI)
+### Formula
+Divide weight in pounds by height in inches squared and multiply by a
+conversion factor of 703
+$$\text{BMI} = 703*\frac{\text{weight}_{lb}}{\text{height}_{in^2}}$$
+
+### Script
+```{r bmi}
+df <- df %>%
+  ## Add prenatal height variables
+  left_join(df.pn, by = c("CoupleID", "Parent")) %>%
+  ## Calculate BMI
+  mutate(BMI.12pp = 703*Weight.12pp/(Height_ft.pn*12 + Height_in.pn)^2,
+         .after = Weight.12pp, .keep = "all") %>%
+  ## Remove Height variables
+  select(-contains("Height"))
+```
+
+### Label
+```{r}
+df <- df %>%
+  mutate(BMI.12pp = labelled(BMI.12pp, label = "Body-Mass Index (12pp)"), 
+         Weight.12pp = labelled(Weight.12pp, label = "Parent Weight (12pp)"))
+```
+
+### Check and Print
+#### Check
+```{r}
+#| echo: false
+check_continuous(df, Weight.12pp:BMI.12pp) %>% knitr::kable()
+```
+
+#### Print
+```{r}
+#| echo: false
+print_slice(df,Weight.12pp:BMI.12pp )
+```
+
+## Exercise & Sleep
+### Label 
+```{r}
+df <- df %>%
+  ## Create  variable labels
+  mutate(Exercise.12pp = labelled(Exercise.12pp, label = "Hours/week of exercise"), 
+         Sleep.12pp = labelled(Sleep.12pp, label = "Hours/night of sleep"))
+```
+
+### Check
+```{r}
+#| echo: false
+check_continuous(df, Exercise.12pp:Sleep.12pp) %>% knitr::kable()
+```
+
+
+## Breastfeeding, Menstruation, and Placenta
+### Script
+#### Convert Binaries
+```{r}
+df <- df %>%
+  mutate(across(c(BF_ever.12pp, BF_current.12pp, Menstrual_start.12pp, Placenta_ingest.12pp),
+            ~ case_when(. == 2 ~ 0, 
+                        .default = .)))
+```
+
+#### Fix Menstruation Return Date
+```{r}
+df <- df %>%
+  
+  mutate(test = nchar(Menstrual_date.12pp)) %>%
+  
+  mutate(Menstrual_date.12pp = case_when(
+    
+    # Not formatted correctly as date
+    CoupleID == 28 & Parent == "mom" ~ ("2015-11-01"),
+    CoupleID == 49 & Parent == "mom" ~ ("2017-07-01"),
+    CoupleID == 58 & Parent == "mom" ~ ("2017-10-14"),
+    CoupleID == 69 & Parent == "mom" ~ ("2019-12-01"),
+    CoupleID == 78 & Parent == "mom" ~ ("2019-02-01"),
+    CoupleID == 90 & Parent == "mom" ~ ("2020-08-03"),
+    CoupleID == 91 & Parent == "mom" ~ ("2021-08-01"),
+    
+    # Formatted as a date
+    nchar(Menstrual_date.12pp) == 8 | nchar(Menstrual_date.12pp) == 7 ~ as.character(as.Date(Menstrual_date.12pp, format = "%m/%d/%y")), 
+    nchar(Menstrual_date.12pp) == 10 | nchar(Menstrual_date.12pp) == 9 ~ as.character(as.Date(Menstrual_date.12pp, format = "%m/%d/%Y")),
+    
+    # Text
+    .default = NA)) 
+```
+
+##### Fix breastfeeding variables
+```{r}
+df <- df %>%
+  mutate(BF_length.12pp = BF_length.12pp - 1) %>%
+  mutate(BF_plan.12pp = case_when(
+    BF_plan.12pp == 3 ~ 2, 
+    BF_plan.12pp == 5 ~ 3, 
+    BF_plan.12pp == 2 ~ 4, 
+    BF_plan.12pp == 6 ~ 5,
+    .default = NA
+  ))
+```
+
+### Label
+#### Breastfeeding
+- in progress
+```{r}
+df <- df %>%
+  mutate(BF_ever.12pp = labelled(BF_ever.12pp, 
+                                c("Yes" = 1, "No" = 0), 
+                                label = "Have you ever breastfed your baby?"),
+         BF_current.12pp = labelled(BF_current.12pp, 
+                                   c("Yes" = 1, "No" = 0), 
+                                   label = "Are you currently breastfeding?"), 
+         BF_length.12pp = labelled(BF_length.12pp, 
+                                   c("Not at all" = 0, 
+                                     "Less than one month" = 1, 
+                                     "1-3 months" =2, 
+                                     "4-6 months" = 3, 
+                                     "7-9 months" = 4, 
+                                     "More than 9 months" = 5),
+                                   label = "How long did you breastfeed?"), 
+         BF_exclusive.12pp = labelled(BF_exclusive.12pp, 
+                                     c("Exclusive breastfeeding" = 1, "Supplementing with formula" =2), 
+                                     label = "Are you breastfeeding exclusively?"), 
+         BF_plan.12pp = labelled(BF_plan.12pp, 
+                                 c("Less than one month" = 1, 
+                                   "1-3 months" = 2, 
+                                     "4-6 months" = 3, 
+                                     "7-9 months" = 4, 
+                                     "More than 9 months" = 5), 
+                                 label = "How long will you continue breastfeeding?"), 
+         BF_satisfied.12pp = labelled(BF_satisfied.12pp, 
+                                      c("Not at all satisfied" = 1, 
+                                        "Slightly satisfied" = 2, 
+                                        "Moderately satisfied" = 3, 
+                                        "Very satisfied" = 4, 
+                                        "Extremely satisfied" = 5), 
+                                      label = "Were you satified with how long you breastfed your baby?"))
+```
+
+#### Menstruation and Placenta
+```{r}
+df <- df %>%
+  mutate(Menstrual_start.12pp = labelled(Menstrual_start.12pp, 
+                                        c("Yes" = 1, "No" = 0), 
+                                        label = "Has your period returned?"),
+         Menstrual_date.12pp = labelled(as.character(Menstrual_date.12pp), label = "When did your period return?"), 
+         Placenta_ingest.12pp = labelled(Placenta_ingest.12pp, 
+                                        c("Yes" = 1, "No" = 0),
+                                        label = "Have you ingested your placenta?"), 
+         Placenta_form.12pp = labelled(Placenta_form.12pp, label = "In what form did you ingest your placenta?"))
+```
+
+### Check and Print
+#### Check
+```{r}
+check_categorical(df, c(BF_ever.12pp, BF_current.12pp, Menstrual_start.12pp, Placenta_ingest.12pp)) %>% arrange(value) %>% knitr::kable()
+check_categorical(df, BF_exclusive.12pp) %>% knitr::kable()
+check_categorical(df, c(BF_length.12pp, BF_plan.12pp)) %>% knitr::kable()
+check_categorical(df, BF_satisfied.12pp) %>% knitr::kable()
+```
+
+#### Print 
+```{r}
+print_slice(df, BF_ever.12pp:Placenta_form.12pp)
+```
+
+
+
+## Paid Leave and Childcare
+### Script
+```{r}
+df <- df %>%
+  
+  # Recode Leave Type
+  mutate(Leave_type.12pp = case_when(
+    Leave_type.12pp == 6 ~ 0, # no paid/unpaid leave
+    Leave_type.12pp == 3 ~ 1, # unpaid only
+    Leave_type.12pp == 4 ~ 2, # combo of paid/unpaid
+    Leave_type.12pp == 2 ~ 3, # paid leave subsidized by other sources
+    Leave_type.12pp == 1 ~ 4, # paid subsidized by employer
+    .default = Leave_type.12pp # self-employed
+  )) %>%
+  
+  # Recode time off
+  mutate(Leave_time.12pp = case_when(
+    Leave_time.12pp < 6 ~ Leave_time.12pp + 1, # everything but 6 gets 1 added to it
+    Leave_time.12pp == 6 ~ 1, # 6 becomes 1 
+    .default = Leave_time.12pp
+  ))
+```
+
+### Label
+```{r}
+df <- df %>%
+  
+  mutate(Leave_type.12pp = labelled(Leave_type.12pp, 
+                                   c("No paid/unpaid leave" = 0,
+                                     "Unpaid leave only" = 1, 
+                                     "Combo of paid/unpaid leave" = 2, 
+                                     "Paid leave subsidized by non-employer sources" = 3, 
+                                     "Paid leave subsidized by employer" = 4, 
+                                     "Self-employed/freelancer" = 5), 
+                                   label = "What kind of leave did you take from work?")) %>%
+  
+  mutate(Leave_time.12pp = labelled(Leave_time.12pp, 
+                                   c("2 weeks" = 1, 
+                                     "Less than 1 month" = 2, 
+                                     "1-3 months" = 3, 
+                                     "4-6 months" = 4, 
+                                     "7-9 months" = 5,
+                                     "More than 9 months" = 6), 
+                                   label = "Total leave time from work")) %>%
+  
+  mutate(Leave_satisfied.12pp = labelled(Leave_satisfied.12pp, 
+                                  c("Not at all satisfied" = 1, 
+                                    "Somewhat satisfied" = 2, 
+                                    "Moderately satisfied" = 3, 
+                                    "Very satisfied" = 4, 
+                                    "Extremely satisfied" = 5), 
+                                  label = "Satisfaction with amount of leave time")) %>%
+  
+  mutate(Leave_open.12pp = labelled(Leave_open.12pp, label = "Anything else about parental leave?"))
+```
+
+### Check
+```{r}
+check_categorical(df, Leave_type.12pp) %>% knitr::kable()
+check_categorical(df, Leave_time.12pp) %>% knitr::kable()
+check_categorical(df, Leave_satisfied.12pp) %>% knitr::kable()
+```
+
+## Plans for Future Children
+### Label
+```{r}
+df <- df %>%
+  mutate(Future_child.12pp = labelled(Future_child.12pp, 
+                                      c("Definitely not" = 1, 
+                                        "Probably not" = 2, 
+                                        "Maybe" = 3, 
+                                        "Probably yes" = 4, 
+                                        "Definitely yes" = 5), 
+                                      label = "Do you plan on having future child(ren)?"), 
+         Future_child_partner.12pp = labelled(Future_child_partner.12pp, 
+                                              c("Different partner" = 1, 
+                                                "Not sure" = 2, 
+                                                "Same partner" = 3), 
+                                              label = "Would you want to have future child(ren) with same partner?"))
+```
+
+### Check
+```{r}
+check_categorical(df, Future_child.12pp) %>% knitr::kable()
+check_categorical(df, Future_child_partner.12pp) %>% knitr::kable()
+```
+
+# Finishing up
+## Check Variable Labels
+```{r}
+inspect_labels(df, CoupleID:ASQ12_c1.12pp)
+```
+
+## Print
+```{r}
+print_slice(df, CoupleID:ASQ12_c1.12pp)
+```
+
+## Write CSV Files
+```{r}
+write_sav(df, here("data/qualtrics/4_demographics", "12pp_demo.sav"))
+```
+
+

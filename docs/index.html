@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="NEST Lab">
-<meta name="dcterms.date" content="2025-04-25">
+<meta name="dcterms.date" content="2025-04-28">
 
 <title>HATCH Data</title>
 <style>
@@ -143,6 +143,11 @@ ul.task-list li input[type="checkbox"] {
   <a href="./chapters/clean_inventory/HATCH_12pp_inventories.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">12-Month Postpartum</span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./chapters/clean_demographics/HATCH_0pn_demographics.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Prenatal HATCH Qualtrics Data: Demographics Cleaning</span></a>
+  </div>
+</li>
       </ul>
   </li>
     </ul>
@@ -156,6 +161,14 @@ ul.task-list li input[type="checkbox"] {
    
   <ul>
   <li><a href="#welcome" id="toc-welcome" class="nav-link active" data-scroll-target="#welcome">Welcome</a></li>
+  <li><a href="#included-measures" id="toc-included-measures" class="nav-link" data-scroll-target="#included-measures">Included Measures</a>
+  <ul class="collapse">
+  <li><a href="#standardized-inventories" id="toc-standardized-inventories" class="nav-link" data-scroll-target="#standardized-inventories">Standardized Inventories</a></li>
+  <li><a href="#nest-designed-measures" id="toc-nest-designed-measures" class="nav-link" data-scroll-target="#nest-designed-measures">NEST-Designed Measures</a></li>
+  <li><a href="#measures-administered-on-paper" id="toc-measures-administered-on-paper" class="nav-link" data-scroll-target="#measures-administered-on-paper">Measures Administered on Paper</a></li>
+  <li><a href="#month-postpartum-mri-measures" id="toc-month-postpartum-mri-measures" class="nav-link" data-scroll-target="#month-postpartum-mri-measures">6-Month Postpartum MRI Measures</a></li>
+  <li><a href="#measures-administered-at-hospital" id="toc-measures-administered-at-hospital" class="nav-link" data-scroll-target="#measures-administered-at-hospital">Measures Administered at Hospital</a></li>
+  </ul></li>
   </ul>
 </nav>
     </div>
@@ -181,7 +194,7 @@ ul.task-list li input[type="checkbox"] {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">April 25, 2025</p>
+      <p class="date">April 28, 2025</p>
     </div>
   </div>
   
@@ -195,15 +208,387 @@ ul.task-list li input[type="checkbox"] {
 
 <section id="welcome" class="level1">
 <h1>Welcome</h1>
-<p>This book contains inventories from different timepoints in the HATCH study:</p>
+<p>This book contains information and data cleaning from the first four time points of the USC <a href="https://dornsife.usc.edu/nestlab/">NEST Lab’s</a> Hormones Across the Transition to Childrearing (HATCH) study:</p>
 <ul>
-<li>0pn (prenatal)</li>
-<li>3pp (3 months postpartum)</li>
-<li>6pp (6 months postpartum)</li>
-<li>12pp (12 months postpartum)</li>
+<li>Prenatal (0pn): In lab</li>
+<li>3 months postpartum (3pp): Virtual</li>
+<li>6 months postpartum (6pp): In lab + MRI</li>
+<li>12 months postpartum (12pp): Virtual</li>
+</ul>
+</section>
+<section id="included-measures" class="level1">
+<h1>Included Measures</h1>
+<section id="standardized-inventories" class="level2">
+<h2 class="anchored" data-anchor-id="standardized-inventories">Standardized Inventories</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 38%">
+<col style="width: 15%">
+<col style="width: 15%">
+<col style="width: 15%">
+<col style="width: 15%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;"><strong>Inventory</strong></th>
+<th style="text-align: center;"><strong>0pn</strong></th>
+<th style="text-align: center;"><strong>3pp</strong></th>
+<th style="text-align: center;"><strong>6pp</strong></th>
+<th style="text-align: center;"><strong>12pp</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">AAS: Adult Attachment Scale</td>
+<td style="text-align: center;">x</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">x</td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">ASQ: Ages and Stages Questionnaire</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">x</td>
+<td style="text-align: center;">x</td>
+<td style="text-align: center;">x</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">BCQ: Baby Care Questionnaire</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">x</td>
+<td style="text-align: center;">x</td>
+<td style="text-align: center;">x</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">BDI: Beck Depression Inventory</td>
+<td style="text-align: center;">x</td>
+<td style="text-align: center;">x</td>
+<td style="text-align: center;">x</td>
+<td style="text-align: center;">x</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">BFI: Big Five Inventory</td>
+<td style="text-align: center;">x</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">COPE: Brief Cope</td>
+<td style="text-align: center;">x</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">x</td>
+<td style="text-align: center;">x</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">DAS: Dyadic Adjustment Scale</td>
+<td style="text-align: center;">x</td>
+<td style="text-align: center;">x</td>
+<td style="text-align: center;">x</td>
+<td style="text-align: center;">x</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">ECR-R: Experiences in Close Relationships—Revised</td>
+<td style="text-align: center;">x</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">x</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">EPDS: Edinburgh Postnatal Depression Scale</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">x</td>
+<td style="text-align: center;">x</td>
+<td style="text-align: center;">x</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">IBQR: Infant Behavior Questionnaire—Revised</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">x</td>
+<td style="text-align: center;">x</td>
+<td style="text-align: center;">x</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">IMS: Investment Model Scale</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">x</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">IRI: Interpersonal Reactivity Index</td>
+<td style="text-align: center;">x</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">ISS: Index of Sexual Satisfaction</td>
+<td style="text-align: center;">x</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">x</td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">LAPR: Life Attitudes Profile—Revised</td>
+<td style="text-align: center;">x</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">x</td>
+<td style="text-align: center;">x</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">LEC: Life Events Checklist</td>
+<td style="text-align: center;">x</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">LES: Life Experiences Survey</td>
+<td style="text-align: center;">x</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">MAAS/PAAS: Maternal/Paternal Antenatal Attachment Scale</td>
+<td style="text-align: center;">x</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">MAI: Maternal Attachment Inventory</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">x</td>
+<td style="text-align: center;">x</td>
+<td style="text-align: center;">x</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">MAT: Marital Adjustment Test</td>
+<td style="text-align: center;">x</td>
+<td style="text-align: center;">x</td>
+<td style="text-align: center;">x</td>
+<td style="text-align: center;">x</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">MOS: Medical Outcomes Study Social Support Survey</td>
+<td style="text-align: center;">x</td>
+<td style="text-align: center;">x</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">x</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">MPAS/PPAS: Maternal/Paternal Postnatal Attachment Scale</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">x</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">PAS: Pregnancy Anxiety Scale</td>
+<td style="text-align: center;">x</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">PAT: Parental Attribution Test</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">x</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">PBQ: Postpartum Bonding Questionnaire</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">x</td>
+<td style="text-align: center;">x</td>
+<td style="text-align: center;">x</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">PSAM: Pregnancy Specific Anxiety Measure</td>
+<td style="text-align: center;">x</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">PSI: Parenting Stress Index</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">x</td>
+<td style="text-align: center;">x</td>
+<td style="text-align: center;">x</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">PSQI: Pittsburgh Sleep Quality Index</td>
+<td style="text-align: center;">x</td>
+<td style="text-align: center;">x</td>
+<td style="text-align: center;">x</td>
+<td style="text-align: center;">x</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">PSS: Perceived Stress Scale</td>
+<td style="text-align: center;">x</td>
+<td style="text-align: center;">x</td>
+<td style="text-align: center;">x</td>
+<td style="text-align: center;">x</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">PYB: Parenting Your Baby</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">x</td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">PingSS: Parenting Stress Scale</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">x</td>
+<td style="text-align: center;">x</td>
+<td style="text-align: center;">x</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Pregnancy/Couvade Syndrome Symptoms</td>
+<td style="text-align: center;">x</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">RF: Risky Families</td>
+<td style="text-align: center;">x</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">SCL: Symptom Checklist—90</td>
+<td style="text-align: center;">x</td>
+<td style="text-align: center;">x</td>
+<td style="text-align: center;">x</td>
+<td style="text-align: center;">x</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">STAI: State-Trait Anxiety Inventory</td>
+<td style="text-align: center;">x</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">x</td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">WIAF: What is a Father</td>
+<td style="text-align: center;">x</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="nest-designed-measures" class="level2">
+<h2 class="anchored" data-anchor-id="nest-designed-measures">NEST-Designed Measures</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 30%">
+<col style="width: 17%">
+<col style="width: 17%">
+<col style="width: 17%">
+<col style="width: 17%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;"><strong>Inventory</strong></th>
+<th style="text-align: center;"><strong>0pn</strong></th>
+<th style="text-align: center;"><strong>3pp</strong></th>
+<th style="text-align: center;"><strong>6pp</strong></th>
+<th style="text-align: center;"><strong>12pp</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">PRQ: Parenting Responsibilities Questionnaire</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">x</td>
+<td style="text-align: center;">x</td>
+<td style="text-align: center;">x</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">COVID Parenting Questions</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">x</td>
+<td style="text-align: center;">x</td>
+<td style="text-align: center;">x</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Life Experiences</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">x</td>
+<td style="text-align: center;"></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="measures-administered-on-paper" class="level2">
+<h2 class="anchored" data-anchor-id="measures-administered-on-paper">Measures Administered on Paper</h2>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th style="text-align: left;"><strong>Inventory</strong></th>
+<th style="text-align: center;"><strong>0pn</strong></th>
+<th style="text-align: center;"><strong>3pp</strong></th>
+<th style="text-align: center;"><strong>6pp</strong></th>
+<th style="text-align: center;"><strong>12pp</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Conflict Topics</td>
+<td style="text-align: center;">x</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">x</td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Who Does What</td>
+<td style="text-align: center;">x</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">x</td>
+<td style="text-align: center;"></td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Saliva Questionnaire</td>
+<td style="text-align: center;">x</td>
+<td style="text-align: center;"></td>
+<td style="text-align: center;">x</td>
+<td style="text-align: center;"></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="month-postpartum-mri-measures" class="level2">
+<h2 class="anchored" data-anchor-id="month-postpartum-mri-measures">6-Month Postpartum MRI Measures</h2>
+<blockquote class="blockquote">
+<p>Dads 87, 90, 93, 94, 95, 96, 98, 99 (during COVID)</p>
+</blockquote>
+<ul>
+<li><p>PRQ: Parenting Responsibilities Questionnaire</p></li>
+<li><p>PSQI: Pittsburgh Sleep Quality Index</p></li>
+<li><p>PYB: Parenting Your Baby</p></li>
+<li><p>Household Composition</p></li>
+<li><p>COVID Parenting Questions</p></li>
+</ul>
+</section>
+<section id="measures-administered-at-hospital" class="level2">
+<h2 class="anchored" data-anchor-id="measures-administered-at-hospital">Measures Administered at Hospital</h2>
+<ul>
+<li><p>BEQ: Birth Experiences Questionnaire</p></li>
+<li><p>Perinatal Interview</p></li>
 </ul>
 
 
+</section>
 </section>
 
 </main> <!-- /main -->

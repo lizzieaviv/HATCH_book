@@ -1,0 +1,772 @@
+---
+title: "Prenatal HATCH Qualtrics Data: Demographics Cleaning"
+author: "NEST Lab (Lizzie Aviv)"
+date: "`r Sys.Date()`"
+output:
+  html_document:
+    df_print: paged
+    toc: true
+    toc_float: true
+    code_folding: show
+editor_options: 
+  markdown: 
+    wrap: 72
+  chunk_output_type: console
+---
+
+```{r include=FALSE}
+knitr::opts_chunk$set(fig.width=2, fig.height=2, fig.align = "center")
+```
+
+# Set Up
+::: panel-tabset
+## Notes
+> **SPSS  File Name:** HATCH Syntax for Prenatal Q's 4.17.21.sps
+
+- Demographics for the whole sample include:  
+    1. Due Date, Visit Date, Days Pregnant
+    2. Relationship Status
+    3. Ethnicity
+    4. Education
+    5. Weight, Height, BMI
+    6. Age
+    7. Exercise
+    8. Sleep
+    9. Cigarettes, drugs
+    10. Illnesses
+    12. Age
+    
+- Demographics added later that are only available for the second half of the sample: 
+    1. Planned Pregnancy
+    2. Paid Leave 
+    3. Time off
+    4. Income
+    5. Immigration information
+    6. Occupation information
+    7. Insurance status
+    
+
+
+## Packages
+```{r load-pkg, message=FALSE, warning=FALSE}
+library(tidyverse) # for data cleaning
+library(here) # to quickly find data files
+library(haven) # to manipulate SPSS files and add SPSS-style labels
+library(chron) # to manipulate time and date variables
+library(sjmisc) # for rowwise functions (row_count function)
+library(data.table) # for renaming variables (setnames function)
+library(kableExtra) # to print tables more neatly (kbl wrapping function) 
+library(nestclean) # the package I wrote to help check our work
+```
+
+## Load Data
+```{r load-data}
+df <- read_sav(here("data/qualtrics/3_renamed", "0pn_renamed.sav")) 
+```
+:::
+
+# Demographic Variables
+
+## Number of Days Pregnant
+::: panel-tabset
+### Notes
+-   First, change DueDate and VisitDate to a date variable.
+-   Check to make sure the couples' dates match.
+
+### Due Dates
+::: panel-tabset
+#### Script
+##### Clean Due Date Variable
+```{r due-date}
+df <- df %>%
+  group_by(CoupleID) %>% ## tell R we are looking at couples
+  mutate(DueDate = as.Date(DueDate)) %>% ## tell R that DueDate is a date variable
+  mutate(DueDate.mom = as.Date(DueDate[Parent == "mom"], origin = "1970-01-01"), ## create a mom DueDate helper variable
+         DueDate.dad = as.Date(DueDate[Parent == "dad"], origin = "1970-01-01")) %>% ## create a dad DueDate helper variable
+  mutate(DueDate = as.Date(ifelse(is.na(DueDate.mom) == TRUE, DueDate.dad, ## tell R whether mom's or dad's DueDate is correct
+                          ifelse(DueDate.mom <= DueDate.dad, DueDate.dad,
+                                 ifelse(DueDate.mom>DueDate.dad, DueDate.mom, NA))), 
+                         origin = "1970-01-01")) %>%
+  select(-c(DueDate.mom, DueDate.dad)) ## remove helper variables
+```
+
+##### Re-code Random Due Date Variable Issues
+```{r}
+df$DueDate[df$CoupleID == 28] <- as.Date("2015-09-17")
+df$DueDate[df$CoupleID == 84] <- as.Date("2019-06-20")
+df$DueDate[df$CoupleID == 91] <- as.Date("2019-08-19")
+```
+
+
+#### Label 
+```{r}
+labelled::var_label(df$DueDate) <- "Baby's Due Date"
+```
+
+#### Print
+```{r}
+#| echo: false
+df %>%
+  select(c(CoupleID, DueDate)) %>% ungroup() %>%
+  slice_sample(n = 6) %>% 
+  ## Table Formatting
+  kbl(centering = T) %>%
+  kable_styling(bootstrap_options = c("hover", "condensed"), full_width = F) %>%
+  row_spec(0:6, align = "center") 
+```
+:::
+
+### Visit Dates
+
+::: panel-tabset
+#### Notes
+
+-   In couple 49, mom came back a week later so change her date to
+    12/02/16 to match the dad
+
+
+#### Script
+##### Clean Visit Date Variable
+```{r visit-date}
+df <- df %>%
+  group_by(CoupleID) %>% ## tell R we are looking at couples
+  mutate(VisitDate.pn = as.Date(VisitDate.pn)) %>% ## tell R that DueDate is a date variable
+  mutate(VisitDate.pn.mom = as.Date(VisitDate.pn[Parent == "mom"], origin = "1970-01-01"), ## create a mom DueDate helper variable
+         VisitDate.pn.dad = as.Date(VisitDate.pn[Parent == "dad"], origin = "1970-01-01")) %>% ## create a dad DueDate helper variable
+  mutate(VisitDate.pn = as.Date(ifelse(is.na(VisitDate.pn.mom) == TRUE, VisitDate.pn.dad, 
+                          ifelse(VisitDate.pn.mom >= VisitDate.pn.dad, VisitDate.pn.dad,
+                                 ifelse(VisitDate.pn.mom<VisitDate.pn.dad, VisitDate.pn.mom, NA))), 
+                         origin = "1970-01-01")) %>%
+  select(-c(VisitDate.pn.mom, VisitDate.pn.dad)) ## remove helper variables
+
+```
+
+##### Re-code Random Visit Date Variable Issues
+```{r}
+df$VisitDate.pn[df$CoupleID == 19] <- as.Date("2015-02-21")
+df$VisitDate.pn[df$CoupleID == 53] <- as.Date("2017-04-03")
+```
+
+#### Label 
+```{r}
+labelled::var_label(df$VisitDate.pn) <- "Prenatal Lab Visit Date"
+```
+
+#### Print
+```{r}
+#| echo: false
+df %>%
+  select(c(CoupleID, VisitDate.pn)) %>% ungroup() %>%
+  slice_sample(n = 6) %>% 
+  ## Table Formatting
+  kbl(centering = T) %>%
+  kable_styling(bootstrap_options = c("hover", "condensed"), full_width = F) %>%
+  row_spec(0:6, align = "center") 
+```
+:::
+
+### Calculate Days Pregnant
+
+::: panel-tabset
+#### Formulae
+
+$$\text{Days before Due Date} = \text{Due Date} - \text{Visit Date}$$
+
+$$\text{Days Pregnant} = 280 - \text{Days before Due Date}$$
+
+#### Script
+```{r}
+df <- df %>%
+  mutate(DaysB4Due = as.numeric(DueDate - VisitDate.pn)) %>% ## Calculate days before due date
+  mutate(DaysPregnant.pn = 280 - DaysB4Due) %>% ## Calculate days pregnant
+  select(-DaysB4Due) %>% ## Delete days before due date variable
+  relocate(DaysPregnant.pn, .after = "VisitDate.pn") ## move days pregnant variable
+```
+
+#### Label
+```{r}
+df <- df %>%
+  mutate(DaysPregnant.pn = labelled(DaysPregnant.pn, label = "Baby's Gestational Age (days)"))
+```
+
+
+#### Print
+```{r}
+#| echo: false
+df %>%
+  select(c(CoupleID, Parent, DueDate, VisitDate.pn, DaysPregnant.pn)) %>% ungroup() %>%
+  slice_sample(n = 6) %>% 
+  ## Table Formatting
+  kbl(centering = T) %>%
+  kable_styling(bootstrap_options = c("hover", "condensed"), full_width = F) %>%
+  row_spec(0:6, align = "center") 
+```
+:::
+:::
+
+## Relationship Status
+::: panel-tabset
+### Label
+```{r}
+df <- df %>%
+  # Convert to numeric
+  mutate(RelStat.pn = as.numeric(RelStat.pn)) %>%
+  ungroup() %>%
+  # Label
+  mutate(RelStat.pn = labelled(RelStat.pn, 
+                     c('Married/Domestic Partnership' = 1, 'Dating/Cohabitating' = 2),
+                     label = "Relationship Status")) 
+```
+
+### Check
+```{r}
+#| echo: false
+nestclean::check_categorical(df, RelStat.pn) %>% knitr::kable()
+```
+:::
+
+## Ethnicity
+::: panel-tabset
+
+
+### Label
+```{r}
+df <- df %>%
+  ## Convert to numeric
+  mutate_at(vars(c(Ethnicity)), as.numeric) %>%
+  ## Born_US: Create value and variable labels
+  mutate(Ethnicity = labelled(Ethnicity, 
+                     c('White' = 1, 
+                       'Black or African American' = 2,
+                       'Hispanic or Latino/a' = 3,
+                       'American Indian or Alaska Native' = 4,
+                       'AAPI' = 5,
+                       'Other' = 6,
+                       'Decline to state' = 7),
+                     label = "Race/Ethnicity")) 
+```
+
+### Check
+```{r}
+#| echo: false
+check_categorical(df, Ethnicity) %>% knitr::kable()
+```
+:::
+
+## Education
+::: panel-tabset
+
+
+
+### Label
+```{r}
+df <- df %>%
+  ## Convert to numeric
+  mutate_at(vars(c(Education.pn)), as.numeric) %>%
+  ## Born_US: Create value and variable labels
+  mutate(Education.pn = labelled(Education.pn, 
+                     c('High School Graduate/GED' = 1, 
+                       'Some College' = 2,
+                       'Associates Degree' = 3,
+                       'Bachelors Degree' = 4,
+                       'Masters Degree' = 5,
+                       'Professional or Doctoral Degree' = 6),
+                     label = "Highest education level")) 
+```
+
+### Check
+```{r}
+#| echo: false
+check_categorical(df, Education.pn) %>% knitr::kable()
+```
+
+:::
+
+## Body-Mass Index (BMI)
+
+::: panel-tabset
+
+### Formula
+Divide weight in pounds by height in inches squared and multiply by a
+conversion factor of 703
+$$\text{BMI} = 703*\frac{\text{weight}_{lb}}{\text{height}_{in^2}}$$
+
+### Script
+#### Rename `Height` and `Weight` Variables
+```{r}
+df <- df %>%
+  rename("Weight.pn" = "Weight_1.pn") %>% ## Rename weight variables
+  rename("Height_ft.pn" = "Height_1.pn") %>% ## Rename height variables
+  rename("Height_in.pn" = "Height_2.pn")
+```
+
+
+#### Calculate BMI
+```{r bmi}
+df <- df %>%
+  ## Calculate BMI
+  mutate(BMI.pn = round(703*Weight.pn/(Height_ft.pn*12 + Height_in.pn)^2, 3)) %>% 
+  ## Reorder variables
+  relocate(c("Weight.pn", "Height_ft.pn", "Height_in.pn", "BMI.pn"), 
+           .before = "Age.pn")
+```
+
+### Label
+```{r}
+df <- df %>%
+  mutate(Weight.pn = labelled(Weight.pn, label = "Participant Weight")) %>%
+  mutate(Height_ft.pn = labelled(Height_ft.pn, label = "Participant Height (feet)")) %>%
+  mutate(Height_in.pn = labelled(Height_in.pn, label = "Participant Height (inches)")) %>%
+  mutate(BMI.pn = labelled(BMI.pn, label = "Participant Body-Mass Index"))
+```
+
+
+### Check
+```{r}
+#| echo: false
+check_continuous(df, BMI.pn) %>% knitr::kable()
+```
+
+### Print
+```{r}
+#| echo: false
+df %>% 
+  select(c(CoupleID, Parent, Weight.pn:BMI.pn)) %>% ungroup() %>%
+  slice_sample(n = 6) %>% 
+  ## Table Formatting
+  kbl(centering = T) %>%
+  kable_styling(bootstrap_options = c("hover", "condensed"), full_width = F) %>%
+  row_spec(0:6, align = "center") 
+```
+
+:::
+
+## Illnessess
+::: panel-tabset
+
+### Notes
+-   Illnesses.1 = Type
+-   Illnesses.2 = Current/Past
+
+### Script
+
+
+#### Clean up `Illness` Columns
+```{r warning=FALSE}
+df <- df %>%
+  ## Clean up NAs in Illness type
+  mutate(across(c(Illness1.pn:Illness7.pn), ~na_if(., "N/A"))) %>%
+  mutate(across(c(Illness1.pn:Illness7.pn), ~na_if(., "n/a"))) %>%
+  mutate(across(c(Illness1.pn:Illness7.pn), ~na_if(., "none"))) %>%
+  
+  ## Re-code `Illness_current` 
+  mutate(across(Illness1_current.pn:Illness7_current.pn,
+            ~ case_when(
+              . == 2 ~ 0, 
+              .default = .)))
+```
+
+### Label
+```{r}
+df <- df %>%
+  ## Convert to numeric (to make `labelled` function run)
+  mutate_at(vars(c(Illness1_current.pn:Illness7_current.pn)), as.numeric) %>%
+  ## Illnesses 
+  mutate(across(Illness1.pn:Illness7.pn,
+            ~ labelled(., 
+                     label = "List current/past illnesses"))) %>%
+  ## Current/Past
+  mutate(across(Illness1_current.pn:Illness7_current.pn,
+            ~ labelled(., 
+                     c(current = 1, past = 0),
+                     label = "Is this condition current or was it in the past?")))
+```
+
+
+### Check
+```{r}
+#| echo: false
+check_categorical(df, Illness1_current.pn:Illness7_current.pn) %>% knitr::kable()
+```
+
+### Print
+```{r}
+#| echo: false
+df %>% 
+  select(c(CoupleID, Parent, contains("Illness"))) %>% ungroup() %>%
+  slice_sample(n = 6) %>%
+  ## Table Formatting
+  kbl(centering = T) %>%
+  kable_styling(bootstrap_options = c("hover", "condensed"), full_width = F) %>%
+  row_spec(0:6, align = "center") %>%
+  scroll_box(width = "100%") 
+```
+:::
+
+## Exercise and Sleep
+::: panel-tabset
+
+### Label 
+```{r}
+df <- df %>%
+  ## Create  variable labels
+  mutate(Exercise.pn = labelled(Exercise.pn, label = "On average, how many hours per week do you spend exercising?"),
+         Sleep.pn = labelled(Sleep.pn, label = "How many hours of sleep do you get on an average night?"))
+```
+
+
+### Check
+```{r}
+#| echo: false
+check_continuous(df, Exercise.pn:Sleep.pn) %>% knitr::kable()
+```
+
+### Print
+```{r}
+#| echo: false
+df %>% 
+  select(c(CoupleID, Parent, Exercise.pn, Sleep.pn)) %>% ungroup() %>%
+  slice_sample(n = 6) %>%
+  ## Table Formatting
+  kbl(centering = T) %>%
+  kable_styling(bootstrap_options = c("hover", "condensed"), full_width = F) %>%
+  row_spec(0:6, align = "center") 
+```
+:::
+
+## Smoking and Drugs
+::: panel-tabset
+### Script
+#### Recode `Smoker` Variable
+```{r}
+df <- df %>% 
+  mutate(Smoker.pn = as.numeric(case_when(
+    Smoker.pn == 2 ~ 0, 
+    .default = Smoker.pn
+  )))
+```
+
+### Label
+```{r}
+df <- df %>%
+  mutate(Smoker.pn = labelled(Smoker.pn, 
+                     c(yes = 1, no = 0),
+                     label = "Have you ever smoked cigarettes, marijuana, or used any other substances?")) %>%
+  mutate(PackPerDay.pn = labelled(PackPerDay.pn, label = "Number of packs you smoked/used to smoke per day")) %>%
+  mutate(YearsSmoker.pn = labelled(YearsSmoker.pn, label = "Number of years you smoked")) %>%
+  mutate(Drugs.pn = labelled(Drugs.pn, label = "List any substances")) %>%
+  mutate(DrugFrequency.pn= labelled(DrugFrequency.pn, label = "How often do you use this/these substance(s)?"))
+```
+
+
+### Check
+#### Have you ever smoked
+```{r}
+#| echo: false
+check_categorical(df, Smoker.pn) %>% knitr::kable()
+```
+
+#### Packs Per Day and Years Smoker
+```{r}
+#| echo: false
+check_continuous(df, c(PackPerDay.pn, YearsSmoker.pn)) %>% knitr::kable()
+```
+
+### Print
+```{r}
+#| echo: false
+df %>% 
+  select(c(CoupleID, Parent, Smoker.pn:DrugFrequency.pn)) %>% ungroup() %>%
+  slice_sample(n = 6) %>%
+  ## Table Formatting
+  kbl(centering = T) %>%
+  kable_styling(bootstrap_options = c("hover", "condensed"), full_width = F) %>%
+  row_spec(0:6, align = "center") %>%
+  scroll_box(width = "100%") 
+```
+:::
+
+## Immigration Information
+
+::: panel-tabset
+
+### Script
+```{r}
+df <- df %>%
+## Re-code items
+  mutate(Born_US.pn = case_when(
+    Born_US.pn == 2 ~ 0, 
+    .default = Born_US.pn))
+```
+
+### Label
+```{r}
+df <- df %>%
+  ## Convert to numeric
+  mutate_at(vars(c(Born_US.pn)), as.numeric) %>%
+  ## Born_US: Create value and variable labels
+  mutate(Born_US.pn = labelled(Born_US.pn, 
+                     c('Born in US' = 1, 'Born in another country' = 0),
+                     label = "Were you born in the United States?"),
+         Origin_Country.pn = labelled(Origin_Country.pn, label = "Which country were you born in?"),
+         Immigration_Age.pn = labelled(Immigration_Age.pn,
+                                       c('<10 years old' = 1, 
+                                         '10-20 years old' = 2,
+                                         '>20 years old' = 3), 
+                                       label = "At what age did you immigrate to the US?")) 
+```
+
+
+### Check
+```{r}
+#| echo: false
+check_categorical(df, Born_US.pn) %>% knitr::kable()
+```
+
+```{r}
+#| echo: false
+check_categorical(df, Immigration_Age.pn) %>% knitr::kable()
+```
+
+### Print
+```{r}
+#| echo: false
+df %>% 
+  select(c(CoupleID, Parent, Born_US.pn:Immigration_Age.pn)) %>% ungroup() %>%
+  filter(is.na(Born_US.pn)==F) %>%
+  slice_sample(n = 6) %>% 
+  ## Table Formatting
+  kbl(centering = T) %>%
+  kable_styling(bootstrap_options = c("hover", "condensed")) %>%
+    row_spec(0:6, align = "center") %>%  
+  scroll_box(width = "100%") 
+```
+:::
+
+## Age
+::: panel-tabset
+
+### Label
+```{r}
+df <- df %>%
+  mutate(Age.pn = labelled(Age.pn, label = "Parent's age at prenatal visit"))
+```
+
+
+### Check 
+```{r}
+#| echo: false
+check_continuous(df, Age.pn) %>% knitr::kable()
+```
+
+### Print
+```{r}
+#| echo: false
+df %>% 
+  select(c(CoupleID, Parent, Age.pn)) %>% ungroup() %>%
+  slice_sample(n = 6) %>%
+  ## Table Formatting
+  kbl(centering = T) %>%
+  kable_styling(bootstrap_options = c("hover", "condensed"), full_width = F) %>%
+  row_spec(0:6, align = "center") %>%
+  scroll_box(width = "100%") 
+```
+:::
+
+## Planned Pregnancy
+::: panel-tabset
+
+### Script
+
+```{r}
+df <- df %>%
+## Re-code items
+  mutate(Preg_Planned.pn = case_when(
+    Preg_Planned.pn == 2 ~ 0, 
+           .default = Preg_Planned.pn)) %>%
+  ungroup()
+```
+
+### Label
+```{r}
+df <- df %>%
+  ## Create value and variable labels
+  mutate(Preg_Planned.pn = labelled(Preg_Planned.pn, 
+                     c(planned = 1, unplanned = 0),
+                     label = "Was the pregnancy planned?")) 
+```
+
+### Check
+```{r}
+#| echo: false
+check_categorical(df, Preg_Planned.pn) %>% knitr::kable()
+```
+:::
+
+## Paid Leave
+::: panel-tabset
+
+### Label
+```{r}
+df <- df %>%
+  ## Create value and variable labels
+  mutate(Paid_Leave.pn = labelled(Paid_Leave.pn, 
+                                  c('Yes' = 1, 
+                                    'Yes, but only for mothers, not fathers' = 2,
+                                    'No' = 3, 
+                                    'I do not know' = 4,
+                                    'I am self employed' = 5, 
+                                    'I am unemployed' = 6),
+                                  label = "Does your employer offer paid parental leave?")) 
+```
+
+### Check
+```{r}
+#| echo: false
+check_categorical(df, Paid_Leave.pn) %>% knitr::kable()
+```
+:::
+
+## Time Off
+::: panel-tabset
+
+### Label
+```{r}
+df <- df %>%
+  ## Create value and variable labels
+  mutate(Time_Off.pn = labelled(Time_Off.pn, 
+                                  c('No time' = 1, 
+                                    'Less than 1 month' = 2,
+                                    '1-3 months' = 3, 
+                                    '3-6 months' = 4,
+                                    'More than 6 months' = 5, 
+                                    'I do not know yet' = 6),
+                                  label = "How much time are you planning to take off of work after the birth?")) 
+```
+
+### Check 
+```{r}
+#| echo: false
+check_categorical(df, Time_Off.pn) %>% knitr::kable()
+```
+:::
+
+## Income
+::: panel-tabset
+
+### Label
+```{r}
+df <- df %>%
+  ## Create value and variable labels
+  mutate(Income.pn = labelled(Income.pn, 
+                                  c('<25k' = 1, 
+                                    '25k-50k' = 2,
+                                    '50k-75k' = 3, 
+                                    '75k-100k' = 4,
+                                    '100k-125k' = 5, 
+                                    '>125k' = 6),
+                                  label = "What is the annual household income for you and your partner combined?")) 
+```
+
+### Check
+```{r}
+#| echo: false
+check_categorical(df, Income.pn) %>% knitr::kable()
+```
+:::
+
+## Occupation Questions
+::: panel-tabset
+
+
+### Label
+```{r}
+df <- df %>%
+  ## Create value and variable labels
+  mutate(Occupation_Status.pn = labelled(Occupation_Status.pn, 
+                                  c('Full-time employee' = 1, 
+                                    'Part-time employee' = 2,
+                                    'Freelancer' = 3, 
+                                    'Student-trainee' = 4,
+                                    'Not employed' = 5, 
+                                    'Other' = 6),
+                                  label = "What is your occupational status?"),
+         Occupation.pn = labelled(Occupation.pn,
+                                  label = "What is your occupation?")) 
+```
+
+
+### Check
+```{r}
+#| echo: false
+check_categorical(df, Occupation_Status.pn) %>% knitr::kable()
+```
+
+### Print
+```{r }
+#| echo: false
+df %>% 
+  select(c(CoupleID, Parent, Occupation.pn)) %>% ungroup() %>%
+  filter(is.na(Occupation.pn) == F) %>%
+  slice_sample(n = 6) %>% 
+  ## Table Formatting
+  kbl(centering = T) %>%
+  kable_styling(bootstrap_options = c("hover", "condensed")) %>%
+    row_spec(0:6, align = "center") %>%  
+  scroll_box(width = "100%")
+```
+:::
+
+## Insurance Status
+::: panel-tabset
+
+
+### Label
+```{r}
+df <- df %>%
+  ## Create value and variable labels
+  mutate(Insurance_Status.pn = labelled(Insurance_Status.pn, 
+                                  c('Group insurance plan' = 1, 
+                                    'Public insurance plan' = 2,
+                                    'Individual insurance plan' = 3, 
+                                    'Not insured' = 4),
+                                  label = "What is your medical insurance status?")) 
+```
+
+
+### Check
+```{r}
+#| echo: false
+check_categorical(df, Insurance_Status.pn) %>% knitr::kable()
+```
+
+### Print
+```{r}
+#| echo: false
+df %>% 
+  select(c(CoupleID, Parent, Insurance_Status.pn)) %>% ungroup() %>%
+  filter(!is.na(Insurance_Status.pn)) %>% 
+  slice_sample(n = 6) %>% 
+  ## Table Formatting
+  kbl(centering = T) %>%
+  kable_styling(bootstrap_options = c("hover", "condensed")) %>%
+    row_spec(0:6, align = "center") %>%    
+  scroll_box(width = "100%")
+```
+:::
+
+# Finishing up
+
+::: panel-tabset
+## Check Variable Labels
+```{r}
+#| echo: false
+inspect_labels(df, DueDate:Illness7_current.pn) 
+```
+
+## Write CSV Files
+```{r}
+write_sav(df, here("data/qualtrics/4_demographics", "0pn_demo.sav"))
+```
+:::
+

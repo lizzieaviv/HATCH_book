@@ -7,9 +7,87 @@ format: html
 
 # Welcome
 
-This book contains inventories from different timepoints in the HATCH study:
+This book contains information and data cleaning from the first four time points of the USC [NEST Lab's](https://dornsife.usc.edu/nestlab/) Hormones Across the Transition to Childrearing (HATCH) study:
 
--   0pn (prenatal)
--   3pp (3 months postpartum)
--   6pp (6 months postpartum)
--   12pp (12 months postpartum)
+-   Prenatal (0pn): In lab
+-   3 months postpartum (3pp): Virtual
+-   6 months postpartum (6pp): In lab + MRI
+-   12 months postpartum (12pp): Virtual
+
+# Included Measures
+
+## Standardized Inventories
+
+| **Inventory** | **0pn** | **3pp** | **6pp** | **12pp** |
+|:---------------------------|:---------:|:---------:|:---------:|:---------:|
+| AAS: Adult Attachment Scale | x |  | x |  |
+| ASQ: Ages and Stages Questionnaire |  | x | x | x |
+| BCQ: Baby Care Questionnaire |  | x | x | x |
+| BDI: Beck Depression Inventory | x | x | x | x |
+| BFI: Big Five Inventory | x |  |  |  |
+| COPE: Brief Cope | x |  | x | x |
+| DAS: Dyadic Adjustment Scale | x | x | x | x |
+| ECR-R: Experiences in Close Relationships—Revised | x |  |  | x |
+| EPDS: Edinburgh Postnatal Depression Scale |  | x | x | x |
+| IBQR: Infant Behavior Questionnaire—Revised |  | x | x | x |
+| IMS: Investment Model Scale |  |  |  | x |
+| IRI: Interpersonal Reactivity Index | x |  |  |  |
+| ISS: Index of Sexual Satisfaction | x |  | x |  |
+| LAPR: Life Attitudes Profile—Revised | x |  | x | x |
+| LEC: Life Events Checklist | x |  |  |  |
+| LES: Life Experiences Survey | x |  |  |  |
+| MAAS/PAAS: Maternal/Paternal Antenatal Attachment Scale | x |  |  |  |
+| MAI: Maternal Attachment Inventory |  | x | x | x |
+| MAT: Marital Adjustment Test | x | x | x | x |
+| MOS: Medical Outcomes Study Social Support Survey | x | x |  | x |
+| MPAS/PPAS: Maternal/Paternal Postnatal Attachment Scale |  | x |  |  |
+| PAS: Pregnancy Anxiety Scale | x |  |  |  |
+| PAT: Parental Attribution Test |  |  |  | x |
+| PBQ: Postpartum Bonding Questionnaire |  | x | x | x |
+| PSAM: Pregnancy Specific Anxiety Measure | x |  |  |  |
+| PSI: Parenting Stress Index |  | x | x | x |
+| PSQI: Pittsburgh Sleep Quality Index | x | x | x | x |
+| PSS: Perceived Stress Scale | x | x | x | x |
+| PYB: Parenting Your Baby |  |  | x |  |
+| PingSS: Parenting Stress Scale |  | x | x | x |
+| Pregnancy/Couvade Syndrome Symptoms | x |  |  |  |
+| RF: Risky Families | x |  |  |  |
+| SCL: Symptom Checklist—90 | x | x | x | x |
+| STAI: State-Trait Anxiety Inventory | x |  | x |  |
+| WIAF: What is a Father | x |  |  |  |
+
+## NEST-Designed Measures
+
+| **Inventory** | **0pn** | **3pp** | **6pp** | **12pp** |
+|:----------------------|:-----------:|:-----------:|:-----------:|:-----------:|
+| PRQ: Parenting Responsibilities Questionnaire |  | x | x | x |
+| COVID Parenting Questions |  | x | x | x |
+| Life Experiences |  |  | x |  |
+
+## Measures Administered on Paper
+
+| **Inventory**        | **0pn** | **3pp** | **6pp** | **12pp** |
+|:---------------------|:-------:|:-------:|:-------:|:--------:|
+| Conflict Topics      |    x    |         |    x    |          |
+| Who Does What        |    x    |         |    x    |          |
+| Saliva Questionnaire |    x    |         |    x    |          |
+
+## 6-Month Postpartum MRI Measures
+
+> Dads 87, 90, 93, 94, 95, 96, 98, 99 (during COVID)
+
+-   PRQ: Parenting Responsibilities Questionnaire
+
+-   PSQI: Pittsburgh Sleep Quality Index
+
+-   PYB: Parenting Your Baby
+
+-   Household Composition
+
+-   COVID Parenting Questions
+
+## Measures Administered at Hospital
+
+-   BEQ: Birth Experiences Questionnaire
+
+-   Perinatal Interview

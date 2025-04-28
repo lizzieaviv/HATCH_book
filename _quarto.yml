@@ -12,6 +12,7 @@ book:
       - chapters/clean_inventory/HATCH_3pp_inventories.qmd
       - chapters/clean_inventory/HATCH_6pp_inventories.qmd
       - chapters/clean_inventory/HATCH_12pp_inventories.qmd
+      - chapters/clean_demographics/HATCH_0pn_demographics.qmd
 
 format:
   html:
@@ -31,6 +32,6 @@ format:
 # 4. git commit -m "commit note"
 # 5. git push
 
-# 🔄 To view site locally: open project-name/docs/index.html
-# 🔄 To view site online: https://lizzieaviv.github.io/hatch-book-test/
+# 👁️ To view site locally: open project-name/docs/index.html
+# 👁️ To view site online: https://lizzieaviv.github.io/HATCH_book/
 
