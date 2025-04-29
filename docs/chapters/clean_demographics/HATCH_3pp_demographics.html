@@ -318,7 +318,7 @@ window.Quarto = {
 </ul>
 </div>
 <div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
-<div class="cell" data-layout-align="center">
+<div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse) <span class="co"># for data cleaning</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(here) <span class="co"># to quickly find data files</span></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(haven) <span class="co"># to manipulate SPSS files and add SPSS-style labels</span></span>
@@ -330,7 +330,7 @@ window.Quarto = {
 </div>
 </div>
 <div id="tabset-1-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-3-tab">
-<div class="cell" data-layout-align="center">
+<div class="cell">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">read_sav</span>(<span class="fu">here</span>(<span class="st">"data/3_renamed"</span>, <span class="st">"3pp_renamed.sav"</span>)) <span class="sc">%&gt;%</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="fu">across</span>(<span class="fu">where</span>(is.character), <span class="sc">~</span> <span class="fu">na_if</span>(.x, <span class="st">""</span>))) <span class="co"># replace blank cells with NA</span></span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -357,7 +357,7 @@ window.Quarto = {
 <div id="tabset-2-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-2-2-tab">
 <section id="clean-birth-date-variable" class="level4">
 <h4 class="anchored" data-anchor-id="clean-birth-date-variable">Clean Birth Date Variable</h4>
-<div class="cell" data-layout-align="center">
+<div class="cell">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(CoupleID) <span class="sc">%&gt;%</span> <span class="do">## tell R we are looking at couples</span></span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">BirthDate =</span> <span class="fu">as.Date</span>(BirthDate)) <span class="sc">%&gt;%</span> <span class="do">## tell R that DueDate is a date variable</span></span>
@@ -378,7 +378,7 @@ window.Quarto = {
 </section>
 <section id="calculate-baby-age" class="level4">
 <h4 class="anchored" data-anchor-id="calculate-baby-age">Calculate Baby Age</h4>
-<div class="cell" data-layout-align="center">
+<div class="cell">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">BabyAge.3pp =</span> <span class="fu">as.numeric</span>(<span class="fu">as.Date</span>(SurveyDate<span class="fl">.3</span>pp) <span class="sc">-</span> <span class="fu">as.Date</span>(BirthDate)), </span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>         <span class="at">.keep =</span> <span class="st">"all"</span>, <span class="at">.after =</span> SurveyDate<span class="fl">.3</span>pp)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -386,7 +386,7 @@ window.Quarto = {
 </section>
 </div>
 <div id="tabset-2-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-2-3-tab">
-<div class="cell" data-layout-align="center">
+<div class="cell">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">BirthDate =</span> <span class="fu">labelled</span>(<span class="fu">as.character</span>(BirthDate), <span class="at">label =</span> <span class="st">"Baby's Birth Date"</span>),</span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>         <span class="at">SurveyDate.3pp =</span> <span class="fu">labelled</span>(SurveyDate<span class="fl">.3</span>pp, <span class="at">label =</span> <span class="st">"3-Month Postpartum Survey Date"</span>),</span>
@@ -394,7 +394,7 @@ window.Quarto = {
 </div>
 </div>
 <div id="tabset-2-4" class="tab-pane" role="tabpanel" aria-labelledby="tabset-2-4-tab">
-<div class="cell" data-layout-align="center">
+<div class="cell">
 <div class="cell-output-display">
 <table class="caption-top table table-sm table-striped small">
 <thead>
@@ -426,7 +426,7 @@ window.Quarto = {
 </div>
 </div>
 <div id="tabset-2-5" class="tab-pane" role="tabpanel" aria-labelledby="tabset-2-5-tab">
-<div class="cell" data-layout-align="center">
+<div class="cell">
 <div class="cell-output-display">
 <div style="border: 1px solid #ddd; padding: 5px; overflow-x: scroll; width:100%; "><table class="table table-hover table-condensed" style="margin-left: auto; margin-right: auto;">
  <thead>
@@ -440,46 +440,46 @@ window.Quarto = {
  </thead>
 <tbody>
   <tr>
-   <td style="text-align:right;text-align: center;"> 30 </td>
-   <td style="text-align:left;text-align: center;"> mom </td>
-   <td style="text-align:left;text-align: center;"> 2015-12-05 </td>
-   <td style="text-align:left;text-align: center;"> 2016-03-16 </td>
-   <td style="text-align:right;text-align: center;"> 102 </td>
-  </tr>
-  <tr>
    <td style="text-align:right;text-align: center;"> 51 </td>
-   <td style="text-align:left;text-align: center;"> mom </td>
+   <td style="text-align:left;text-align: center;"> dad </td>
    <td style="text-align:left;text-align: center;"> 2017-03-16 </td>
-   <td style="text-align:left;text-align: center;"> 2017-07-21 </td>
-   <td style="text-align:right;text-align: center;"> 127 </td>
+   <td style="text-align:left;text-align: center;"> 2017-07-22 </td>
+   <td style="text-align:right;text-align: center;"> 128 </td>
   </tr>
   <tr>
-   <td style="text-align:right;text-align: center;"> 62 </td>
+   <td style="text-align:right;text-align: center;"> 54 </td>
    <td style="text-align:left;text-align: center;"> mom </td>
-   <td style="text-align:left;text-align: center;"> 2017-11-26 </td>
-   <td style="text-align:left;text-align: center;"> 2018-03-11 </td>
+   <td style="text-align:left;text-align: center;"> 2017-08-21 </td>
+   <td style="text-align:left;text-align: center;"> 2017-12-04 </td>
    <td style="text-align:right;text-align: center;"> 105 </td>
   </tr>
   <tr>
-   <td style="text-align:right;text-align: center;"> 13 </td>
+   <td style="text-align:right;text-align: center;"> 55 </td>
+   <td style="text-align:left;text-align: center;"> dad </td>
+   <td style="text-align:left;text-align: center;"> 2017-07-30 </td>
+   <td style="text-align:left;text-align: center;"> 2017-11-06 </td>
+   <td style="text-align:right;text-align: center;"> 99 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;text-align: center;"> 17 </td>
    <td style="text-align:left;text-align: center;"> mom </td>
-   <td style="text-align:left;text-align: center;"> 2014-12-31 </td>
-   <td style="text-align:left;text-align: center;"> 2015-04-05 </td>
+   <td style="text-align:left;text-align: center;"> 2015-03-12 </td>
+   <td style="text-align:left;text-align: center;"> 2015-06-19 </td>
+   <td style="text-align:right;text-align: center;"> 99 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;text-align: center;"> 12 </td>
+   <td style="text-align:left;text-align: center;"> dad </td>
+   <td style="text-align:left;text-align: center;"> 2015-01-17 </td>
+   <td style="text-align:left;text-align: center;"> 2015-04-24 </td>
+   <td style="text-align:right;text-align: center;"> 97 </td>
+  </tr>
+  <tr>
    <td style="text-align:right;text-align: center;"> 95 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;text-align: center;"> 89 </td>
    <td style="text-align:left;text-align: center;"> mom </td>
-   <td style="text-align:left;text-align: center;"> 2019-09-18 </td>
-   <td style="text-align:left;text-align: center;"> 2020-01-03 </td>
-   <td style="text-align:right;text-align: center;"> 107 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;text-align: center;"> 77 </td>
-   <td style="text-align:left;text-align: center;"> mom </td>
-   <td style="text-align:left;text-align: center;"> 2018-10-21 </td>
-   <td style="text-align:left;text-align: center;"> 2019-01-23 </td>
-   <td style="text-align:right;text-align: center;"> 94 </td>
+   <td style="text-align:left;text-align: center;"> 2020-01-04 </td>
+   <td style="text-align:left;text-align: center;"> 2020-03-25 </td>
+   <td style="text-align:right;text-align: center;"> 81 </td>
   </tr>
 </tbody>
 </table></div>
@@ -496,21 +496,21 @@ window.Quarto = {
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-3-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-1" role="tab" aria-controls="tabset-3-1" aria-selected="true">Script</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-3-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-2" role="tab" aria-controls="tabset-3-2" aria-selected="false">Label</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-3-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-3-3" role="tab" aria-controls="tabset-3-3" aria-selected="false">Check</a></li></ul>
 <div class="tab-content">
 <div id="tabset-3-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-3-1-tab">
-<div class="cell" data-layout-align="center">
+<div class="cell">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span></span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">BabyWeight_lb.3pp =</span> <span class="fu">as.numeric</span>(<span class="fu">str_replace</span>(BabyWeight_lb<span class="fl">.3</span>pp, <span class="st">"lb"</span>, <span class="st">""</span>)),</span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>         <span class="at">BabyWeight_oz.3pp =</span> <span class="fu">as.numeric</span>(<span class="fu">str_replace</span>(BabyWeight_oz<span class="fl">.3</span>pp, <span class="st">"oz"</span>, <span class="st">""</span>)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 <div id="tabset-3-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-3-2-tab">
-<div class="cell" data-layout-align="center">
+<div class="cell">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span></span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">BabyWeight_lb.3pp =</span> <span class="fu">labelled</span>(BabyWeight_lb<span class="fl">.3</span>pp, <span class="at">label =</span> <span class="st">"Baby birth weight, pounds"</span>), </span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>         <span class="at">BabyWeight_oz.3pp =</span> <span class="fu">labelled</span>(BabyWeight_oz<span class="fl">.3</span>pp, <span class="at">label =</span> <span class="st">"Baby birth weight, ounces"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 <div id="tabset-3-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-3-3-tab">
-<div class="cell" data-layout-align="center">
+<div class="cell">
 <div class="cell-output-display">
 <table class="caption-top table table-sm table-striped small">
 <thead>
@@ -555,19 +555,19 @@ window.Quarto = {
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-4-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-4-1" role="tab" aria-controls="tabset-4-1" aria-selected="true">Script</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-4-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-4-2" role="tab" aria-controls="tabset-4-2" aria-selected="false">Label</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-4-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-4-3" role="tab" aria-controls="tabset-4-3" aria-selected="false">Check</a></li></ul>
 <div class="tab-content">
 <div id="tabset-4-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-4-1-tab">
-<div class="cell" data-layout-align="center">
+<div class="cell">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span></span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Age.3pp =</span> <span class="fu">case_when</span>(Age<span class="fl">.3</span>pp <span class="sc">&lt;</span> <span class="dv">1</span> <span class="sc">~</span> <span class="cn">NA</span>, <span class="at">.default =</span> Age<span class="fl">.3</span>pp)) <span class="co"># remove incorrect ages  </span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 <div id="tabset-4-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-4-2-tab">
-<div class="cell" data-layout-align="center">
+<div class="cell">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span></span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Age.3pp =</span> <span class="fu">labelled</span>(Age<span class="fl">.3</span>pp, <span class="at">label =</span> <span class="st">"Parent's age at 3pp survey"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 <div id="tabset-4-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-4-3-tab">
-<div class="cell" data-layout-align="center">
+<div class="cell">
 <div class="cell-output-display">
 <table class="caption-top table table-sm table-striped small">
 <thead>
@@ -607,7 +607,7 @@ window.Quarto = {
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-5-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-5-1" role="tab" aria-controls="tabset-5-1" aria-selected="true">Label</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-5-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-5-2" role="tab" aria-controls="tabset-5-2" aria-selected="false">Check</a></li></ul>
 <div class="tab-content">
 <div id="tabset-5-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-5-1-tab">
-<div class="cell" data-layout-align="center">
+<div class="cell">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span></span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">RelStat.3pp =</span> <span class="fu">labelled</span>(RelStat<span class="fl">.3</span>pp, </span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>                     <span class="fu">c</span>(<span class="st">'Married/Domestic Partnership'</span> <span class="ot">=</span> <span class="dv">1</span>, <span class="st">'Dating/Cohabitating'</span> <span class="ot">=</span> <span class="dv">2</span>),</span>
@@ -615,7 +615,7 @@ window.Quarto = {
 </div>
 </div>
 <div id="tabset-5-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-5-2-tab">
-<div class="cell" data-layout-align="center">
+<div class="cell">
 <div class="cell-output-display">
 <table class="caption-top table table-sm table-striped small">
 <thead>
@@ -658,7 +658,7 @@ window.Quarto = {
 <p>Divide weight in pounds by height in inches squared and multiply by a conversion factor of 703 <span class="math display">\[\text{BMI} = 703*\frac{\text{weight}_{lb}}{\text{height}_{in^2}}\]</span></p>
 </div>
 <div id="tabset-6-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-6-2-tab">
-<div class="cell" data-layout-align="center">
+<div class="cell">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span></span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  <span class="do">## Add prenatal height variables</span></span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(df.pn, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">"CoupleID"</span>, <span class="st">"Parent"</span>)) <span class="sc">%&gt;%</span></span>
@@ -672,14 +672,14 @@ window.Quarto = {
 </div>
 </div>
 <div id="tabset-6-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-6-3-tab">
-<div class="cell" data-layout-align="center">
+<div class="cell">
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span></span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">BMI.3pp =</span> <span class="fu">labelled</span>(BMI<span class="fl">.3</span>pp, <span class="at">label =</span> <span class="st">"Body-Mass Index (3pp)"</span>), </span>
 <span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>         <span class="at">Weight.3pp =</span> <span class="fu">labelled</span>(Weight<span class="fl">.3</span>pp, <span class="at">label =</span> <span class="st">"Parent Weight (3pp)"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 <div id="tabset-6-4" class="tab-pane" role="tabpanel" aria-labelledby="tabset-6-4-tab">
-<div class="cell" data-layout-align="center">
+<div class="cell">
 <div class="cell-output-display">
 <table class="caption-top table table-sm table-striped small">
 <thead>
@@ -716,7 +716,7 @@ window.Quarto = {
 </div>
 </div>
 <div id="tabset-6-5" class="tab-pane" role="tabpanel" aria-labelledby="tabset-6-5-tab">
-<div class="cell" data-layout-align="center">
+<div class="cell">
 <div class="cell-output-display">
 <div style="border: 1px solid #ddd; padding: 5px; overflow-x: scroll; width:100%; "><table class="table table-hover table-condensed" style="margin-left: auto; margin-right: auto;">
  <thead>
@@ -729,10 +729,28 @@ window.Quarto = {
  </thead>
 <tbody>
   <tr>
-   <td style="text-align:right;text-align: center;"> 28 </td>
+   <td style="text-align:right;text-align: center;"> 30 </td>
    <td style="text-align:left;text-align: center;"> mom </td>
-   <td style="text-align:right;text-align: center;"> 164 </td>
-   <td style="text-align:right;text-align: center;"> 26.46740 </td>
+   <td style="text-align:right;text-align: center;"> 94 </td>
+   <td style="text-align:right;text-align: center;"> 18.98363 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;text-align: center;"> 100 </td>
+   <td style="text-align:left;text-align: center;"> mom </td>
+   <td style="text-align:right;text-align: center;"> 113 </td>
+   <td style="text-align:right;text-align: center;"> 19.39429 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;text-align: center;"> 46 </td>
+   <td style="text-align:left;text-align: center;"> mom </td>
+   <td style="text-align:right;text-align: center;"> 113 </td>
+   <td style="text-align:right;text-align: center;"> 20.01487 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;text-align: center;"> 26 </td>
+   <td style="text-align:left;text-align: center;"> mom </td>
+   <td style="text-align:right;text-align: center;"> 145 </td>
+   <td style="text-align:right;text-align: center;"> 21.41042 </td>
   </tr>
   <tr>
    <td style="text-align:right;text-align: center;"> 53 </td>
@@ -741,28 +759,10 @@ window.Quarto = {
    <td style="text-align:right;text-align: center;"> NA </td>
   </tr>
   <tr>
-   <td style="text-align:right;text-align: center;"> 39 </td>
+   <td style="text-align:right;text-align: center;"> 14 </td>
    <td style="text-align:left;text-align: center;"> mom </td>
-   <td style="text-align:right;text-align: center;"> 116 </td>
-   <td style="text-align:right;text-align: center;"> 21.21436 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;text-align: center;"> 93 </td>
-   <td style="text-align:left;text-align: center;"> dad </td>
-   <td style="text-align:right;text-align: center;"> 183 </td>
-   <td style="text-align:right;text-align: center;"> 24.81655 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;text-align: center;"> 11 </td>
-   <td style="text-align:left;text-align: center;"> dad </td>
-   <td style="text-align:right;text-align: center;"> 210 </td>
-   <td style="text-align:right;text-align: center;"> 29.28586 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;text-align: center;"> 68 </td>
-   <td style="text-align:left;text-align: center;"> dad </td>
-   <td style="text-align:right;text-align: center;"> 190 </td>
-   <td style="text-align:right;text-align: center;"> 27.25918 </td>
+   <td style="text-align:right;text-align: center;"> 158 </td>
+   <td style="text-align:right;text-align: center;"> 27.11768 </td>
   </tr>
 </tbody>
 </table></div>
@@ -779,7 +779,7 @@ window.Quarto = {
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-7-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-7-1" role="tab" aria-controls="tabset-7-1" aria-selected="true">Label</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-7-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-7-2" role="tab" aria-controls="tabset-7-2" aria-selected="false">Check</a></li></ul>
 <div class="tab-content">
 <div id="tabset-7-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-7-1-tab">
-<div class="cell" data-layout-align="center">
+<div class="cell">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span></span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  <span class="do">## Create  variable labels</span></span>
 <span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Exercise.3pp =</span> <span class="fu">labelled</span>(Exercise<span class="fl">.3</span>pp, <span class="at">label =</span> <span class="st">"Hours/week of exercise"</span>), </span>
@@ -787,7 +787,7 @@ window.Quarto = {
 </div>
 </div>
 <div id="tabset-7-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-7-2-tab">
-<div class="cell" data-layout-align="center">
+<div class="cell">
 <div class="cell-output-display">
 <table class="caption-top table table-sm table-striped small">
 <thead>
@@ -834,7 +834,7 @@ window.Quarto = {
 <div id="tabset-8-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-8-1-tab">
 <section id="recode-smoker-variable" class="level4">
 <h4 class="anchored" data-anchor-id="recode-smoker-variable">Recode <code>Smoker</code> Variable</h4>
-<div class="cell" data-layout-align="center">
+<div class="cell">
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span> </span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Smoker.3pp =</span> <span class="fu">as.numeric</span>(<span class="fu">case_when</span>(</span>
 <span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>    Smoker<span class="fl">.3</span>pp <span class="sc">==</span> <span class="dv">2</span> <span class="sc">~</span> <span class="dv">0</span>, </span>
@@ -844,7 +844,7 @@ window.Quarto = {
 </section>
 </div>
 <div id="tabset-8-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-8-2-tab">
-<div class="cell" data-layout-align="center">
+<div class="cell">
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span></span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Smoker.3pp =</span> <span class="fu">labelled</span>(Smoker<span class="fl">.3</span>pp, </span>
 <span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>                     <span class="fu">c</span>(<span class="at">yes =</span> <span class="dv">1</span>, <span class="at">no =</span> <span class="dv">0</span>),</span>
@@ -854,7 +854,7 @@ window.Quarto = {
 </div>
 </div>
 <div id="tabset-8-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-8-3-tab">
-<div class="cell" data-layout-align="center">
+<div class="cell">
 <div class="cell-output-display">
 <table class="caption-top table table-sm table-striped small">
 <thead>
@@ -929,7 +929,7 @@ window.Quarto = {
 <div id="tabset-9-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-9-1-tab">
 <section id="convert-binary" class="level4">
 <h4 class="anchored" data-anchor-id="convert-binary">Convert Binary</h4>
-<div class="cell" data-layout-align="center">
+<div class="cell">
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span></span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="fu">across</span>(<span class="fu">c</span>(BF_ever<span class="fl">.3</span>pp, BF_current<span class="fl">.3</span>pp, Menstrual_start<span class="fl">.3</span>pp, Placenta_ingest<span class="fl">.3</span>pp),</span>
 <span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>            <span class="sc">~</span> <span class="fu">case_when</span>(. <span class="sc">==</span> <span class="dv">2</span> <span class="sc">~</span> <span class="dv">0</span>, </span>
@@ -938,7 +938,7 @@ window.Quarto = {
 </section>
 <section id="fix-menstruation-return-date" class="level4">
 <h4 class="anchored" data-anchor-id="fix-menstruation-return-date">Fix Menstruation Return Date</h4>
-<div class="cell" data-layout-align="center">
+<div class="cell">
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span></span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Menstrual_date.3pp =</span> <span class="fu">case_when</span>(</span>
 <span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">nchar</span>(Menstrual_date<span class="fl">.3</span>pp) <span class="sc">==</span> <span class="dv">8</span> <span class="sc">~</span> <span class="fu">as.Date</span>(Menstrual_date<span class="fl">.3</span>pp, <span class="at">format =</span> <span class="st">"%m/%d/%y"</span>), </span>
@@ -952,7 +952,7 @@ window.Quarto = {
 <div id="tabset-9-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-9-2-tab">
 <section id="breastfeeding" class="level4">
 <h4 class="anchored" data-anchor-id="breastfeeding">Breastfeeding</h4>
-<div class="cell" data-layout-align="center">
+<div class="cell">
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span></span>
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">BF_ever.3pp =</span> <span class="fu">labelled</span>(BF_ever<span class="fl">.3</span>pp, </span>
 <span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>                                <span class="fu">c</span>(<span class="st">"Yes"</span> <span class="ot">=</span> <span class="dv">1</span>, <span class="st">"No"</span> <span class="ot">=</span> <span class="dv">0</span>), </span>
@@ -969,7 +969,7 @@ window.Quarto = {
 </section>
 <section id="menstruation-and-placenta" class="level4">
 <h4 class="anchored" data-anchor-id="menstruation-and-placenta">Menstruation and Placenta</h4>
-<div class="cell" data-layout-align="center">
+<div class="cell">
 <div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span></span>
 <span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Menstrual_start.3pp =</span> <span class="fu">labelled</span>(Menstrual_start<span class="fl">.3</span>pp, </span>
 <span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>                                        <span class="fu">c</span>(<span class="st">"Yes"</span> <span class="ot">=</span> <span class="dv">1</span>, <span class="st">"No"</span> <span class="ot">=</span> <span class="dv">0</span>), </span>
@@ -983,7 +983,7 @@ window.Quarto = {
 </section>
 </div>
 <div id="tabset-9-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-9-3-tab">
-<div class="cell" data-layout-align="center">
+<div class="cell">
 <div class="cell-output-display">
 <table class="caption-top table table-sm table-striped small">
 <colgroup>
@@ -1063,7 +1063,7 @@ window.Quarto = {
 </div>
 </div>
 <div id="tabset-9-4" class="tab-pane" role="tabpanel" aria-labelledby="tabset-9-4-tab">
-<div class="cell" data-layout-align="center">
+<div class="cell">
 <div class="cell-output-display">
 <div style="border: 1px solid #ddd; padding: 5px; overflow-x: scroll; width:100%; "><table class="table table-hover table-condensed" style="margin-left: auto; margin-right: auto;">
  <thead>
@@ -1083,7 +1083,7 @@ window.Quarto = {
  </thead>
 <tbody>
   <tr>
-   <td style="text-align:right;text-align: center;"> 30 </td>
+   <td style="text-align:right;text-align: center;"> 84 </td>
    <td style="text-align:left;text-align: center;"> dad </td>
    <td style="text-align:right;text-align: center;"> NA </td>
    <td style="text-align:right;text-align: center;"> NA </td>
@@ -1096,20 +1096,7 @@ window.Quarto = {
    <td style="text-align:left;text-align: center;"> NA </td>
   </tr>
   <tr>
-   <td style="text-align:right;text-align: center;"> 59 </td>
-   <td style="text-align:left;text-align: center;"> mom </td>
-   <td style="text-align:right;text-align: center;"> 1 </td>
-   <td style="text-align:right;text-align: center;"> 1 </td>
-   <td style="text-align:right;text-align: center;"> NA </td>
-   <td style="text-align:right;text-align: center;"> NA </td>
-   <td style="text-align:right;text-align: center;"> 1 </td>
-   <td style="text-align:right;text-align: center;"> 0 </td>
-   <td style="text-align:left;text-align: center;"> NA </td>
-   <td style="text-align:right;text-align: center;"> 0 </td>
-   <td style="text-align:left;text-align: center;"> NA </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;text-align: center;"> 33 </td>
+   <td style="text-align:right;text-align: center;"> 29 </td>
    <td style="text-align:left;text-align: center;"> dad </td>
    <td style="text-align:right;text-align: center;"> NA </td>
    <td style="text-align:right;text-align: center;"> NA </td>
@@ -1122,42 +1109,55 @@ window.Quarto = {
    <td style="text-align:left;text-align: center;"> NA </td>
   </tr>
   <tr>
-   <td style="text-align:right;text-align: center;"> 48 </td>
-   <td style="text-align:left;text-align: center;"> mom </td>
-   <td style="text-align:right;text-align: center;"> NA </td>
-   <td style="text-align:right;text-align: center;"> NA </td>
-   <td style="text-align:right;text-align: center;"> NA </td>
-   <td style="text-align:right;text-align: center;"> NA </td>
-   <td style="text-align:right;text-align: center;"> NA </td>
-   <td style="text-align:right;text-align: center;"> NA </td>
-   <td style="text-align:left;text-align: center;"> NA </td>
-   <td style="text-align:right;text-align: center;"> NA </td>
-   <td style="text-align:left;text-align: center;"> NA </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;text-align: center;"> 28 </td>
+   <td style="text-align:right;text-align: center;"> 12 </td>
    <td style="text-align:left;text-align: center;"> mom </td>
    <td style="text-align:right;text-align: center;"> 1 </td>
-   <td style="text-align:right;text-align: center;"> 1 </td>
+   <td style="text-align:right;text-align: center;"> 0 </td>
+   <td style="text-align:right;text-align: center;"> 0 </td>
+   <td style="text-align:right;text-align: center;"> 0 </td>
    <td style="text-align:right;text-align: center;"> NA </td>
-   <td style="text-align:right;text-align: center;"> NA </td>
-   <td style="text-align:right;text-align: center;"> 2 </td>
-   <td style="text-align:right;text-align: center;"> 1 </td>
-   <td style="text-align:left;text-align: center;"> 2015-10-20 </td>
+   <td style="text-align:right;text-align: center;"> 0 </td>
+   <td style="text-align:left;text-align: center;"> NA </td>
    <td style="text-align:right;text-align: center;"> 0 </td>
    <td style="text-align:left;text-align: center;"> NA </td>
   </tr>
   <tr>
-   <td style="text-align:right;text-align: center;"> 41 </td>
-   <td style="text-align:left;text-align: center;"> dad </td>
+   <td style="text-align:right;text-align: center;"> 62 </td>
+   <td style="text-align:left;text-align: center;"> mom </td>
+   <td style="text-align:right;text-align: center;"> 1 </td>
+   <td style="text-align:right;text-align: center;"> 1 </td>
    <td style="text-align:right;text-align: center;"> NA </td>
    <td style="text-align:right;text-align: center;"> NA </td>
-   <td style="text-align:right;text-align: center;"> NA </td>
-   <td style="text-align:right;text-align: center;"> NA </td>
-   <td style="text-align:right;text-align: center;"> NA </td>
-   <td style="text-align:right;text-align: center;"> NA </td>
+   <td style="text-align:right;text-align: center;"> 1 </td>
+   <td style="text-align:right;text-align: center;"> 0 </td>
    <td style="text-align:left;text-align: center;"> NA </td>
+   <td style="text-align:right;text-align: center;"> 0 </td>
+   <td style="text-align:left;text-align: center;"> NA </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;text-align: center;"> 77 </td>
+   <td style="text-align:left;text-align: center;"> mom </td>
+   <td style="text-align:right;text-align: center;"> 1 </td>
+   <td style="text-align:right;text-align: center;"> 1 </td>
    <td style="text-align:right;text-align: center;"> NA </td>
+   <td style="text-align:right;text-align: center;"> NA </td>
+   <td style="text-align:right;text-align: center;"> 1 </td>
+   <td style="text-align:right;text-align: center;"> 0 </td>
+   <td style="text-align:left;text-align: center;"> NA </td>
+   <td style="text-align:right;text-align: center;"> 0 </td>
+   <td style="text-align:left;text-align: center;"> NA </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;text-align: center;"> 61 </td>
+   <td style="text-align:left;text-align: center;"> mom </td>
+   <td style="text-align:right;text-align: center;"> 1 </td>
+   <td style="text-align:right;text-align: center;"> 1 </td>
+   <td style="text-align:right;text-align: center;"> NA </td>
+   <td style="text-align:right;text-align: center;"> NA </td>
+   <td style="text-align:right;text-align: center;"> 1 </td>
+   <td style="text-align:right;text-align: center;"> 0 </td>
+   <td style="text-align:left;text-align: center;"> NA </td>
+   <td style="text-align:right;text-align: center;"> 0 </td>
    <td style="text-align:left;text-align: center;"> NA </td>
   </tr>
 </tbody>
@@ -1176,7 +1176,7 @@ window.Quarto = {
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-10-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-10-1" role="tab" aria-controls="tabset-10-1" aria-selected="true">Check Variable Labels</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-10-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-10-2" role="tab" aria-controls="tabset-10-2" aria-selected="false">Print</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-10-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-10-3" role="tab" aria-controls="tabset-10-3" aria-selected="false">Write CSV Files</a></li></ul>
 <div class="tab-content">
 <div id="tabset-10-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-10-1-tab">
-<div class="cell" data-layout-align="center">
+<div class="cell">
 <div class="cell-output-display">
 <div style="border: 1px solid #ddd; padding: 0px; overflow-y: scroll; height:400px; overflow-x: scroll; width:100%; "><table class="table table-hover table-condensed" style="margin-left: auto; margin-right: auto;">
  <thead>
@@ -1314,7 +1314,7 @@ window.Quarto = {
 </div>
 </div>
 <div id="tabset-10-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-10-2-tab">
-<div class="cell" data-layout-align="center">
+<div class="cell">
 <div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print_slice</span>(df, BirthDate<span class="sc">:</span>ASQ2_c1<span class="fl">.3</span>pp)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div style="border: 1px solid #ddd; padding: 5px; overflow-x: scroll; width:100%; "><table class="table table-hover table-condensed" style="margin-left: auto; margin-right: auto;">
@@ -1350,7 +1350,7 @@ window.Quarto = {
  </thead>
 <tbody>
   <tr>
-   <td style="text-align:right;text-align: center;"> 53 </td>
+   <td style="text-align:right;text-align: center;"> 27 </td>
    <td style="text-align:left;text-align: center;"> mom </td>
    <td style="text-align:left;text-align: center;"> NA </td>
    <td style="text-align:left;text-align: center;"> NA </td>
@@ -1378,50 +1378,50 @@ window.Quarto = {
    <td style="text-align:right;text-align: center;"> NA </td>
   </tr>
   <tr>
-   <td style="text-align:right;text-align: center;"> 88 </td>
+   <td style="text-align:right;text-align: center;"> 100 </td>
    <td style="text-align:left;text-align: center;"> mom </td>
-   <td style="text-align:left;text-align: center;"> 2019-06-16 </td>
-   <td style="text-align:left;text-align: center;"> 2019-09-09 </td>
-   <td style="text-align:right;text-align: center;"> 85 </td>
-   <td style="text-align:right;text-align: center;"> 8 </td>
-   <td style="text-align:right;text-align: center;"> 10 </td>
-   <td style="text-align:right;text-align: center;"> 35 </td>
-   <td style="text-align:right;text-align: center;"> 2 </td>
-   <td style="text-align:right;text-align: center;"> 120 </td>
-   <td style="text-align:right;text-align: center;"> 21.25472 </td>
-   <td style="text-align:right;text-align: center;"> 2 </td>
-   <td style="text-align:right;text-align: center;"> NA </td>
-   <td style="text-align:right;text-align: center;"> NA </td>
-   <td style="text-align:right;text-align: center;"> NA </td>
-   <td style="text-align:right;text-align: center;"> NA </td>
-   <td style="text-align:right;text-align: center;"> 1 </td>
-   <td style="text-align:right;text-align: center;"> 1 </td>
-   <td style="text-align:right;text-align: center;"> NA </td>
-   <td style="text-align:right;text-align: center;"> NA </td>
-   <td style="text-align:right;text-align: center;"> 2 </td>
-   <td style="text-align:right;text-align: center;"> 0 </td>
-   <td style="text-align:left;text-align: center;"> NA </td>
-   <td style="text-align:right;text-align: center;"> 0 </td>
-   <td style="text-align:left;text-align: center;"> NA </td>
-   <td style="text-align:right;text-align: center;"> 1 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;text-align: center;"> 31 </td>
-   <td style="text-align:left;text-align: center;"> mom </td>
-   <td style="text-align:left;text-align: center;"> 2015-09-19 </td>
-   <td style="text-align:left;text-align: center;"> 2015-12-24 </td>
-   <td style="text-align:right;text-align: center;"> 96 </td>
+   <td style="text-align:left;text-align: center;"> 2020-05-25 </td>
+   <td style="text-align:left;text-align: center;"> 2020-08-27 </td>
+   <td style="text-align:right;text-align: center;"> 94 </td>
+   <td style="text-align:right;text-align: center;"> 6 </td>
    <td style="text-align:right;text-align: center;"> 7 </td>
-   <td style="text-align:right;text-align: center;"> 14 </td>
    <td style="text-align:right;text-align: center;"> 33 </td>
    <td style="text-align:right;text-align: center;"> 1 </td>
-   <td style="text-align:right;text-align: center;"> 190 </td>
-   <td style="text-align:right;text-align: center;"> 28.88625 </td>
-   <td style="text-align:right;text-align: center;"> 2 </td>
-   <td style="text-align:right;text-align: center;"> 6 </td>
+   <td style="text-align:right;text-align: center;"> 113 </td>
+   <td style="text-align:right;text-align: center;"> 19.39429 </td>
+   <td style="text-align:right;text-align: center;"> 3 </td>
+   <td style="text-align:right;text-align: center;"> NA </td>
+   <td style="text-align:right;text-align: center;"> NA </td>
+   <td style="text-align:right;text-align: center;"> NA </td>
+   <td style="text-align:right;text-align: center;"> NA </td>
+   <td style="text-align:right;text-align: center;"> 1 </td>
    <td style="text-align:right;text-align: center;"> 0 </td>
+   <td style="text-align:right;text-align: center;"> 2 </td>
    <td style="text-align:right;text-align: center;"> NA </td>
    <td style="text-align:right;text-align: center;"> NA </td>
+   <td style="text-align:right;text-align: center;"> 0 </td>
+   <td style="text-align:left;text-align: center;"> NA </td>
+   <td style="text-align:right;text-align: center;"> 0 </td>
+   <td style="text-align:left;text-align: center;"> NA </td>
+   <td style="text-align:right;text-align: center;"> 2 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;text-align: center;"> 25 </td>
+   <td style="text-align:left;text-align: center;"> mom </td>
+   <td style="text-align:left;text-align: center;"> 2015-07-28 </td>
+   <td style="text-align:left;text-align: center;"> 2015-11-22 </td>
+   <td style="text-align:right;text-align: center;"> 117 </td>
+   <td style="text-align:right;text-align: center;"> 5 </td>
+   <td style="text-align:right;text-align: center;"> 14 </td>
+   <td style="text-align:right;text-align: center;"> 39 </td>
+   <td style="text-align:right;text-align: center;"> 1 </td>
+   <td style="text-align:right;text-align: center;"> 128 </td>
+   <td style="text-align:right;text-align: center;"> 22.67171 </td>
+   <td style="text-align:right;text-align: center;"> 0 </td>
+   <td style="text-align:right;text-align: center;"> 6 </td>
+   <td style="text-align:right;text-align: center;"> 1 </td>
+   <td style="text-align:right;text-align: center;"> 0.5 </td>
+   <td style="text-align:right;text-align: center;"> 5 </td>
    <td style="text-align:right;text-align: center;"> 1 </td>
    <td style="text-align:right;text-align: center;"> 1 </td>
    <td style="text-align:right;text-align: center;"> NA </td>
@@ -1434,85 +1434,85 @@ window.Quarto = {
    <td style="text-align:right;text-align: center;"> 1 </td>
   </tr>
   <tr>
-   <td style="text-align:right;text-align: center;"> 64 </td>
-   <td style="text-align:left;text-align: center;"> mom </td>
-   <td style="text-align:left;text-align: center;"> 2018-04-25 </td>
-   <td style="text-align:left;text-align: center;"> 2018-07-23 </td>
-   <td style="text-align:right;text-align: center;"> 89 </td>
-   <td style="text-align:right;text-align: center;"> 6 </td>
+   <td style="text-align:right;text-align: center;"> 17 </td>
+   <td style="text-align:left;text-align: center;"> dad </td>
+   <td style="text-align:left;text-align: center;"> 2015-03-12 </td>
+   <td style="text-align:left;text-align: center;"> 2015-06-17 </td>
+   <td style="text-align:right;text-align: center;"> 97 </td>
+   <td style="text-align:right;text-align: center;"> 7 </td>
    <td style="text-align:right;text-align: center;"> 5 </td>
+   <td style="text-align:right;text-align: center;"> 27 </td>
+   <td style="text-align:right;text-align: center;"> 1 </td>
+   <td style="text-align:right;text-align: center;"> 160 </td>
+   <td style="text-align:right;text-align: center;"> 23.62529 </td>
+   <td style="text-align:right;text-align: center;"> 5 </td>
+   <td style="text-align:right;text-align: center;"> 6 </td>
+   <td style="text-align:right;text-align: center;"> 0 </td>
+   <td style="text-align:right;text-align: center;"> NA </td>
+   <td style="text-align:right;text-align: center;"> NA </td>
+   <td style="text-align:right;text-align: center;"> NA </td>
+   <td style="text-align:right;text-align: center;"> NA </td>
+   <td style="text-align:right;text-align: center;"> NA </td>
+   <td style="text-align:right;text-align: center;"> NA </td>
+   <td style="text-align:right;text-align: center;"> NA </td>
+   <td style="text-align:right;text-align: center;"> NA </td>
+   <td style="text-align:left;text-align: center;"> NA </td>
+   <td style="text-align:right;text-align: center;"> NA </td>
+   <td style="text-align:left;text-align: center;"> NA </td>
+   <td style="text-align:right;text-align: center;"> 1 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;text-align: center;"> 12 </td>
+   <td style="text-align:left;text-align: center;"> mom </td>
+   <td style="text-align:left;text-align: center;"> 2015-01-17 </td>
+   <td style="text-align:left;text-align: center;"> 2015-04-21 </td>
+   <td style="text-align:right;text-align: center;"> 94 </td>
+   <td style="text-align:right;text-align: center;"> 5 </td>
+   <td style="text-align:right;text-align: center;"> 11 </td>
    <td style="text-align:right;text-align: center;"> 32 </td>
    <td style="text-align:right;text-align: center;"> 1 </td>
-   <td style="text-align:right;text-align: center;"> 165 </td>
-   <td style="text-align:right;text-align: center;"> 29.22525 </td>
+   <td style="text-align:right;text-align: center;"> 114 </td>
+   <td style="text-align:right;text-align: center;"> 20.19199 </td>
    <td style="text-align:right;text-align: center;"> 1 </td>
-   <td style="text-align:right;text-align: center;"> NA </td>
-   <td style="text-align:right;text-align: center;"> NA </td>
-   <td style="text-align:right;text-align: center;"> NA </td>
-   <td style="text-align:right;text-align: center;"> NA </td>
+   <td style="text-align:right;text-align: center;"> 5 </td>
+   <td style="text-align:right;text-align: center;"> 1 </td>
+   <td style="text-align:right;text-align: center;"> 0.0 </td>
+   <td style="text-align:right;text-align: center;"> 0 </td>
    <td style="text-align:right;text-align: center;"> 1 </td>
    <td style="text-align:right;text-align: center;"> 0 </td>
+   <td style="text-align:right;text-align: center;"> 0 </td>
+   <td style="text-align:right;text-align: center;"> 0 </td>
+   <td style="text-align:right;text-align: center;"> NA </td>
+   <td style="text-align:right;text-align: center;"> 0 </td>
+   <td style="text-align:left;text-align: center;"> NA </td>
+   <td style="text-align:right;text-align: center;"> 0 </td>
+   <td style="text-align:left;text-align: center;"> NA </td>
    <td style="text-align:right;text-align: center;"> 2 </td>
-   <td style="text-align:right;text-align: center;"> NA </td>
-   <td style="text-align:right;text-align: center;"> NA </td>
-   <td style="text-align:right;text-align: center;"> 0 </td>
-   <td style="text-align:left;text-align: center;"> NA </td>
-   <td style="text-align:right;text-align: center;"> 0 </td>
-   <td style="text-align:left;text-align: center;"> NA </td>
-   <td style="text-align:right;text-align: center;"> 1 </td>
   </tr>
   <tr>
-   <td style="text-align:right;text-align: center;"> 28 </td>
-   <td style="text-align:left;text-align: center;"> dad </td>
-   <td style="text-align:left;text-align: center;"> 2015-09-29 </td>
-   <td style="text-align:left;text-align: center;"> 2015-12-06 </td>
-   <td style="text-align:right;text-align: center;"> 68 </td>
-   <td style="text-align:right;text-align: center;"> 6 </td>
-   <td style="text-align:right;text-align: center;"> 7 </td>
-   <td style="text-align:right;text-align: center;"> 28 </td>
-   <td style="text-align:right;text-align: center;"> 1 </td>
-   <td style="text-align:right;text-align: center;"> 235 </td>
-   <td style="text-align:right;text-align: center;"> 30.16892 </td>
-   <td style="text-align:right;text-align: center;"> 0 </td>
-   <td style="text-align:right;text-align: center;"> 7 </td>
-   <td style="text-align:right;text-align: center;"> 0 </td>
-   <td style="text-align:right;text-align: center;"> NA </td>
-   <td style="text-align:right;text-align: center;"> NA </td>
-   <td style="text-align:right;text-align: center;"> NA </td>
-   <td style="text-align:right;text-align: center;"> NA </td>
-   <td style="text-align:right;text-align: center;"> NA </td>
-   <td style="text-align:right;text-align: center;"> NA </td>
-   <td style="text-align:right;text-align: center;"> NA </td>
-   <td style="text-align:right;text-align: center;"> NA </td>
-   <td style="text-align:left;text-align: center;"> NA </td>
-   <td style="text-align:right;text-align: center;"> NA </td>
-   <td style="text-align:left;text-align: center;"> NA </td>
-   <td style="text-align:right;text-align: center;"> 1 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;text-align: center;"> 78 </td>
+   <td style="text-align:right;text-align: center;"> 36 </td>
    <td style="text-align:left;text-align: center;"> mom </td>
-   <td style="text-align:left;text-align: center;"> 2019-01-03 </td>
-   <td style="text-align:left;text-align: center;"> 2019-06-03 </td>
-   <td style="text-align:right;text-align: center;"> 151 </td>
-   <td style="text-align:right;text-align: center;"> 8 </td>
-   <td style="text-align:right;text-align: center;"> 7 </td>
-   <td style="text-align:right;text-align: center;"> 25 </td>
+   <td style="text-align:left;text-align: center;"> 2016-02-09 </td>
+   <td style="text-align:left;text-align: center;"> 2016-05-11 </td>
+   <td style="text-align:right;text-align: center;"> 92 </td>
+   <td style="text-align:right;text-align: center;"> 6 </td>
    <td style="text-align:right;text-align: center;"> 1 </td>
-   <td style="text-align:right;text-align: center;"> 185 </td>
-   <td style="text-align:right;text-align: center;"> 32.76770 </td>
+   <td style="text-align:right;text-align: center;"> 35 </td>
    <td style="text-align:right;text-align: center;"> 1 </td>
-   <td style="text-align:right;text-align: center;"> NA </td>
-   <td style="text-align:right;text-align: center;"> NA </td>
-   <td style="text-align:right;text-align: center;"> NA </td>
-   <td style="text-align:right;text-align: center;"> NA </td>
+   <td style="text-align:right;text-align: center;"> 175 </td>
+   <td style="text-align:right;text-align: center;"> 29.11834 </td>
    <td style="text-align:right;text-align: center;"> 1 </td>
-   <td style="text-align:right;text-align: center;"> NA </td>
-   <td style="text-align:right;text-align: center;"> NA </td>
+   <td style="text-align:right;text-align: center;"> 6 </td>
+   <td style="text-align:right;text-align: center;"> 0 </td>
    <td style="text-align:right;text-align: center;"> NA </td>
    <td style="text-align:right;text-align: center;"> NA </td>
    <td style="text-align:right;text-align: center;"> 1 </td>
-   <td style="text-align:left;text-align: center;"> 2019-02-11 </td>
+   <td style="text-align:right;text-align: center;"> 1 </td>
+   <td style="text-align:right;text-align: center;"> NA </td>
+   <td style="text-align:right;text-align: center;"> NA </td>
+   <td style="text-align:right;text-align: center;"> 1 </td>
+   <td style="text-align:right;text-align: center;"> 1 </td>
+   <td style="text-align:left;text-align: center;"> 2017-03-21 </td>
    <td style="text-align:right;text-align: center;"> 0 </td>
    <td style="text-align:left;text-align: center;"> NA </td>
    <td style="text-align:right;text-align: center;"> 1 </td>
@@ -1524,7 +1524,7 @@ window.Quarto = {
 </div>
 </div>
 <div id="tabset-10-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-10-3-tab">
-<div class="cell" data-layout-align="center">
+<div class="cell">
 <div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">write_sav</span>(df, <span class="fu">here</span>(<span class="st">"data/4_demographics"</span>, <span class="st">"3pp_demo.sav"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>

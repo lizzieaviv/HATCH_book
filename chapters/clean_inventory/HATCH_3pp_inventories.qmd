@@ -2196,9 +2196,10 @@ print_slice(df, contains("PingSS"))
 :::
 :::
 
+
 ## PSI: Parenting Stress Index
 
-::: panel-tabset
+::::: panel-tabset
 ### Notes
 
 -   Abidin, 2012
@@ -2257,33 +2258,33 @@ df <- df %>%
   # Label Majority of Items
   mutate(across(c(PSI1.3pp:PSI21.3pp, PSI23.3pp:PSI31.3pp, PSI34.3pp:PSI36.3pp),
             ~ labelled(., 
-                     c("Strongly agree" = 1, 
-                       "Agree" = 2, 
-                       "Not sure" = 3, 
-                       "Disagree" = 4, 
-                       "Strongly disagree" = 5),
+                     c("Strongly disagree" = 1,  
+                       "Disagree" = 2,  
+                       "Not sure" = 3,  
+                       "Agree" = 4,  
+                       "Strongly agree" = 5),
                      label = "Parenting Stress Index"))) %>%
   # Label special items
   mutate(PSI22.3pp = labelled(PSI22.3pp, 
-                              c("Not very good at being a parent" = 1, 
-                                "A person who has some trouble being a parent" = 2, 
+                              c("A very good parent" = 1, 
+                                "A better than average parent" = 2, 
                                 "An average parent" = 3, 
-                                "A better than average parent" = 4, 
-                                "A very good parent" = 5), 
+                                "A person who has some trouble being a parent" = 4,
+                                "Not very good at being a parent" = 5), 
                               label = "Parenting Stress Index"), 
-         PSI32.3pp = labelled(PSI32.3pp, 
-                              c("Much harder than I expected" = 1, 
-                                "Somewhat harder than I expected" = 2, 
-                                "About as hard as I expected" = 3, 
-                                "Somewhat easier than I expected" = 4, 
-                                "Much easier than I expected" = 5), 
+         PSI32.3pp = labelled(PSI32.3pp,
+                              c("Much easier than I expected" = 1,
+                                "Somewhat easier than I expected" = 2,
+                                "About as hard as I expected" = 3,
+                                "Somewhat harder than I expected" = 4,
+                                "Much harder than I expected" = 5),
                               label = "Parenting Stress Index"), 
          PSI33.3pp = labelled(PSI33.3pp, 
-                              c("10+" = 1, 
-                                "8-9" = 2, 
-                                "6-7" = 3, 
-                                "4-5" = 4, 
-                                "1-3" = 5), 
+                              c("1-3" = 1,
+                                "4-5" = 2,
+                                "6-7" = 3,
+                                "8-9" = 4,
+                                "10+" = 5), 
                               label = "Parenting Stress Index")) %>%
   # Label Subscales and Total Score
   mutate(PSI_dr.3pp = labelled(PSI_dr.3pp, label = "PSI: Defensive Responding Scale"), 
@@ -2295,7 +2296,7 @@ df <- df %>%
 
 ### Check and Print
 
-::: panel-tabset
+:::: panel-tabset
 #### Check
 
 ::: panel-tabset
@@ -2338,8 +2339,10 @@ inspect_labels(df, contains("PSI"))
 #| echo: false
 print_slice(df, contains("PSI"))
 ```
-:::
-:::
+::::
+:::::
+
+
 
 ## PSQI: Pittsburgh Sleep Quality Index
 
@@ -2716,7 +2719,7 @@ df <- df %>%
   relocate(PSQI_global.3pp, .after = PSQI_daydys.3pp)
   
 ```
-:::
+:::::
 
 ### Label
 
@@ -2775,7 +2778,7 @@ df <- df %>%
 
 ### Check and Print
 
-::: panel-tabset
+::::: panel-tabset
 #### Check
 
 ::: panel-tabset
@@ -2783,7 +2786,8 @@ df <- df %>%
 
 ```{r}
 #| echo: false
-check_categorical(df, c(PSQI5a.3pp:PSQI8.3pp)) %>% knitr::kable()
+
+check_categorical(df, PSQI5a.3pp:PSQI8.3pp) %>% knitr::kable()
 check_categorical(df, PSQI9.3pp) %>% knitr::kable()
 ```
 
@@ -2791,6 +2795,7 @@ check_categorical(df, PSQI9.3pp) %>% knitr::kable()
 
 ```{r}
 #| echo: false
+
 check_continuous(df, PSQI_global.3pp) %>% knitr::kable()
 ```
 
@@ -2805,64 +2810,71 @@ ltm::cronbach.alpha(data = select(df, PSQI_qual.3pp:PSQI_daydys.3pp), na.rm = T)
 
 ```{r}
 #| echo: false
-inspect_labels(df, contains("PSQI")) 
+inspect_labels(df, contains("PSQI") & !contains("MRI"))
 ```
 :::
 
 #### Print
 
 ::: panel-tabset
-##### Component 1: Quality
+##### 1: Quality
 
 ```{r}
 #| echo: false
-print_slice(df, c(PSQI9.3pp, PSQI_qual.3pp))
+print_slice(df, PSQI9.3pp, PSQI_qual.3pp)
 ```
 
-##### Component 2: Latency
+##### 2: Latency
 
 ```{r}
 #| echo: false
-print_slice(df, c(PSQI2.3pp, PSQI5a.3pp, PSQI_lat.3pp))
+print_slice(df, PSQI2.3pp, PSQI5a.3pp, PSQI_lat.3pp)
 ```
 
-##### Component 3: Duration
+##### 3: Duration
 
 ```{r}
 #| echo: false
-print_slice(df, c(PSQI4.3pp, PSQI_dur.3pp))
+print_slice(df, PSQI4.3pp, PSQI_dur.3pp)
 ```
 
-##### Component 4: Efficiency
+##### 4: Efficiency
 
 ```{r}
 #| echo: false
-print_slice(df,  c(PSQI1_raw.3pp, PSQI3_raw.3pp, PSQI4.3pp, PSQI_effic.3pp)) 
+print_slice(df, PSQI1_raw.3pp, PSQI3_raw.3pp, PSQI4.3pp, PSQI_effic.3pp)
 ```
 
-##### Component 5: Disturbance
+##### 5: Disturbance
 
 ```{r}
 #| echo: false
-print_slice(df, c(PSQI5b.3pp:PSQI5j.3pp, PSQI_disturb.3pp)) 
+print_slice(df, PSQI5b.3pp:PSQI5j.3pp, PSQI_disturb.3pp)
 ```
 
-##### Component 6: Medication
+##### 6: Medication
 
 ```{r}
 #| echo: false
-print_slice(df, c(PSQI6.3pp, PSQI_med.3pp)) 
+print_slice(df, PSQI6.3pp, PSQI_med.3pp)
 ```
 
-##### Component 7: Dysfunction during the day
+##### 7: Dysfunction during the day
 
 ```{r}
 #| echo: false
-print_slice(df, c(PSQI7.3pp, PSQI8.3pp, PSQI_daydys.3pp)) 
+print_slice(df, PSQI7.3pp, PSQI8.3pp, PSQI_daydys.3pp)
+```
+
+##### Global PSQI
+
+```{r}
+#| echo: false
+print_slice(df, PSQI_qual.3pp:PSQI_global.3pp)
 ```
 :::
-:::
-
+:::::
+:::::::::
 ## PSS: Perceived Stress Scale
 
 ::: panel-tabset
@@ -3753,7 +3765,7 @@ df <- df %>%
     contains("PBQ"), 
     contains("PingSS"), 
     contains("PSI"), 
-    contains("PSQI"), 
+    #contains("PSQI"), 
     contains("PSS"), 
     contains("SCL"), 
     contains("PRQ"), 
@@ -3783,7 +3795,7 @@ df_sum <- df %>%
          PBQ_impaired.3pp:PBQ_abuse.3pp,
          PingSS_tot.3pp, 
          PSI_dr.3pp:PSI_tot.3pp,
-         PSQI_global.3pp,
+         #PSQI_global.3pp,
          PSS_tot.3pp, 
          SCL_som.3pp:SCL_psdi.3pp, 
          )

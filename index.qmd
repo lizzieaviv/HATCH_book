@@ -25,7 +25,7 @@ Data files can be found at \[INSERT URL\]
 -   Inventory Cleaning: How we scored the included measures.
 -   Demographics Cleaning: How we scored the demographics and basic information items.
 -   Rename: The scripts used to rename Qualtrics items (e.g., Q105 to BDI1)
--   Compile Raw Data: The scripts used to combine our raw Qualtrics data.
+-   The scripts used to compile raw Qualtrics data are not included for participant privacy
 
 # Included Measures
 

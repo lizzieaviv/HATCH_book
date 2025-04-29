@@ -337,7 +337,7 @@ window.Quarto = {
 </ul>
 </div>
 <div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
-<div class="cell" data-layout-align="center">
+<div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse) <span class="co"># for data cleaning</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(here) <span class="co"># to quickly find data files</span></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(haven) <span class="co"># to manipulate SPSS files and add SPSS-style labels</span></span>
@@ -349,7 +349,7 @@ window.Quarto = {
 </div>
 </div>
 <div id="tabset-1-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-3-tab">
-<div class="cell" data-layout-align="center">
+<div class="cell">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">read_sav</span>(<span class="fu">here</span>(<span class="st">"data/3_renamed"</span>, <span class="st">"0pn_renamed.sav"</span>)) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
@@ -376,7 +376,7 @@ window.Quarto = {
 <div id="tabset-2-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-2-1-tab">
 <section id="clean-due-date-variable" class="level5">
 <h5 class="anchored" data-anchor-id="clean-due-date-variable">Clean Due Date Variable</h5>
-<div class="cell" data-layout-align="center">
+<div class="cell">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(CoupleID) <span class="sc">%&gt;%</span> <span class="do">## tell R we are looking at couples</span></span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">DueDate =</span> <span class="fu">as.Date</span>(DueDate)) <span class="sc">%&gt;%</span> <span class="do">## tell R that DueDate is a date variable</span></span>
@@ -391,7 +391,7 @@ window.Quarto = {
 </section>
 <section id="re-code-random-due-date-variable-issues" class="level5">
 <h5 class="anchored" data-anchor-id="re-code-random-due-date-variable-issues">Re-code Random Due Date Variable Issues</h5>
-<div class="cell" data-layout-align="center">
+<div class="cell">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>DueDate[df<span class="sc">$</span>CoupleID <span class="sc">==</span> <span class="dv">28</span>] <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(<span class="st">"2015-09-17"</span>)</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>DueDate[df<span class="sc">$</span>CoupleID <span class="sc">==</span> <span class="dv">84</span>] <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(<span class="st">"2019-06-20"</span>)</span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>DueDate[df<span class="sc">$</span>CoupleID <span class="sc">==</span> <span class="dv">91</span>] <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(<span class="st">"2019-08-19"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -399,12 +399,12 @@ window.Quarto = {
 </section>
 </div>
 <div id="tabset-2-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-2-2-tab">
-<div class="cell" data-layout-align="center">
+<div class="cell">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>labelled<span class="sc">::</span><span class="fu">var_label</span>(df<span class="sc">$</span>DueDate) <span class="ot">&lt;-</span> <span class="st">"Baby's Due Date"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 <div id="tabset-2-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-2-3-tab">
-<div class="cell" data-layout-align="center">
+<div class="cell">
 <div class="cell-output-display">
 <table class="table table-hover table-condensed" style="width: auto !important; margin-left: auto; margin-right: auto;">
  <thead>
@@ -415,28 +415,28 @@ window.Quarto = {
  </thead>
 <tbody>
   <tr>
-   <td style="text-align:right;text-align: center;"> 100 </td>
-   <td style="text-align:left;text-align: center;"> 2020-06-11 </td>
+   <td style="text-align:right;text-align: center;"> 89 </td>
+   <td style="text-align:left;text-align: center;"> 2019-09-11 </td>
   </tr>
   <tr>
-   <td style="text-align:right;text-align: center;"> 47 </td>
-   <td style="text-align:left;text-align: center;"> 2016-10-19 </td>
+   <td style="text-align:right;text-align: center;"> 56 </td>
+   <td style="text-align:left;text-align: center;"> 2017-08-18 </td>
   </tr>
   <tr>
-   <td style="text-align:right;text-align: center;"> 29 </td>
-   <td style="text-align:left;text-align: center;"> 2015-11-18 </td>
+   <td style="text-align:right;text-align: center;"> 58 </td>
+   <td style="text-align:left;text-align: center;"> 2017-08-15 </td>
   </tr>
   <tr>
-   <td style="text-align:right;text-align: center;"> 9 </td>
-   <td style="text-align:left;text-align: center;"> 2014-10-29 </td>
+   <td style="text-align:right;text-align: center;"> 41 </td>
+   <td style="text-align:left;text-align: center;"> 2016-06-27 </td>
   </tr>
   <tr>
-   <td style="text-align:right;text-align: center;"> 51 </td>
-   <td style="text-align:left;text-align: center;"> 2017-03-13 </td>
+   <td style="text-align:right;text-align: center;"> 90 </td>
+   <td style="text-align:left;text-align: center;"> 2019-09-29 </td>
   </tr>
   <tr>
-   <td style="text-align:right;text-align: center;"> 68 </td>
-   <td style="text-align:left;text-align: center;"> 2018-06-30 </td>
+   <td style="text-align:right;text-align: center;"> 48 </td>
+   <td style="text-align:left;text-align: center;"> 2017-01-05 </td>
   </tr>
 </tbody>
 </table>
@@ -459,7 +459,7 @@ window.Quarto = {
 <div id="tabset-3-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-3-2-tab">
 <section id="clean-visit-date-variable" class="level5">
 <h5 class="anchored" data-anchor-id="clean-visit-date-variable">Clean Visit Date Variable</h5>
-<div class="cell" data-layout-align="center">
+<div class="cell">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span></span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(CoupleID) <span class="sc">%&gt;%</span> <span class="do">## tell R we are looking at couples</span></span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">VisitDate.pn =</span> <span class="fu">as.Date</span>(VisitDate.pn)) <span class="sc">%&gt;%</span> <span class="do">## tell R that DueDate is a date variable</span></span>
@@ -474,19 +474,19 @@ window.Quarto = {
 </section>
 <section id="re-code-random-visit-date-variable-issues" class="level5">
 <h5 class="anchored" data-anchor-id="re-code-random-visit-date-variable-issues">Re-code Random Visit Date Variable Issues</h5>
-<div class="cell" data-layout-align="center">
+<div class="cell">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>VisitDate.pn[df<span class="sc">$</span>CoupleID <span class="sc">==</span> <span class="dv">19</span>] <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(<span class="st">"2015-02-21"</span>)</span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>VisitDate.pn[df<span class="sc">$</span>CoupleID <span class="sc">==</span> <span class="dv">53</span>] <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(<span class="st">"2017-04-03"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 </div>
 <div id="tabset-3-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-3-3-tab">
-<div class="cell" data-layout-align="center">
+<div class="cell">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>labelled<span class="sc">::</span><span class="fu">var_label</span>(df<span class="sc">$</span>VisitDate.pn) <span class="ot">&lt;-</span> <span class="st">"Prenatal Lab Visit Date"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 <div id="tabset-3-4" class="tab-pane" role="tabpanel" aria-labelledby="tabset-3-4-tab">
-<div class="cell" data-layout-align="center">
+<div class="cell">
 <div class="cell-output-display">
 <table class="table table-hover table-condensed" style="width: auto !important; margin-left: auto; margin-right: auto;">
  <thead>
@@ -497,28 +497,28 @@ window.Quarto = {
  </thead>
 <tbody>
   <tr>
-   <td style="text-align:right;text-align: center;"> 42 </td>
-   <td style="text-align:left;text-align: center;"> 2016-06-01 </td>
+   <td style="text-align:right;text-align: center;"> 79 </td>
+   <td style="text-align:left;text-align: center;"> 2018-11-07 </td>
   </tr>
   <tr>
-   <td style="text-align:right;text-align: center;"> 26 </td>
-   <td style="text-align:left;text-align: center;"> 2015-06-28 </td>
+   <td style="text-align:right;text-align: center;"> 98 </td>
+   <td style="text-align:left;text-align: center;"> 2019-11-23 </td>
   </tr>
   <tr>
-   <td style="text-align:right;text-align: center;"> 54 </td>
-   <td style="text-align:left;text-align: center;"> 2017-05-20 </td>
+   <td style="text-align:right;text-align: center;"> 65 </td>
+   <td style="text-align:left;text-align: center;"> 2018-02-02 </td>
   </tr>
   <tr>
-   <td style="text-align:right;text-align: center;"> 82 </td>
-   <td style="text-align:left;text-align: center;"> 2019-02-09 </td>
+   <td style="text-align:right;text-align: center;"> 11 </td>
+   <td style="text-align:left;text-align: center;"> 2014-10-04 </td>
   </tr>
   <tr>
-   <td style="text-align:right;text-align: center;"> 75 </td>
-   <td style="text-align:left;text-align: center;"> 2018-07-15 </td>
+   <td style="text-align:right;text-align: center;"> 59 </td>
+   <td style="text-align:left;text-align: center;"> 2017-07-12 </td>
   </tr>
   <tr>
-   <td style="text-align:right;text-align: center;"> 17 </td>
-   <td style="text-align:left;text-align: center;"> 2014-12-05 </td>
+   <td style="text-align:right;text-align: center;"> 100 </td>
+   <td style="text-align:left;text-align: center;"> 2020-02-21 </td>
   </tr>
 </tbody>
 </table>
@@ -538,7 +538,7 @@ window.Quarto = {
 <p><span class="math display">\[\text{Days Pregnant} = 280 - \text{Days before Due Date}\]</span></p>
 </div>
 <div id="tabset-4-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-4-2-tab">
-<div class="cell" data-layout-align="center">
+<div class="cell">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span></span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">DaysB4Due =</span> <span class="fu">as.numeric</span>(DueDate <span class="sc">-</span> VisitDate.pn)) <span class="sc">%&gt;%</span> <span class="do">## Calculate days before due date</span></span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">DaysPregnant.pn =</span> <span class="dv">280</span> <span class="sc">-</span> DaysB4Due) <span class="sc">%&gt;%</span> <span class="do">## Calculate days pregnant</span></span>
@@ -547,13 +547,13 @@ window.Quarto = {
 </div>
 </div>
 <div id="tabset-4-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-4-3-tab">
-<div class="cell" data-layout-align="center">
+<div class="cell">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span></span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">DaysPregnant.pn =</span> <span class="fu">labelled</span>(DaysPregnant.pn, <span class="at">label =</span> <span class="st">"Baby's Gestational Age (days)"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 <div id="tabset-4-4" class="tab-pane" role="tabpanel" aria-labelledby="tabset-4-4-tab">
-<div class="cell" data-layout-align="center">
+<div class="cell">
 <div class="cell-output-display">
 <table class="table table-hover table-condensed" style="width: auto !important; margin-left: auto; margin-right: auto;">
  <thead>
@@ -567,46 +567,46 @@ window.Quarto = {
  </thead>
 <tbody>
   <tr>
-   <td style="text-align:right;text-align: center;"> 32 </td>
-   <td style="text-align:left;text-align: center;"> dad </td>
-   <td style="text-align:left;text-align: center;"> 2015-10-21 </td>
-   <td style="text-align:left;text-align: center;"> 2015-08-10 </td>
-   <td style="text-align:right;text-align: center;"> 208 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;text-align: center;"> 7 </td>
-   <td style="text-align:left;text-align: center;"> dad </td>
-   <td style="text-align:left;text-align: center;"> 2014-10-05 </td>
-   <td style="text-align:left;text-align: center;"> 2014-06-01 </td>
-   <td style="text-align:right;text-align: center;"> 154 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;text-align: center;"> 45 </td>
+   <td style="text-align:right;text-align: center;"> 76 </td>
    <td style="text-align:left;text-align: center;"> mom </td>
-   <td style="text-align:left;text-align: center;"> 2016-09-24 </td>
-   <td style="text-align:left;text-align: center;"> 2016-06-19 </td>
-   <td style="text-align:right;text-align: center;"> 183 </td>
+   <td style="text-align:left;text-align: center;"> 2018-09-02 </td>
+   <td style="text-align:left;text-align: center;"> 2018-07-23 </td>
+   <td style="text-align:right;text-align: center;"> 239 </td>
   </tr>
   <tr>
-   <td style="text-align:right;text-align: center;"> 16 </td>
+   <td style="text-align:right;text-align: center;"> 14 </td>
    <td style="text-align:left;text-align: center;"> dad </td>
    <td style="text-align:left;text-align: center;"> 2015-01-30 </td>
-   <td style="text-align:left;text-align: center;"> 2014-12-03 </td>
-   <td style="text-align:right;text-align: center;"> 222 </td>
+   <td style="text-align:left;text-align: center;"> 2014-11-17 </td>
+   <td style="text-align:right;text-align: center;"> 206 </td>
   </tr>
   <tr>
-   <td style="text-align:right;text-align: center;"> 36 </td>
+   <td style="text-align:right;text-align: center;"> 99 </td>
    <td style="text-align:left;text-align: center;"> dad </td>
-   <td style="text-align:left;text-align: center;"> 2016-03-02 </td>
-   <td style="text-align:left;text-align: center;"> 2015-11-25 </td>
-   <td style="text-align:right;text-align: center;"> 182 </td>
+   <td style="text-align:left;text-align: center;"> 2020-03-24 </td>
+   <td style="text-align:left;text-align: center;"> 2019-12-12 </td>
+   <td style="text-align:right;text-align: center;"> 177 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;text-align: center;"> 51 </td>
+   <td style="text-align:left;text-align: center;"> mom </td>
+   <td style="text-align:left;text-align: center;"> 2017-03-13 </td>
+   <td style="text-align:left;text-align: center;"> 2017-01-28 </td>
+   <td style="text-align:right;text-align: center;"> 236 </td>
   </tr>
   <tr>
    <td style="text-align:right;text-align: center;"> 34 </td>
-   <td style="text-align:left;text-align: center;"> mom </td>
+   <td style="text-align:left;text-align: center;"> dad </td>
    <td style="text-align:left;text-align: center;"> 2015-12-14 </td>
    <td style="text-align:left;text-align: center;"> 2015-09-16 </td>
    <td style="text-align:right;text-align: center;"> 191 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;text-align: center;"> 97 </td>
+   <td style="text-align:left;text-align: center;"> dad </td>
+   <td style="text-align:left;text-align: center;"> 2020-01-03 </td>
+   <td style="text-align:left;text-align: center;"> 2019-10-09 </td>
+   <td style="text-align:right;text-align: center;"> 194 </td>
   </tr>
 </tbody>
 </table>
@@ -626,7 +626,7 @@ window.Quarto = {
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-6-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-6-1" role="tab" aria-controls="tabset-6-1" aria-selected="true">Label</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-6-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-6-2" role="tab" aria-controls="tabset-6-2" aria-selected="false">Check</a></li></ul>
 <div class="tab-content">
 <div id="tabset-6-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-6-1-tab">
-<div class="cell" data-layout-align="center">
+<div class="cell">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span></span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  <span class="co"># Convert to numeric</span></span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">RelStat.pn =</span> <span class="fu">as.numeric</span>(RelStat.pn)) <span class="sc">%&gt;%</span></span>
@@ -638,7 +638,7 @@ window.Quarto = {
 </div>
 </div>
 <div id="tabset-6-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-6-2-tab">
-<div class="cell" data-layout-align="center">
+<div class="cell">
 <div class="cell-output-display">
 <table class="caption-top table table-sm table-striped small">
 <thead>
@@ -678,7 +678,7 @@ window.Quarto = {
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-7-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-7-1" role="tab" aria-controls="tabset-7-1" aria-selected="true">Label</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-7-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-7-2" role="tab" aria-controls="tabset-7-2" aria-selected="false">Check</a></li></ul>
 <div class="tab-content">
 <div id="tabset-7-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-7-1-tab">
-<div class="cell" data-layout-align="center">
+<div class="cell">
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span></span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="do">## Convert to numeric</span></span>
 <span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate_at</span>(<span class="fu">vars</span>(<span class="fu">c</span>(Ethnicity)), as.numeric) <span class="sc">%&gt;%</span></span>
@@ -695,7 +695,7 @@ window.Quarto = {
 </div>
 </div>
 <div id="tabset-7-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-7-2-tab">
-<div class="cell" data-layout-align="center">
+<div class="cell">
 <div class="cell-output-display">
 <table class="caption-top table table-sm table-striped small">
 <thead>
@@ -760,7 +760,7 @@ window.Quarto = {
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-8-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-8-1" role="tab" aria-controls="tabset-8-1" aria-selected="true">Label</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-8-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-8-2" role="tab" aria-controls="tabset-8-2" aria-selected="false">Check</a></li></ul>
 <div class="tab-content">
 <div id="tabset-8-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-8-1-tab">
-<div class="cell" data-layout-align="center">
+<div class="cell">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span></span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  <span class="do">## Convert to numeric</span></span>
 <span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate_at</span>(<span class="fu">vars</span>(<span class="fu">c</span>(Education.pn)), as.numeric) <span class="sc">%&gt;%</span></span>
@@ -776,7 +776,7 @@ window.Quarto = {
 </div>
 </div>
 <div id="tabset-8-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-8-2-tab">
-<div class="cell" data-layout-align="center">
+<div class="cell">
 <div class="cell-output-display">
 <table class="caption-top table table-sm table-striped small">
 <thead>
@@ -841,7 +841,7 @@ window.Quarto = {
 <div id="tabset-9-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-9-2-tab">
 <section id="rename-height-and-weight-variables" class="level4">
 <h4 class="anchored" data-anchor-id="rename-height-and-weight-variables">Rename <code>Height</code> and <code>Weight</code> Variables</h4>
-<div class="cell" data-layout-align="center">
+<div class="cell">
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span></span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="st">"Weight.pn"</span> <span class="ot">=</span> <span class="st">"Weight_1.pn"</span>) <span class="sc">%&gt;%</span> <span class="do">## Rename weight variables</span></span>
 <span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="st">"Height_ft.pn"</span> <span class="ot">=</span> <span class="st">"Height_1.pn"</span>) <span class="sc">%&gt;%</span> <span class="do">## Rename height variables</span></span>
@@ -850,7 +850,7 @@ window.Quarto = {
 </section>
 <section id="calculate-bmi" class="level4">
 <h4 class="anchored" data-anchor-id="calculate-bmi">Calculate BMI</h4>
-<div class="cell" data-layout-align="center">
+<div class="cell">
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span></span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>  <span class="do">## Calculate BMI</span></span>
 <span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">BMI.pn =</span> <span class="fu">round</span>(<span class="dv">703</span><span class="sc">*</span>Weight.pn<span class="sc">/</span>(Height_ft.pn<span class="sc">*</span><span class="dv">12</span> <span class="sc">+</span> Height_in.pn)<span class="sc">^</span><span class="dv">2</span>, <span class="dv">3</span>)) <span class="sc">%&gt;%</span> </span>
@@ -861,7 +861,7 @@ window.Quarto = {
 </section>
 </div>
 <div id="tabset-9-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-9-3-tab">
-<div class="cell" data-layout-align="center">
+<div class="cell">
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span></span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Weight.pn =</span> <span class="fu">labelled</span>(Weight.pn, <span class="at">label =</span> <span class="st">"Participant Weight"</span>)) <span class="sc">%&gt;%</span></span>
 <span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Height_ft.pn =</span> <span class="fu">labelled</span>(Height_ft.pn, <span class="at">label =</span> <span class="st">"Participant Height (feet)"</span>)) <span class="sc">%&gt;%</span></span>
@@ -870,7 +870,7 @@ window.Quarto = {
 </div>
 </div>
 <div id="tabset-9-4" class="tab-pane" role="tabpanel" aria-labelledby="tabset-9-4-tab">
-<div class="cell" data-layout-align="center">
+<div class="cell">
 <div class="cell-output-display">
 <table class="caption-top table table-sm table-striped small">
 <thead>
@@ -902,7 +902,7 @@ window.Quarto = {
 </div>
 </div>
 <div id="tabset-9-5" class="tab-pane" role="tabpanel" aria-labelledby="tabset-9-5-tab">
-<div class="cell" data-layout-align="center">
+<div class="cell">
 <div class="cell-output-display">
 <table class="table table-hover table-condensed" style="width: auto !important; margin-left: auto; margin-right: auto;">
  <thead>
@@ -917,52 +917,52 @@ window.Quarto = {
  </thead>
 <tbody>
   <tr>
-   <td style="text-align:right;text-align: center;"> 29 </td>
-   <td style="text-align:left;text-align: center;"> mom </td>
-   <td style="text-align:right;text-align: center;"> 168 </td>
-   <td style="text-align:right;text-align: center;"> 5 </td>
-   <td style="text-align:right;text-align: center;"> 5 </td>
-   <td style="text-align:right;text-align: center;"> 27.954 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;text-align: center;"> 38 </td>
+   <td style="text-align:right;text-align: center;"> 4 </td>
    <td style="text-align:left;text-align: center;"> dad </td>
-   <td style="text-align:right;text-align: center;"> 200 </td>
+   <td style="text-align:right;text-align: center;"> 172 </td>
    <td style="text-align:right;text-align: center;"> 6 </td>
-   <td style="text-align:right;text-align: center;"> 2 </td>
-   <td style="text-align:right;text-align: center;"> 25.676 </td>
+   <td style="text-align:right;text-align: center;"> 1 </td>
+   <td style="text-align:right;text-align: center;"> 22.690 </td>
   </tr>
   <tr>
-   <td style="text-align:right;text-align: center;"> 55 </td>
+   <td style="text-align:right;text-align: center;"> 67 </td>
    <td style="text-align:left;text-align: center;"> mom </td>
-   <td style="text-align:right;text-align: center;"> 200 </td>
+   <td style="text-align:right;text-align: center;"> 170 </td>
    <td style="text-align:right;text-align: center;"> 5 </td>
-   <td style="text-align:right;text-align: center;"> 6 </td>
-   <td style="text-align:right;text-align: center;"> 32.277 </td>
+   <td style="text-align:right;text-align: center;"> 5 </td>
+   <td style="text-align:right;text-align: center;"> 28.286 </td>
   </tr>
   <tr>
    <td style="text-align:right;text-align: center;"> 19 </td>
+   <td style="text-align:left;text-align: center;"> dad </td>
+   <td style="text-align:right;text-align: center;"> 175 </td>
+   <td style="text-align:right;text-align: center;"> 6 </td>
+   <td style="text-align:right;text-align: center;"> 9 </td>
+   <td style="text-align:right;text-align: center;"> 18.751 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;text-align: center;"> 68 </td>
    <td style="text-align:left;text-align: center;"> mom </td>
-   <td style="text-align:right;text-align: center;"> 176 </td>
+   <td style="text-align:right;text-align: center;"> 160 </td>
    <td style="text-align:right;text-align: center;"> 5 </td>
-   <td style="text-align:right;text-align: center;"> 8 </td>
-   <td style="text-align:right;text-align: center;"> 26.758 </td>
+   <td style="text-align:right;text-align: center;"> 7 </td>
+   <td style="text-align:right;text-align: center;"> 25.057 </td>
   </tr>
   <tr>
-   <td style="text-align:right;text-align: center;"> 83 </td>
+   <td style="text-align:right;text-align: center;"> 93 </td>
    <td style="text-align:left;text-align: center;"> dad </td>
-   <td style="text-align:right;text-align: center;"> 168 </td>
+   <td style="text-align:right;text-align: center;"> 190 </td>
    <td style="text-align:right;text-align: center;"> 6 </td>
-   <td style="text-align:right;text-align: center;"> 1 </td>
-   <td style="text-align:right;text-align: center;"> 22.163 </td>
+   <td style="text-align:right;text-align: center;"> 0 </td>
+   <td style="text-align:right;text-align: center;"> 25.766 </td>
   </tr>
   <tr>
-   <td style="text-align:right;text-align: center;"> 5 </td>
+   <td style="text-align:right;text-align: center;"> 59 </td>
    <td style="text-align:left;text-align: center;"> dad </td>
-   <td style="text-align:right;text-align: center;"> 195 </td>
-   <td style="text-align:right;text-align: center;"> 6 </td>
-   <td style="text-align:right;text-align: center;"> 2 </td>
-   <td style="text-align:right;text-align: center;"> 25.034 </td>
+   <td style="text-align:right;text-align: center;"> 190 </td>
+   <td style="text-align:right;text-align: center;"> 5 </td>
+   <td style="text-align:right;text-align: center;"> 7 </td>
+   <td style="text-align:right;text-align: center;"> 29.755 </td>
   </tr>
 </tbody>
 </table>
@@ -987,7 +987,7 @@ window.Quarto = {
 <div id="tabset-10-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-10-2-tab">
 <section id="clean-up-illness-columns" class="level4">
 <h4 class="anchored" data-anchor-id="clean-up-illness-columns">Clean up <code>Illness</code> Columns</h4>
-<div class="cell" data-layout-align="center">
+<div class="cell">
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span></span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>  <span class="do">## Clean up NAs in Illness type</span></span>
 <span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="fu">across</span>(<span class="fu">c</span>(Illness1.pn<span class="sc">:</span>Illness7.pn), <span class="sc">~</span><span class="fu">na_if</span>(., <span class="st">"N/A"</span>))) <span class="sc">%&gt;%</span></span>
@@ -1003,7 +1003,7 @@ window.Quarto = {
 </section>
 </div>
 <div id="tabset-10-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-10-3-tab">
-<div class="cell" data-layout-align="center">
+<div class="cell">
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span></span>
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>  <span class="do">## Convert to numeric (to make `labelled` function run)</span></span>
 <span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate_at</span>(<span class="fu">vars</span>(<span class="fu">c</span>(Illness1_current.pn<span class="sc">:</span>Illness7_current.pn)), as.numeric) <span class="sc">%&gt;%</span></span>
@@ -1019,7 +1019,7 @@ window.Quarto = {
 </div>
 </div>
 <div id="tabset-10-4" class="tab-pane" role="tabpanel" aria-labelledby="tabset-10-4-tab">
-<div class="cell" data-layout-align="center">
+<div class="cell">
 <div class="cell-output-display">
 <table class="caption-top table table-sm table-striped small">
 <colgroup>
@@ -1086,7 +1086,7 @@ window.Quarto = {
 </div>
 </div>
 <div id="tabset-10-5" class="tab-pane" role="tabpanel" aria-labelledby="tabset-10-5-tab">
-<div class="cell" data-layout-align="center">
+<div class="cell">
 <div class="cell-output-display">
 <div style="border: 1px solid #ddd; padding: 5px; overflow-x: scroll; width:100%; "><table class="table table-hover table-condensed" style="width: auto !important; margin-left: auto; margin-right: auto;">
  <thead>
@@ -1111,10 +1111,10 @@ window.Quarto = {
  </thead>
 <tbody>
   <tr>
-   <td style="text-align:right;text-align: center;"> 27 </td>
+   <td style="text-align:right;text-align: center;"> 62 </td>
    <td style="text-align:left;text-align: center;"> mom </td>
-   <td style="text-align:left;text-align: center;"> foot surgery for broken foot </td>
-   <td style="text-align:left;text-align: center;"> white coat syndrome </td>
+   <td style="text-align:left;text-align: center;"> Grand Mal Seizure (one isolated, no disorder diagnosed) </td>
+   <td style="text-align:left;text-align: center;"> Migraine Headaches </td>
    <td style="text-align:left;text-align: center;">  </td>
    <td style="text-align:left;text-align: center;">  </td>
    <td style="text-align:left;text-align: center;">  </td>
@@ -1129,43 +1129,7 @@ window.Quarto = {
    <td style="text-align:right;text-align: center;"> NA </td>
   </tr>
   <tr>
-   <td style="text-align:right;text-align: center;"> 43 </td>
-   <td style="text-align:left;text-align: center;"> dad </td>
-   <td style="text-align:left;text-align: center;">  </td>
-   <td style="text-align:left;text-align: center;">  </td>
-   <td style="text-align:left;text-align: center;">  </td>
-   <td style="text-align:left;text-align: center;">  </td>
-   <td style="text-align:left;text-align: center;">  </td>
-   <td style="text-align:left;text-align: center;">  </td>
-   <td style="text-align:left;text-align: center;">  </td>
-   <td style="text-align:right;text-align: center;"> NA </td>
-   <td style="text-align:right;text-align: center;"> NA </td>
-   <td style="text-align:right;text-align: center;"> NA </td>
-   <td style="text-align:right;text-align: center;"> NA </td>
-   <td style="text-align:right;text-align: center;"> NA </td>
-   <td style="text-align:right;text-align: center;"> NA </td>
-   <td style="text-align:right;text-align: center;"> NA </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;text-align: center;"> 42 </td>
-   <td style="text-align:left;text-align: center;"> dad </td>
-   <td style="text-align:left;text-align: center;">  </td>
-   <td style="text-align:left;text-align: center;">  </td>
-   <td style="text-align:left;text-align: center;">  </td>
-   <td style="text-align:left;text-align: center;">  </td>
-   <td style="text-align:left;text-align: center;">  </td>
-   <td style="text-align:left;text-align: center;">  </td>
-   <td style="text-align:left;text-align: center;">  </td>
-   <td style="text-align:right;text-align: center;"> NA </td>
-   <td style="text-align:right;text-align: center;"> NA </td>
-   <td style="text-align:right;text-align: center;"> NA </td>
-   <td style="text-align:right;text-align: center;"> NA </td>
-   <td style="text-align:right;text-align: center;"> NA </td>
-   <td style="text-align:right;text-align: center;"> NA </td>
-   <td style="text-align:right;text-align: center;"> NA </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;text-align: center;"> 86 </td>
+   <td style="text-align:right;text-align: center;"> 79 </td>
    <td style="text-align:left;text-align: center;"> mom </td>
    <td style="text-align:left;text-align: center;">  </td>
    <td style="text-align:left;text-align: center;">  </td>
@@ -1183,7 +1147,25 @@ window.Quarto = {
    <td style="text-align:right;text-align: center;"> NA </td>
   </tr>
   <tr>
-   <td style="text-align:right;text-align: center;"> 30 </td>
+   <td style="text-align:right;text-align: center;"> 66 </td>
+   <td style="text-align:left;text-align: center;"> mom </td>
+   <td style="text-align:left;text-align: center;"> Mono </td>
+   <td style="text-align:left;text-align: center;"> Kidney infection </td>
+   <td style="text-align:left;text-align: center;">  </td>
+   <td style="text-align:left;text-align: center;">  </td>
+   <td style="text-align:left;text-align: center;">  </td>
+   <td style="text-align:left;text-align: center;">  </td>
+   <td style="text-align:left;text-align: center;">  </td>
+   <td style="text-align:right;text-align: center;"> 0 </td>
+   <td style="text-align:right;text-align: center;"> 0 </td>
+   <td style="text-align:right;text-align: center;"> NA </td>
+   <td style="text-align:right;text-align: center;"> NA </td>
+   <td style="text-align:right;text-align: center;"> NA </td>
+   <td style="text-align:right;text-align: center;"> NA </td>
+   <td style="text-align:right;text-align: center;"> NA </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;text-align: center;"> 80 </td>
    <td style="text-align:left;text-align: center;"> dad </td>
    <td style="text-align:left;text-align: center;">  </td>
    <td style="text-align:left;text-align: center;">  </td>
@@ -1201,7 +1183,7 @@ window.Quarto = {
    <td style="text-align:right;text-align: center;"> NA </td>
   </tr>
   <tr>
-   <td style="text-align:right;text-align: center;"> 26 </td>
+   <td style="text-align:right;text-align: center;"> 64 </td>
    <td style="text-align:left;text-align: center;"> mom </td>
    <td style="text-align:left;text-align: center;">  </td>
    <td style="text-align:left;text-align: center;">  </td>
@@ -1212,6 +1194,24 @@ window.Quarto = {
    <td style="text-align:left;text-align: center;">  </td>
    <td style="text-align:right;text-align: center;"> NA </td>
    <td style="text-align:right;text-align: center;"> NA </td>
+   <td style="text-align:right;text-align: center;"> NA </td>
+   <td style="text-align:right;text-align: center;"> NA </td>
+   <td style="text-align:right;text-align: center;"> NA </td>
+   <td style="text-align:right;text-align: center;"> NA </td>
+   <td style="text-align:right;text-align: center;"> NA </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;text-align: center;"> 47 </td>
+   <td style="text-align:left;text-align: center;"> dad </td>
+   <td style="text-align:left;text-align: center;"> Short Bowel Syndrome </td>
+   <td style="text-align:left;text-align: center;"> Osteopenia </td>
+   <td style="text-align:left;text-align: center;">  </td>
+   <td style="text-align:left;text-align: center;">  </td>
+   <td style="text-align:left;text-align: center;">  </td>
+   <td style="text-align:left;text-align: center;">  </td>
+   <td style="text-align:left;text-align: center;">  </td>
+   <td style="text-align:right;text-align: center;"> 1 </td>
+   <td style="text-align:right;text-align: center;"> 1 </td>
    <td style="text-align:right;text-align: center;"> NA </td>
    <td style="text-align:right;text-align: center;"> NA </td>
    <td style="text-align:right;text-align: center;"> NA </td>
@@ -1233,7 +1233,7 @@ window.Quarto = {
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-11-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-11-1" role="tab" aria-controls="tabset-11-1" aria-selected="true">Label</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-11-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-11-2" role="tab" aria-controls="tabset-11-2" aria-selected="false">Check</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-11-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-11-3" role="tab" aria-controls="tabset-11-3" aria-selected="false">Print</a></li></ul>
 <div class="tab-content">
 <div id="tabset-11-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-11-1-tab">
-<div class="cell" data-layout-align="center">
+<div class="cell">
 <div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span></span>
 <span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>  <span class="do">## Create  variable labels</span></span>
 <span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Exercise.pn =</span> <span class="fu">labelled</span>(Exercise.pn, <span class="at">label =</span> <span class="st">"On average, how many hours per week do you spend exercising?"</span>),</span>
@@ -1241,7 +1241,7 @@ window.Quarto = {
 </div>
 </div>
 <div id="tabset-11-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-11-2-tab">
-<div class="cell" data-layout-align="center">
+<div class="cell">
 <div class="cell-output-display">
 <table class="caption-top table table-sm table-striped small">
 <thead>
@@ -1278,7 +1278,7 @@ window.Quarto = {
 </div>
 </div>
 <div id="tabset-11-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-11-3-tab">
-<div class="cell" data-layout-align="center">
+<div class="cell">
 <div class="cell-output-display">
 <table class="table table-hover table-condensed" style="width: auto !important; margin-left: auto; margin-right: auto;">
  <thead>
@@ -1291,39 +1291,39 @@ window.Quarto = {
  </thead>
 <tbody>
   <tr>
-   <td style="text-align:right;text-align: center;"> 12 </td>
-   <td style="text-align:left;text-align: center;"> dad </td>
-   <td style="text-align:right;text-align: center;"> 2 </td>
-   <td style="text-align:right;text-align: center;"> 6.5 </td>
+   <td style="text-align:right;text-align: center;"> 38 </td>
+   <td style="text-align:left;text-align: center;"> mom </td>
+   <td style="text-align:right;text-align: center;"> 4.0 </td>
+   <td style="text-align:right;text-align: center;"> 8 </td>
   </tr>
   <tr>
-   <td style="text-align:right;text-align: center;"> 6 </td>
+   <td style="text-align:right;text-align: center;"> 82 </td>
    <td style="text-align:left;text-align: center;"> dad </td>
-   <td style="text-align:right;text-align: center;"> 4 </td>
-   <td style="text-align:right;text-align: center;"> 7.0 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;text-align: center;"> 21 </td>
-   <td style="text-align:left;text-align: center;"> dad </td>
-   <td style="text-align:right;text-align: center;"> 6 </td>
-   <td style="text-align:right;text-align: center;"> 7.0 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;text-align: center;"> 4 </td>
-   <td style="text-align:left;text-align: center;"> dad </td>
-   <td style="text-align:right;text-align: center;"> 4 </td>
-   <td style="text-align:right;text-align: center;"> 7.0 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;text-align: center;"> 58 </td>
-   <td style="text-align:left;text-align: center;"> dad </td>
-   <td style="text-align:right;text-align: center;"> 4 </td>
+   <td style="text-align:right;text-align: center;"> 3.5 </td>
    <td style="text-align:right;text-align: center;"> NA </td>
   </tr>
   <tr>
-   <td style="text-align:right;text-align: center;"> 81 </td>
+   <td style="text-align:right;text-align: center;"> 30 </td>
    <td style="text-align:left;text-align: center;"> dad </td>
+   <td style="text-align:right;text-align: center;"> 3.0 </td>
+   <td style="text-align:right;text-align: center;"> 7 </td>
+  </tr>
+  <tr>
    <td style="text-align:right;text-align: center;"> 20 </td>
+   <td style="text-align:left;text-align: center;"> dad </td>
+   <td style="text-align:right;text-align: center;"> 5.0 </td>
+   <td style="text-align:right;text-align: center;"> 6 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;text-align: center;"> 60 </td>
+   <td style="text-align:left;text-align: center;"> mom </td>
+   <td style="text-align:right;text-align: center;"> 3.5 </td>
+   <td style="text-align:right;text-align: center;"> NA </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;text-align: center;"> 83 </td>
+   <td style="text-align:left;text-align: center;"> dad </td>
+   <td style="text-align:right;text-align: center;"> 3.0 </td>
    <td style="text-align:right;text-align: center;"> NA </td>
   </tr>
 </tbody>
@@ -1343,7 +1343,7 @@ window.Quarto = {
 <div id="tabset-12-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-12-1-tab">
 <section id="recode-smoker-variable" class="level4">
 <h4 class="anchored" data-anchor-id="recode-smoker-variable">Recode <code>Smoker</code> Variable</h4>
-<div class="cell" data-layout-align="center">
+<div class="cell">
 <div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span> </span>
 <span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Smoker.pn =</span> <span class="fu">as.numeric</span>(<span class="fu">case_when</span>(</span>
 <span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>    Smoker.pn <span class="sc">==</span> <span class="dv">2</span> <span class="sc">~</span> <span class="dv">0</span>, </span>
@@ -1353,7 +1353,7 @@ window.Quarto = {
 </section>
 </div>
 <div id="tabset-12-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-12-2-tab">
-<div class="cell" data-layout-align="center">
+<div class="cell">
 <div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span></span>
 <span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Smoker.pn =</span> <span class="fu">labelled</span>(Smoker.pn, </span>
 <span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>                     <span class="fu">c</span>(<span class="at">yes =</span> <span class="dv">1</span>, <span class="at">no =</span> <span class="dv">0</span>),</span>
@@ -1367,7 +1367,7 @@ window.Quarto = {
 <div id="tabset-12-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-12-3-tab">
 <section id="have-you-ever-smoked" class="level4">
 <h4 class="anchored" data-anchor-id="have-you-ever-smoked">Have you ever smoked</h4>
-<div class="cell" data-layout-align="center">
+<div class="cell">
 <div class="cell-output-display">
 <table class="caption-top table table-sm table-striped small">
 <thead>
@@ -1400,7 +1400,7 @@ window.Quarto = {
 </section>
 <section id="packs-per-day-and-years-smoker" class="level4">
 <h4 class="anchored" data-anchor-id="packs-per-day-and-years-smoker">Packs Per Day and Years Smoker</h4>
-<div class="cell" data-layout-align="center">
+<div class="cell">
 <div class="cell-output-display">
 <table class="caption-top table table-sm table-striped small">
 <thead>
@@ -1438,7 +1438,7 @@ window.Quarto = {
 </section>
 </div>
 <div id="tabset-12-4" class="tab-pane" role="tabpanel" aria-labelledby="tabset-12-4-tab">
-<div class="cell" data-layout-align="center">
+<div class="cell">
 <div class="cell-output-display">
 <div style="border: 1px solid #ddd; padding: 5px; overflow-x: scroll; width:100%; "><table class="table table-hover table-condensed" style="width: auto !important; margin-left: auto; margin-right: auto;">
  <thead>
@@ -1454,54 +1454,53 @@ window.Quarto = {
  </thead>
 <tbody>
   <tr>
-   <td style="text-align:right;text-align: center;"> 6 </td>
+   <td style="text-align:right;text-align: center;"> 44 </td>
    <td style="text-align:left;text-align: center;"> mom </td>
    <td style="text-align:right;text-align: center;"> 1 </td>
-   <td style="text-align:right;text-align: center;"> NA </td>
-   <td style="text-align:right;text-align: center;"> NA </td>
-   <td style="text-align:left;text-align: center;">  </td>
-   <td style="text-align:left;text-align: center;">  </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;text-align: center;"> 66 </td>
-   <td style="text-align:left;text-align: center;"> mom </td>
-   <td style="text-align:right;text-align: center;"> 0 </td>
-   <td style="text-align:right;text-align: center;"> NA </td>
-   <td style="text-align:right;text-align: center;"> NA </td>
-   <td style="text-align:left;text-align: center;">  </td>
-   <td style="text-align:left;text-align: center;">  </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;text-align: center;"> 77 </td>
-   <td style="text-align:left;text-align: center;"> dad </td>
-   <td style="text-align:right;text-align: center;"> 1 </td>
-   <td style="text-align:right;text-align: center;"> 0 </td>
+   <td style="text-align:right;text-align: center;"> 0.0 </td>
    <td style="text-align:right;text-align: center;"> 0 </td>
    <td style="text-align:left;text-align: center;"> Marijuana </td>
-   <td style="text-align:left;text-align: center;"> for five years, three times a week </td>
+   <td style="text-align:left;text-align: center;"> I used to smoke a couple times a day, but have not been smoking marijuana for nearly 3 years now. </td>
   </tr>
   <tr>
-   <td style="text-align:right;text-align: center;"> 100 </td>
+   <td style="text-align:right;text-align: center;"> 20 </td>
    <td style="text-align:left;text-align: center;"> dad </td>
    <td style="text-align:right;text-align: center;"> 1 </td>
-   <td style="text-align:right;text-align: center;"> 0 </td>
-   <td style="text-align:right;text-align: center;"> 0 </td>
-   <td style="text-align:left;text-align: center;"> Marijuana and Alcohol </td>
-   <td style="text-align:left;text-align: center;"> Marijuana once every six months
-Alcohol three to five drinks a week </td>
+   <td style="text-align:right;text-align: center;"> 0.0 </td>
+   <td style="text-align:right;text-align: center;"> 10 </td>
+   <td style="text-align:left;text-align: center;"> marijuana </td>
+   <td style="text-align:left;text-align: center;"> once or twice a week. less now that i am expecting a baby. </td>
   </tr>
   <tr>
-   <td style="text-align:right;text-align: center;"> 15 </td>
+   <td style="text-align:right;text-align: center;"> 95 </td>
+   <td style="text-align:left;text-align: center;"> dad </td>
+   <td style="text-align:right;text-align: center;"> 1 </td>
+   <td style="text-align:right;text-align: center;"> 0.2 </td>
+   <td style="text-align:right;text-align: center;"> 5 </td>
+   <td style="text-align:left;text-align: center;"> THC oil gummies and mints </td>
+   <td style="text-align:left;text-align: center;"> weekly </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;text-align: center;"> 75 </td>
    <td style="text-align:left;text-align: center;"> dad </td>
    <td style="text-align:right;text-align: center;"> 1 </td>
    <td style="text-align:right;text-align: center;"> NA </td>
    <td style="text-align:right;text-align: center;"> NA </td>
-   <td style="text-align:left;text-align: center;">  </td>
-   <td style="text-align:left;text-align: center;">  </td>
+   <td style="text-align:left;text-align: center;"> marijuana </td>
+   <td style="text-align:left;text-align: center;"> once every couple years </td>
   </tr>
   <tr>
    <td style="text-align:right;text-align: center;"> 9 </td>
-   <td style="text-align:left;text-align: center;"> mom </td>
+   <td style="text-align:left;text-align: center;"> dad </td>
+   <td style="text-align:right;text-align: center;"> 1 </td>
+   <td style="text-align:right;text-align: center;"> NA </td>
+   <td style="text-align:right;text-align: center;"> NA </td>
+   <td style="text-align:left;text-align: center;">  </td>
+   <td style="text-align:left;text-align: center;">  </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;text-align: center;"> 1 </td>
+   <td style="text-align:left;text-align: center;"> dad </td>
    <td style="text-align:right;text-align: center;"> 1 </td>
    <td style="text-align:right;text-align: center;"> NA </td>
    <td style="text-align:right;text-align: center;"> NA </td>
@@ -1523,7 +1522,7 @@ Alcohol three to five drinks a week </td>
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-13-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-13-1" role="tab" aria-controls="tabset-13-1" aria-selected="true">Script</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-13-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-13-2" role="tab" aria-controls="tabset-13-2" aria-selected="false">Label</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-13-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-13-3" role="tab" aria-controls="tabset-13-3" aria-selected="false">Check</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-13-4-tab" data-bs-toggle="tab" data-bs-target="#tabset-13-4" role="tab" aria-controls="tabset-13-4" aria-selected="false">Print</a></li></ul>
 <div class="tab-content">
 <div id="tabset-13-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-13-1-tab">
-<div class="cell" data-layout-align="center">
+<div class="cell">
 <div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span></span>
 <span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="do">## Re-code items</span></span>
 <span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Born_US.pn =</span> <span class="fu">case_when</span>(</span>
@@ -1532,7 +1531,7 @@ Alcohol three to five drinks a week </td>
 </div>
 </div>
 <div id="tabset-13-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-13-2-tab">
-<div class="cell" data-layout-align="center">
+<div class="cell">
 <div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span></span>
 <span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>  <span class="do">## Convert to numeric</span></span>
 <span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate_at</span>(<span class="fu">vars</span>(<span class="fu">c</span>(Born_US.pn)), as.numeric) <span class="sc">%&gt;%</span></span>
@@ -1549,7 +1548,7 @@ Alcohol three to five drinks a week </td>
 </div>
 </div>
 <div id="tabset-13-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-13-3-tab">
-<div class="cell" data-layout-align="center">
+<div class="cell">
 <div class="cell-output-display">
 <table class="caption-top table table-sm table-striped small">
 <thead>
@@ -1579,7 +1578,7 @@ Alcohol three to five drinks a week </td>
 </table>
 </div>
 </div>
-<div class="cell" data-layout-align="center">
+<div class="cell">
 <div class="cell-output-display">
 <table class="caption-top table table-sm table-striped small">
 <thead>
@@ -1616,7 +1615,7 @@ Alcohol three to five drinks a week </td>
 </div>
 </div>
 <div id="tabset-13-4" class="tab-pane" role="tabpanel" aria-labelledby="tabset-13-4-tab">
-<div class="cell" data-layout-align="center">
+<div class="cell">
 <div class="cell-output-display">
 <div style="border: 1px solid #ddd; padding: 5px; overflow-x: scroll; width:100%; "><table class="table table-hover table-condensed" style="margin-left: auto; margin-right: auto;">
  <thead>
@@ -1630,43 +1629,43 @@ Alcohol three to five drinks a week </td>
  </thead>
 <tbody>
   <tr>
-   <td style="text-align:right;text-align: center;"> 91 </td>
-   <td style="text-align:left;text-align: center;"> dad </td>
-   <td style="text-align:right;text-align: center;"> 0 </td>
-   <td style="text-align:left;text-align: center;"> japan </td>
-   <td style="text-align:right;text-align: center;"> 1 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;text-align: center;"> 54 </td>
+   <td style="text-align:right;text-align: center;"> 90 </td>
    <td style="text-align:left;text-align: center;"> dad </td>
    <td style="text-align:right;text-align: center;"> 1 </td>
    <td style="text-align:left;text-align: center;">  </td>
    <td style="text-align:right;text-align: center;"> NA </td>
   </tr>
   <tr>
-   <td style="text-align:right;text-align: center;"> 79 </td>
+   <td style="text-align:right;text-align: center;"> 68 </td>
    <td style="text-align:left;text-align: center;"> dad </td>
-   <td style="text-align:right;text-align: center;"> 0 </td>
-   <td style="text-align:left;text-align: center;"> Ecuador </td>
-   <td style="text-align:right;text-align: center;"> 2 </td>
+   <td style="text-align:right;text-align: center;"> 1 </td>
+   <td style="text-align:left;text-align: center;">  </td>
+   <td style="text-align:right;text-align: center;"> NA </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;text-align: center;"> 83 </td>
+   <td style="text-align:left;text-align: center;"> mom </td>
+   <td style="text-align:right;text-align: center;"> 1 </td>
+   <td style="text-align:left;text-align: center;">  </td>
+   <td style="text-align:right;text-align: center;"> NA </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;text-align: center;"> 92 </td>
+   <td style="text-align:left;text-align: center;"> mom </td>
+   <td style="text-align:right;text-align: center;"> 1 </td>
+   <td style="text-align:left;text-align: center;">  </td>
+   <td style="text-align:right;text-align: center;"> NA </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;text-align: center;"> 94 </td>
+   <td style="text-align:left;text-align: center;"> dad </td>
+   <td style="text-align:right;text-align: center;"> 1 </td>
+   <td style="text-align:left;text-align: center;">  </td>
+   <td style="text-align:right;text-align: center;"> NA </td>
   </tr>
   <tr>
    <td style="text-align:right;text-align: center;"> 63 </td>
-   <td style="text-align:left;text-align: center;"> dad </td>
-   <td style="text-align:right;text-align: center;"> 1 </td>
-   <td style="text-align:left;text-align: center;">  </td>
-   <td style="text-align:right;text-align: center;"> NA </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;text-align: center;"> 71 </td>
    <td style="text-align:left;text-align: center;"> mom </td>
-   <td style="text-align:right;text-align: center;"> 0 </td>
-   <td style="text-align:left;text-align: center;"> Kazakhstan </td>
-   <td style="text-align:right;text-align: center;"> 3 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;text-align: center;"> 64 </td>
-   <td style="text-align:left;text-align: center;"> dad </td>
    <td style="text-align:right;text-align: center;"> 1 </td>
    <td style="text-align:left;text-align: center;">  </td>
    <td style="text-align:right;text-align: center;"> NA </td>
@@ -1686,13 +1685,13 @@ Alcohol three to five drinks a week </td>
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-14-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-14-1" role="tab" aria-controls="tabset-14-1" aria-selected="true">Label</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-14-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-14-2" role="tab" aria-controls="tabset-14-2" aria-selected="false">Check</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-14-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-14-3" role="tab" aria-controls="tabset-14-3" aria-selected="false">Print</a></li></ul>
 <div class="tab-content">
 <div id="tabset-14-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-14-1-tab">
-<div class="cell" data-layout-align="center">
+<div class="cell">
 <div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span></span>
 <span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Age.pn =</span> <span class="fu">labelled</span>(Age.pn, <span class="at">label =</span> <span class="st">"Parent's age at prenatal visit"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 <div id="tabset-14-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-14-2-tab">
-<div class="cell" data-layout-align="center">
+<div class="cell">
 <div class="cell-output-display">
 <table class="caption-top table table-sm table-striped small">
 <thead>
@@ -1724,7 +1723,7 @@ Alcohol three to five drinks a week </td>
 </div>
 </div>
 <div id="tabset-14-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-14-3-tab">
-<div class="cell" data-layout-align="center">
+<div class="cell">
 <div class="cell-output-display">
 <div style="border: 1px solid #ddd; padding: 5px; overflow-x: scroll; width:100%; "><table class="table table-hover table-condensed" style="width: auto !important; margin-left: auto; margin-right: auto;">
  <thead>
@@ -1736,34 +1735,34 @@ Alcohol three to five drinks a week </td>
  </thead>
 <tbody>
   <tr>
-   <td style="text-align:right;text-align: center;"> 92 </td>
-   <td style="text-align:left;text-align: center;"> dad </td>
-   <td style="text-align:right;text-align: center;"> 31 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;text-align: center;"> 77 </td>
-   <td style="text-align:left;text-align: center;"> dad </td>
-   <td style="text-align:right;text-align: center;"> 37 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;text-align: center;"> 65 </td>
-   <td style="text-align:left;text-align: center;"> dad </td>
-   <td style="text-align:right;text-align: center;"> 32 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;text-align: center;"> 13 </td>
+   <td style="text-align:right;text-align: center;"> 10 </td>
    <td style="text-align:left;text-align: center;"> mom </td>
-   <td style="text-align:right;text-align: center;"> 38 </td>
+   <td style="text-align:right;text-align: center;"> 25 </td>
   </tr>
   <tr>
-   <td style="text-align:right;text-align: center;"> 68 </td>
+   <td style="text-align:right;text-align: center;"> 34 </td>
    <td style="text-align:left;text-align: center;"> dad </td>
-   <td style="text-align:right;text-align: center;"> 37 </td>
+   <td style="text-align:right;text-align: center;"> 36 </td>
   </tr>
   <tr>
    <td style="text-align:right;text-align: center;"> 76 </td>
+   <td style="text-align:left;text-align: center;"> mom </td>
+   <td style="text-align:right;text-align: center;"> 32 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;text-align: center;"> 99 </td>
    <td style="text-align:left;text-align: center;"> dad </td>
-   <td style="text-align:right;text-align: center;"> 33 </td>
+   <td style="text-align:right;text-align: center;"> 26 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;text-align: center;"> 54 </td>
+   <td style="text-align:left;text-align: center;"> mom </td>
+   <td style="text-align:right;text-align: center;"> 29 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;text-align: center;"> 54 </td>
+   <td style="text-align:left;text-align: center;"> dad </td>
+   <td style="text-align:right;text-align: center;"> 32 </td>
   </tr>
 </tbody>
 </table></div>
@@ -1780,7 +1779,7 @@ Alcohol three to five drinks a week </td>
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-15-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-15-1" role="tab" aria-controls="tabset-15-1" aria-selected="true">Script</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-15-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-15-2" role="tab" aria-controls="tabset-15-2" aria-selected="false">Label</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-15-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-15-3" role="tab" aria-controls="tabset-15-3" aria-selected="false">Check</a></li></ul>
 <div class="tab-content">
 <div id="tabset-15-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-15-1-tab">
-<div class="cell" data-layout-align="center">
+<div class="cell">
 <div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span></span>
 <span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="do">## Re-code items</span></span>
 <span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Preg_Planned.pn =</span> <span class="fu">case_when</span>(</span>
@@ -1790,7 +1789,7 @@ Alcohol three to five drinks a week </td>
 </div>
 </div>
 <div id="tabset-15-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-15-2-tab">
-<div class="cell" data-layout-align="center">
+<div class="cell">
 <div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span></span>
 <span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>  <span class="do">## Create value and variable labels</span></span>
 <span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Preg_Planned.pn =</span> <span class="fu">labelled</span>(Preg_Planned.pn, </span>
@@ -1799,7 +1798,7 @@ Alcohol three to five drinks a week </td>
 </div>
 </div>
 <div id="tabset-15-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-15-3-tab">
-<div class="cell" data-layout-align="center">
+<div class="cell">
 <div class="cell-output-display">
 <table class="caption-top table table-sm table-striped small">
 <thead>
@@ -1839,7 +1838,7 @@ Alcohol three to five drinks a week </td>
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-16-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-16-1" role="tab" aria-controls="tabset-16-1" aria-selected="true">Label</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-16-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-16-2" role="tab" aria-controls="tabset-16-2" aria-selected="false">Check</a></li></ul>
 <div class="tab-content">
 <div id="tabset-16-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-16-1-tab">
-<div class="cell" data-layout-align="center">
+<div class="cell">
 <div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span></span>
 <span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>  <span class="do">## Create value and variable labels</span></span>
 <span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Paid_Leave.pn =</span> <span class="fu">labelled</span>(Paid_Leave.pn, </span>
@@ -1853,7 +1852,7 @@ Alcohol three to five drinks a week </td>
 </div>
 </div>
 <div id="tabset-16-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-16-2-tab">
-<div class="cell" data-layout-align="center">
+<div class="cell">
 <div class="cell-output-display">
 <table class="caption-top table table-sm table-striped small">
 <thead>
@@ -1913,7 +1912,7 @@ Alcohol three to five drinks a week </td>
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-17-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-17-1" role="tab" aria-controls="tabset-17-1" aria-selected="true">Label</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-17-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-17-2" role="tab" aria-controls="tabset-17-2" aria-selected="false">Check</a></li></ul>
 <div class="tab-content">
 <div id="tabset-17-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-17-1-tab">
-<div class="cell" data-layout-align="center">
+<div class="cell">
 <div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span></span>
 <span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>  <span class="do">## Create value and variable labels</span></span>
 <span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Time_Off.pn =</span> <span class="fu">labelled</span>(Time_Off.pn, </span>
@@ -1927,7 +1926,7 @@ Alcohol three to five drinks a week </td>
 </div>
 </div>
 <div id="tabset-17-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-17-2-tab">
-<div class="cell" data-layout-align="center">
+<div class="cell">
 <div class="cell-output-display">
 <table class="caption-top table table-sm table-striped small">
 <thead>
@@ -1987,7 +1986,7 @@ Alcohol three to five drinks a week </td>
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-18-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-18-1" role="tab" aria-controls="tabset-18-1" aria-selected="true">Label</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-18-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-18-2" role="tab" aria-controls="tabset-18-2" aria-selected="false">Check</a></li></ul>
 <div class="tab-content">
 <div id="tabset-18-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-18-1-tab">
-<div class="cell" data-layout-align="center">
+<div class="cell">
 <div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span></span>
 <span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>  <span class="do">## Create value and variable labels</span></span>
 <span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Income.pn =</span> <span class="fu">labelled</span>(Income.pn, </span>
@@ -2001,7 +2000,7 @@ Alcohol three to five drinks a week </td>
 </div>
 </div>
 <div id="tabset-18-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-18-2-tab">
-<div class="cell" data-layout-align="center">
+<div class="cell">
 <div class="cell-output-display">
 <table class="caption-top table table-sm table-striped small">
 <thead>
@@ -2061,7 +2060,7 @@ Alcohol three to five drinks a week </td>
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-19-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-19-1" role="tab" aria-controls="tabset-19-1" aria-selected="true">Label</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-19-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-19-2" role="tab" aria-controls="tabset-19-2" aria-selected="false">Check</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-19-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-19-3" role="tab" aria-controls="tabset-19-3" aria-selected="false">Print</a></li></ul>
 <div class="tab-content">
 <div id="tabset-19-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-19-1-tab">
-<div class="cell" data-layout-align="center">
+<div class="cell">
 <div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span></span>
 <span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>  <span class="do">## Create value and variable labels</span></span>
 <span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Occupation_Status.pn =</span> <span class="fu">labelled</span>(Occupation_Status.pn, </span>
@@ -2077,7 +2076,7 @@ Alcohol three to five drinks a week </td>
 </div>
 </div>
 <div id="tabset-19-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-19-2-tab">
-<div class="cell" data-layout-align="center">
+<div class="cell">
 <div class="cell-output-display">
 <table class="caption-top table table-sm table-striped small">
 <thead>
@@ -2129,7 +2128,7 @@ Alcohol three to five drinks a week </td>
 </div>
 </div>
 <div id="tabset-19-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-19-3-tab">
-<div class="cell" data-layout-align="center">
+<div class="cell">
 <div class="cell-output-display">
 <div style="border: 1px solid #ddd; padding: 5px; overflow-x: scroll; width:100%; "><table class="table table-hover table-condensed" style="margin-left: auto; margin-right: auto;">
  <thead>
@@ -2141,33 +2140,33 @@ Alcohol three to five drinks a week </td>
  </thead>
 <tbody>
   <tr>
-   <td style="text-align:right;text-align: center;"> 57 </td>
-   <td style="text-align:left;text-align: center;"> mom </td>
-   <td style="text-align:left;text-align: center;">  </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;text-align: center;"> 91 </td>
-   <td style="text-align:left;text-align: center;"> mom </td>
-   <td style="text-align:left;text-align: center;"> Civil Engineer </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;text-align: center;"> 63 </td>
+   <td style="text-align:right;text-align: center;"> 34 </td>
    <td style="text-align:left;text-align: center;"> dad </td>
    <td style="text-align:left;text-align: center;">  </td>
   </tr>
   <tr>
-   <td style="text-align:right;text-align: center;"> 51 </td>
+   <td style="text-align:right;text-align: center;"> 20 </td>
    <td style="text-align:left;text-align: center;"> mom </td>
    <td style="text-align:left;text-align: center;">  </td>
   </tr>
   <tr>
-   <td style="text-align:right;text-align: center;"> 100 </td>
+   <td style="text-align:right;text-align: center;"> 70 </td>
    <td style="text-align:left;text-align: center;"> mom </td>
-   <td style="text-align:left;text-align: center;"> strategist and operations manager at a startup </td>
+   <td style="text-align:left;text-align: center;"> Graduate student </td>
   </tr>
   <tr>
-   <td style="text-align:right;text-align: center;"> 38 </td>
+   <td style="text-align:right;text-align: center;"> 3 </td>
    <td style="text-align:left;text-align: center;"> mom </td>
+   <td style="text-align:left;text-align: center;">  </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;text-align: center;"> 71 </td>
+   <td style="text-align:left;text-align: center;"> mom </td>
+   <td style="text-align:left;text-align: center;">  </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;text-align: center;"> 21 </td>
+   <td style="text-align:left;text-align: center;"> dad </td>
    <td style="text-align:left;text-align: center;">  </td>
   </tr>
 </tbody>
@@ -2185,7 +2184,7 @@ Alcohol three to five drinks a week </td>
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-20-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-20-1" role="tab" aria-controls="tabset-20-1" aria-selected="true">Label</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-20-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-20-2" role="tab" aria-controls="tabset-20-2" aria-selected="false">Check</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-20-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-20-3" role="tab" aria-controls="tabset-20-3" aria-selected="false">Print</a></li></ul>
 <div class="tab-content">
 <div id="tabset-20-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-20-1-tab">
-<div class="cell" data-layout-align="center">
+<div class="cell">
 <div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span></span>
 <span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>  <span class="do">## Create value and variable labels</span></span>
 <span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Insurance_Status.pn =</span> <span class="fu">labelled</span>(Insurance_Status.pn, </span>
@@ -2197,7 +2196,7 @@ Alcohol three to five drinks a week </td>
 </div>
 </div>
 <div id="tabset-20-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-20-2-tab">
-<div class="cell" data-layout-align="center">
+<div class="cell">
 <div class="cell-output-display">
 <table class="caption-top table table-sm table-striped small">
 <thead>
@@ -2239,7 +2238,7 @@ Alcohol three to five drinks a week </td>
 </div>
 </div>
 <div id="tabset-20-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-20-3-tab">
-<div class="cell" data-layout-align="center">
+<div class="cell">
 <div class="cell-output-display">
 <div style="border: 1px solid #ddd; padding: 5px; overflow-x: scroll; width:100%; "><table class="table table-hover table-condensed" style="margin-left: auto; margin-right: auto;">
  <thead>
@@ -2251,34 +2250,34 @@ Alcohol three to five drinks a week </td>
  </thead>
 <tbody>
   <tr>
-   <td style="text-align:right;text-align: center;"> 94 </td>
+   <td style="text-align:right;text-align: center;"> 92 </td>
    <td style="text-align:left;text-align: center;"> mom </td>
    <td style="text-align:right;text-align: center;"> 1 </td>
   </tr>
   <tr>
-   <td style="text-align:right;text-align: center;"> 65 </td>
+   <td style="text-align:right;text-align: center;"> 85 </td>
+   <td style="text-align:left;text-align: center;"> dad </td>
+   <td style="text-align:right;text-align: center;"> 1 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;text-align: center;"> 77 </td>
    <td style="text-align:left;text-align: center;"> mom </td>
+   <td style="text-align:right;text-align: center;"> 1 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;text-align: center;"> 85 </td>
+   <td style="text-align:left;text-align: center;"> mom </td>
+   <td style="text-align:right;text-align: center;"> 1 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;text-align: center;"> 66 </td>
+   <td style="text-align:left;text-align: center;"> dad </td>
+   <td style="text-align:right;text-align: center;"> 1 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;text-align: center;"> 97 </td>
+   <td style="text-align:left;text-align: center;"> dad </td>
    <td style="text-align:right;text-align: center;"> 2 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;text-align: center;"> 67 </td>
-   <td style="text-align:left;text-align: center;"> dad </td>
-   <td style="text-align:right;text-align: center;"> 1 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;text-align: center;"> 94 </td>
-   <td style="text-align:left;text-align: center;"> dad </td>
-   <td style="text-align:right;text-align: center;"> 1 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;text-align: center;"> 100 </td>
-   <td style="text-align:left;text-align: center;"> mom </td>
-   <td style="text-align:right;text-align: center;"> 1 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;text-align: center;"> 82 </td>
-   <td style="text-align:left;text-align: center;"> mom </td>
-   <td style="text-align:right;text-align: center;"> 1 </td>
   </tr>
 </tbody>
 </table></div>
@@ -2296,7 +2295,7 @@ Alcohol three to five drinks a week </td>
 <ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-21-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-21-1" role="tab" aria-controls="tabset-21-1" aria-selected="true">Check Variable Labels</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-21-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-21-2" role="tab" aria-controls="tabset-21-2" aria-selected="false">Write CSV Files</a></li></ul>
 <div class="tab-content">
 <div id="tabset-21-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-21-1-tab">
-<div class="cell" data-layout-align="center">
+<div class="cell">
 <div class="cell-output-display">
 <div style="border: 1px solid #ddd; padding: 0px; overflow-y: scroll; height:400px; overflow-x: scroll; width:100%; "><table class="table table-hover table-condensed" style="margin-left: auto; margin-right: auto;">
  <thead>
@@ -2524,7 +2523,7 @@ Alcohol three to five drinks a week </td>
 </div>
 </div>
 <div id="tabset-21-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-21-2-tab">
-<div class="cell" data-layout-align="center">
+<div class="cell">
 <div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">write_sav</span>(df, <span class="fu">here</span>(<span class="st">"data/4_demographics"</span>, <span class="st">"0pn_demo.sav"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
