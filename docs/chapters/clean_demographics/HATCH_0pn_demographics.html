@@ -6,10 +6,8 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="NEST Lab (Lizzie Aviv)">
-<meta name="dcterms.date" content="2025-04-28">
 
-<title>Prenatal HATCH Qualtrics Data: Demographics Cleaning – HATCH Data</title>
+<title>Prenatal – HATCH Data</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -67,6 +65,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../../">
+<link href="../../chapters/clean_demographics/HATCH_3pp_demographics.html" rel="next">
 <link href="../../chapters/clean_inventory/HATCH_12pp_inventories.html" rel="prev">
 <script src="../../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
@@ -107,6 +106,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 }</script>
 <script src="../../site_libs/kePrint-0.0.1/kePrint.js"></script>
 <link href="../../site_libs/lightable-0.0.1/lightable.css" rel="stylesheet">
+<link href="../../site_libs/pagedtable-1.1/css/pagedtable.css" rel="stylesheet">
+<script src="../../site_libs/pagedtable-1.1/js/pagedtable.js"></script>
 
   <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
@@ -150,7 +151,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../chapters/clean_inventory/HATCH_0pn_inventories.html">Inventory Cleaning</a></li><li class="breadcrumb-item"><a href="../../chapters/clean_demographics/HATCH_0pn_demographics.html"><span class="chapter-title">Prenatal HATCH Qualtrics Data: Demographics Cleaning</span></a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../chapters/clean_demographics/HATCH_0pn_demographics.html">Demographics Cleaning</a></li><li class="breadcrumb-item"><a href="../../chapters/clean_demographics/HATCH_0pn_demographics.html"><span class="chapter-title">Prenatal</span></a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -209,9 +210,35 @@ window.Quarto = {
   <a href="../../chapters/clean_inventory/HATCH_12pp_inventories.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">12-Month Postpartum</span></a>
   </div>
 </li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">Demographics Cleaning</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../../chapters/clean_demographics/HATCH_0pn_demographics.html" class="sidebar-item-text sidebar-link active"><span class="chapter-title">Prenatal HATCH Qualtrics Data: Demographics Cleaning</span></a>
+  <a href="../../chapters/clean_demographics/HATCH_0pn_demographics.html" class="sidebar-item-text sidebar-link active"><span class="chapter-title">Prenatal</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/clean_demographics/HATCH_3pp_demographics.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">3-Month Postpartum</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/clean_demographics/HATCH_6pp_demographics.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">6-Month Postpartum</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../chapters/clean_demographics/HATCH_12pp_demographics.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">12-Month Postpartum</span></a>
   </div>
 </li>
       </ul>
@@ -226,8 +253,7 @@ window.Quarto = {
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#to-do" id="toc-to-do" class="nav-link active" data-scroll-target="#to-do">To Do:</a></li>
-  <li><a href="#set-up" id="toc-set-up" class="nav-link" data-scroll-target="#set-up">Set Up</a></li>
+  <li><a href="#set-up" id="toc-set-up" class="nav-link active" data-scroll-target="#set-up">Set Up</a></li>
   <li><a href="#demographic-variables" id="toc-demographic-variables" class="nav-link" data-scroll-target="#demographic-variables">Demographic Variables</a>
   <ul class="collapse">
   <li><a href="#number-of-days-pregnant" id="toc-number-of-days-pregnant" class="nav-link" data-scroll-target="#number-of-days-pregnant">Number of Days Pregnant</a></li>
@@ -254,28 +280,17 @@ window.Quarto = {
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../chapters/clean_inventory/HATCH_0pn_inventories.html">Inventory Cleaning</a></li><li class="breadcrumb-item"><a href="../../chapters/clean_demographics/HATCH_0pn_demographics.html"><span class="chapter-title">Prenatal HATCH Qualtrics Data: Demographics Cleaning</span></a></li></ol></nav>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../chapters/clean_demographics/HATCH_0pn_demographics.html">Demographics Cleaning</a></li><li class="breadcrumb-item"><a href="../../chapters/clean_demographics/HATCH_0pn_demographics.html"><span class="chapter-title">Prenatal</span></a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title"><span class="chapter-title">Prenatal HATCH Qualtrics Data: Demographics Cleaning</span></h1>
+<h1 class="title"><span class="chapter-title">Prenatal</span></h1>
+<p class="subtitle lead">Demographics Cleaning</p>
 </div>
 
 
 
 <div class="quarto-title-meta">
 
-    <div>
-    <div class="quarto-title-meta-heading">Author</div>
-    <div class="quarto-title-meta-contents">
-             <p>NEST Lab (Lizzie Aviv) </p>
-          </div>
-  </div>
     
-    <div>
-    <div class="quarto-title-meta-heading">Published</div>
-    <div class="quarto-title-meta-contents">
-      <p class="date">April 28, 2025</p>
-    </div>
-  </div>
   
     
   </div>
@@ -285,12 +300,6 @@ window.Quarto = {
 </header>
 
 
-<section id="to-do" class="level1">
-<h1>To Do:</h1>
-<ul>
-<li>Fill in missing Qualtrics scoring/info</li>
-</ul>
-</section>
 <section id="set-up" class="level1">
 <h1>Set Up</h1>
 <div class="tabset-margin-container"></div><div class="panel-tabset">
@@ -406,28 +415,28 @@ window.Quarto = {
  </thead>
 <tbody>
   <tr>
-   <td style="text-align:right;text-align: center;"> 19 </td>
-   <td style="text-align:left;text-align: center;"> 2015-05-25 </td>
+   <td style="text-align:right;text-align: center;"> 87 </td>
+   <td style="text-align:left;text-align: center;"> 2019-08-10 </td>
   </tr>
   <tr>
-   <td style="text-align:right;text-align: center;"> 13 </td>
-   <td style="text-align:left;text-align: center;"> 2014-12-26 </td>
+   <td style="text-align:right;text-align: center;"> 37 </td>
+   <td style="text-align:left;text-align: center;"> 2016-04-14 </td>
   </tr>
   <tr>
-   <td style="text-align:right;text-align: center;"> 81 </td>
-   <td style="text-align:left;text-align: center;"> 2019-05-08 </td>
+   <td style="text-align:right;text-align: center;"> 49 </td>
+   <td style="text-align:left;text-align: center;"> 2017-02-05 </td>
   </tr>
   <tr>
-   <td style="text-align:right;text-align: center;"> 68 </td>
-   <td style="text-align:left;text-align: center;"> 2018-06-30 </td>
+   <td style="text-align:right;text-align: center;"> 23 </td>
+   <td style="text-align:left;text-align: center;"> 2015-08-06 </td>
   </tr>
   <tr>
-   <td style="text-align:right;text-align: center;"> 6 </td>
-   <td style="text-align:left;text-align: center;"> 2014-07-20 </td>
+   <td style="text-align:right;text-align: center;"> 67 </td>
+   <td style="text-align:left;text-align: center;"> 2018-05-17 </td>
   </tr>
   <tr>
-   <td style="text-align:right;text-align: center;"> 63 </td>
-   <td style="text-align:left;text-align: center;"> 2017-11-04 </td>
+   <td style="text-align:right;text-align: center;"> 38 </td>
+   <td style="text-align:left;text-align: center;"> 2016-03-28 </td>
   </tr>
 </tbody>
 </table>
@@ -488,28 +497,28 @@ window.Quarto = {
  </thead>
 <tbody>
   <tr>
-   <td style="text-align:right;text-align: center;"> 12 </td>
-   <td style="text-align:left;text-align: center;"> 2014-10-25 </td>
+   <td style="text-align:right;text-align: center;"> 45 </td>
+   <td style="text-align:left;text-align: center;"> 2016-06-19 </td>
   </tr>
   <tr>
-   <td style="text-align:right;text-align: center;"> 8 </td>
-   <td style="text-align:left;text-align: center;"> 2014-06-08 </td>
+   <td style="text-align:right;text-align: center;"> 4 </td>
+   <td style="text-align:left;text-align: center;"> 2014-04-06 </td>
   </tr>
   <tr>
-   <td style="text-align:right;text-align: center;"> 46 </td>
-   <td style="text-align:left;text-align: center;"> 2016-07-16 </td>
+   <td style="text-align:right;text-align: center;"> 67 </td>
+   <td style="text-align:left;text-align: center;"> 2018-04-02 </td>
   </tr>
   <tr>
-   <td style="text-align:right;text-align: center;"> 61 </td>
-   <td style="text-align:left;text-align: center;"> 2017-08-26 </td>
+   <td style="text-align:right;text-align: center;"> 97 </td>
+   <td style="text-align:left;text-align: center;"> 2019-10-09 </td>
   </tr>
   <tr>
-   <td style="text-align:right;text-align: center;"> 100 </td>
-   <td style="text-align:left;text-align: center;"> 2020-02-21 </td>
+   <td style="text-align:right;text-align: center;"> 2 </td>
+   <td style="text-align:left;text-align: center;"> 2014-03-29 </td>
   </tr>
   <tr>
-   <td style="text-align:right;text-align: center;"> 76 </td>
-   <td style="text-align:left;text-align: center;"> 2018-07-23 </td>
+   <td style="text-align:right;text-align: center;"> 72 </td>
+   <td style="text-align:left;text-align: center;"> 2018-06-12 </td>
   </tr>
 </tbody>
 </table>
@@ -558,46 +567,46 @@ window.Quarto = {
  </thead>
 <tbody>
   <tr>
-   <td style="text-align:right;text-align: center;"> 45 </td>
-   <td style="text-align:left;text-align: center;"> dad </td>
-   <td style="text-align:left;text-align: center;"> 2016-09-24 </td>
-   <td style="text-align:left;text-align: center;"> 2016-06-19 </td>
-   <td style="text-align:right;text-align: center;"> 183 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;text-align: center;"> 24 </td>
-   <td style="text-align:left;text-align: center;"> dad </td>
-   <td style="text-align:left;text-align: center;"> 2015-08-19 </td>
-   <td style="text-align:left;text-align: center;"> 2015-06-05 </td>
-   <td style="text-align:right;text-align: center;"> 205 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;text-align: center;"> 5 </td>
+   <td style="text-align:right;text-align: center;"> 49 </td>
    <td style="text-align:left;text-align: center;"> mom </td>
-   <td style="text-align:left;text-align: center;"> 2014-08-08 </td>
-   <td style="text-align:left;text-align: center;"> 2014-04-09 </td>
-   <td style="text-align:right;text-align: center;"> 159 </td>
+   <td style="text-align:left;text-align: center;"> 2017-02-05 </td>
+   <td style="text-align:left;text-align: center;"> 2016-12-02 </td>
+   <td style="text-align:right;text-align: center;"> 215 </td>
   </tr>
   <tr>
-   <td style="text-align:right;text-align: center;"> 74 </td>
-   <td style="text-align:left;text-align: center;"> dad </td>
-   <td style="text-align:left;text-align: center;"> 2018-09-20 </td>
-   <td style="text-align:left;text-align: center;"> 2018-07-10 </td>
-   <td style="text-align:right;text-align: center;"> 208 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;text-align: center;"> 92 </td>
-   <td style="text-align:left;text-align: center;"> dad </td>
-   <td style="text-align:left;text-align: center;"> 2019-11-03 </td>
-   <td style="text-align:left;text-align: center;"> 2019-06-29 </td>
-   <td style="text-align:right;text-align: center;"> 153 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;text-align: center;"> 100 </td>
+   <td style="text-align:right;text-align: center;"> 84 </td>
    <td style="text-align:left;text-align: center;"> mom </td>
-   <td style="text-align:left;text-align: center;"> 2020-06-11 </td>
-   <td style="text-align:left;text-align: center;"> 2020-02-21 </td>
-   <td style="text-align:right;text-align: center;"> 169 </td>
+   <td style="text-align:left;text-align: center;"> 2019-06-20 </td>
+   <td style="text-align:left;text-align: center;"> 2019-02-16 </td>
+   <td style="text-align:right;text-align: center;"> 156 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;text-align: center;"> 42 </td>
+   <td style="text-align:left;text-align: center;"> mom </td>
+   <td style="text-align:left;text-align: center;"> 2016-09-22 </td>
+   <td style="text-align:left;text-align: center;"> 2016-06-01 </td>
+   <td style="text-align:right;text-align: center;"> 167 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;text-align: center;"> 10 </td>
+   <td style="text-align:left;text-align: center;"> mom </td>
+   <td style="text-align:left;text-align: center;"> 2014-12-29 </td>
+   <td style="text-align:left;text-align: center;"> 2014-09-20 </td>
+   <td style="text-align:right;text-align: center;"> 180 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;text-align: center;"> 33 </td>
+   <td style="text-align:left;text-align: center;"> dad </td>
+   <td style="text-align:left;text-align: center;"> 2015-11-02 </td>
+   <td style="text-align:left;text-align: center;"> 2015-08-23 </td>
+   <td style="text-align:right;text-align: center;"> 209 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;text-align: center;"> 31 </td>
+   <td style="text-align:left;text-align: center;"> dad </td>
+   <td style="text-align:left;text-align: center;"> 2015-09-22 </td>
+   <td style="text-align:left;text-align: center;"> 2015-08-05 </td>
+   <td style="text-align:right;text-align: center;"> 232 </td>
   </tr>
 </tbody>
 </table>
@@ -908,52 +917,52 @@ window.Quarto = {
  </thead>
 <tbody>
   <tr>
-   <td style="text-align:right;text-align: center;"> 83 </td>
+   <td style="text-align:right;text-align: center;"> 49 </td>
    <td style="text-align:left;text-align: center;"> dad </td>
-   <td style="text-align:right;text-align: center;"> 168 </td>
+   <td style="text-align:right;text-align: center;"> 185.0 </td>
    <td style="text-align:right;text-align: center;"> 6 </td>
-   <td style="text-align:right;text-align: center;"> 1 </td>
-   <td style="text-align:right;text-align: center;"> 22.163 </td>
+   <td style="text-align:right;text-align: center;"> 4.0 </td>
+   <td style="text-align:right;text-align: center;"> 22.516 </td>
   </tr>
   <tr>
-   <td style="text-align:right;text-align: center;"> 78 </td>
+   <td style="text-align:right;text-align: center;"> 46 </td>
    <td style="text-align:left;text-align: center;"> dad </td>
-   <td style="text-align:right;text-align: center;"> 163 </td>
+   <td style="text-align:right;text-align: center;"> 190.0 </td>
    <td style="text-align:right;text-align: center;"> 5 </td>
-   <td style="text-align:right;text-align: center;"> 8 </td>
-   <td style="text-align:right;text-align: center;"> 24.781 </td>
+   <td style="text-align:right;text-align: center;"> 11.5 </td>
+   <td style="text-align:right;text-align: center;"> 26.127 </td>
   </tr>
   <tr>
-   <td style="text-align:right;text-align: center;"> 76 </td>
-   <td style="text-align:left;text-align: center;"> mom </td>
-   <td style="text-align:right;text-align: center;"> 149 </td>
-   <td style="text-align:right;text-align: center;"> 5 </td>
-   <td style="text-align:right;text-align: center;"> 5 </td>
-   <td style="text-align:right;text-align: center;"> 24.792 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;text-align: center;"> 99 </td>
+   <td style="text-align:right;text-align: center;"> 92 </td>
    <td style="text-align:left;text-align: center;"> dad </td>
-   <td style="text-align:right;text-align: center;"> 215 </td>
-   <td style="text-align:right;text-align: center;"> 5 </td>
-   <td style="text-align:right;text-align: center;"> 8 </td>
-   <td style="text-align:right;text-align: center;"> 32.687 </td>
+   <td style="text-align:right;text-align: center;"> 160.0 </td>
+   <td style="text-align:right;text-align: center;"> 6 </td>
+   <td style="text-align:right;text-align: center;"> 3.0 </td>
+   <td style="text-align:right;text-align: center;"> 19.996 </td>
   </tr>
   <tr>
-   <td style="text-align:right;text-align: center;"> 9 </td>
-   <td style="text-align:left;text-align: center;"> mom </td>
-   <td style="text-align:right;text-align: center;"> 214 </td>
-   <td style="text-align:right;text-align: center;"> 5 </td>
-   <td style="text-align:right;text-align: center;"> 9 </td>
-   <td style="text-align:right;text-align: center;"> 31.599 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;text-align: center;"> 51 </td>
+   <td style="text-align:right;text-align: center;"> 31 </td>
    <td style="text-align:left;text-align: center;"> dad </td>
-   <td style="text-align:right;text-align: center;"> 125 </td>
+   <td style="text-align:right;text-align: center;"> 205.0 </td>
    <td style="text-align:right;text-align: center;"> 5 </td>
+   <td style="text-align:right;text-align: center;"> 10.0 </td>
+   <td style="text-align:right;text-align: center;"> 29.411 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;text-align: center;"> 82 </td>
+   <td style="text-align:left;text-align: center;"> dad </td>
+   <td style="text-align:right;text-align: center;"> 223.6 </td>
    <td style="text-align:right;text-align: center;"> 5 </td>
-   <td style="text-align:right;text-align: center;"> 20.799 </td>
+   <td style="text-align:right;text-align: center;"> 11.0 </td>
+   <td style="text-align:right;text-align: center;"> 31.182 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;text-align: center;"> 95 </td>
+   <td style="text-align:left;text-align: center;"> dad </td>
+   <td style="text-align:right;text-align: center;"> 225.0 </td>
+   <td style="text-align:right;text-align: center;"> 5 </td>
+   <td style="text-align:right;text-align: center;"> 7.0 </td>
+   <td style="text-align:right;text-align: center;"> 35.236 </td>
   </tr>
 </tbody>
 </table>
@@ -1102,52 +1111,34 @@ window.Quarto = {
  </thead>
 <tbody>
   <tr>
-   <td style="text-align:right;text-align: center;"> 99 </td>
-   <td style="text-align:left;text-align: center;"> mom </td>
-   <td style="text-align:left;text-align: center;"> Asthma </td>
-   <td style="text-align:left;text-align: center;">  </td>
-   <td style="text-align:left;text-align: center;">  </td>
-   <td style="text-align:left;text-align: center;">  </td>
-   <td style="text-align:left;text-align: center;">  </td>
-   <td style="text-align:left;text-align: center;">  </td>
-   <td style="text-align:left;text-align: center;">  </td>
-   <td style="text-align:right;text-align: center;"> 1 </td>
-   <td style="text-align:right;text-align: center;"> NA </td>
-   <td style="text-align:right;text-align: center;"> NA </td>
-   <td style="text-align:right;text-align: center;"> NA </td>
-   <td style="text-align:right;text-align: center;"> NA </td>
-   <td style="text-align:right;text-align: center;"> NA </td>
-   <td style="text-align:right;text-align: center;"> NA </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;text-align: center;"> 32 </td>
-   <td style="text-align:left;text-align: center;"> mom </td>
-   <td style="text-align:left;text-align: center;"> GD </td>
-   <td style="text-align:left;text-align: center;">  </td>
-   <td style="text-align:left;text-align: center;">  </td>
-   <td style="text-align:left;text-align: center;">  </td>
-   <td style="text-align:left;text-align: center;">  </td>
-   <td style="text-align:left;text-align: center;">  </td>
-   <td style="text-align:left;text-align: center;">  </td>
-   <td style="text-align:right;text-align: center;"> 1 </td>
-   <td style="text-align:right;text-align: center;"> NA </td>
-   <td style="text-align:right;text-align: center;"> NA </td>
-   <td style="text-align:right;text-align: center;"> NA </td>
-   <td style="text-align:right;text-align: center;"> NA </td>
-   <td style="text-align:right;text-align: center;"> NA </td>
-   <td style="text-align:right;text-align: center;"> NA </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;text-align: center;"> 55 </td>
+   <td style="text-align:right;text-align: center;"> 12 </td>
    <td style="text-align:left;text-align: center;"> dad </td>
-   <td style="text-align:left;text-align: center;"> Asthma </td>
-   <td style="text-align:left;text-align: center;">  </td>
-   <td style="text-align:left;text-align: center;">  </td>
+   <td style="text-align:left;text-align: center;"> high blood pressure </td>
+   <td style="text-align:left;text-align: center;"> high cholesterol </td>
+   <td style="text-align:left;text-align: center;"> retina occlusion </td>
    <td style="text-align:left;text-align: center;">  </td>
    <td style="text-align:left;text-align: center;">  </td>
    <td style="text-align:left;text-align: center;">  </td>
    <td style="text-align:left;text-align: center;">  </td>
    <td style="text-align:right;text-align: center;"> 1 </td>
+   <td style="text-align:right;text-align: center;"> 1 </td>
+   <td style="text-align:right;text-align: center;"> 1 </td>
+   <td style="text-align:right;text-align: center;"> NA </td>
+   <td style="text-align:right;text-align: center;"> NA </td>
+   <td style="text-align:right;text-align: center;"> NA </td>
+   <td style="text-align:right;text-align: center;"> NA </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;text-align: center;"> 94 </td>
+   <td style="text-align:left;text-align: center;"> dad </td>
+   <td style="text-align:left;text-align: center;">  </td>
+   <td style="text-align:left;text-align: center;">  </td>
+   <td style="text-align:left;text-align: center;">  </td>
+   <td style="text-align:left;text-align: center;">  </td>
+   <td style="text-align:left;text-align: center;">  </td>
+   <td style="text-align:left;text-align: center;">  </td>
+   <td style="text-align:left;text-align: center;">  </td>
+   <td style="text-align:right;text-align: center;"> NA </td>
    <td style="text-align:right;text-align: center;"> NA </td>
    <td style="text-align:right;text-align: center;"> NA </td>
    <td style="text-align:right;text-align: center;"> NA </td>
@@ -1156,7 +1147,7 @@ window.Quarto = {
    <td style="text-align:right;text-align: center;"> NA </td>
   </tr>
   <tr>
-   <td style="text-align:right;text-align: center;"> 41 </td>
+   <td style="text-align:right;text-align: center;"> 86 </td>
    <td style="text-align:left;text-align: center;"> mom </td>
    <td style="text-align:left;text-align: center;">  </td>
    <td style="text-align:left;text-align: center;">  </td>
@@ -1174,9 +1165,9 @@ window.Quarto = {
    <td style="text-align:right;text-align: center;"> NA </td>
   </tr>
   <tr>
-   <td style="text-align:right;text-align: center;"> 31 </td>
+   <td style="text-align:right;text-align: center;"> 91 </td>
    <td style="text-align:left;text-align: center;"> dad </td>
-   <td style="text-align:left;text-align: center;"> had heart attack 2 yrs ago </td>
+   <td style="text-align:left;text-align: center;"> ADHD </td>
    <td style="text-align:left;text-align: center;">  </td>
    <td style="text-align:left;text-align: center;">  </td>
    <td style="text-align:left;text-align: center;">  </td>
@@ -1192,7 +1183,25 @@ window.Quarto = {
    <td style="text-align:right;text-align: center;"> NA </td>
   </tr>
   <tr>
-   <td style="text-align:right;text-align: center;"> 64 </td>
+   <td style="text-align:right;text-align: center;"> 99 </td>
+   <td style="text-align:left;text-align: center;"> dad </td>
+   <td style="text-align:left;text-align: center;"> Asthma </td>
+   <td style="text-align:left;text-align: center;">  </td>
+   <td style="text-align:left;text-align: center;">  </td>
+   <td style="text-align:left;text-align: center;">  </td>
+   <td style="text-align:left;text-align: center;">  </td>
+   <td style="text-align:left;text-align: center;">  </td>
+   <td style="text-align:left;text-align: center;">  </td>
+   <td style="text-align:right;text-align: center;"> 0 </td>
+   <td style="text-align:right;text-align: center;"> NA </td>
+   <td style="text-align:right;text-align: center;"> NA </td>
+   <td style="text-align:right;text-align: center;"> NA </td>
+   <td style="text-align:right;text-align: center;"> NA </td>
+   <td style="text-align:right;text-align: center;"> NA </td>
+   <td style="text-align:right;text-align: center;"> NA </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;text-align: center;"> 13 </td>
    <td style="text-align:left;text-align: center;"> mom </td>
    <td style="text-align:left;text-align: center;">  </td>
    <td style="text-align:left;text-align: center;">  </td>
@@ -1282,33 +1291,21 @@ window.Quarto = {
  </thead>
 <tbody>
   <tr>
-   <td style="text-align:right;text-align: center;"> 27 </td>
+   <td style="text-align:right;text-align: center;"> 84 </td>
    <td style="text-align:left;text-align: center;"> dad </td>
-   <td style="text-align:right;text-align: center;"> 3 </td>
-   <td style="text-align:right;text-align: center;"> 7 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;text-align: center;"> 63 </td>
-   <td style="text-align:left;text-align: center;"> dad </td>
-   <td style="text-align:right;text-align: center;"> 4 </td>
+   <td style="text-align:right;text-align: center;"> 2 </td>
    <td style="text-align:right;text-align: center;"> NA </td>
   </tr>
   <tr>
-   <td style="text-align:right;text-align: center;"> 9 </td>
-   <td style="text-align:left;text-align: center;"> mom </td>
+   <td style="text-align:right;text-align: center;"> 20 </td>
+   <td style="text-align:left;text-align: center;"> dad </td>
    <td style="text-align:right;text-align: center;"> 5 </td>
-   <td style="text-align:right;text-align: center;"> 8 </td>
+   <td style="text-align:right;text-align: center;"> 6 </td>
   </tr>
   <tr>
-   <td style="text-align:right;text-align: center;"> 90 </td>
+   <td style="text-align:right;text-align: center;"> 1 </td>
    <td style="text-align:left;text-align: center;"> dad </td>
-   <td style="text-align:right;text-align: center;"> 4 </td>
-   <td style="text-align:right;text-align: center;"> NA </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;text-align: center;"> 46 </td>
-   <td style="text-align:left;text-align: center;"> mom </td>
-   <td style="text-align:right;text-align: center;"> 4 </td>
+   <td style="text-align:right;text-align: center;"> 1 </td>
    <td style="text-align:right;text-align: center;"> 7 </td>
   </tr>
   <tr>
@@ -1316,6 +1313,18 @@ window.Quarto = {
    <td style="text-align:left;text-align: center;"> dad </td>
    <td style="text-align:right;text-align: center;"> 5 </td>
    <td style="text-align:right;text-align: center;"> 7 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;text-align: center;"> 42 </td>
+   <td style="text-align:left;text-align: center;"> mom </td>
+   <td style="text-align:right;text-align: center;"> 6 </td>
+   <td style="text-align:right;text-align: center;"> 8 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;text-align: center;"> 88 </td>
+   <td style="text-align:left;text-align: center;"> dad </td>
+   <td style="text-align:right;text-align: center;"> 3 </td>
+   <td style="text-align:right;text-align: center;"> NA </td>
   </tr>
 </tbody>
 </table>
@@ -1445,7 +1454,7 @@ window.Quarto = {
  </thead>
 <tbody>
   <tr>
-   <td style="text-align:right;text-align: center;"> 60 </td>
+   <td style="text-align:right;text-align: center;"> 31 </td>
    <td style="text-align:left;text-align: center;"> mom </td>
    <td style="text-align:right;text-align: center;"> 0 </td>
    <td style="text-align:right;text-align: center;"> NA </td>
@@ -1454,49 +1463,51 @@ window.Quarto = {
    <td style="text-align:left;text-align: center;">  </td>
   </tr>
   <tr>
-   <td style="text-align:right;text-align: center;"> 79 </td>
-   <td style="text-align:left;text-align: center;"> mom </td>
-   <td style="text-align:right;text-align: center;"> 0 </td>
-   <td style="text-align:right;text-align: center;"> NA </td>
-   <td style="text-align:right;text-align: center;"> NA </td>
-   <td style="text-align:left;text-align: center;">  </td>
-   <td style="text-align:left;text-align: center;">  </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;text-align: center;"> 69 </td>
-   <td style="text-align:left;text-align: center;"> mom </td>
+   <td style="text-align:right;text-align: center;"> 53 </td>
+   <td style="text-align:left;text-align: center;"> dad </td>
    <td style="text-align:right;text-align: center;"> 1 </td>
-   <td style="text-align:right;text-align: center;"> 0 </td>
-   <td style="text-align:right;text-align: center;"> 0 </td>
-   <td style="text-align:left;text-align: center;"> marijuana </td>
-   <td style="text-align:left;text-align: center;"> Never. (History) </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;text-align: center;"> 51 </td>
-   <td style="text-align:left;text-align: center;"> mom </td>
-   <td style="text-align:right;text-align: center;"> 1 </td>
-   <td style="text-align:right;text-align: center;"> 1 </td>
-   <td style="text-align:right;text-align: center;"> 20 </td>
-   <td style="text-align:left;text-align: center;"> No </td>
-   <td style="text-align:left;text-align: center;"> never </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;text-align: center;"> 82 </td>
-   <td style="text-align:left;text-align: center;"> mom </td>
-   <td style="text-align:right;text-align: center;"> 0 </td>
-   <td style="text-align:right;text-align: center;"> NA </td>
-   <td style="text-align:right;text-align: center;"> NA </td>
-   <td style="text-align:left;text-align: center;">  </td>
-   <td style="text-align:left;text-align: center;">  </td>
+   <td style="text-align:right;text-align: center;"> 0.5 </td>
+   <td style="text-align:right;text-align: center;"> 8 </td>
+   <td style="text-align:left;text-align: center;"> none </td>
+   <td style="text-align:left;text-align: center;"> none </td>
   </tr>
   <tr>
    <td style="text-align:right;text-align: center;"> 3 </td>
+   <td style="text-align:left;text-align: center;"> dad </td>
+   <td style="text-align:right;text-align: center;"> 0 </td>
+   <td style="text-align:right;text-align: center;"> NA </td>
+   <td style="text-align:right;text-align: center;"> NA </td>
+   <td style="text-align:left;text-align: center;">  </td>
+   <td style="text-align:left;text-align: center;">  </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;text-align: center;"> 22 </td>
+   <td style="text-align:left;text-align: center;"> dad </td>
+   <td style="text-align:right;text-align: center;"> 1 </td>
+   <td style="text-align:right;text-align: center;"> 0.3 </td>
+   <td style="text-align:right;text-align: center;"> 10 </td>
+   <td style="text-align:left;text-align: center;"> Marijuana </td>
+   <td style="text-align:left;text-align: center;"> 1-2 times per month </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;text-align: center;"> 54 </td>
    <td style="text-align:left;text-align: center;"> mom </td>
    <td style="text-align:right;text-align: center;"> 0 </td>
    <td style="text-align:right;text-align: center;"> NA </td>
    <td style="text-align:right;text-align: center;"> NA </td>
    <td style="text-align:left;text-align: center;">  </td>
    <td style="text-align:left;text-align: center;">  </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;text-align: center;"> 73 </td>
+   <td style="text-align:left;text-align: center;"> dad </td>
+   <td style="text-align:right;text-align: center;"> 1 </td>
+   <td style="text-align:right;text-align: center;"> 0.0 </td>
+   <td style="text-align:right;text-align: center;"> 0 </td>
+   <td style="text-align:left;text-align: center;"> marijuana
+hookah
+cigars </td>
+   <td style="text-align:left;text-align: center;"> 4 </td>
   </tr>
 </tbody>
 </table></div>
@@ -1620,46 +1631,46 @@ window.Quarto = {
  </thead>
 <tbody>
   <tr>
-   <td style="text-align:right;text-align: center;"> 83 </td>
+   <td style="text-align:right;text-align: center;"> 80 </td>
    <td style="text-align:left;text-align: center;"> mom </td>
    <td style="text-align:right;text-align: center;"> 1 </td>
    <td style="text-align:left;text-align: center;">  </td>
    <td style="text-align:right;text-align: center;"> NA </td>
   </tr>
   <tr>
-   <td style="text-align:right;text-align: center;"> 62 </td>
-   <td style="text-align:left;text-align: center;"> mom </td>
-   <td style="text-align:right;text-align: center;"> 1 </td>
-   <td style="text-align:left;text-align: center;">  </td>
-   <td style="text-align:right;text-align: center;"> NA </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;text-align: center;"> 84 </td>
+   <td style="text-align:right;text-align: center;"> 97 </td>
    <td style="text-align:left;text-align: center;"> dad </td>
-   <td style="text-align:right;text-align: center;"> 0 </td>
-   <td style="text-align:left;text-align: center;"> India </td>
-   <td style="text-align:right;text-align: center;"> 2 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;text-align: center;"> 87 </td>
-   <td style="text-align:left;text-align: center;"> mom </td>
-   <td style="text-align:right;text-align: center;"> 0 </td>
-   <td style="text-align:left;text-align: center;"> Sweden </td>
-   <td style="text-align:right;text-align: center;"> 2 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;text-align: center;"> 79 </td>
-   <td style="text-align:left;text-align: center;"> mom </td>
    <td style="text-align:right;text-align: center;"> 1 </td>
    <td style="text-align:left;text-align: center;">  </td>
    <td style="text-align:right;text-align: center;"> NA </td>
   </tr>
   <tr>
-   <td style="text-align:right;text-align: center;"> 79 </td>
+   <td style="text-align:right;text-align: center;"> 81 </td>
    <td style="text-align:left;text-align: center;"> dad </td>
+   <td style="text-align:right;text-align: center;"> 1 </td>
+   <td style="text-align:left;text-align: center;">  </td>
+   <td style="text-align:right;text-align: center;"> NA </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;text-align: center;"> 58 </td>
+   <td style="text-align:left;text-align: center;"> dad </td>
+   <td style="text-align:right;text-align: center;"> 1 </td>
+   <td style="text-align:left;text-align: center;">  </td>
+   <td style="text-align:right;text-align: center;"> NA </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;text-align: center;"> 90 </td>
+   <td style="text-align:left;text-align: center;"> mom </td>
    <td style="text-align:right;text-align: center;"> 0 </td>
-   <td style="text-align:left;text-align: center;"> Ecuador </td>
-   <td style="text-align:right;text-align: center;"> 2 </td>
+   <td style="text-align:left;text-align: center;"> Guatemala,City </td>
+   <td style="text-align:right;text-align: center;"> 1 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;text-align: center;"> 76 </td>
+   <td style="text-align:left;text-align: center;"> mom </td>
+   <td style="text-align:right;text-align: center;"> 1 </td>
+   <td style="text-align:left;text-align: center;">  </td>
+   <td style="text-align:right;text-align: center;"> NA </td>
   </tr>
 </tbody>
 </table></div>
@@ -1726,34 +1737,34 @@ window.Quarto = {
  </thead>
 <tbody>
   <tr>
-   <td style="text-align:right;text-align: center;"> 15 </td>
+   <td style="text-align:right;text-align: center;"> 89 </td>
    <td style="text-align:left;text-align: center;"> mom </td>
-   <td style="text-align:right;text-align: center;"> 21 </td>
+   <td style="text-align:right;text-align: center;"> 24 </td>
   </tr>
   <tr>
-   <td style="text-align:right;text-align: center;"> 86 </td>
-   <td style="text-align:left;text-align: center;"> mom </td>
-   <td style="text-align:right;text-align: center;"> 27 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;text-align: center;"> 6 </td>
+   <td style="text-align:right;text-align: center;"> 2 </td>
    <td style="text-align:left;text-align: center;"> dad </td>
    <td style="text-align:right;text-align: center;"> 35 </td>
   </tr>
   <tr>
-   <td style="text-align:right;text-align: center;"> 98 </td>
+   <td style="text-align:right;text-align: center;"> 31 </td>
    <td style="text-align:left;text-align: center;"> dad </td>
-   <td style="text-align:right;text-align: center;"> 34 </td>
+   <td style="text-align:right;text-align: center;"> 36 </td>
   </tr>
   <tr>
-   <td style="text-align:right;text-align: center;"> 14 </td>
+   <td style="text-align:right;text-align: center;"> 7 </td>
    <td style="text-align:left;text-align: center;"> mom </td>
-   <td style="text-align:right;text-align: center;"> 23 </td>
+   <td style="text-align:right;text-align: center;"> 35 </td>
   </tr>
   <tr>
-   <td style="text-align:right;text-align: center;"> 8 </td>
-   <td style="text-align:left;text-align: center;"> dad </td>
+   <td style="text-align:right;text-align: center;"> 76 </td>
+   <td style="text-align:left;text-align: center;"> mom </td>
    <td style="text-align:right;text-align: center;"> 32 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;text-align: center;"> 73 </td>
+   <td style="text-align:left;text-align: center;"> mom </td>
+   <td style="text-align:right;text-align: center;"> NA </td>
   </tr>
 </tbody>
 </table></div>
@@ -2131,34 +2142,34 @@ window.Quarto = {
  </thead>
 <tbody>
   <tr>
-   <td style="text-align:right;text-align: center;"> 57 </td>
-   <td style="text-align:left;text-align: center;"> dad </td>
-   <td style="text-align:left;text-align: center;">  </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;text-align: center;"> 39 </td>
+   <td style="text-align:right;text-align: center;"> 18 </td>
    <td style="text-align:left;text-align: center;"> mom </td>
    <td style="text-align:left;text-align: center;">  </td>
   </tr>
   <tr>
-   <td style="text-align:right;text-align: center;"> 37 </td>
+   <td style="text-align:right;text-align: center;"> 21 </td>
+   <td style="text-align:left;text-align: center;"> dad </td>
+   <td style="text-align:left;text-align: center;">  </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;text-align: center;"> 47 </td>
    <td style="text-align:left;text-align: center;"> mom </td>
    <td style="text-align:left;text-align: center;">  </td>
   </tr>
   <tr>
-   <td style="text-align:right;text-align: center;"> 80 </td>
-   <td style="text-align:left;text-align: center;"> dad </td>
-   <td style="text-align:left;text-align: center;"> Assistant Director - Admin </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;text-align: center;"> 79 </td>
-   <td style="text-align:left;text-align: center;"> dad </td>
-   <td style="text-align:left;text-align: center;"> Work a a bartender and also I have mu own importation company. </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;text-align: center;"> 83 </td>
+   <td style="text-align:right;text-align: center;"> 62 </td>
    <td style="text-align:left;text-align: center;"> mom </td>
-   <td style="text-align:left;text-align: center;"> Research Study Coordinator </td>
+   <td style="text-align:left;text-align: center;">  </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;text-align: center;"> 66 </td>
+   <td style="text-align:left;text-align: center;"> dad </td>
+   <td style="text-align:left;text-align: center;"> Research Associate / Teacher </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;text-align: center;"> 81 </td>
+   <td style="text-align:left;text-align: center;"> mom </td>
+   <td style="text-align:left;text-align: center;"> Ticketing/customer service </td>
   </tr>
 </tbody>
 </table></div>
@@ -2246,29 +2257,29 @@ window.Quarto = {
    <td style="text-align:right;text-align: center;"> 1 </td>
   </tr>
   <tr>
-   <td style="text-align:right;text-align: center;"> 83 </td>
-   <td style="text-align:left;text-align: center;"> mom </td>
-   <td style="text-align:right;text-align: center;"> 1 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;text-align: center;"> 85 </td>
-   <td style="text-align:left;text-align: center;"> mom </td>
-   <td style="text-align:right;text-align: center;"> 1 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;text-align: center;"> 89 </td>
-   <td style="text-align:left;text-align: center;"> mom </td>
-   <td style="text-align:right;text-align: center;"> 1 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;text-align: center;"> 88 </td>
+   <td style="text-align:right;text-align: center;"> 84 </td>
    <td style="text-align:left;text-align: center;"> dad </td>
    <td style="text-align:right;text-align: center;"> 1 </td>
   </tr>
   <tr>
-   <td style="text-align:right;text-align: center;"> 76 </td>
+   <td style="text-align:right;text-align: center;"> 91 </td>
+   <td style="text-align:left;text-align: center;"> dad </td>
+   <td style="text-align:right;text-align: center;"> 1 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;text-align: center;"> 78 </td>
    <td style="text-align:left;text-align: center;"> mom </td>
    <td style="text-align:right;text-align: center;"> 1 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;text-align: center;"> 68 </td>
+   <td style="text-align:left;text-align: center;"> mom </td>
+   <td style="text-align:right;text-align: center;"> 1 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;text-align: center;"> 79 </td>
+   <td style="text-align:left;text-align: center;"> mom </td>
+   <td style="text-align:right;text-align: center;"> 2 </td>
   </tr>
 </tbody>
 </table></div>
@@ -2959,6 +2970,9 @@ document.addEventListener("DOMContentLoaded", function () {
       </a>          
   </div>
   <div class="nav-page nav-page-next">
+      <a href="../../chapters/clean_demographics/HATCH_3pp_demographics.html" class="pagination-link" aria-label="3-Month Postpartum">
+        <span class="nav-page-text"><span class="chapter-title">3-Month Postpartum</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
   </div>
 </nav>
 </div> <!-- /content -->

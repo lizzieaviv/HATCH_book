@@ -1,17 +1,13 @@
 ---
-title: "6PP HATCH Qualtrics Data: Demographics Cleaning"
-author: "NEST Lab (Lizzie Aviv)"
-date: "`r Sys.Date()`"
-output:
-  html_document:
-    df_print: paged
-    toc: true
-    toc_float: true
-    code_folding: show
+title: "6-Month Postpartum"
+subtitle: "Demographics Cleaning"
+format:
+  html:
+    df-print: paged
+    code-folding: show
 editor_options: 
   markdown: 
     wrap: 72
-  chunk_output_type: console
 ---
 
 ```{r include=FALSE}
@@ -19,6 +15,7 @@ knitr::opts_chunk$set(fig.width=2, fig.height=2, fig.align = "center")
 ```
 
 # Set Up
+::: panel-tabset
 ## Notes
 > **SPSS  File Name:** HATCH Syntax for Postpartum Qs updated 6.4.21.sps.sps
 
@@ -60,15 +57,13 @@ df.3pp <- read_sav(here("data/qualtrics/4_demographics", "3pp_demo.sav")) %>%
   select(CoupleID, Parent, BirthDate) %>%
   mutate(across(where(is.character), ~ na_if(.x, ""))) %>% # replace blank cells with NA
   rename("BirthDate.3pp" = "BirthDate")
-
-df.master <- read.csv(here("data/master", "master.clean.csv")) %>% 
-  filter(CoupleID==16 | CoupleID == 45 | CoupleID == 28) %>%
-  select(CoupleID, Parent, Actual.Birth.Date, Peri.Visit.Date) 
 ```
-
+:::
 
 # Demographic Variables
+
 ## Birth Date and Baby Age
+::: panel-tabset
 ### Notes
 - Check to make sure the couples' dates match.
     + For Couple 16, I referenced the master log to determine accurate birth date
@@ -127,21 +122,21 @@ df <- df %>%
          BabyAge.6pp = labelled(BabyAge.6pp, label = "Baby's Age at 6pp Visit (days)"))
 ```
 
-### Check and Print
-#### Check
+### Check
 ```{r}
 #| echo: false
 check_continuous(df, BabyAge.6pp) %>% knitr::kable()
 ```
 
-#### Print
+### Print
 ```{r}
 #| echo: false
 print_slice(df, BirthDate:BabyAge.6pp)
 ```
-
+:::
 
 ## Baby Weight
+::: panel-tabset
 ### Script
 ```{r}
 df <- df %>%
@@ -158,9 +153,13 @@ df <- df %>%
 
 ### Check
 ```{r}
+#| echo: false
 check_continuous(df, contains("BabyWeight")) %>% knitr::kable()
 ```
+:::
+
 ## Parent Age
+::: panel-tabset
 ### Script
 ```{r}
 df <- df %>%
@@ -178,7 +177,10 @@ df <- df %>%
 #| echo: false
 check_continuous(df, Age.6pp) %>% knitr::kable()
 ```
+:::
+
 ## Relationship Status
+::: panel-tabset
 ### Label
 ```{r}
 df <- df %>%
@@ -192,7 +194,10 @@ df <- df %>%
 #| echo: false
 check_categorical(df, RelStat.6pp) %>% knitr::kable()
 ```
+:::
+
 ## Smoking
+::: panel-tabset
 ### Script
 #### Recode `Smoker` Variable
 ```{r}
@@ -219,9 +224,10 @@ df <- df %>%
 check_categorical(df, Smoker.6pp) %>% knitr::kable()
 check_continuous(df, PackPerDay.6pp:YearsSmoker.6pp) %>% knitr::kable()
 ```
-
+:::
 
 ## Weight & Body-Mass Index (BMI)
+::: panel-tabset
 ### Formula
 Divide weight in pounds by height in inches squared and multiply by a
 conversion factor of 703
@@ -248,19 +254,21 @@ df <- df %>%
          Weight.6pp = labelled(Weight.6pp, label = "Parent Weight (6pp)"))
 ```
 
-### Check and Print
-#### Check
+### Check
 ```{r}
 #| echo: false
 check_continuous(df, Weight.6pp:BMI.6pp) %>% knitr::kable()
 ```
 
-#### Print
+### Print
 ```{r}
 #| echo: false
 print_slice(df,Weight.6pp:BMI.6pp )
 ```
+:::
+
 ## Exercise & Sleep
+::: panel-tabset
 ### Label 
 ```{r}
 df <- df %>%
@@ -274,7 +282,10 @@ df <- df %>%
 #| echo: false
 check_continuous(df, Exercise.6pp:Sleep.6pp) %>% knitr::kable()
 ```
+:::
+
 ## Breastfeeding, Menstruation, and Placenta
+::: panel-tabset
 ### Script
 #### Convert Binary
 ```{r}
@@ -338,20 +349,22 @@ df <- df %>%
          Placenta_form.6pp = labelled(Placenta_form.6pp, label = "In what form did you ingest your placenta?"))
 ```
 
-### Check and Print
-#### Check
+### Check
 ```{r}
+#| echo: false
 check_categorical(df, c(BF_ever.6pp, BF_current.6pp, Menstrual_start.6pp, Placenta_ingest.6pp)) %>% arrange(value) %>% knitr::kable()
 check_categorical(df, BF_exclusive.6pp) %>% knitr::kable()
 ```
 
-#### Print 
+### Print 
 ```{r}
+#| echo: false
 print_slice(df, BF_ever.6pp:Placenta_form.6pp)
 ```
-
+:::
 
 ## Paid Leave and Childcare
+::: panel-tabset
 ### Script
 ```{r}
 df <- df %>%
@@ -405,25 +418,30 @@ df <- df %>%
 
 ### Check
 ```{r}
+#| echo: false
 check_categorical(df, Leave_time.6pp) %>% knitr::kable()
 check_categorical(df, Leave_paid.6pp) %>% knitr::kable()
 check_categorical(df, Childcare.6pp) %>% knitr::kable()
 ```
+:::
 
 # Finishing up
+::: panel-tabset
 ## Check Variable Labels
 ```{r}
-inspect_labels(df, CoupleID:AAS1.6pp)
+#| echo: false
+inspect_labels(df, BirthDate:Childcare.6pp)
 ```
 
 ## Print
 ```{r}
-print_slice(df, CoupleID:AAS1.6pp)
+#| echo: false
+print_slice(df, BirthDate:Childcare.6pp)
 ```
 
 ## Write CSV Files
 ```{r}
 write_sav(df, here("data/qualtrics/4_demographics", "6pp_demo.sav"))
 ```
-
+:::
 

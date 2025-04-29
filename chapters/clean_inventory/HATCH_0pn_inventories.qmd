@@ -3,7 +3,6 @@ title: "Prenatal"
 subtitle: "Inventory Cleaning"
 format:
   html:
-    
     df-print: paged
     code-folding: show
 editor_options: 

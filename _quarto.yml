@@ -12,7 +12,12 @@ book:
       - chapters/clean_inventory/HATCH_3pp_inventories.qmd
       - chapters/clean_inventory/HATCH_6pp_inventories.qmd
       - chapters/clean_inventory/HATCH_12pp_inventories.qmd
+    - part: Demographics Cleaning
+      chapters:
       - chapters/clean_demographics/HATCH_0pn_demographics.qmd
+      - chapters/clean_demographics/HATCH_3pp_demographics.qmd
+      - chapters/clean_demographics/HATCH_6pp_demographics.qmd
+      - chapters/clean_demographics/HATCH_12pp_demographics.qmd
 
 format:
   html:
