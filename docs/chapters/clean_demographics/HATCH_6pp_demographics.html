@@ -333,13 +333,13 @@ window.Quarto = {
 </div>
 <div id="tabset-1-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-3-tab">
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">read_sav</span>(<span class="fu">here</span>(<span class="st">"data/qualtrics/3_renamed"</span>, <span class="st">"6pp_renamed.sav"</span>)) <span class="sc">%&gt;%</span></span>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">read_sav</span>(<span class="fu">here</span>(<span class="st">"data/3_renamed"</span>, <span class="st">"6pp_renamed.sav"</span>)) <span class="sc">%&gt;%</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="fu">across</span>(<span class="fu">where</span>(is.character), <span class="sc">~</span> <span class="fu">na_if</span>(.x, <span class="st">""</span>))) <span class="co"># replace blank cells with NA</span></span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>df.pn <span class="ot">&lt;-</span> <span class="fu">read_sav</span>(<span class="fu">here</span>(<span class="st">"data/qualtrics/4_demographics"</span>, <span class="st">"0pn_demo.sav"</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>df.pn <span class="ot">&lt;-</span> <span class="fu">read_sav</span>(<span class="fu">here</span>(<span class="st">"data/4_demographics"</span>, <span class="st">"0pn_demo.sav"</span>)) <span class="sc">%&gt;%</span></span>
 <span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(CoupleID, Parent, <span class="fu">contains</span>(<span class="st">"Height"</span>))</span>
 <span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>df<span class="fl">.3</span>pp <span class="ot">&lt;-</span> <span class="fu">read_sav</span>(<span class="fu">here</span>(<span class="st">"data/qualtrics/4_demographics"</span>, <span class="st">"3pp_demo.sav"</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>df<span class="fl">.3</span>pp <span class="ot">&lt;-</span> <span class="fu">read_sav</span>(<span class="fu">here</span>(<span class="st">"data/4_demographics"</span>, <span class="st">"3pp_demo.sav"</span>)) <span class="sc">%&gt;%</span></span>
 <span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(CoupleID, Parent, BirthDate) <span class="sc">%&gt;%</span></span>
 <span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="fu">across</span>(<span class="fu">where</span>(is.character), <span class="sc">~</span> <span class="fu">na_if</span>(.x, <span class="st">""</span>))) <span class="sc">%&gt;%</span> <span class="co"># replace blank cells with NA</span></span>
 <span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="st">"BirthDate.3pp"</span> <span class="ot">=</span> <span class="st">"BirthDate"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -467,11 +467,18 @@ window.Quarto = {
  </thead>
 <tbody>
   <tr>
-   <td style="text-align:right;text-align: center;"> 75 </td>
+   <td style="text-align:right;text-align: center;"> 62 </td>
    <td style="text-align:left;text-align: center;"> dad </td>
-   <td style="text-align:left;text-align: center;"> 2018-09-11 </td>
-   <td style="text-align:left;text-align: center;"> 2019-05-19 </td>
-   <td style="text-align:right;text-align: center;"> 250 </td>
+   <td style="text-align:left;text-align: center;"> 2017-11-26 </td>
+   <td style="text-align:left;text-align: center;"> 2018-05-20 </td>
+   <td style="text-align:right;text-align: center;"> 175 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;text-align: center;"> 3 </td>
+   <td style="text-align:left;text-align: center;"> dad </td>
+   <td style="text-align:left;text-align: center;"> 2014-07-07 </td>
+   <td style="text-align:left;text-align: center;"> 2015-02-13 </td>
+   <td style="text-align:right;text-align: center;"> 221 </td>
   </tr>
   <tr>
    <td style="text-align:right;text-align: center;"> 86 </td>
@@ -481,32 +488,25 @@ window.Quarto = {
    <td style="text-align:right;text-align: center;"> 213 </td>
   </tr>
   <tr>
-   <td style="text-align:right;text-align: center;"> 31 </td>
+   <td style="text-align:right;text-align: center;"> 13 </td>
    <td style="text-align:left;text-align: center;"> dad </td>
-   <td style="text-align:left;text-align: center;"> 2015-09-19 </td>
-   <td style="text-align:left;text-align: center;"> 2016-04-06 </td>
-   <td style="text-align:right;text-align: center;"> 200 </td>
+   <td style="text-align:left;text-align: center;"> 2014-12-31 </td>
+   <td style="text-align:left;text-align: center;"> 2015-07-12 </td>
+   <td style="text-align:right;text-align: center;"> 193 </td>
   </tr>
   <tr>
-   <td style="text-align:right;text-align: center;"> 46 </td>
-   <td style="text-align:left;text-align: center;"> dad </td>
-   <td style="text-align:left;text-align: center;"> 2016-10-21 </td>
-   <td style="text-align:left;text-align: center;"> 2017-05-15 </td>
-   <td style="text-align:right;text-align: center;"> 206 </td>
+   <td style="text-align:right;text-align: center;"> 69 </td>
+   <td style="text-align:left;text-align: center;"> mom </td>
+   <td style="text-align:left;text-align: center;"> 2018-08-09 </td>
+   <td style="text-align:left;text-align: center;"> 2019-02-26 </td>
+   <td style="text-align:right;text-align: center;"> 201 </td>
   </tr>
   <tr>
-   <td style="text-align:right;text-align: center;"> 21 </td>
+   <td style="text-align:right;text-align: center;"> 73 </td>
    <td style="text-align:left;text-align: center;"> dad </td>
-   <td style="text-align:left;text-align: center;"> 2015-07-22 </td>
-   <td style="text-align:left;text-align: center;"> 2016-01-30 </td>
-   <td style="text-align:right;text-align: center;"> 192 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;text-align: center;"> 14 </td>
-   <td style="text-align:left;text-align: center;"> dad </td>
-   <td style="text-align:left;text-align: center;"> 2015-02-04 </td>
-   <td style="text-align:left;text-align: center;"> 2015-08-03 </td>
-   <td style="text-align:right;text-align: center;"> 180 </td>
+   <td style="text-align:left;text-align: center;"> 2018-08-16 </td>
+   <td style="text-align:left;text-align: center;"> 2019-03-02 </td>
+   <td style="text-align:right;text-align: center;"> 198 </td>
   </tr>
 </tbody>
 </table></div>
@@ -851,40 +851,40 @@ window.Quarto = {
  </thead>
 <tbody>
   <tr>
-   <td style="text-align:right;text-align: center;"> 18 </td>
+   <td style="text-align:right;text-align: center;"> 57 </td>
    <td style="text-align:left;text-align: center;"> dad </td>
-   <td style="text-align:right;text-align: center;"> 190.00 </td>
-   <td style="text-align:right;text-align: center;"> 28.05503 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;text-align: center;"> 39 </td>
-   <td style="text-align:left;text-align: center;"> dad </td>
-   <td style="text-align:right;text-align: center;"> 132.27 </td>
-   <td style="text-align:right;text-align: center;"> 22.70161 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;text-align: center;"> 48 </td>
-   <td style="text-align:left;text-align: center;"> mom </td>
-   <td style="text-align:right;text-align: center;"> 185.00 </td>
-   <td style="text-align:right;text-align: center;"> 32.76770 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;text-align: center;"> 54 </td>
-   <td style="text-align:left;text-align: center;"> mom </td>
-   <td style="text-align:right;text-align: center;"> 182.00 </td>
-   <td style="text-align:right;text-align: center;"> 31.23682 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;text-align: center;"> 52 </td>
-   <td style="text-align:left;text-align: center;"> mom </td>
-   <td style="text-align:right;text-align: center;"> 105.00 </td>
-   <td style="text-align:right;text-align: center;"> 19.83741 </td>
+   <td style="text-align:right;text-align: center;"> 195 </td>
+   <td style="text-align:right;text-align: center;"> 25.72434 </td>
   </tr>
   <tr>
    <td style="text-align:right;text-align: center;"> 5 </td>
+   <td style="text-align:left;text-align: center;"> mom </td>
+   <td style="text-align:right;text-align: center;"> NA </td>
+   <td style="text-align:right;text-align: center;"> NA </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;text-align: center;"> 76 </td>
+   <td style="text-align:left;text-align: center;"> mom </td>
+   <td style="text-align:right;text-align: center;"> 135 </td>
+   <td style="text-align:right;text-align: center;"> 22.46272 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;text-align: center;"> 67 </td>
+   <td style="text-align:left;text-align: center;"> mom </td>
+   <td style="text-align:right;text-align: center;"> 160 </td>
+   <td style="text-align:right;text-align: center;"> 26.62249 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;text-align: center;"> 28 </td>
    <td style="text-align:left;text-align: center;"> dad </td>
-   <td style="text-align:right;text-align: center;"> NA </td>
-   <td style="text-align:right;text-align: center;"> NA </td>
+   <td style="text-align:right;text-align: center;"> 229 </td>
+   <td style="text-align:right;text-align: center;"> 29.39865 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;text-align: center;"> 11 </td>
+   <td style="text-align:left;text-align: center;"> dad </td>
+   <td style="text-align:right;text-align: center;"> 220 </td>
+   <td style="text-align:right;text-align: center;"> 30.68042 </td>
   </tr>
 </tbody>
 </table></div>
@@ -1123,33 +1123,7 @@ window.Quarto = {
  </thead>
 <tbody>
   <tr>
-   <td style="text-align:right;text-align: center;"> 68 </td>
-   <td style="text-align:left;text-align: center;"> mom </td>
-   <td style="text-align:right;text-align: center;"> 1 </td>
-   <td style="text-align:right;text-align: center;"> 1 </td>
-   <td style="text-align:right;text-align: center;"> NA </td>
-   <td style="text-align:right;text-align: center;"> NA </td>
-   <td style="text-align:right;text-align: center;"> 1 </td>
-   <td style="text-align:right;text-align: center;"> 0 </td>
-   <td style="text-align:left;text-align: center;"> NA </td>
-   <td style="text-align:right;text-align: center;"> 0 </td>
-   <td style="text-align:left;text-align: center;"> NA </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;text-align: center;"> 87 </td>
-   <td style="text-align:left;text-align: center;"> mom </td>
-   <td style="text-align:right;text-align: center;"> 1 </td>
-   <td style="text-align:right;text-align: center;"> 0 </td>
-   <td style="text-align:right;text-align: center;"> 2 </td>
-   <td style="text-align:right;text-align: center;"> 0 </td>
-   <td style="text-align:right;text-align: center;"> NA </td>
-   <td style="text-align:right;text-align: center;"> 1 </td>
-   <td style="text-align:left;text-align: center;"> 2019-08-21 </td>
-   <td style="text-align:right;text-align: center;"> 0 </td>
-   <td style="text-align:left;text-align: center;"> NA </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;text-align: center;"> 77 </td>
+   <td style="text-align:right;text-align: center;"> 3 </td>
    <td style="text-align:left;text-align: center;"> dad </td>
    <td style="text-align:right;text-align: center;"> NA </td>
    <td style="text-align:right;text-align: center;"> NA </td>
@@ -1162,33 +1136,59 @@ window.Quarto = {
    <td style="text-align:left;text-align: center;"> NA </td>
   </tr>
   <tr>
-   <td style="text-align:right;text-align: center;"> 35 </td>
+   <td style="text-align:right;text-align: center;"> 43 </td>
    <td style="text-align:left;text-align: center;"> mom </td>
    <td style="text-align:right;text-align: center;"> 1 </td>
-   <td style="text-align:right;text-align: center;"> 0 </td>
-   <td style="text-align:right;text-align: center;"> 6 </td>
-   <td style="text-align:right;text-align: center;"> 0 </td>
+   <td style="text-align:right;text-align: center;"> 1 </td>
+   <td style="text-align:right;text-align: center;"> NA </td>
    <td style="text-align:right;text-align: center;"> NA </td>
    <td style="text-align:right;text-align: center;"> 1 </td>
-   <td style="text-align:left;text-align: center;"> 2016-03-05 </td>
+   <td style="text-align:right;text-align: center;"> 0 </td>
+   <td style="text-align:left;text-align: center;"> NA </td>
+   <td style="text-align:right;text-align: center;"> 1 </td>
+   <td style="text-align:left;text-align: center;"> Capsules, tincture </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;text-align: center;"> 75 </td>
+   <td style="text-align:left;text-align: center;"> mom </td>
+   <td style="text-align:right;text-align: center;"> 1 </td>
+   <td style="text-align:right;text-align: center;"> 1 </td>
+   <td style="text-align:right;text-align: center;"> NA </td>
+   <td style="text-align:right;text-align: center;"> NA </td>
+   <td style="text-align:right;text-align: center;"> 2 </td>
+   <td style="text-align:right;text-align: center;"> 1 </td>
+   <td style="text-align:left;text-align: center;"> 2019-02-14 </td>
    <td style="text-align:right;text-align: center;"> 0 </td>
    <td style="text-align:left;text-align: center;"> NA </td>
   </tr>
   <tr>
    <td style="text-align:right;text-align: center;"> 90 </td>
-   <td style="text-align:left;text-align: center;"> dad </td>
+   <td style="text-align:left;text-align: center;"> mom </td>
+   <td style="text-align:right;text-align: center;"> 1 </td>
+   <td style="text-align:right;text-align: center;"> 1 </td>
    <td style="text-align:right;text-align: center;"> NA </td>
    <td style="text-align:right;text-align: center;"> NA </td>
-   <td style="text-align:right;text-align: center;"> NA </td>
-   <td style="text-align:right;text-align: center;"> NA </td>
-   <td style="text-align:right;text-align: center;"> NA </td>
-   <td style="text-align:right;text-align: center;"> NA </td>
+   <td style="text-align:right;text-align: center;"> 1 </td>
+   <td style="text-align:right;text-align: center;"> 0 </td>
    <td style="text-align:left;text-align: center;"> NA </td>
-   <td style="text-align:right;text-align: center;"> NA </td>
+   <td style="text-align:right;text-align: center;"> 0 </td>
    <td style="text-align:left;text-align: center;"> NA </td>
   </tr>
   <tr>
-   <td style="text-align:right;text-align: center;"> 86 </td>
+   <td style="text-align:right;text-align: center;"> 15 </td>
+   <td style="text-align:left;text-align: center;"> mom </td>
+   <td style="text-align:right;text-align: center;"> 1 </td>
+   <td style="text-align:right;text-align: center;"> 1 </td>
+   <td style="text-align:right;text-align: center;"> NA </td>
+   <td style="text-align:right;text-align: center;"> NA </td>
+   <td style="text-align:right;text-align: center;"> 2 </td>
+   <td style="text-align:right;text-align: center;"> 1 </td>
+   <td style="text-align:left;text-align: center;"> 2014-06-10 </td>
+   <td style="text-align:right;text-align: center;"> 0 </td>
+   <td style="text-align:left;text-align: center;"> NA </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;text-align: center;"> 67 </td>
    <td style="text-align:left;text-align: center;"> mom </td>
    <td style="text-align:right;text-align: center;"> 1 </td>
    <td style="text-align:right;text-align: center;"> 1 </td>
@@ -1603,34 +1603,154 @@ window.Quarto = {
  </thead>
 <tbody>
   <tr>
-   <td style="text-align:right;text-align: center;"> 75 </td>
-   <td style="text-align:left;text-align: center;"> mom </td>
-   <td style="text-align:left;text-align: center;"> 2018-09-11 </td>
-   <td style="text-align:left;text-align: center;"> 2019-05-19 </td>
-   <td style="text-align:right;text-align: center;"> 250 </td>
+   <td style="text-align:right;text-align: center;"> 89 </td>
+   <td style="text-align:left;text-align: center;"> dad </td>
+   <td style="text-align:left;text-align: center;"> 2019-09-18 </td>
+   <td style="text-align:left;text-align: center;"> 2020-04-07 </td>
+   <td style="text-align:right;text-align: center;"> 202 </td>
    <td style="text-align:right;text-align: center;"> 8 </td>
+   <td style="text-align:right;text-align: center;"> 0.0 </td>
+   <td style="text-align:right;text-align: center;"> 24 </td>
+   <td style="text-align:right;text-align: center;"> 2 </td>
+   <td style="text-align:right;text-align: center;"> 0 </td>
+   <td style="text-align:right;text-align: center;"> NA </td>
+   <td style="text-align:right;text-align: center;"> NA </td>
+   <td style="text-align:right;text-align: center;"> 197 </td>
+   <td style="text-align:right;text-align: center;"> 25.29054 </td>
+   <td style="text-align:right;text-align: center;"> 24.0 </td>
+   <td style="text-align:right;text-align: center;"> 7.0 </td>
+   <td style="text-align:right;text-align: center;"> NA </td>
+   <td style="text-align:right;text-align: center;"> NA </td>
+   <td style="text-align:right;text-align: center;"> NA </td>
+   <td style="text-align:right;text-align: center;"> NA </td>
+   <td style="text-align:right;text-align: center;"> NA </td>
+   <td style="text-align:right;text-align: center;"> NA </td>
+   <td style="text-align:left;text-align: center;"> NA </td>
+   <td style="text-align:right;text-align: center;"> NA </td>
+   <td style="text-align:left;text-align: center;"> NA </td>
    <td style="text-align:right;text-align: center;"> 1 </td>
-   <td style="text-align:right;text-align: center;"> 33 </td>
+   <td style="text-align:right;text-align: center;"> 1 </td>
+   <td style="text-align:right;text-align: center;"> 3 </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;text-align: center;"> 53 </td>
+   <td style="text-align:left;text-align: center;"> mom </td>
+   <td style="text-align:left;text-align: center;"> 2017-06-11 </td>
+   <td style="text-align:left;text-align: center;"> 2017-12-18 </td>
+   <td style="text-align:right;text-align: center;"> 190 </td>
+   <td style="text-align:right;text-align: center;"> 7 </td>
+   <td style="text-align:right;text-align: center;"> 8.0 </td>
+   <td style="text-align:right;text-align: center;"> 35 </td>
    <td style="text-align:right;text-align: center;"> 1 </td>
    <td style="text-align:right;text-align: center;"> 0 </td>
    <td style="text-align:right;text-align: center;"> NA </td>
    <td style="text-align:right;text-align: center;"> NA </td>
-   <td style="text-align:right;text-align: center;"> 175.000 </td>
-   <td style="text-align:right;text-align: center;"> 25.10714 </td>
-   <td style="text-align:right;text-align: center;"> 2 </td>
-   <td style="text-align:right;text-align: center;"> 7 </td>
+   <td style="text-align:right;text-align: center;"> 129 </td>
+   <td style="text-align:right;text-align: center;"> 19.61224 </td>
+   <td style="text-align:right;text-align: center;"> 2.0 </td>
+   <td style="text-align:right;text-align: center;"> 6.5 </td>
    <td style="text-align:right;text-align: center;"> 1 </td>
    <td style="text-align:right;text-align: center;"> 1 </td>
    <td style="text-align:right;text-align: center;"> NA </td>
    <td style="text-align:right;text-align: center;"> NA </td>
    <td style="text-align:right;text-align: center;"> 2 </td>
    <td style="text-align:right;text-align: center;"> 1 </td>
-   <td style="text-align:left;text-align: center;"> 2019-02-14 </td>
+   <td style="text-align:left;text-align: center;"> 2017-10-09 </td>
    <td style="text-align:right;text-align: center;"> 0 </td>
    <td style="text-align:left;text-align: center;"> NA </td>
+   <td style="text-align:right;text-align: center;"> 4 </td>
    <td style="text-align:right;text-align: center;"> 3 </td>
+   <td style="text-align:right;text-align: center;"> NA </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;text-align: center;"> 4 </td>
+   <td style="text-align:left;text-align: center;"> dad </td>
+   <td style="text-align:left;text-align: center;"> 2014-08-10 </td>
+   <td style="text-align:left;text-align: center;"> 2015-03-09 </td>
+   <td style="text-align:right;text-align: center;"> 211 </td>
+   <td style="text-align:right;text-align: center;"> 7 </td>
+   <td style="text-align:right;text-align: center;"> 10.0 </td>
+   <td style="text-align:right;text-align: center;"> 36 </td>
+   <td style="text-align:right;text-align: center;"> 1 </td>
+   <td style="text-align:right;text-align: center;"> 1 </td>
+   <td style="text-align:right;text-align: center;"> 0.25 </td>
    <td style="text-align:right;text-align: center;"> 3 </td>
+   <td style="text-align:right;text-align: center;"> 180 </td>
+   <td style="text-align:right;text-align: center;"> 23.74554 </td>
+   <td style="text-align:right;text-align: center;"> 2.5 </td>
+   <td style="text-align:right;text-align: center;"> 5.0 </td>
+   <td style="text-align:right;text-align: center;"> NA </td>
+   <td style="text-align:right;text-align: center;"> NA </td>
+   <td style="text-align:right;text-align: center;"> NA </td>
+   <td style="text-align:right;text-align: center;"> NA </td>
+   <td style="text-align:right;text-align: center;"> NA </td>
+   <td style="text-align:right;text-align: center;"> NA </td>
+   <td style="text-align:left;text-align: center;"> NA </td>
+   <td style="text-align:right;text-align: center;"> NA </td>
+   <td style="text-align:left;text-align: center;"> NA </td>
+   <td style="text-align:right;text-align: center;"> NA </td>
+   <td style="text-align:right;text-align: center;"> NA </td>
+   <td style="text-align:right;text-align: center;"> NA </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;text-align: center;"> 4 </td>
+   <td style="text-align:left;text-align: center;"> mom </td>
+   <td style="text-align:left;text-align: center;"> 2014-08-10 </td>
+   <td style="text-align:left;text-align: center;"> 2015-03-09 </td>
+   <td style="text-align:right;text-align: center;"> 211 </td>
+   <td style="text-align:right;text-align: center;"> 7 </td>
+   <td style="text-align:right;text-align: center;"> 12.5 </td>
+   <td style="text-align:right;text-align: center;"> 32 </td>
+   <td style="text-align:right;text-align: center;"> 1 </td>
+   <td style="text-align:right;text-align: center;"> 1 </td>
+   <td style="text-align:right;text-align: center;"> 0.50 </td>
    <td style="text-align:right;text-align: center;"> 2 </td>
+   <td style="text-align:right;text-align: center;"> 115 </td>
+   <td style="text-align:right;text-align: center;"> 19.73755 </td>
+   <td style="text-align:right;text-align: center;"> 4.0 </td>
+   <td style="text-align:right;text-align: center;"> 7.0 </td>
+   <td style="text-align:right;text-align: center;"> 1 </td>
+   <td style="text-align:right;text-align: center;"> 1 </td>
+   <td style="text-align:right;text-align: center;"> NA </td>
+   <td style="text-align:right;text-align: center;"> NA </td>
+   <td style="text-align:right;text-align: center;"> 2 </td>
+   <td style="text-align:right;text-align: center;"> 1 </td>
+   <td style="text-align:left;text-align: center;"> 2015-01-03 </td>
+   <td style="text-align:right;text-align: center;"> NA </td>
+   <td style="text-align:left;text-align: center;"> NA </td>
+   <td style="text-align:right;text-align: center;"> NA </td>
+   <td style="text-align:right;text-align: center;"> NA </td>
+   <td style="text-align:right;text-align: center;"> NA </td>
+  </tr>
+  <tr>
+   <td style="text-align:right;text-align: center;"> 59 </td>
+   <td style="text-align:left;text-align: center;"> mom </td>
+   <td style="text-align:left;text-align: center;"> 2017-09-21 </td>
+   <td style="text-align:left;text-align: center;"> 2018-04-17 </td>
+   <td style="text-align:right;text-align: center;"> 208 </td>
+   <td style="text-align:right;text-align: center;"> 6 </td>
+   <td style="text-align:right;text-align: center;"> 7.0 </td>
+   <td style="text-align:right;text-align: center;"> NA </td>
+   <td style="text-align:right;text-align: center;"> 2 </td>
+   <td style="text-align:right;text-align: center;"> 0 </td>
+   <td style="text-align:right;text-align: center;"> NA </td>
+   <td style="text-align:right;text-align: center;"> NA </td>
+   <td style="text-align:right;text-align: center;"> 125 </td>
+   <td style="text-align:right;text-align: center;"> 22.14034 </td>
+   <td style="text-align:right;text-align: center;"> 4.0 </td>
+   <td style="text-align:right;text-align: center;"> 6.0 </td>
+   <td style="text-align:right;text-align: center;"> 1 </td>
+   <td style="text-align:right;text-align: center;"> 1 </td>
+   <td style="text-align:right;text-align: center;"> NA </td>
+   <td style="text-align:right;text-align: center;"> NA </td>
+   <td style="text-align:right;text-align: center;"> 1 </td>
+   <td style="text-align:right;text-align: center;"> 1 </td>
+   <td style="text-align:left;text-align: center;"> 2018-03-01 </td>
+   <td style="text-align:right;text-align: center;"> 0 </td>
+   <td style="text-align:left;text-align: center;"> NA </td>
+   <td style="text-align:right;text-align: center;"> 5 </td>
+   <td style="text-align:right;text-align: center;"> 0 </td>
+   <td style="text-align:right;text-align: center;"> 4 </td>
   </tr>
   <tr>
    <td style="text-align:right;text-align: center;"> 44 </td>
@@ -1639,16 +1759,16 @@ window.Quarto = {
    <td style="text-align:left;text-align: center;"> 2017-02-11 </td>
    <td style="text-align:right;text-align: center;"> 166 </td>
    <td style="text-align:right;text-align: center;"> 7 </td>
-   <td style="text-align:right;text-align: center;"> 12 </td>
+   <td style="text-align:right;text-align: center;"> 12.0 </td>
    <td style="text-align:right;text-align: center;"> 27 </td>
    <td style="text-align:right;text-align: center;"> 1 </td>
    <td style="text-align:right;text-align: center;"> 0 </td>
    <td style="text-align:right;text-align: center;"> NA </td>
    <td style="text-align:right;text-align: center;"> NA </td>
-   <td style="text-align:right;text-align: center;"> 185.000 </td>
+   <td style="text-align:right;text-align: center;"> 185 </td>
    <td style="text-align:right;text-align: center;"> 27.31674 </td>
-   <td style="text-align:right;text-align: center;"> 3 </td>
-   <td style="text-align:right;text-align: center;"> 6 </td>
+   <td style="text-align:right;text-align: center;"> 3.0 </td>
+   <td style="text-align:right;text-align: center;"> 6.0 </td>
    <td style="text-align:right;text-align: center;"> NA </td>
    <td style="text-align:right;text-align: center;"> NA </td>
    <td style="text-align:right;text-align: center;"> NA </td>
@@ -1660,126 +1780,6 @@ window.Quarto = {
    <td style="text-align:left;text-align: center;"> NA </td>
    <td style="text-align:right;text-align: center;"> NA </td>
    <td style="text-align:right;text-align: center;"> NA </td>
-   <td style="text-align:right;text-align: center;"> NA </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;text-align: center;"> 60 </td>
-   <td style="text-align:left;text-align: center;"> mom </td>
-   <td style="text-align:left;text-align: center;"> 2017-08-15 </td>
-   <td style="text-align:left;text-align: center;"> 2018-03-23 </td>
-   <td style="text-align:right;text-align: center;"> 220 </td>
-   <td style="text-align:right;text-align: center;"> 7 </td>
-   <td style="text-align:right;text-align: center;"> 11 </td>
-   <td style="text-align:right;text-align: center;"> 32 </td>
-   <td style="text-align:right;text-align: center;"> 1 </td>
-   <td style="text-align:right;text-align: center;"> 0 </td>
-   <td style="text-align:right;text-align: center;"> NA </td>
-   <td style="text-align:right;text-align: center;"> NA </td>
-   <td style="text-align:right;text-align: center;"> 136.025 </td>
-   <td style="text-align:right;text-align: center;"> 22.63327 </td>
-   <td style="text-align:right;text-align: center;"> 0 </td>
-   <td style="text-align:right;text-align: center;"> 8 </td>
-   <td style="text-align:right;text-align: center;"> 1 </td>
-   <td style="text-align:right;text-align: center;"> 1 </td>
-   <td style="text-align:right;text-align: center;"> NA </td>
-   <td style="text-align:right;text-align: center;"> NA </td>
-   <td style="text-align:right;text-align: center;"> 1 </td>
-   <td style="text-align:right;text-align: center;"> 0 </td>
-   <td style="text-align:left;text-align: center;"> NA </td>
-   <td style="text-align:right;text-align: center;"> 0 </td>
-   <td style="text-align:left;text-align: center;"> NA </td>
-   <td style="text-align:right;text-align: center;"> 5 </td>
-   <td style="text-align:right;text-align: center;"> 5 </td>
-   <td style="text-align:right;text-align: center;"> 4 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;text-align: center;"> 60 </td>
-   <td style="text-align:left;text-align: center;"> dad </td>
-   <td style="text-align:left;text-align: center;"> 2017-08-15 </td>
-   <td style="text-align:left;text-align: center;"> 2018-03-23 </td>
-   <td style="text-align:right;text-align: center;"> 220 </td>
-   <td style="text-align:right;text-align: center;"> 7 </td>
-   <td style="text-align:right;text-align: center;"> 11 </td>
-   <td style="text-align:right;text-align: center;"> 30 </td>
-   <td style="text-align:right;text-align: center;"> 1 </td>
-   <td style="text-align:right;text-align: center;"> 0 </td>
-   <td style="text-align:right;text-align: center;"> NA </td>
-   <td style="text-align:right;text-align: center;"> NA </td>
-   <td style="text-align:right;text-align: center;"> 143.000 </td>
-   <td style="text-align:right;text-align: center;"> 22.39452 </td>
-   <td style="text-align:right;text-align: center;"> 8 </td>
-   <td style="text-align:right;text-align: center;"> 7 </td>
-   <td style="text-align:right;text-align: center;"> NA </td>
-   <td style="text-align:right;text-align: center;"> NA </td>
-   <td style="text-align:right;text-align: center;"> NA </td>
-   <td style="text-align:right;text-align: center;"> NA </td>
-   <td style="text-align:right;text-align: center;"> NA </td>
-   <td style="text-align:right;text-align: center;"> NA </td>
-   <td style="text-align:left;text-align: center;"> NA </td>
-   <td style="text-align:right;text-align: center;"> NA </td>
-   <td style="text-align:left;text-align: center;"> NA </td>
-   <td style="text-align:right;text-align: center;"> 0 </td>
-   <td style="text-align:right;text-align: center;"> 3 </td>
-   <td style="text-align:right;text-align: center;"> 4 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;text-align: center;"> 66 </td>
-   <td style="text-align:left;text-align: center;"> mom </td>
-   <td style="text-align:left;text-align: center;"> 2018-05-11 </td>
-   <td style="text-align:left;text-align: center;"> 2018-11-11 </td>
-   <td style="text-align:right;text-align: center;"> 184 </td>
-   <td style="text-align:right;text-align: center;"> 6 </td>
-   <td style="text-align:right;text-align: center;"> 11 </td>
-   <td style="text-align:right;text-align: center;"> 31 </td>
-   <td style="text-align:right;text-align: center;"> 1 </td>
-   <td style="text-align:right;text-align: center;"> 0 </td>
-   <td style="text-align:right;text-align: center;"> NA </td>
-   <td style="text-align:right;text-align: center;"> NA </td>
-   <td style="text-align:right;text-align: center;"> 150.000 </td>
-   <td style="text-align:right;text-align: center;"> 25.74463 </td>
-   <td style="text-align:right;text-align: center;"> 4 </td>
-   <td style="text-align:right;text-align: center;"> 7 </td>
-   <td style="text-align:right;text-align: center;"> 1 </td>
-   <td style="text-align:right;text-align: center;"> 0 </td>
-   <td style="text-align:right;text-align: center;"> NA </td>
-   <td style="text-align:right;text-align: center;"> 14 </td>
-   <td style="text-align:right;text-align: center;"> NA </td>
-   <td style="text-align:right;text-align: center;"> 1 </td>
-   <td style="text-align:left;text-align: center;"> 2018-07-26 </td>
-   <td style="text-align:right;text-align: center;"> 0 </td>
-   <td style="text-align:left;text-align: center;"> NA </td>
-   <td style="text-align:right;text-align: center;"> 4 </td>
-   <td style="text-align:right;text-align: center;"> 3 </td>
-   <td style="text-align:right;text-align: center;"> 3 </td>
-  </tr>
-  <tr>
-   <td style="text-align:right;text-align: center;"> 52 </td>
-   <td style="text-align:left;text-align: center;"> dad </td>
-   <td style="text-align:left;text-align: center;"> 2017-04-18 </td>
-   <td style="text-align:left;text-align: center;"> 2017-11-05 </td>
-   <td style="text-align:right;text-align: center;"> 201 </td>
-   <td style="text-align:right;text-align: center;"> 6 </td>
-   <td style="text-align:right;text-align: center;"> 7 </td>
-   <td style="text-align:right;text-align: center;"> 30 </td>
-   <td style="text-align:right;text-align: center;"> 1 </td>
-   <td style="text-align:right;text-align: center;"> 0 </td>
-   <td style="text-align:right;text-align: center;"> NA </td>
-   <td style="text-align:right;text-align: center;"> NA </td>
-   <td style="text-align:right;text-align: center;"> 162.500 </td>
-   <td style="text-align:right;text-align: center;"> 27.03846 </td>
-   <td style="text-align:right;text-align: center;"> 2 </td>
-   <td style="text-align:right;text-align: center;"> 6 </td>
-   <td style="text-align:right;text-align: center;"> NA </td>
-   <td style="text-align:right;text-align: center;"> NA </td>
-   <td style="text-align:right;text-align: center;"> NA </td>
-   <td style="text-align:right;text-align: center;"> NA </td>
-   <td style="text-align:right;text-align: center;"> NA </td>
-   <td style="text-align:right;text-align: center;"> NA </td>
-   <td style="text-align:left;text-align: center;"> NA </td>
-   <td style="text-align:right;text-align: center;"> NA </td>
-   <td style="text-align:left;text-align: center;"> NA </td>
-   <td style="text-align:right;text-align: center;"> 2 </td>
-   <td style="text-align:right;text-align: center;"> 3 </td>
    <td style="text-align:right;text-align: center;"> NA </td>
   </tr>
 </tbody>
@@ -1790,7 +1790,7 @@ window.Quarto = {
 </div>
 <div id="tabset-11-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-11-3-tab">
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">write_sav</span>(df, <span class="fu">here</span>(<span class="st">"data/qualtrics/4_demographics"</span>, <span class="st">"6pp_demo.sav"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">write_sav</span>(df, <span class="fu">here</span>(<span class="st">"data/4_demographics"</span>, <span class="st">"6pp_demo.sav"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 </div>

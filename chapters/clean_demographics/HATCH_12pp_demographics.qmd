@@ -49,13 +49,13 @@ library(nestclean) # the package I wrote to help check our work
 
 ## Load Data
 ```{r load-data}
-df <- read_sav(here("data/qualtrics/3_renamed", "12pp_renamed.sav")) %>%
+df <- read_sav(here("data/3_renamed", "12pp_renamed.sav")) %>%
   mutate(across(where(is.character), ~ na_if(.x, ""))) # replace blank cells with NA
 
-df.pn <- read_sav(here("data/qualtrics/4_demographics", "0pn_demo.sav")) %>%
+df.pn <- read_sav(here("data/4_demographics", "0pn_demo.sav")) %>%
   select(CoupleID, Parent, contains("Height"))
 
-df.6pp <- read_sav(here("data/qualtrics/4_demographics", "6pp_demo.sav")) %>%
+df.6pp <- read_sav(here("data/4_demographics", "6pp_demo.sav")) %>%
   select(CoupleID, Parent, BirthDate, Menstrual_date.6pp) %>%
   mutate(across(where(is.character), ~ na_if(.x, ""))) %>% # replace blank cells with NA
   rename("BirthDate.6pp" = "BirthDate")
@@ -523,7 +523,7 @@ print_slice(df, BirthDate:Future_child_partner.12pp)
 
 ## Write CSV Files
 ```{r}
-write_sav(df, here("data/qualtrics/4_demographics", "12pp_demo.sav"))
+write_sav(df, here("data/4_demographics", "12pp_demo.sav"))
 ```
 :::
 

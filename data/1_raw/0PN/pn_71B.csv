@@ -1,0 +1,669 @@
+StartDate,EndDate,Status,IPAddress,Progress,Duration (in seconds),Finished,RecordedDate,ResponseId,RecipientLastName,RecipientFirstName,RecipientEmail,ExternalReference,LocationLatitude,LocationLongitude,DistributionChannel,UserLanguage,BFI_2_1,BFI_2_2,BFI_2_3,BFI_2_4,BFI_2_5,BFI_2_6,BFI_2_7,BFI_2_8,BFI_2_9,BFI_2_10,BFI_2_11,BFI_2_12,BFI_2_13,BFI_2_14,BFI_2_15,BFI_2_16,BFI_2_17,BFI_2_18,BFI_2_19,BFI_2_20,BFI_2_21,BFI_2_22,BFI_2_23,BFI_2_24,BFI_2_25,BFI_2_26,BFI_2_27,BFI_2_28,BFI_2_29,BFI_2_30,BFI_2_31,BFI_2_32,BFI_2_33,BFI_2_34,BFI_2_35,BFI_2_36,BFI_2_37,BFI_2_38,BFI_2_39,BFI_2_40,BFI_2_41,BFI_2_42,BFI_2_43,BFI_2_44,WIAF_1,WIAF_2,WIAF_3,WIAF_4,WIAF_5,WIAF_6,WIAF_7,WIAF_8,WIAF_9,WIAF_10,WIAF_11,WIAF_12,WIAF_13,WIAF_14,WIAF_15,COPE_1,COPE_2,COPE_3,COPE_4,COPE_5,COPE_6,COPE_7,COPE_8,COPE_9,COPE_10,COPE_11,COPE_12,COPE_13,COPE_14,COPE_15,COPE_16,COPE_17,COPE_18,COPE_19,COPE_20,COPE_21,COPE_22,COPE_23,COPE_24,COPE_25,COPE_26,COPE_27,COPE_28,ISS_1,ISS_2,ISS_3,ISS_4,ISS_5,ISS_6,ISS_7,ISS_8,ISS_9,ISS_10,ISS_11,ISS_12,ISS_13,ISS_14,ISS_15,ISS_16,ISS_17,ISS_18,ISS_19,ISS_20,ISS_21,ISS_22,ISS_23,ISS_24,ISS_25,IRI_1,IRI_2,IRI_3,IRI_4,IRI_5,IRI_6,IRI_7,IRI_8,IRI_9,IRI_10,IRI_11,IRI_12,IRI_13,IRI_14,IRI_15,IRI_16,IRI_17,IRI_18,IRI_19,IRI_20,IRI_21,IRI_22,IRI_23,IRI_24,IRI_25,IRI_26,IRI_27,IRI_28,LAP-R_1,LAP-R_2,LAP-R_3,LAP-R_4,LAP-R_5,LAP-R_6,LAP-R_7,LAP-R_8,LAP-R_9,LAP-R_10,LAP-R_11,LAP-R_12,LAP-R_13,LAP-R_14,LAP-R_15,LAP-R_16,Q84,Q86,Q88,Q90,Q92_1,Q92_2,Q92_3,Q92_4,Q92_5,Q92_6,Q92_7,Q92_8,Q92_9,Q92_10,Q94,Q96_1,Q96_2,Q98,Q90,Q91,Q92,Q93,Q94,Q95,Q96,Q97,Q98,Q99,Q100,Q101,Q102,Q103,Q104,Q105,Q125,Q126,Q127,Q128,Q129,Q131,Q132,SubjectID2
+Start Date,End Date,Response Type,IP Address,Progress,Duration (in seconds),Finished,Recorded Date,Response ID,Recipient Last Name,Recipient First Name,Recipient Email,External Data Reference,Location Latitude,Location Longitude,Distribution Channel,User Language,I am someone who: - Is talkative,I am someone who: - Tends to find fault with others,I am someone who: - Does a thorough job,"I am someone who: - Is depressed, blue","I am someone who: - Is original, comes up with new ideas",I am someone who: - Is reserved,I am someone who: - Is helpful and unselfish with others,I am someone who: - Can be somewhat careless,"I am someone who: - Is relaxed, handles stress well",I am someone who: - Is curious about many different things,I am someone who: - Is full of energy,I am someone who: - Starts quarrels with others,I am someone who: - Is a reliable worker,I am someone who: - Can be tense,"I am someone who: - Is ingenious, a deep thinker",I am someone who: - Generates a lot of enthusiasm,I am someone who: - Has a forgiving nature,I am someone who: - Tends to be disorganized,I am someone who: - Worries a lot,I am someone who: - Has an active imagination,I am someone who: - Tends to be quiet,I am someone who: - Is generally trusting,I am someone who: - Tends to be lazy,"I am someone who: - Is emotionally stable, not easily upset",I am someone who: - Is inventive,I am someone who: - Has an assertive personality,I am someone who: - Can be cold and aloof,I am someone who: - Perseveres until the task is finished,I am someone who: - Can be moody,"I am someone who: - Values artistic, aesthetic experiences","I am someone who: - Is sometimes shy, inhibited",I am someone who: - Is considerate and kind to almost everyone,I am someone who: - Does things efficiently,I am someone who: - Remains calm in tense situations,I am someone who: - Prefers work that is routine,"I am someone who: - Is outgoing, sociable",I am someone who: - Is sometimes rude to others,I am someone who: - Makes plans and follows through with them,I am someone who: - Gets nervous easily,"I am someone who: - Likes to reflect, play with ideas",I am someone who: - Has few artistic interests,I am someone who: - Likes to cooperate with others,I am someone who: - Is easily distracted,"I am someone who: - Is sophisticated in art, music, or literature","The following questions ask about your
+perceptions of the father’s role. Please check the extent to which you agree or
+disagree with each of the following statements. - Fathers should spend more time interacting with their children and less time at work.","The following questions ask about your
+perceptions of the father’s role. Please check the extent to which you agree or
+disagree with each of the following statements. - Fathers play a central role in the child's personality development.","The following questions ask about your
+perceptions of the father’s role. Please check the extent to which you agree or
+disagree with each of the following statements. - Fathers should be the disciplinarians in the family.","The following questions ask about your
+perceptions of the father’s role. Please check the extent to which you agree or
+disagree with each of the following statements. - The father's role is to provide for his family, not babysit the children.","The following questions ask about your
+perceptions of the father’s role. Please check the extent to which you agree or
+disagree with each of the following statements. - A father should be as heavily involved in the direct care of his child (e.g. feeding, dressing) as the mother.","The following questions ask about your
+perceptions of the father’s role. Please check the extent to which you agree or
+disagree with each of the following statements. - The responsibilities of fatherhood never overshadow the joys.","The following questions ask about your
+perceptions of the father’s role. Please check the extent to which you agree or
+disagree with each of the following statements. - Fathers and mothers should spend an equal amount of time with their children.","The following questions ask about your
+perceptions of the father’s role. Please check the extent to which you agree or
+disagree with each of the following statements. - Fathers have a special responsibility to make sure their children feel safe and protected.","The following questions ask about your
+perceptions of the father’s role. Please check the extent to which you agree or
+disagree with each of the following statements. - It is as important for a father to meet a child's emotional needs (e.g. love, security) as it is for the mother to do so.","The following questions ask about your
+perceptions of the father’s role. Please check the extent to which you agree or
+disagree with each of the following statements. - The most important thing a man can invest time and energy into is his family.","The following questions ask about your
+perceptions of the father’s role. Please check the extent to which you agree or
+disagree with each of the following statements. - Fathers are just as sensitive in caring for children as mothers are.","The following questions ask about your
+perceptions of the father’s role. Please check the extent to which you agree or
+disagree with each of the following statements. - A special part of the father's role is to give children moral and ethical guidance.","The following questions ask about your
+perceptions of the father’s role. Please check the extent to which you agree or
+disagree with each of the following statements. - The way a father treats his child has important life-long effects.","The following questions ask about your
+perceptions of the father’s role. Please check the extent to which you agree or
+disagree with each of the following statements. - Taking care of his children financially is the best way for a father to show he cares about them.","The following questions ask about your
+perceptions of the father’s role. Please check the extent to which you agree or
+disagree with each of the following statements. - Fatherhood is a highly rewarding experience.","These items deal with ways you’ve been
+coping with stress resulting
+from upsetting events or thoughts related to your pregnancy/your partner’s
+pregnancy, or expecting the birth of your child. There are many ways to
+try to deal with problems, and these items specifically ask what you’ve been
+doing to cope with stress related to this topic.  Of course, different people deal with things
+in different ways, but we’re interested in how YOU have tried to deal with this
+stress.
+
+ 
+
+Each item below says something about a
+particular way of coping.  We want to
+know to what extent (how much or how frequently) you’ve been doing what each
+item says.  Try to respond to each item
+separately in your mind from the others.  Also, don’t answer on the basis of whether it
+seems to be working or not – just whether or not you’re doing it. There are no “right”
+or “wrong” answers, so choose the most accurate answer for YOU – not what you
+think “most people” would say or do.  Make
+your answers as true FOR YOU and how you cope with stress resulting from upsetting events or thoughts
+related to your pregnancy/ your partner’s pregnancy, or expecting the birth of
+your child as you can. - I turn to work or other activities to take my mind off things.","These items deal with ways you’ve been
+coping with stress resulting
+from upsetting events or thoughts related to your pregnancy/your partner’s
+pregnancy, or expecting the birth of your child. There are many ways to
+try to deal with problems, and these items specifically ask what you’ve been
+doing to cope with stress related to this topic.  Of course, different people deal with things
+in different ways, but we’re interested in how YOU have tried to deal with this
+stress.
+
+ 
+
+Each item below says something about a
+particular way of coping.  We want to
+know to what extent (how much or how frequently) you’ve been doing what each
+item says.  Try to respond to each item
+separately in your mind from the others.  Also, don’t answer on the basis of whether it
+seems to be working or not – just whether or not you’re doing it. There are no “right”
+or “wrong” answers, so choose the most accurate answer for YOU – not what you
+think “most people” would say or do.  Make
+your answers as true FOR YOU and how you cope with stress resulting from upsetting events or thoughts
+related to your pregnancy/ your partner’s pregnancy, or expecting the birth of
+your child as you can. - I concentrate my efforts on doing something about the situation I’m in.","These items deal with ways you’ve been
+coping with stress resulting
+from upsetting events or thoughts related to your pregnancy/your partner’s
+pregnancy, or expecting the birth of your child. There are many ways to
+try to deal with problems, and these items specifically ask what you’ve been
+doing to cope with stress related to this topic.  Of course, different people deal with things
+in different ways, but we’re interested in how YOU have tried to deal with this
+stress.
+
+ 
+
+Each item below says something about a
+particular way of coping.  We want to
+know to what extent (how much or how frequently) you’ve been doing what each
+item says.  Try to respond to each item
+separately in your mind from the others.  Also, don’t answer on the basis of whether it
+seems to be working or not – just whether or not you’re doing it. There are no “right”
+or “wrong” answers, so choose the most accurate answer for YOU – not what you
+think “most people” would say or do.  Make
+your answers as true FOR YOU and how you cope with stress resulting from upsetting events or thoughts
+related to your pregnancy/ your partner’s pregnancy, or expecting the birth of
+your child as you can. - I say to myself, “This isn’t real.""","These items deal with ways you’ve been
+coping with stress resulting
+from upsetting events or thoughts related to your pregnancy/your partner’s
+pregnancy, or expecting the birth of your child. There are many ways to
+try to deal with problems, and these items specifically ask what you’ve been
+doing to cope with stress related to this topic.  Of course, different people deal with things
+in different ways, but we’re interested in how YOU have tried to deal with this
+stress.
+
+ 
+
+Each item below says something about a
+particular way of coping.  We want to
+know to what extent (how much or how frequently) you’ve been doing what each
+item says.  Try to respond to each item
+separately in your mind from the others.  Also, don’t answer on the basis of whether it
+seems to be working or not – just whether or not you’re doing it. There are no “right”
+or “wrong” answers, so choose the most accurate answer for YOU – not what you
+think “most people” would say or do.  Make
+your answers as true FOR YOU and how you cope with stress resulting from upsetting events or thoughts
+related to your pregnancy/ your partner’s pregnancy, or expecting the birth of
+your child as you can. - I use alcohol or other drugs to make myself feel better.","These items deal with ways you’ve been
+coping with stress resulting
+from upsetting events or thoughts related to your pregnancy/your partner’s
+pregnancy, or expecting the birth of your child. There are many ways to
+try to deal with problems, and these items specifically ask what you’ve been
+doing to cope with stress related to this topic.  Of course, different people deal with things
+in different ways, but we’re interested in how YOU have tried to deal with this
+stress.
+
+ 
+
+Each item below says something about a
+particular way of coping.  We want to
+know to what extent (how much or how frequently) you’ve been doing what each
+item says.  Try to respond to each item
+separately in your mind from the others.  Also, don’t answer on the basis of whether it
+seems to be working or not – just whether or not you’re doing it. There are no “right”
+or “wrong” answers, so choose the most accurate answer for YOU – not what you
+think “most people” would say or do.  Make
+your answers as true FOR YOU and how you cope with stress resulting from upsetting events or thoughts
+related to your pregnancy/ your partner’s pregnancy, or expecting the birth of
+your child as you can. - I get emotional support from others.","These items deal with ways you’ve been
+coping with stress resulting
+from upsetting events or thoughts related to your pregnancy/your partner’s
+pregnancy, or expecting the birth of your child. There are many ways to
+try to deal with problems, and these items specifically ask what you’ve been
+doing to cope with stress related to this topic.  Of course, different people deal with things
+in different ways, but we’re interested in how YOU have tried to deal with this
+stress.
+
+ 
+
+Each item below says something about a
+particular way of coping.  We want to
+know to what extent (how much or how frequently) you’ve been doing what each
+item says.  Try to respond to each item
+separately in your mind from the others.  Also, don’t answer on the basis of whether it
+seems to be working or not – just whether or not you’re doing it. There are no “right”
+or “wrong” answers, so choose the most accurate answer for YOU – not what you
+think “most people” would say or do.  Make
+your answers as true FOR YOU and how you cope with stress resulting from upsetting events or thoughts
+related to your pregnancy/ your partner’s pregnancy, or expecting the birth of
+your child as you can. - I give up trying to deal with it.","These items deal with ways you’ve been
+coping with stress resulting
+from upsetting events or thoughts related to your pregnancy/your partner’s
+pregnancy, or expecting the birth of your child. There are many ways to
+try to deal with problems, and these items specifically ask what you’ve been
+doing to cope with stress related to this topic.  Of course, different people deal with things
+in different ways, but we’re interested in how YOU have tried to deal with this
+stress.
+
+ 
+
+Each item below says something about a
+particular way of coping.  We want to
+know to what extent (how much or how frequently) you’ve been doing what each
+item says.  Try to respond to each item
+separately in your mind from the others.  Also, don’t answer on the basis of whether it
+seems to be working or not – just whether or not you’re doing it. There are no “right”
+or “wrong” answers, so choose the most accurate answer for YOU – not what you
+think “most people” would say or do.  Make
+your answers as true FOR YOU and how you cope with stress resulting from upsetting events or thoughts
+related to your pregnancy/ your partner’s pregnancy, or expecting the birth of
+your child as you can. - I take action to try to make the situation better.","These items deal with ways you’ve been
+coping with stress resulting
+from upsetting events or thoughts related to your pregnancy/your partner’s
+pregnancy, or expecting the birth of your child. There are many ways to
+try to deal with problems, and these items specifically ask what you’ve been
+doing to cope with stress related to this topic.  Of course, different people deal with things
+in different ways, but we’re interested in how YOU have tried to deal with this
+stress.
+
+ 
+
+Each item below says something about a
+particular way of coping.  We want to
+know to what extent (how much or how frequently) you’ve been doing what each
+item says.  Try to respond to each item
+separately in your mind from the others.  Also, don’t answer on the basis of whether it
+seems to be working or not – just whether or not you’re doing it. There are no “right”
+or “wrong” answers, so choose the most accurate answer for YOU – not what you
+think “most people” would say or do.  Make
+your answers as true FOR YOU and how you cope with stress resulting from upsetting events or thoughts
+related to your pregnancy/ your partner’s pregnancy, or expecting the birth of
+your child as you can. - I refuse to believe that it has happened.","These items deal with ways you’ve been
+coping with stress resulting
+from upsetting events or thoughts related to your pregnancy/your partner’s
+pregnancy, or expecting the birth of your child. There are many ways to
+try to deal with problems, and these items specifically ask what you’ve been
+doing to cope with stress related to this topic.  Of course, different people deal with things
+in different ways, but we’re interested in how YOU have tried to deal with this
+stress.
+
+ 
+
+Each item below says something about a
+particular way of coping.  We want to
+know to what extent (how much or how frequently) you’ve been doing what each
+item says.  Try to respond to each item
+separately in your mind from the others.  Also, don’t answer on the basis of whether it
+seems to be working or not – just whether or not you’re doing it. There are no “right”
+or “wrong” answers, so choose the most accurate answer for YOU – not what you
+think “most people” would say or do.  Make
+your answers as true FOR YOU and how you cope with stress resulting from upsetting events or thoughts
+related to your pregnancy/ your partner’s pregnancy, or expecting the birth of
+your child as you can. - I say things to let my unpleasant feelings escape.","These items deal with ways you’ve been
+coping with stress resulting
+from upsetting events or thoughts related to your pregnancy/your partner’s
+pregnancy, or expecting the birth of your child. There are many ways to
+try to deal with problems, and these items specifically ask what you’ve been
+doing to cope with stress related to this topic.  Of course, different people deal with things
+in different ways, but we’re interested in how YOU have tried to deal with this
+stress.
+
+ 
+
+Each item below says something about a
+particular way of coping.  We want to
+know to what extent (how much or how frequently) you’ve been doing what each
+item says.  Try to respond to each item
+separately in your mind from the others.  Also, don’t answer on the basis of whether it
+seems to be working or not – just whether or not you’re doing it. There are no “right”
+or “wrong” answers, so choose the most accurate answer for YOU – not what you
+think “most people” would say or do.  Make
+your answers as true FOR YOU and how you cope with stress resulting from upsetting events or thoughts
+related to your pregnancy/ your partner’s pregnancy, or expecting the birth of
+your child as you can. - I get help and advice from other people.","These items deal with ways you’ve been
+coping with stress resulting
+from upsetting events or thoughts related to your pregnancy/your partner’s
+pregnancy, or expecting the birth of your child. There are many ways to
+try to deal with problems, and these items specifically ask what you’ve been
+doing to cope with stress related to this topic.  Of course, different people deal with things
+in different ways, but we’re interested in how YOU have tried to deal with this
+stress.
+
+ 
+
+Each item below says something about a
+particular way of coping.  We want to
+know to what extent (how much or how frequently) you’ve been doing what each
+item says.  Try to respond to each item
+separately in your mind from the others.  Also, don’t answer on the basis of whether it
+seems to be working or not – just whether or not you’re doing it. There are no “right”
+or “wrong” answers, so choose the most accurate answer for YOU – not what you
+think “most people” would say or do.  Make
+your answers as true FOR YOU and how you cope with stress resulting from upsetting events or thoughts
+related to your pregnancy/ your partner’s pregnancy, or expecting the birth of
+your child as you can. - I use alcohol or other drugs to help me get through it.","These items deal with ways you’ve been
+coping with stress resulting
+from upsetting events or thoughts related to your pregnancy/your partner’s
+pregnancy, or expecting the birth of your child. There are many ways to
+try to deal with problems, and these items specifically ask what you’ve been
+doing to cope with stress related to this topic.  Of course, different people deal with things
+in different ways, but we’re interested in how YOU have tried to deal with this
+stress.
+
+ 
+
+Each item below says something about a
+particular way of coping.  We want to
+know to what extent (how much or how frequently) you’ve been doing what each
+item says.  Try to respond to each item
+separately in your mind from the others.  Also, don’t answer on the basis of whether it
+seems to be working or not – just whether or not you’re doing it. There are no “right”
+or “wrong” answers, so choose the most accurate answer for YOU – not what you
+think “most people” would say or do.  Make
+your answers as true FOR YOU and how you cope with stress resulting from upsetting events or thoughts
+related to your pregnancy/ your partner’s pregnancy, or expecting the birth of
+your child as you can. - I try to see it in a different light, to make it seem more positive.","These items deal with ways you’ve been
+coping with stress resulting
+from upsetting events or thoughts related to your pregnancy/your partner’s
+pregnancy, or expecting the birth of your child. There are many ways to
+try to deal with problems, and these items specifically ask what you’ve been
+doing to cope with stress related to this topic.  Of course, different people deal with things
+in different ways, but we’re interested in how YOU have tried to deal with this
+stress.
+
+ 
+
+Each item below says something about a
+particular way of coping.  We want to
+know to what extent (how much or how frequently) you’ve been doing what each
+item says.  Try to respond to each item
+separately in your mind from the others.  Also, don’t answer on the basis of whether it
+seems to be working or not – just whether or not you’re doing it. There are no “right”
+or “wrong” answers, so choose the most accurate answer for YOU – not what you
+think “most people” would say or do.  Make
+your answers as true FOR YOU and how you cope with stress resulting from upsetting events or thoughts
+related to your pregnancy/ your partner’s pregnancy, or expecting the birth of
+your child as you can. - I criticize myself.","These items deal with ways you’ve been
+coping with stress resulting
+from upsetting events or thoughts related to your pregnancy/your partner’s
+pregnancy, or expecting the birth of your child. There are many ways to
+try to deal with problems, and these items specifically ask what you’ve been
+doing to cope with stress related to this topic.  Of course, different people deal with things
+in different ways, but we’re interested in how YOU have tried to deal with this
+stress.
+
+ 
+
+Each item below says something about a
+particular way of coping.  We want to
+know to what extent (how much or how frequently) you’ve been doing what each
+item says.  Try to respond to each item
+separately in your mind from the others.  Also, don’t answer on the basis of whether it
+seems to be working or not – just whether or not you’re doing it. There are no “right”
+or “wrong” answers, so choose the most accurate answer for YOU – not what you
+think “most people” would say or do.  Make
+your answers as true FOR YOU and how you cope with stress resulting from upsetting events or thoughts
+related to your pregnancy/ your partner’s pregnancy, or expecting the birth of
+your child as you can. - I try to come up with a strategy about what to do.","These items deal with ways you’ve been
+coping with stress resulting
+from upsetting events or thoughts related to your pregnancy/your partner’s
+pregnancy, or expecting the birth of your child. There are many ways to
+try to deal with problems, and these items specifically ask what you’ve been
+doing to cope with stress related to this topic.  Of course, different people deal with things
+in different ways, but we’re interested in how YOU have tried to deal with this
+stress.
+
+ 
+
+Each item below says something about a
+particular way of coping.  We want to
+know to what extent (how much or how frequently) you’ve been doing what each
+item says.  Try to respond to each item
+separately in your mind from the others.  Also, don’t answer on the basis of whether it
+seems to be working or not – just whether or not you’re doing it. There are no “right”
+or “wrong” answers, so choose the most accurate answer for YOU – not what you
+think “most people” would say or do.  Make
+your answers as true FOR YOU and how you cope with stress resulting from upsetting events or thoughts
+related to your pregnancy/ your partner’s pregnancy, or expecting the birth of
+your child as you can. - I get comfort and understanding from someone.","These items deal with ways you’ve been
+coping with stress resulting
+from upsetting events or thoughts related to your pregnancy/your partner’s
+pregnancy, or expecting the birth of your child. There are many ways to
+try to deal with problems, and these items specifically ask what you’ve been
+doing to cope with stress related to this topic.  Of course, different people deal with things
+in different ways, but we’re interested in how YOU have tried to deal with this
+stress.
+
+ 
+
+Each item below says something about a
+particular way of coping.  We want to
+know to what extent (how much or how frequently) you’ve been doing what each
+item says.  Try to respond to each item
+separately in your mind from the others.  Also, don’t answer on the basis of whether it
+seems to be working or not – just whether or not you’re doing it. There are no “right”
+or “wrong” answers, so choose the most accurate answer for YOU – not what you
+think “most people” would say or do.  Make
+your answers as true FOR YOU and how you cope with stress resulting from upsetting events or thoughts
+related to your pregnancy/ your partner’s pregnancy, or expecting the birth of
+your child as you can. - I give up the attempt to cope.","These items deal with ways you’ve been
+coping with stress resulting
+from upsetting events or thoughts related to your pregnancy/your partner’s
+pregnancy, or expecting the birth of your child. There are many ways to
+try to deal with problems, and these items specifically ask what you’ve been
+doing to cope with stress related to this topic.  Of course, different people deal with things
+in different ways, but we’re interested in how YOU have tried to deal with this
+stress.
+
+ 
+
+Each item below says something about a
+particular way of coping.  We want to
+know to what extent (how much or how frequently) you’ve been doing what each
+item says.  Try to respond to each item
+separately in your mind from the others.  Also, don’t answer on the basis of whether it
+seems to be working or not – just whether or not you’re doing it. There are no “right”
+or “wrong” answers, so choose the most accurate answer for YOU – not what you
+think “most people” would say or do.  Make
+your answers as true FOR YOU and how you cope with stress resulting from upsetting events or thoughts
+related to your pregnancy/ your partner’s pregnancy, or expecting the birth of
+your child as you can. - I look for something good in what is happening.","These items deal with ways you’ve been
+coping with stress resulting
+from upsetting events or thoughts related to your pregnancy/your partner’s
+pregnancy, or expecting the birth of your child. There are many ways to
+try to deal with problems, and these items specifically ask what you’ve been
+doing to cope with stress related to this topic.  Of course, different people deal with things
+in different ways, but we’re interested in how YOU have tried to deal with this
+stress.
+
+ 
+
+Each item below says something about a
+particular way of coping.  We want to
+know to what extent (how much or how frequently) you’ve been doing what each
+item says.  Try to respond to each item
+separately in your mind from the others.  Also, don’t answer on the basis of whether it
+seems to be working or not – just whether or not you’re doing it. There are no “right”
+or “wrong” answers, so choose the most accurate answer for YOU – not what you
+think “most people” would say or do.  Make
+your answers as true FOR YOU and how you cope with stress resulting from upsetting events or thoughts
+related to your pregnancy/ your partner’s pregnancy, or expecting the birth of
+your child as you can. - I make jokes about it.","These items deal with ways you’ve been
+coping with stress resulting
+from upsetting events or thoughts related to your pregnancy/your partner’s
+pregnancy, or expecting the birth of your child. There are many ways to
+try to deal with problems, and these items specifically ask what you’ve been
+doing to cope with stress related to this topic.  Of course, different people deal with things
+in different ways, but we’re interested in how YOU have tried to deal with this
+stress.
+
+ 
+
+Each item below says something about a
+particular way of coping.  We want to
+know to what extent (how much or how frequently) you’ve been doing what each
+item says.  Try to respond to each item
+separately in your mind from the others.  Also, don’t answer on the basis of whether it
+seems to be working or not – just whether or not you’re doing it. There are no “right”
+or “wrong” answers, so choose the most accurate answer for YOU – not what you
+think “most people” would say or do.  Make
+your answers as true FOR YOU and how you cope with stress resulting from upsetting events or thoughts
+related to your pregnancy/ your partner’s pregnancy, or expecting the birth of
+your child as you can. - I do something to think about it less, such as going to movies, watching TV, reading, daydreaming, sleeping, or shopping.","These items deal with ways you’ve been
+coping with stress resulting
+from upsetting events or thoughts related to your pregnancy/your partner’s
+pregnancy, or expecting the birth of your child. There are many ways to
+try to deal with problems, and these items specifically ask what you’ve been
+doing to cope with stress related to this topic.  Of course, different people deal with things
+in different ways, but we’re interested in how YOU have tried to deal with this
+stress.
+
+ 
+
+Each item below says something about a
+particular way of coping.  We want to
+know to what extent (how much or how frequently) you’ve been doing what each
+item says.  Try to respond to each item
+separately in your mind from the others.  Also, don’t answer on the basis of whether it
+seems to be working or not – just whether or not you’re doing it. There are no “right”
+or “wrong” answers, so choose the most accurate answer for YOU – not what you
+think “most people” would say or do.  Make
+your answers as true FOR YOU and how you cope with stress resulting from upsetting events or thoughts
+related to your pregnancy/ your partner’s pregnancy, or expecting the birth of
+your child as you can. - I accept the reality of the fact that it has happened.","These items deal with ways you’ve been
+coping with stress resulting
+from upsetting events or thoughts related to your pregnancy/your partner’s
+pregnancy, or expecting the birth of your child. There are many ways to
+try to deal with problems, and these items specifically ask what you’ve been
+doing to cope with stress related to this topic.  Of course, different people deal with things
+in different ways, but we’re interested in how YOU have tried to deal with this
+stress.
+
+ 
+
+Each item below says something about a
+particular way of coping.  We want to
+know to what extent (how much or how frequently) you’ve been doing what each
+item says.  Try to respond to each item
+separately in your mind from the others.  Also, don’t answer on the basis of whether it
+seems to be working or not – just whether or not you’re doing it. There are no “right”
+or “wrong” answers, so choose the most accurate answer for YOU – not what you
+think “most people” would say or do.  Make
+your answers as true FOR YOU and how you cope with stress resulting from upsetting events or thoughts
+related to your pregnancy/ your partner’s pregnancy, or expecting the birth of
+your child as you can. - I express my negative feelings.","These items deal with ways you’ve been
+coping with stress resulting
+from upsetting events or thoughts related to your pregnancy/your partner’s
+pregnancy, or expecting the birth of your child. There are many ways to
+try to deal with problems, and these items specifically ask what you’ve been
+doing to cope with stress related to this topic.  Of course, different people deal with things
+in different ways, but we’re interested in how YOU have tried to deal with this
+stress.
+
+ 
+
+Each item below says something about a
+particular way of coping.  We want to
+know to what extent (how much or how frequently) you’ve been doing what each
+item says.  Try to respond to each item
+separately in your mind from the others.  Also, don’t answer on the basis of whether it
+seems to be working or not – just whether or not you’re doing it. There are no “right”
+or “wrong” answers, so choose the most accurate answer for YOU – not what you
+think “most people” would say or do.  Make
+your answers as true FOR YOU and how you cope with stress resulting from upsetting events or thoughts
+related to your pregnancy/ your partner’s pregnancy, or expecting the birth of
+your child as you can. - I try to find comfort in my religion or spiritual beliefs.","These items deal with ways you’ve been
+coping with stress resulting
+from upsetting events or thoughts related to your pregnancy/your partner’s
+pregnancy, or expecting the birth of your child. There are many ways to
+try to deal with problems, and these items specifically ask what you’ve been
+doing to cope with stress related to this topic.  Of course, different people deal with things
+in different ways, but we’re interested in how YOU have tried to deal with this
+stress.
+
+ 
+
+Each item below says something about a
+particular way of coping.  We want to
+know to what extent (how much or how frequently) you’ve been doing what each
+item says.  Try to respond to each item
+separately in your mind from the others.  Also, don’t answer on the basis of whether it
+seems to be working or not – just whether or not you’re doing it. There are no “right”
+or “wrong” answers, so choose the most accurate answer for YOU – not what you
+think “most people” would say or do.  Make
+your answers as true FOR YOU and how you cope with stress resulting from upsetting events or thoughts
+related to your pregnancy/ your partner’s pregnancy, or expecting the birth of
+your child as you can. - I try to get advice or help from other people about what to do.","These items deal with ways you’ve been
+coping with stress resulting
+from upsetting events or thoughts related to your pregnancy/your partner’s
+pregnancy, or expecting the birth of your child. There are many ways to
+try to deal with problems, and these items specifically ask what you’ve been
+doing to cope with stress related to this topic.  Of course, different people deal with things
+in different ways, but we’re interested in how YOU have tried to deal with this
+stress.
+
+ 
+
+Each item below says something about a
+particular way of coping.  We want to
+know to what extent (how much or how frequently) you’ve been doing what each
+item says.  Try to respond to each item
+separately in your mind from the others.  Also, don’t answer on the basis of whether it
+seems to be working or not – just whether or not you’re doing it. There are no “right”
+or “wrong” answers, so choose the most accurate answer for YOU – not what you
+think “most people” would say or do.  Make
+your answers as true FOR YOU and how you cope with stress resulting from upsetting events or thoughts
+related to your pregnancy/ your partner’s pregnancy, or expecting the birth of
+your child as you can. - I learn to live with it.","These items deal with ways you’ve been
+coping with stress resulting
+from upsetting events or thoughts related to your pregnancy/your partner’s
+pregnancy, or expecting the birth of your child. There are many ways to
+try to deal with problems, and these items specifically ask what you’ve been
+doing to cope with stress related to this topic.  Of course, different people deal with things
+in different ways, but we’re interested in how YOU have tried to deal with this
+stress.
+
+ 
+
+Each item below says something about a
+particular way of coping.  We want to
+know to what extent (how much or how frequently) you’ve been doing what each
+item says.  Try to respond to each item
+separately in your mind from the others.  Also, don’t answer on the basis of whether it
+seems to be working or not – just whether or not you’re doing it. There are no “right”
+or “wrong” answers, so choose the most accurate answer for YOU – not what you
+think “most people” would say or do.  Make
+your answers as true FOR YOU and how you cope with stress resulting from upsetting events or thoughts
+related to your pregnancy/ your partner’s pregnancy, or expecting the birth of
+your child as you can. - I think hard about what steps to take.","These items deal with ways you’ve been
+coping with stress resulting
+from upsetting events or thoughts related to your pregnancy/your partner’s
+pregnancy, or expecting the birth of your child. There are many ways to
+try to deal with problems, and these items specifically ask what you’ve been
+doing to cope with stress related to this topic.  Of course, different people deal with things
+in different ways, but we’re interested in how YOU have tried to deal with this
+stress.
+
+ 
+
+Each item below says something about a
+particular way of coping.  We want to
+know to what extent (how much or how frequently) you’ve been doing what each
+item says.  Try to respond to each item
+separately in your mind from the others.  Also, don’t answer on the basis of whether it
+seems to be working or not – just whether or not you’re doing it. There are no “right”
+or “wrong” answers, so choose the most accurate answer for YOU – not what you
+think “most people” would say or do.  Make
+your answers as true FOR YOU and how you cope with stress resulting from upsetting events or thoughts
+related to your pregnancy/ your partner’s pregnancy, or expecting the birth of
+your child as you can. - I blame myself for things that happened.","These items deal with ways you’ve been
+coping with stress resulting
+from upsetting events or thoughts related to your pregnancy/your partner’s
+pregnancy, or expecting the birth of your child. There are many ways to
+try to deal with problems, and these items specifically ask what you’ve been
+doing to cope with stress related to this topic.  Of course, different people deal with things
+in different ways, but we’re interested in how YOU have tried to deal with this
+stress.
+
+ 
+
+Each item below says something about a
+particular way of coping.  We want to
+know to what extent (how much or how frequently) you’ve been doing what each
+item says.  Try to respond to each item
+separately in your mind from the others.  Also, don’t answer on the basis of whether it
+seems to be working or not – just whether or not you’re doing it. There are no “right”
+or “wrong” answers, so choose the most accurate answer for YOU – not what you
+think “most people” would say or do.  Make
+your answers as true FOR YOU and how you cope with stress resulting from upsetting events or thoughts
+related to your pregnancy/ your partner’s pregnancy, or expecting the birth of
+your child as you can. - I pray or meditate.","These items deal with ways you’ve been
+coping with stress resulting
+from upsetting events or thoughts related to your pregnancy/your partner’s
+pregnancy, or expecting the birth of your child. There are many ways to
+try to deal with problems, and these items specifically ask what you’ve been
+doing to cope with stress related to this topic.  Of course, different people deal with things
+in different ways, but we’re interested in how YOU have tried to deal with this
+stress.
+
+ 
+
+Each item below says something about a
+particular way of coping.  We want to
+know to what extent (how much or how frequently) you’ve been doing what each
+item says.  Try to respond to each item
+separately in your mind from the others.  Also, don’t answer on the basis of whether it
+seems to be working or not – just whether or not you’re doing it. There are no “right”
+or “wrong” answers, so choose the most accurate answer for YOU – not what you
+think “most people” would say or do.  Make
+your answers as true FOR YOU and how you cope with stress resulting from upsetting events or thoughts
+related to your pregnancy/ your partner’s pregnancy, or expecting the birth of
+your child as you can. - I make fun of the situation.","This questionnaire is designed to measure the degree of satisfaction you have in the sexual relationship with your partner. It is not a test, so there are no right or wrong answers. Answer each item as carefully and accurately as you can by choosing one of the given options. - I feel that my partner enjoys our sex life.","This questionnaire is designed to measure the degree of satisfaction you have in the sexual relationship with your partner. It is not a test, so there are no right or wrong answers. Answer each item as carefully and accurately as you can by choosing one of the given options. - Our sex life is very exciting.","This questionnaire is designed to measure the degree of satisfaction you have in the sexual relationship with your partner. It is not a test, so there are no right or wrong answers. Answer each item as carefully and accurately as you can by choosing one of the given options. - Sex is fun for my partner and me.","This questionnaire is designed to measure the degree of satisfaction you have in the sexual relationship with your partner. It is not a test, so there are no right or wrong answers. Answer each item as carefully and accurately as you can by choosing one of the given options. - Sex with my partner has become a chore for me.","This questionnaire is designed to measure the degree of satisfaction you have in the sexual relationship with your partner. It is not a test, so there are no right or wrong answers. Answer each item as carefully and accurately as you can by choosing one of the given options. - I feel that our sex is dirty and disgusting.","This questionnaire is designed to measure the degree of satisfaction you have in the sexual relationship with your partner. It is not a test, so there are no right or wrong answers. Answer each item as carefully and accurately as you can by choosing one of the given options. - Our sex life is monotonous.","This questionnaire is designed to measure the degree of satisfaction you have in the sexual relationship with your partner. It is not a test, so there are no right or wrong answers. Answer each item as carefully and accurately as you can by choosing one of the given options. - When we have sex it is too rushed and hurriedly completed.","This questionnaire is designed to measure the degree of satisfaction you have in the sexual relationship with your partner. It is not a test, so there are no right or wrong answers. Answer each item as carefully and accurately as you can by choosing one of the given options. - I feel that my sex life is lacking in quality.","This questionnaire is designed to measure the degree of satisfaction you have in the sexual relationship with your partner. It is not a test, so there are no right or wrong answers. Answer each item as carefully and accurately as you can by choosing one of the given options. - My partner is sexually very exciting.","This questionnaire is designed to measure the degree of satisfaction you have in the sexual relationship with your partner. It is not a test, so there are no right or wrong answers. Answer each item as carefully and accurately as you can by choosing one of the given options. - I enjoy the sex techniques that my partner likes or uses.","This questionnaire is designed to measure the degree of satisfaction you have in the sexual relationship with your partner. It is not a test, so there are no right or wrong answers. Answer each item as carefully and accurately as you can by choosing one of the given options. - I feel that my partner wants too much sex from me.","This questionnaire is designed to measure the degree of satisfaction you have in the sexual relationship with your partner. It is not a test, so there are no right or wrong answers. Answer each item as carefully and accurately as you can by choosing one of the given options. - I think that our sex is wonderful.","This questionnaire is designed to measure the degree of satisfaction you have in the sexual relationship with your partner. It is not a test, so there are no right or wrong answers. Answer each item as carefully and accurately as you can by choosing one of the given options. - My partner dwells on sex too much.","This questionnaire is designed to measure the degree of satisfaction you have in the sexual relationship with your partner. It is not a test, so there are no right or wrong answers. Answer each item as carefully and accurately as you can by choosing one of the given options. - I try to avoid sexual contact with my partner.","This questionnaire is designed to measure the degree of satisfaction you have in the sexual relationship with your partner. It is not a test, so there are no right or wrong answers. Answer each item as carefully and accurately as you can by choosing one of the given options. - My partner is too rough or brutal when we have sex.","This questionnaire is designed to measure the degree of satisfaction you have in the sexual relationship with your partner. It is not a test, so there are no right or wrong answers. Answer each item as carefully and accurately as you can by choosing one of the given options. - My partner is a wonderful sex mate.","This questionnaire is designed to measure the degree of satisfaction you have in the sexual relationship with your partner. It is not a test, so there are no right or wrong answers. Answer each item as carefully and accurately as you can by choosing one of the given options. - I feel that sex is a normal function of our relationship.","This questionnaire is designed to measure the degree of satisfaction you have in the sexual relationship with your partner. It is not a test, so there are no right or wrong answers. Answer each item as carefully and accurately as you can by choosing one of the given options. - My partner does not want sex when I do.","This questionnaire is designed to measure the degree of satisfaction you have in the sexual relationship with your partner. It is not a test, so there are no right or wrong answers. Answer each item as carefully and accurately as you can by choosing one of the given options. - I feel that our sex life really adds a lot to our relationship.","This questionnaire is designed to measure the degree of satisfaction you have in the sexual relationship with your partner. It is not a test, so there are no right or wrong answers. Answer each item as carefully and accurately as you can by choosing one of the given options. - My partner seems to avoid sexual contact with me.","This questionnaire is designed to measure the degree of satisfaction you have in the sexual relationship with your partner. It is not a test, so there are no right or wrong answers. Answer each item as carefully and accurately as you can by choosing one of the given options. - It is easy for me to get sexually excited by my partner.","This questionnaire is designed to measure the degree of satisfaction you have in the sexual relationship with your partner. It is not a test, so there are no right or wrong answers. Answer each item as carefully and accurately as you can by choosing one of the given options. - I feel that my partner is sexually pleased with me.","This questionnaire is designed to measure the degree of satisfaction you have in the sexual relationship with your partner. It is not a test, so there are no right or wrong answers. Answer each item as carefully and accurately as you can by choosing one of the given options. - My partner is very sensitive to my sexual needs and desires.","This questionnaire is designed to measure the degree of satisfaction you have in the sexual relationship with your partner. It is not a test, so there are no right or wrong answers. Answer each item as carefully and accurately as you can by choosing one of the given options. - My partner does not satisfy me sexually.","This questionnaire is designed to measure the degree of satisfaction you have in the sexual relationship with your partner. It is not a test, so there are no right or wrong answers. Answer each item as carefully and accurately as you can by choosing one of the given options. - I feel that my sex life is boring.","This task consists of statements that inquire about your thoughts and feelings in a variety of situations. For each item, indicate how well it describes you by choosing the appropriate option, ranging from ""Does not describe me very well"" to ""Describes me very well"". - I daydream and fantasize, with some regularity, about things that might happen to me.","This task consists of statements that inquire about your thoughts and feelings in a variety of situations. For each item, indicate how well it describes you by choosing the appropriate option, ranging from ""Does not describe me very well"" to ""Describes me very well"". - I often have tender, concerned feelings for people less fortunate than me.","This task consists of statements that inquire about your thoughts and feelings in a variety of situations. For each item, indicate how well it describes you by choosing the appropriate option, ranging from ""Does not describe me very well"" to ""Describes me very well"". - I sometimes find it difficult to see things from the “other guy’s” point of view.","This task consists of statements that inquire about your thoughts and feelings in a variety of situations. For each item, indicate how well it describes you by choosing the appropriate option, ranging from ""Does not describe me very well"" to ""Describes me very well"". - Sometimes I don’t feel very sorry for other people when they are having problems.","This task consists of statements that inquire about your thoughts and feelings in a variety of situations. For each item, indicate how well it describes you by choosing the appropriate option, ranging from ""Does not describe me very well"" to ""Describes me very well"". - I really get involved with the feelings of the characters in a novel.","This task consists of statements that inquire about your thoughts and feelings in a variety of situations. For each item, indicate how well it describes you by choosing the appropriate option, ranging from ""Does not describe me very well"" to ""Describes me very well"". - In emergency situations, I feel apprehensive and ill-at-ease.","This task consists of statements that inquire about your thoughts and feelings in a variety of situations. For each item, indicate how well it describes you by choosing the appropriate option, ranging from ""Does not describe me very well"" to ""Describes me very well"". - I am usually objective when I watch a movie or play, and I don’t often get completely caught up in it..","This task consists of statements that inquire about your thoughts and feelings in a variety of situations. For each item, indicate how well it describes you by choosing the appropriate option, ranging from ""Does not describe me very well"" to ""Describes me very well"". - I try to look at everybody’s side of a disagreement before I make a decision.","This task consists of statements that inquire about your thoughts and feelings in a variety of situations. For each item, indicate how well it describes you by choosing the appropriate option, ranging from ""Does not describe me very well"" to ""Describes me very well"". - When I see someone being taken advantage of, I feel kind of protective towards them.","This task consists of statements that inquire about your thoughts and feelings in a variety of situations. For each item, indicate how well it describes you by choosing the appropriate option, ranging from ""Does not describe me very well"" to ""Describes me very well"". - I sometimes feel helpless when I am in the middle of a very emotional situation.","This task consists of statements that inquire about your thoughts and feelings in a variety of situations. For each item, indicate how well it describes you by choosing the appropriate option, ranging from ""Does not describe me very well"" to ""Describes me very well"". - I sometimes try to understand my friends better by imagining how things look from their perspective.","This task consists of statements that inquire about your thoughts and feelings in a variety of situations. For each item, indicate how well it describes you by choosing the appropriate option, ranging from ""Does not describe me very well"" to ""Describes me very well"". - Becoming extremely involved in a good book or movie is somewhat rare for me.","This task consists of statements that inquire about your thoughts and feelings in a variety of situations. For each item, indicate how well it describes you by choosing the appropriate option, ranging from ""Does not describe me very well"" to ""Describes me very well"". - When I see someone get hurt, I tend to remain calm.","This task consists of statements that inquire about your thoughts and feelings in a variety of situations. For each item, indicate how well it describes you by choosing the appropriate option, ranging from ""Does not describe me very well"" to ""Describes me very well"". - Other people’s misfortunes do not usually disturb me a great deal.","This task consists of statements that inquire about your thoughts and feelings in a variety of situations. For each item, indicate how well it describes you by choosing the appropriate option, ranging from ""Does not describe me very well"" to ""Describes me very well"". - If I’m sure I’m right about something, I don’t waste much time listening to other people’s arguments.","This task consists of statements that inquire about your thoughts and feelings in a variety of situations. For each item, indicate how well it describes you by choosing the appropriate option, ranging from ""Does not describe me very well"" to ""Describes me very well"". - After seeing a play or movie, I have felt as though I were one of the characters.","This task consists of statements that inquire about your thoughts and feelings in a variety of situations. For each item, indicate how well it describes you by choosing the appropriate option, ranging from ""Does not describe me very well"" to ""Describes me very well"". - Being in a tense emotional situation scares me.","This task consists of statements that inquire about your thoughts and feelings in a variety of situations. For each item, indicate how well it describes you by choosing the appropriate option, ranging from ""Does not describe me very well"" to ""Describes me very well"". - When I see someone being treated unfairly, I sometimes don’t feel very much pity for them.","This task consists of statements that inquire about your thoughts and feelings in a variety of situations. For each item, indicate how well it describes you by choosing the appropriate option, ranging from ""Does not describe me very well"" to ""Describes me very well"". - I am usually pretty effective in dealing with emergencies.","This task consists of statements that inquire about your thoughts and feelings in a variety of situations. For each item, indicate how well it describes you by choosing the appropriate option, ranging from ""Does not describe me very well"" to ""Describes me very well"". - I am often quite touched by things that I see happen.","This task consists of statements that inquire about your thoughts and feelings in a variety of situations. For each item, indicate how well it describes you by choosing the appropriate option, ranging from ""Does not describe me very well"" to ""Describes me very well"". - I believe that there are two sides to every question and try to look at them both.","This task consists of statements that inquire about your thoughts and feelings in a variety of situations. For each item, indicate how well it describes you by choosing the appropriate option, ranging from ""Does not describe me very well"" to ""Describes me very well"". - I would describe myself as a pretty soft-hearted person.","This task consists of statements that inquire about your thoughts and feelings in a variety of situations. For each item, indicate how well it describes you by choosing the appropriate option, ranging from ""Does not describe me very well"" to ""Describes me very well"". - When I watch a good movie, I can very easily put myself in the place of the leading character.","This task consists of statements that inquire about your thoughts and feelings in a variety of situations. For each item, indicate how well it describes you by choosing the appropriate option, ranging from ""Does not describe me very well"" to ""Describes me very well"". - I tend to lose control during emergencies.","This task consists of statements that inquire about your thoughts and feelings in a variety of situations. For each item, indicate how well it describes you by choosing the appropriate option, ranging from ""Does not describe me very well"" to ""Describes me very well"". - When I’m upset at someone, I usually try to “put myself in his shoes” for a while.","This task consists of statements that inquire about your thoughts and feelings in a variety of situations. For each item, indicate how well it describes you by choosing the appropriate option, ranging from ""Does not describe me very well"" to ""Describes me very well"". - When I am reading an interesting story or novel, I imagine how I would feel if the events in the story were happening to me.","This task consists of statements that inquire about your thoughts and feelings in a variety of situations. For each item, indicate how well it describes you by choosing the appropriate option, ranging from ""Does not describe me very well"" to ""Describes me very well"". - When I see someone who badly needs help in an emergency, I go to pieces.","This task consists of statements that inquire about your thoughts and feelings in a variety of situations. For each item, indicate how well it describes you by choosing the appropriate option, ranging from ""Does not describe me very well"" to ""Describes me very well"". - Before criticizing somebody, I try to imagine how I would feel if I were in their place.","This questionnaire contains a number of
+statements related to opinions and feelings about you and life in general.  Read each statement carefully, then indicate
+the extent to which you agree or disagree by choosing one of the options provided. Try to use the ""undecided"" choice  sparingly. - My past achievements have given my life meaning and purpose.","This questionnaire contains a number of
+statements related to opinions and feelings about you and life in general.  Read each statement carefully, then indicate
+the extent to which you agree or disagree by choosing one of the options provided. Try to use the ""undecided"" choice  sparingly. - In my life I have very clear goals and aims.","This questionnaire contains a number of
+statements related to opinions and feelings about you and life in general.  Read each statement carefully, then indicate
+the extent to which you agree or disagree by choosing one of the options provided. Try to use the ""undecided"" choice  sparingly. - I have discovered a satisfying life purpose.","This questionnaire contains a number of
+statements related to opinions and feelings about you and life in general.  Read each statement carefully, then indicate
+the extent to which you agree or disagree by choosing one of the options provided. Try to use the ""undecided"" choice  sparingly. - The meaning of life is evident in the world around us.","This questionnaire contains a number of
+statements related to opinions and feelings about you and life in general.  Read each statement carefully, then indicate
+the extent to which you agree or disagree by choosing one of the options provided. Try to use the ""undecided"" choice  sparingly. - I have been aware of an all powerful and consuming purpose towards which my life has been directed.","This questionnaire contains a number of
+statements related to opinions and feelings about you and life in general.  Read each statement carefully, then indicate
+the extent to which you agree or disagree by choosing one of the options provided. Try to use the ""undecided"" choice  sparingly. - I have a philosophy of life that gives my existence significance.","This questionnaire contains a number of
+statements related to opinions and feelings about you and life in general.  Read each statement carefully, then indicate
+the extent to which you agree or disagree by choosing one of the options provided. Try to use the ""undecided"" choice  sparingly. - Basically, I am living the kind of life I want to live.","This questionnaire contains a number of
+statements related to opinions and feelings about you and life in general.  Read each statement carefully, then indicate
+the extent to which you agree or disagree by choosing one of the options provided. Try to use the ""undecided"" choice  sparingly. - I know where my life is going in the future.","This questionnaire contains a number of
+statements related to opinions and feelings about you and life in general.  Read each statement carefully, then indicate
+the extent to which you agree or disagree by choosing one of the options provided. Try to use the ""undecided"" choice  sparingly. - In thinking of my life, I see a reason for my being here.","This questionnaire contains a number of
+statements related to opinions and feelings about you and life in general.  Read each statement carefully, then indicate
+the extent to which you agree or disagree by choosing one of the options provided. Try to use the ""undecided"" choice  sparingly. - I have a framework that allows me to understand or make sense of my life.","This questionnaire contains a number of
+statements related to opinions and feelings about you and life in general.  Read each statement carefully, then indicate
+the extent to which you agree or disagree by choosing one of the options provided. Try to use the ""undecided"" choice  sparingly. - In achieving life’s goals, I have felt completely fulfilled.","This questionnaire contains a number of
+statements related to opinions and feelings about you and life in general.  Read each statement carefully, then indicate
+the extent to which you agree or disagree by choosing one of the options provided. Try to use the ""undecided"" choice  sparingly. - I have the sense that parts of my life fit together in a unified pattern.","This questionnaire contains a number of
+statements related to opinions and feelings about you and life in general.  Read each statement carefully, then indicate
+the extent to which you agree or disagree by choosing one of the options provided. Try to use the ""undecided"" choice  sparingly. - I have a mission in life that gives me a sense of direction.","This questionnaire contains a number of
+statements related to opinions and feelings about you and life in general.  Read each statement carefully, then indicate
+the extent to which you agree or disagree by choosing one of the options provided. Try to use the ""undecided"" choice  sparingly. - I have a clear understanding of the ultimate meaning of life.","This questionnaire contains a number of
+statements related to opinions and feelings about you and life in general.  Read each statement carefully, then indicate
+the extent to which you agree or disagree by choosing one of the options provided. Try to use the ""undecided"" choice  sparingly. - My personal existence is orderly and coherent.","This questionnaire contains a number of
+statements related to opinions and feelings about you and life in general.  Read each statement carefully, then indicate
+the extent to which you agree or disagree by choosing one of the options provided. Try to use the ""undecided"" choice  sparingly. - My life is running over with exciting good things.","During the past month, when have you usually gone to bed at night?","During the past month, how long (in minutes) has it usually taken you to fall asleep each night?","During the past month, when have you usually gotten up in the morning?","During the past month, how many hours of actual sleep did you get at night? (This may be different than the number of hours you spend in bed.)","For each of the remaining questions, choose the one best response. Please answer all questions. 
+During the past month, how often have you had trouble sleeping because you... - Cannot get to sleep within 30 minutes","For each of the remaining questions, choose the one best response. Please answer all questions. 
+During the past month, how often have you had trouble sleeping because you... - Wake up in the middle of the night or early morning","For each of the remaining questions, choose the one best response. Please answer all questions. 
+During the past month, how often have you had trouble sleeping because you... - Have to get up to use the bathroom","For each of the remaining questions, choose the one best response. Please answer all questions. 
+During the past month, how often have you had trouble sleeping because you... - Cannot breathe comfortably","For each of the remaining questions, choose the one best response. Please answer all questions. 
+During the past month, how often have you had trouble sleeping because you... - Cough or snore loudly","For each of the remaining questions, choose the one best response. Please answer all questions. 
+During the past month, how often have you had trouble sleeping because you... - Feel too cold","For each of the remaining questions, choose the one best response. Please answer all questions. 
+During the past month, how often have you had trouble sleeping because you... - Feel too hot","For each of the remaining questions, choose the one best response. Please answer all questions. 
+During the past month, how often have you had trouble sleeping because you... - Had bad dreams","For each of the remaining questions, choose the one best response. Please answer all questions. 
+During the past month, how often have you had trouble sleeping because you... - Have pain","For each of the remaining questions, choose the one best response. Please answer all questions. 
+During the past month, how often have you had trouble sleeping because you... - Other","During the past month, how would you rate your sleep quality overall?","During the past month... - How often have you taken medicine (prescribed or ""over the counter"") to help you sleep?","During the past month... - How often have you had trouble staying awake while driving, eating meals, or engaging in social activity?","During the past month, how much of a problem has it been for you to keep up enough enthusiasm to get things done?","Over the past two weeks, I have thought about , or been preoccupied with the developing baby:","Over the past two weeks, when I have spoken about, or thought about the developing baby I got emotional feelings which were:",Over the past two weeks my feelings about the developing baby have been:,"Over the past two weeks I have had the desire to read about, or get information about, the developing baby. This desire is:",Over the past two weeks I have been trying to picture in my mind what the developing baby actually looks like in my partner's womb:,Over the past two weeks I think of the developing baby mostly as:,"Over the past two weeks when I think about the developing baby, my thoughts:","Over the past two weeks, my ideas about possible names for the baby have been:","Over the past two weeks, when I think about the developing baby, I get feelings which are:","Over the past two weeks, I have been thinking about what kind of child the baby will grow into:","Over the past two weeks, I have felt:","When I first see the baby after the birth, I expect I will feel:","When the baby is born, I would like to hold the baby:","Over the past two weeks, I have had dreams about the pregnancy or baby:","Over the past two weeks, I have found myself feeling, or rubbing with my hand, the outside of my partner's stomach where the baby is:","If the pregnancy was lost at this time (due to miscarriage or other accidental event) without any pain or injury to my partner, I expect I would feel:",Was the pregnancy planned?,Does your employer offer paid parental leave?,How much time are you planning to take off of work after the birth?,What is the annual household income for you and your partner combined?,Were you born in the United States?,Which country were you born in?,How old were you when you came to the United States?,"STOP!
+
+Do not type in this space!
+ 
+
+Research Assistant: Please type the participant's subject ID in the space below EXACTLY as it appears on the study documents."
+"{""ImportId"":""startDate"",""timeZone"":""America/Los_Angeles""}","{""ImportId"":""endDate"",""timeZone"":""America/Los_Angeles""}","{""ImportId"":""status""}","{""ImportId"":""ipAddress""}","{""ImportId"":""progress""}","{""ImportId"":""duration""}","{""ImportId"":""finished""}","{""ImportId"":""recordedDate"",""timeZone"":""America/Los_Angeles""}","{""ImportId"":""_recordId""}","{""ImportId"":""recipientLastName""}","{""ImportId"":""recipientFirstName""}","{""ImportId"":""recipientEmail""}","{""ImportId"":""externalDataReference""}","{""ImportId"":""locationLatitude""}","{""ImportId"":""locationLongitude""}","{""ImportId"":""distributionChannel""}","{""ImportId"":""userLanguage""}","{""ImportId"":""QID87_1""}","{""ImportId"":""QID87_2""}","{""ImportId"":""QID87_3""}","{""ImportId"":""QID87_4""}","{""ImportId"":""QID87_5""}","{""ImportId"":""QID87_6""}","{""ImportId"":""QID87_7""}","{""ImportId"":""QID87_8""}","{""ImportId"":""QID87_9""}","{""ImportId"":""QID87_10""}","{""ImportId"":""QID87_11""}","{""ImportId"":""QID87_12""}","{""ImportId"":""QID87_13""}","{""ImportId"":""QID87_14""}","{""ImportId"":""QID87_15""}","{""ImportId"":""QID87_16""}","{""ImportId"":""QID87_17""}","{""ImportId"":""QID87_18""}","{""ImportId"":""QID87_19""}","{""ImportId"":""QID87_20""}","{""ImportId"":""QID87_21""}","{""ImportId"":""QID87_22""}","{""ImportId"":""QID87_23""}","{""ImportId"":""QID87_24""}","{""ImportId"":""QID87_25""}","{""ImportId"":""QID87_26""}","{""ImportId"":""QID87_27""}","{""ImportId"":""QID87_28""}","{""ImportId"":""QID87_29""}","{""ImportId"":""QID87_30""}","{""ImportId"":""QID87_31""}","{""ImportId"":""QID87_32""}","{""ImportId"":""QID87_33""}","{""ImportId"":""QID87_34""}","{""ImportId"":""QID87_35""}","{""ImportId"":""QID87_36""}","{""ImportId"":""QID87_37""}","{""ImportId"":""QID87_38""}","{""ImportId"":""QID87_39""}","{""ImportId"":""QID87_40""}","{""ImportId"":""QID87_41""}","{""ImportId"":""QID87_42""}","{""ImportId"":""QID87_43""}","{""ImportId"":""QID87_44""}","{""ImportId"":""QID95_1""}","{""ImportId"":""QID95_2""}","{""ImportId"":""QID95_3""}","{""ImportId"":""QID95_4""}","{""ImportId"":""QID95_5""}","{""ImportId"":""QID95_6""}","{""ImportId"":""QID95_7""}","{""ImportId"":""QID95_8""}","{""ImportId"":""QID95_9""}","{""ImportId"":""QID95_10""}","{""ImportId"":""QID95_11""}","{""ImportId"":""QID95_12""}","{""ImportId"":""QID95_13""}","{""ImportId"":""QID95_14""}","{""ImportId"":""QID95_15""}","{""ImportId"":""QID99_1""}","{""ImportId"":""QID99_2""}","{""ImportId"":""QID99_3""}","{""ImportId"":""QID99_4""}","{""ImportId"":""QID99_5""}","{""ImportId"":""QID99_6""}","{""ImportId"":""QID99_7""}","{""ImportId"":""QID99_8""}","{""ImportId"":""QID99_9""}","{""ImportId"":""QID99_10""}","{""ImportId"":""QID99_11""}","{""ImportId"":""QID99_12""}","{""ImportId"":""QID99_13""}","{""ImportId"":""QID99_14""}","{""ImportId"":""QID99_15""}","{""ImportId"":""QID99_16""}","{""ImportId"":""QID99_17""}","{""ImportId"":""QID99_18""}","{""ImportId"":""QID99_19""}","{""ImportId"":""QID99_20""}","{""ImportId"":""QID99_21""}","{""ImportId"":""QID99_22""}","{""ImportId"":""QID99_23""}","{""ImportId"":""QID99_24""}","{""ImportId"":""QID99_25""}","{""ImportId"":""QID99_26""}","{""ImportId"":""QID99_27""}","{""ImportId"":""QID99_28""}","{""ImportId"":""QID97_1""}","{""ImportId"":""QID97_2""}","{""ImportId"":""QID97_3""}","{""ImportId"":""QID97_4""}","{""ImportId"":""QID97_5""}","{""ImportId"":""QID97_6""}","{""ImportId"":""QID97_7""}","{""ImportId"":""QID97_8""}","{""ImportId"":""QID97_9""}","{""ImportId"":""QID97_10""}","{""ImportId"":""QID97_11""}","{""ImportId"":""QID97_12""}","{""ImportId"":""QID97_13""}","{""ImportId"":""QID97_14""}","{""ImportId"":""QID97_15""}","{""ImportId"":""QID97_16""}","{""ImportId"":""QID97_17""}","{""ImportId"":""QID97_18""}","{""ImportId"":""QID97_19""}","{""ImportId"":""QID97_22""}","{""ImportId"":""QID97_23""}","{""ImportId"":""QID97_24""}","{""ImportId"":""QID97_25""}","{""ImportId"":""QID97_26""}","{""ImportId"":""QID97_27""}","{""ImportId"":""QID98_1""}","{""ImportId"":""QID98_2""}","{""ImportId"":""QID98_3""}","{""ImportId"":""QID98_4""}","{""ImportId"":""QID98_5""}","{""ImportId"":""QID98_6""}","{""ImportId"":""QID98_7""}","{""ImportId"":""QID98_8""}","{""ImportId"":""QID98_9""}","{""ImportId"":""QID98_10""}","{""ImportId"":""QID98_11""}","{""ImportId"":""QID98_12""}","{""ImportId"":""QID98_13""}","{""ImportId"":""QID98_14""}","{""ImportId"":""QID98_15""}","{""ImportId"":""QID98_16""}","{""ImportId"":""QID98_17""}","{""ImportId"":""QID98_18""}","{""ImportId"":""QID98_19""}","{""ImportId"":""QID98_20""}","{""ImportId"":""QID98_21""}","{""ImportId"":""QID98_22""}","{""ImportId"":""QID98_23""}","{""ImportId"":""QID98_24""}","{""ImportId"":""QID98_25""}","{""ImportId"":""QID98_26""}","{""ImportId"":""QID98_27""}","{""ImportId"":""QID98_28""}","{""ImportId"":""QID100_1""}","{""ImportId"":""QID100_2""}","{""ImportId"":""QID100_3""}","{""ImportId"":""QID100_4""}","{""ImportId"":""QID100_5""}","{""ImportId"":""QID100_6""}","{""ImportId"":""QID100_7""}","{""ImportId"":""QID100_8""}","{""ImportId"":""QID100_9""}","{""ImportId"":""QID100_10""}","{""ImportId"":""QID100_11""}","{""ImportId"":""QID100_12""}","{""ImportId"":""QID100_13""}","{""ImportId"":""QID100_14""}","{""ImportId"":""QID100_15""}","{""ImportId"":""QID100_16""}","{""ImportId"":""QID103_TEXT""}","{""ImportId"":""QID104_TEXT""}","{""ImportId"":""QID105_TEXT""}","{""ImportId"":""QID106_TEXT""}","{""ImportId"":""QID107_1""}","{""ImportId"":""QID107_2""}","{""ImportId"":""QID107_3""}","{""ImportId"":""QID107_4""}","{""ImportId"":""QID107_5""}","{""ImportId"":""QID107_6""}","{""ImportId"":""QID107_7""}","{""ImportId"":""QID107_8""}","{""ImportId"":""QID107_9""}","{""ImportId"":""QID107_10""}","{""ImportId"":""QID108""}","{""ImportId"":""QID109_1""}","{""ImportId"":""QID109_2""}","{""ImportId"":""QID110""}","{""ImportId"":""QID111""}","{""ImportId"":""QID112""}","{""ImportId"":""QID113""}","{""ImportId"":""QID114""}","{""ImportId"":""QID115""}","{""ImportId"":""QID116""}","{""ImportId"":""QID117""}","{""ImportId"":""QID118""}","{""ImportId"":""QID119""}","{""ImportId"":""QID120""}","{""ImportId"":""QID121""}","{""ImportId"":""QID122""}","{""ImportId"":""QID123""}","{""ImportId"":""QID124""}","{""ImportId"":""QID125""}","{""ImportId"":""QID126""}","{""ImportId"":""QID146""}","{""ImportId"":""QID147""}","{""ImportId"":""QID148""}","{""ImportId"":""QID149""}","{""ImportId"":""QID150""}","{""ImportId"":""QID152_TEXT""}","{""ImportId"":""QID153""}","{""ImportId"":""QID84_TEXT""}"
+2018-06-06 22:31:07,2018-06-07 00:02:22,0,104.32.167.147,100,5475,1,2018-06-07 00:02:23,R_1GvIIRWsavALRSo,Mukashev,Aydin,aydin010989@gmail.com,,34.026596069336,-118.28309631348,email,EN,3,2,4,1,4,4,4,2,4,4,4,2,5,3,4,3,4,2,2,4,4,3,3,4,4,4,3,3,2,3,2,4,4,3,3,3,3,5,3,3,3,4,3,3,2,1,1,4,1,2,2,1,2,2,2,2,1,4,2,2,3,2,1,2,1,3,2,2,2,1,3,3,4,2,2,3,2,1,3,2,1,2,2,3,2,2,2,7,7,7,1,1,2,3,1,7,7,6,7,3,1,5,6,7,1,7,1,7,7,7,1,1,3,4,3,1,3,5,4,6,3,3,5,4,3,4,5,3,3,4,3,3,5,3,1,3,4,3,5,4,1,3,3,2,2,3,3,3,2,2,2,2,3,3,3,3,11:00 pm,40-50 minutes,11:00 am,9-10 hours,1,3,1,1,1,1,2,2,1,1,2,1,1,1,,,,,,,,,,,,,,,,,1,3,1,1,2,Kazakhstan,3,71

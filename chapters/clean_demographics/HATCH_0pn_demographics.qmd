@@ -57,7 +57,7 @@ library(nestclean) # the package I wrote to help check our work
 
 ## Load Data
 ```{r load-data}
-df <- read_sav(here("data/qualtrics/3_renamed", "0pn_renamed.sav")) 
+df <- read_sav(here("data/3_renamed", "0pn_renamed.sav")) 
 ```
 :::
 
@@ -762,7 +762,7 @@ inspect_labels(df, DueDate:Illness7_current.pn)
 
 ## Write CSV Files
 ```{r}
-write_sav(df, here("data/qualtrics/4_demographics", "0pn_demo.sav"))
+write_sav(df, here("data/4_demographics", "0pn_demo.sav"))
 ```
 :::
 

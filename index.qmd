@@ -16,14 +16,23 @@ This book contains information and data cleaning from the first four time points
 
 # Data Files
 
-Data files can be found at [INSERT URL]
+Data files can be found at \[INSERT URL\]
+
+# Section Descriptions
+
+> These are included in reverse order from how they are coded (i.e., "Compile raw data" occurred first and "Inventory Cleaning" occurred last
+
+-   Inventory Cleaning: How we scored the included measures.
+-   Demographics Cleaning: How we scored the demographics and basic information items.
+-   Rename: The scripts used to rename Qualtrics items (e.g., Q105 to BDI1)
+-   Compile Raw Data: The scripts used to combine our raw Qualtrics data.
 
 # Included Measures
 
 ## Standardized Inventories
 
 | **Inventory** | **0pn** | **3pp** | **6pp** | **12pp** |
-|:---------------------------|:---------:|:---------:|:---------:|:---------:|
+|:---------------------|:-----------:|:-----------:|:-----------:|:-----------:|
 | AAS: Adult Attachment Scale | x |  | x |  |
 | ASQ: Ages and Stages Questionnaire |  | x | x | x |
 | BCQ: Baby Care Questionnaire |  | x | x | x |
@@ -63,7 +72,7 @@ Data files can be found at [INSERT URL]
 ## NEST-Designed Measures
 
 | **Inventory** | **0pn** | **3pp** | **6pp** | **12pp** |
-|:----------------------|:-----------:|:-----------:|:-----------:|:-----------:|
+|:-----------------|:------------:|:------------:|:------------:|:------------:|
 | PRQ: Parenting Responsibilities Questionnaire |  | x | x | x |
 | COVID Parenting Questions |  | x | x | x |
 | Life Experiences |  |  | x |  |

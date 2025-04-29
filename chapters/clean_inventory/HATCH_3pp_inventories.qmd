@@ -56,10 +56,10 @@ library(nestPSQI) # the package I wrote to help clean up PSQI
 ## Load Data
 
 ```{r}
-df <- read_sav(here("data/qualtrics/4_demographics", "3pp_demo.sav")) %>%
+df <- read_sav(here("data/4_demographics", "3pp_demo.sav")) %>%
   mutate(across(where(is.character), ~ na_if(.x, ""))) # replace blank cells with NA
 
-df.old <- read_sav(here("data/qualtrics/3_renamed", "3pp_renamed.sav")) %>%
+df.old <- read_sav(here("data/3_renamed", "3pp_renamed.sav")) %>%
   mutate(across(where(is.character), ~ na_if(.x, ""))) # replace blank cells with NA
 ```
 :::
@@ -3792,8 +3792,8 @@ df_sum <- df %>%
 ## Write SAV Files
 
 ```{r}
-write_sav(df, here("data/qualtrics/5_final", "3pp_complete.sav"))
-write_sav(df_sum, here("data/qualtrics/5_final", "3pp_summary.sav"))
+write_sav(df, here("data/5_complete", "3pp_complete.sav"))
+write_sav(df_sum, here("data/6_summary", "3pp_summary.sav"))
 ```
 :::
 :::
