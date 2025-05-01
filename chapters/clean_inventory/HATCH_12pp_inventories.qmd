@@ -66,7 +66,7 @@ df.old <- df # so that I can refresh df quickly without scrolling back to top
 ### Notes
 
 -   Squires & Bricker, 2009
--   6 questions per developmental domain + 9 additional overall
+-   6 questions per developmental domain + 8-9 additional overall
     questions
 -   For developmental questions: 3-point Likert scale
     -   0 = not yet

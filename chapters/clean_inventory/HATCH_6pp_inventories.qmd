@@ -223,13 +223,13 @@ print_slice(df, AAS1.6pp:AAS_anx.6pp)
 ::::
 :::::
 
-## ASQ6: Ages and Stages Questionnaire: 6-month
+## ASQ6: Ages and Stages Questionnaire, 6-month
 
 ::::: panel-tabset
 ### Notes
 
 -   Squires & Bricker, 2009
--   6 questions per developmental domain + 8 additional overall
+-   6 questions per developmental domain + 8-9 additional overall
     questions
 -   For developmental questions: 3-point Likert scale
     -   0 = not yet

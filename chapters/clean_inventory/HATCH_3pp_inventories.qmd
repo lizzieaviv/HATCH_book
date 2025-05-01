@@ -72,7 +72,7 @@ df.old <- read_sav(here("data/3_renamed", "3pp_renamed.sav")) %>%
 ### Notes
 
 -   Squires & Bricker, 2009
--   6 questions per developmental domain + 8 additional overall
+-   6 questions per developmental domain + 8-9 additional overall
     questions
 -   For developmental questions: 3-point Likert scale
     -   0 = not yet
@@ -301,15 +301,36 @@ print_slice(df, contains("ASQ2"))
 ::: panel-tabset
 ### Notes
 
--   Yes = 10; 5 = Sometimes; 0 = Not yet
--   If three or more items are missing, do not score the area—screening
-    results may not be accurate.
--   If one or two items are missing, you will need to calculate an
-    adjusted score.
-    -   Replace missing items with mean score of other items in the
-        section
--   Refer to scoring guidelines for cut-off information and information
-    on "overall" items
+-   Squires & Bricker, 2009
+-   6 questions per developmental domain + 8-9 additional overall
+    questions
+-   For developmental questions: 3-point Likert scale
+    -   0 = not yet
+    -   5 = sometimes
+    -   10 = yes
+-   For overall questions: 0-1 binary
+    -   0 = no
+    -   1 = not yet
+-   Sum scores
+    -   Higher scores = more advanced development
+-   Subscales:
+    -   Communication
+    -   Gross motor
+    -   Fine motor
+    -   Problem solving
+    -   Personal/social
+    -   Overall
+-   No reverse scores
+-   Other scores notes:
+    -   If three or more items are missing, do not score the
+        area—screening results may not be accurate.
+    -   If one or two items are missing, you will need to calculate an
+        adjusted score.
+        -   Replace missing items with mean score of other items in the
+            section
+    -   Refer to scoring guidelines for cut-off information and
+        information on "overall" items
+
 
 ### Script
 

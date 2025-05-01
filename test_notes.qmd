@@ -1,4 +1,0 @@
-# Test Inventory
-## Notes
-- Example note 1
-- Example note 2

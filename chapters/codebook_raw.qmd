@@ -36,7 +36,6 @@ df <- df.pn %>%
 ```
 
 # AAS: Adult Attachment Scale
-## Notes
 
 -   Collins, 1996
 -   18 items
@@ -87,11 +86,12 @@ alpha_AAS %>% knitr::kable()
 ```
 :::
 
-# ASQ12: Ages and Stages Questionnaire, 12-month
-## Notes
+# ASQ: Ages and Stages Questionnaire
+> ASQ2 and ASQ4 were administered at 3 months postpartum; ASQ6 was administered at 6 months postpartum; ASQ12 was administered at 12 months postpartum
+
 
 -   Squires & Bricker, 2009
--   6 questions per developmental domain + 9 additional overall
+-   6 questions per developmental domain + 8-9 additional overall
     questions
 -   For developmental questions: 3-point Likert scale
     -   0 = not yet
@@ -125,206 +125,42 @@ alpha_AAS %>% knitr::kable()
 ```{r}
 #| echo: false
 #| tbl-cap: "**Means**"
-mean_ASQ12 <- tibble::tibble(
+mean_ASQ <- tibble::tibble(
   `Subscale` = c('Communication Subscale', 'Fine Motor Subscale', 'Gross Motor Subscale', 'Personal/Social Subscale', 'Problem Solving Subscale'),
-  `12pp` = c(49.20, 52.60, 48.10, 46.20, 44.00)
+  `ASQ2` = c(51.40, 51.80, 55.30, 49.70, 51.90),
+  `ASQ4` = c(43.40, 36.10, 49.20, 42.80, 42.40),
+  `ASQ6` = c(49.50, 46.20, 47.40, 51.00, 48.80),
+  `ASQ12` = c(49.20, 52.60, 48.10, 46.20, 44.00)
 )
-mean_ASQ12 %>% knitr::kable()
+mean_ASQ %>% knitr::kable()
 ```
 ```{r}
 #| echo: false
 #| tbl-cap: "**N Missing**"
-missing_ASQ12 <- tibble::tibble(
+missing_ASQ <- tibble::tibble(
   `Subscale` = c('Communication Subscale', 'Fine Motor Subscale', 'Gross Motor Subscale', 'Personal/Social Subscale', 'Problem Solving Subscale'),
-  `12pp` = c(30, 28, 38, 30, 32)
+  `ASQ2` = c(42, 42, 42, 42, 42),
+  `ASQ4` = c(42, 42, 42, 43, 42),
+  `ASQ6` = c(25, 25, 25, 25, 25),
+  `ASQ12` = c(30, 28, 38, 30, 32)
 )
-missing_ASQ12 %>% knitr::kable()
+missing_ASQ %>% knitr::kable()
 ```
 ```{r}
 #| echo: false
 #| tbl-cap: "**Cronbach’s α**"
-alpha_ASQ12 <- tibble::tibble(
+alpha_ASQ <- tibble::tibble(
   `Subscale` = c('Communication Subscale', 'Fine Motor Subscale', 'Gross Motor Subscale', 'Personal/Social Subscale', 'Problem Solving Subscale'),
-  `12pp` = c(0.75, 0.70, 0.84, 0.80, 0.68)
+  `ASQ2` = c(0.66, 0.53, 0.54, 0.58, 0.74),
+  `ASQ4` = c(0.70, 0.78, 0.63, 0.76, 0.80),
+  `ASQ6` = c(0.44, 0.71, 0.59, 0.61, 0.66),
+  `ASQ12` = c(0.75, 0.70, 0.84, 0.80, 0.68)
 )
-alpha_ASQ12 %>% knitr::kable()
-```
-:::
-
-# ASQ2: Ages and Stages Questionnaire, 2-month
-## Notes
-
--   Squires & Bricker, 2009
--   6 questions per developmental domain + 8 additional overall
-    questions
--   For developmental questions: 3-point Likert scale
-    -   0 = not yet
-    -   5 = sometimes
-    -   10 = yes
--   For overall questions: 0-1 binary
-    -   0 = no
-    -   1 = not yet
--   Sum scores
-    -   Higher scores = more advanced development
--   Subscales:
-    -   Communication
-    -   Gross motor
-    -   Fine motor
-    -   Problem solving
-    -   Personal/social
-    -   Overall
--   No reverse scores
--   Other scores notes:
-    -   If three or more items are missing, do not score the
-        area—screening results may not be accurate.
-    -   If one or two items are missing, you will need to calculate an
-        adjusted score.
-        -   Replace missing items with mean score of other items in the
-            section
-    -   Refer to scoring guidelines for cut-off information and
-        information on "overall" items
-
-
-::: {.flex}
-```{r}
-#| echo: false
-#| tbl-cap: "**Means**"
-mean_ASQ2 <- tibble::tibble(
-  `Subscale` = c('Communication Subscale', 'Fine Motor Subscale', 'Gross Motor Subscale', 'Personal/Social Subscale', 'Problem Solving Subscale'),
-  `3pp` = c(51.40, 51.80, 55.30, 49.70, 51.90)
-)
-mean_ASQ2 %>% knitr::kable()
-```
-```{r}
-#| echo: false
-#| tbl-cap: "**N Missing**"
-missing_ASQ2 <- tibble::tibble(
-  `Subscale` = c('Communication Subscale', 'Fine Motor Subscale', 'Gross Motor Subscale', 'Personal/Social Subscale', 'Problem Solving Subscale'),
-  `3pp` = c(42, 42, 42, 42, 42)
-)
-missing_ASQ2 %>% knitr::kable()
-```
-```{r}
-#| echo: false
-#| tbl-cap: "**Cronbach’s α**"
-alpha_ASQ2 <- tibble::tibble(
-  `Subscale` = c('Communication Subscale', 'Fine Motor Subscale', 'Gross Motor Subscale', 'Personal/Social Subscale', 'Problem Solving Subscale'),
-  `3pp` = c(0.66, 0.53, 0.54, 0.58, 0.74)
-)
-alpha_ASQ2 %>% knitr::kable()
-```
-:::
-
-# ASQ4: Ages and Stages Questionnaire, 4-month
-## Notes
-
--   Yes = 10; 5 = Sometimes; 0 = Not yet
--   If three or more items are missing, do not score the area—screening
-    results may not be accurate.
--   If one or two items are missing, you will need to calculate an
-    adjusted score.
-    -   Replace missing items with mean score of other items in the
-        section
--   Refer to scoring guidelines for cut-off information and information
-    on "overall" items
-
-
-::: {.flex}
-```{r}
-#| echo: false
-#| tbl-cap: "**Means**"
-mean_ASQ4 <- tibble::tibble(
-  `Subscale` = c('Communication Subscale', 'Fine Motor Subscale', 'Gross Motor Subscale', 'Personal/Social Subscale', 'Problem Solving Subscale'),
-  `3pp` = c(43.40, 36.10, 49.20, 42.80, 42.40)
-)
-mean_ASQ4 %>% knitr::kable()
-```
-```{r}
-#| echo: false
-#| tbl-cap: "**N Missing**"
-missing_ASQ4 <- tibble::tibble(
-  `Subscale` = c('Communication Subscale', 'Fine Motor Subscale', 'Gross Motor Subscale', 'Personal/Social Subscale', 'Problem Solving Subscale'),
-  `3pp` = c(42, 42, 42, 43, 42)
-)
-missing_ASQ4 %>% knitr::kable()
-```
-```{r}
-#| echo: false
-#| tbl-cap: "**Cronbach’s α**"
-alpha_ASQ4 <- tibble::tibble(
-  `Subscale` = c('Communication Subscale', 'Fine Motor Subscale', 'Gross Motor Subscale', 'Personal/Social Subscale', 'Problem Solving Subscale'),
-  `3pp` = c(0.70, 0.78, 0.63, 0.76, 0.80)
-)
-alpha_ASQ4 %>% knitr::kable()
-```
-:::
-
-# ASQ6: Ages and Stages Questionnaire: 6-month
-## Notes
-
--   Squires & Bricker, 2009
--   6 questions per developmental domain + 8 additional overall
-    questions
--   For developmental questions: 3-point Likert scale
-    -   0 = not yet
-    -   5 = sometimes
-    -   10 = yes
--   For overall questions: 0-1 binary
-    -   0 = no
-    -   1 = not yet
--   Sum scores
-    -   Higher scores = more advanced development
--   Subscales:
-    -   Communication
-    -   Gross motor
-    -   Fine motor
-    -   Problem solving
-    -   Personal/social
-    -   Overall
--   No reverse scores
--   Other scores notes:
-    -   If three or more items are missing, do not score the
-        area—screening results may not be accurate.
-    -   If one or two items are missing, you will need to calculate an
-        adjusted score.
-        -   Replace missing items with mean score of other items in the
-            section
-    -   Refer to scoring guidelines for cut-off information and
-        information on "overall" items
-
-
-::: {.flex}
-```{r}
-#| echo: false
-#| tbl-cap: "**Means**"
-mean_ASQ6 <- tibble::tibble(
-  `Subscale` = c('Communication Subscale', 'Fine Motor Subscale', 'Gross Motor Subscale', 'Personal/Social Subscale', 'Problem Solving Subscale'),
-  `6pp` = c(49.50, 46.20, 47.40, 51.00, 48.80)
-)
-mean_ASQ6 %>% knitr::kable()
-```
-```{r}
-#| echo: false
-#| tbl-cap: "**N Missing**"
-missing_ASQ6 <- tibble::tibble(
-  `Subscale` = c('Communication Subscale', 'Fine Motor Subscale', 'Gross Motor Subscale', 'Personal/Social Subscale', 'Problem Solving Subscale'),
-  `6pp` = c(25, 25, 25, 25, 25)
-)
-missing_ASQ6 %>% knitr::kable()
-```
-```{r}
-#| echo: false
-#| tbl-cap: "**Cronbach’s α**"
-alpha_ASQ6 <- tibble::tibble(
-  `Subscale` = c('Communication Subscale', 'Fine Motor Subscale', 'Gross Motor Subscale', 'Personal/Social Subscale', 'Problem Solving Subscale'),
-  `6pp` = c(0.44, 0.71, 0.59, 0.61, 0.66)
-)
-alpha_ASQ6 %>% knitr::kable()
+alpha_ASQ %>% knitr::kable()
 ```
 :::
 
 # BCQ: Baby Care Questionnaire
-## Notes
 
 -   Winstanley & Gattis, 2013
 -   30 items
@@ -386,7 +222,6 @@ alpha_BCQ %>% knitr::kable()
 :::
 
 # BDI: Beck Depression Inventory
-## Notes
 
 -   Beck, 1996
 -   21 items
@@ -438,7 +273,6 @@ alpha_BDI %>% knitr::kable()
 :::
 
 # BFI: Big Five Inventory
-## Notes
 
 -   John et al., 1991
 -   44 items
@@ -487,7 +321,6 @@ alpha_BFI %>% knitr::kable()
 :::
 
 # COPE: Brief Cope
-## Notes
 
 -   Carver, 1997
 -   28 items
@@ -540,7 +373,6 @@ missing_COPE %>% knitr::kable()
 :::
 
 # DAS: Dyadic Adjustment Scale
-## Notes
 
 -   Spanier, 1976
 -   32 items
@@ -609,7 +441,6 @@ alpha_DAS %>% knitr::kable()
 :::
 
 # ECR-R: Experiences in Close Relationships
-## Notes
 
 -   Fraley, Waller, and Brennan, 2000
 -   36 items
@@ -658,7 +489,6 @@ alpha_ECR %>% knitr::kable()
 :::
 
 # EPDS: Edinburgh Postnatal Depression Scale
-## Notes
 
 -   Cox et al., 1987
 -   9 items (originally 10, but removed suicidality item)
@@ -710,7 +540,6 @@ alpha_EPDS %>% knitr::kable()
 :::
 
 # IBQR: Infant Behavior Questionnaire—Revised
-## Notes
 
 -   Putman et al., 2014
 -   37 items
@@ -763,7 +592,6 @@ alpha_IBQR %>% knitr::kable()
 :::
 
 # IMS: Investment Model Scale
-## Notes
 
 -   Rusbult et al., 1998
 -   37 items total, 22 included in scoring
@@ -827,7 +655,6 @@ alpha_IMS %>% knitr::kable()
 :::
 
 # IRI: Interpersonal Reactivity Index
-## Notes
 
 -   Davis, 1980
 -   28 items
@@ -879,7 +706,6 @@ alpha_IRI %>% knitr::kable()
 :::
 
 # ISS: Index of Sexual Satisfaction
-## Notes
 
 -   Hudson, 1993
 -   25 items
@@ -929,7 +755,6 @@ alpha_ISS %>% knitr::kable()
 :::
 
 # LAPR: Life Attitudes Profile—Revised
-## Notes
 
 -   Erci, 2008 (but adapted for HATCH)
 -   16 items (out of 48 total)
@@ -983,7 +808,6 @@ alpha_LAPR %>% knitr::kable()
 :::
 
 # LEC: Life Events Checklist
-## Notes
 
 -   Weathers et al., 2013
 -   Varying number of items
@@ -1033,7 +857,6 @@ missing_LEC %>% knitr::kable()
 :::
 
 # LES: Life Experiences Survey
-## Notes
 
 -   Sarason et al., 1978
 -   22 items
@@ -1083,7 +906,6 @@ missing_LES %>% knitr::kable()
 :::
 
 # MAI: Maternal Attachment Inventory
-## Notes
 
 -   Müller, 1994
 -   26 items
@@ -1133,7 +955,6 @@ alpha_MAI %>% knitr::kable()
 :::
 
 # MAT: Marital Adjustment Test
-## Notes
 
 -   Locke & Wallace, 1959
 -   15 items
@@ -1193,7 +1014,6 @@ alpha_MAT %>% knitr::kable()
 :::
 
 # MOS: Medical Outcomes Study Social Support Survey
-## Notes
 
 -   Sherborne & Stewart, 1991
 -   19 items
@@ -1247,7 +1067,6 @@ alpha_MOS %>% knitr::kable()
 :::
 
 # PAS: Pregnancy Anxiety Scale
-## Notes
 
 -   Rini et al., 1999
 -   10 items
@@ -1295,7 +1114,6 @@ alpha_PAS %>% knitr::kable()
 :::
 
 # PAT: Parental Attribution Test
-## Notes
 
 -   Bugental, 2011
 -   18 items
@@ -1363,7 +1181,6 @@ alpha_PAT %>% knitr::kable()
 :::
 
 # PBQ: Postpartum Bonding Questionnaire
-## Notes
 
 -   Brockington et al., 2001
 -   25 items
@@ -1417,7 +1234,6 @@ alpha_PBQ %>% knitr::kable()
 :::
 
 # PingSS: Parenting Stress Scale
-## Notes
 
 -   Berry & Jones, 1995
 -   18 items
@@ -1464,7 +1280,6 @@ alpha_PingSS %>% knitr::kable()
 :::
 
 # Pregnancy/Couvade Syndrome Symptoms
-## Notes
 
 -   Brennan
 -   44 symptoms, each with 4 questions
@@ -1514,7 +1329,6 @@ missing_Pregnancy %>% knitr::kable()
 :::
 
 # PSAM: Pregnancy Specific Anxiety Measure
-## Notes
 
 -   Guardino & Dunkel Schetter, 2014
 -   13 items
@@ -1568,7 +1382,6 @@ alpha_PSAM %>% knitr::kable()
 :::
 
 # PSI: Parenting Stress Index
-## Notes
 
 -   Abidin, 2012
 -   36 items
@@ -1627,7 +1440,6 @@ alpha_PSI %>% knitr::kable()
 :::
 
 # PSQI: Pittsburgh Sleep Quality Index
-## Notes
 
 -   Buysee et al., 1989
 -   9 items (item 5 has A-J)
@@ -1683,7 +1495,6 @@ alpha_PSQI %>% knitr::kable()
 :::
 
 # PSS: Perceived Stress Scale
-## Notes
 
 -   Cohen et al., 1983
 -   14 items
@@ -1734,7 +1545,6 @@ alpha_PSS %>% knitr::kable()
 :::
 
 # PYB: Parenting Your Baby
-## Notes
 
 -   Formerly "PARYC: Parenting Young Children"
 -   Guyon-Harris et al., 2023
@@ -1783,7 +1593,6 @@ alpha_PYB %>% knitr::kable()
 :::
 
 # RF: Risky Families
-## Notes
 
 -   Taylor et al., 2004
 -   11 items
@@ -1827,7 +1636,6 @@ alpha_RF %>% knitr::kable()
 :::
 
 # SCL: Symptom Checklist-90
-## Notes
 
 -   Derogatis et al., 1973
 -   90 items
@@ -1901,7 +1709,6 @@ alpha_SCL %>% knitr::kable()
 :::
 
 # SCL: Symptom Checklist—90
-## Notes
 
 -   Derogatis et al., 1973
 -   90 items
@@ -1975,7 +1782,6 @@ alpha_SCL %>% knitr::kable()
 :::
 
 # STAI: State-Trait Anxiety Inventory
-## Notes
 
 -   Speilberger et al., 1993
 -   20 items per scale (state/trait)
@@ -2024,7 +1830,6 @@ alpha_STAI %>% knitr::kable()
 :::
 
 # WIAF: What is a Father
-## Notes
 
 -   Schoppe, 2001
 -   15 items
