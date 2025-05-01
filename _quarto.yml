@@ -19,6 +19,12 @@ book:
       - chapters/clean_demographics/HATCH_3pp_demographics.qmd
       - chapters/clean_demographics/HATCH_6pp_demographics.qmd
       - chapters/clean_demographics/HATCH_12pp_demographics.qmd
+    - part: Renaming Items from Qualtrics
+      chapters:
+      - chapters/rename_items/HATCH_0pn_rename.qmd
+      - chapters/rename_items/HATCH_3pp_rename.qmd
+      - chapters/rename_items/HATCH_6pp_rename.qmd
+      - chapters/rename_items/HATCH_12pp_rename.qmd
 
 format:
   html:

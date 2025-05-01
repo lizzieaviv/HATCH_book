@@ -1,0 +1,676 @@
+---
+title: "3-Month Postpartum"
+subtitle: "Rename Qualtrics Items"
+format:
+  html:
+    toc: true
+    toc-float: true
+    df-print: paged
+    code-folding: show
+editor_options: 
+  markdown: 
+    wrap: 72
+---
+
+```{r include=FALSE}
+knitr::opts_chunk$set(fig.width=2, fig.height=2, fig.align = "center")
+```
+
+
+
+# Set Up 
+::: panel-tabset
+## Packages
+```{r load-pkg, message=FALSE, warning=FALSE}
+library(tidyverse) # for data cleaning
+library(here) # to quickly find data files
+library(haven) # to manipulate SPSS files and add SPSS-style labels
+library(chron) # to manipulate time and date variables
+library(sjmisc) # for rowwise functions (row_count function)
+library(data.table) # for renaming variables (setnames function)
+library(kableExtra) # to print tables more neatly (kbl wrapping function) 
+library(nestclean) # the package I wrote to help check our work
+```
+
+
+## Load Data
+```{r load-data}
+df <- read.csv(here("data/2_combined", "3pp_raw_combined.csv")) %>%
+  mutate(across(where(is.character), ~ na_if(.x, ""))) %>% # replace blank cells with NA
+  select(-Q129...Topics.3pp) %>% # remove meaningless column 
+  select(where(~ !all(is.na(.)))) # remove blank columns
+```
+:::
+    
+    
+
+# Demographics
+::: panel-tabset
+## Baby Weight
+```{r}
+# Set new names
+setnames(df, 
+         old = c("Baby.Weigh_1.3pp", "Baby.Weigh_2.3pp"),
+         new = c("BabyWeight_lb.3pp", "BabyWeight_oz.3pp"))
+```
+
+## Age, Weight, Exercise
+```{r}
+# Get Column Numbers
+cols <- which(colnames(df)=="Age_1.3pp"):which(colnames(df)=="Exercise_1.3pp")
+# Set new names
+setnames(df, 
+         old = colnames(df[,cols]), 
+         new = gsub(pattern = "_1", replacement = "", x = colnames(df[,cols])))
+```
+
+## Sleep
+```{r}
+# Set new names
+setnames(df, 
+         old = c("Sleep_1.3pp"),
+         new = c("Sleep.3pp"))
+
+# Move columns
+df <- df %>%
+  relocate(Sleep.3pp, .after = Exercise.3pp)
+```
+
+## Smoking
+```{r}
+# Set new names
+setnames(df, 
+         old = c("Packs.day_1.3pp", "Packs.day_2.3pp"),
+         new = c("PackPerDay.3pp", "YearsSmoker.3pp"))
+
+# Move columns
+df <- df %>%
+  relocate(Smoker.3pp:YearsSmoker.3pp, .after = Sleep.3pp)
+```
+
+## Breastfeeding
+```{r}
+# Get Column Numbers
+cols <- which(colnames(df)=="Breastfeed.3pp"):which(colnames(df)=="exclusive.3pp")
+# Set new names
+setnames(df, 
+         old = colnames(df[,cols]), 
+         new = c("BF_ever.3pp", "BF_current.3pp", "BF_length_months.3pp", "BF_length_day.3pp", "BF_exclusive.3pp"))
+         
+```
+
+## Menstruation
+```{r}
+# Set new names
+setnames(df, 
+         old = c("Menstrual.3pp", "Q102.3pp"),
+         new = c("Menstrual_start.3pp", "Menstrual_date.3pp"))
+```
+
+## Placenta
+```{r}
+# Set new names
+setnames(df, 
+         old = c("Placenta.3pp", "Q105.3pp"),
+         new = c("Placenta_ingest.3pp", "Placenta_form.3pp"))
+```
+
+## Check Demographics 
+::: panel-tabset
+### Check Names
+```{r}
+inspect_labels(df, CoupleID:Placenta_form.3pp) 
+```
+
+### Print
+```{r eval = knitr::is_html_output(), echo = FALSE}
+print_slice(df, CoupleID:Placenta_form.3pp)
+```
+:::
+:::
+
+# Inventories 
+::: panel-tabset
+## ASQ: Ages and Stages Questionnaire, 2+4 month
+::: panel-tabset
+### Communication (c)
+#### 2 Months
+```{r}
+# Get Column Numbers 
+cols <- which(colnames(df)=="Q106_1.3pp"):which(colnames(df)=="Q106_6.3pp")
+
+# Set new names
+setnames(df, 
+         old = colnames(df[,cols]), 
+         new = paste("ASQ2_c", 1:6, ".3pp", sep = ""))
+```
+
+#### 4 Months
+```{r}
+# Get Column Numbers 
+cols <- which(colnames(df)=="Q106_7.3pp"):which(colnames(df)=="Q106_10.3pp")
+
+# Set new names
+setnames(df, 
+         old = colnames(df[,cols]), 
+         new = paste("ASQ4_c", 3:6, ".3pp", sep = ""))
+
+# Add duplicates from 2mo
+df <- df %>%
+  mutate(ASQ4_c1.3pp = ASQ2_c5.3pp, 
+         ASQ4_c2.3pp = ASQ2_c6.3pp, 
+         .before = ASQ4_c3.3pp, .keep = "all")
+```
+
+### Gross Motor (gm)
+#### 2 Months
+```{r}
+# Get Column Numbers 
+cols <- which(colnames(df)=="Q106_11.3pp"):which(colnames(df)=="Q106_16.3pp")
+
+# Set new names
+setnames(df, 
+         old = colnames(df[,cols]), 
+         new = paste("ASQ2_gm", 1:6, ".3pp", sep = ""))
+```
+
+#### 4 Months
+```{r}
+# Get Column Numbers 
+cols <- which(colnames(df)=="Q106_17.3pp"):which(colnames(df)=="Q106_20.3pp")
+
+# Set new names
+setnames(df, 
+         old = colnames(df[,cols]), 
+         new = paste("ASQ4_gm", 3:6, ".3pp", sep = ""))
+
+# Add duplicates from 2mo
+df <- df %>%
+  mutate(ASQ4_gm1.3pp = ASQ2_gm5.3pp, 
+         ASQ4_gm2.3pp = ASQ2_gm6.3pp, 
+         .before = ASQ4_gm3.3pp, .keep = "all")
+```
+
+### Fine Motor (fm)
+#### 2 Months
+##### Questions 1-3
+```{r}
+# Get Column Numbers 
+cols <- which(colnames(df)=="Q106_21.3pp"):which(colnames(df)=="Q106_23.3pp")
+
+# Set new names
+setnames(df, 
+         old = colnames(df[,cols]), 
+         new = paste("ASQ2_fm", 1:3, ".3pp", sep = ""))
+```
+
+##### Questions 4-6
+```{r}
+# Get Column Numbers 
+cols <- which(colnames(df)=="Q106_25.3pp"):which(colnames(df)=="Q106_27.3pp")
+
+# Set new names
+setnames(df, 
+         old = colnames(df[,cols]), 
+         new = paste("ASQ2_fm", 4:6, ".3pp", sep = ""))
+```
+
+#### 4 Months
+```{r}
+# Get Column Numbers 
+cols <- which(colnames(df)=="Q106_28.3pp"):which(colnames(df)=="Q106_30.3pp")
+
+# Set new names
+setnames(df, 
+         old = colnames(df[,cols]), 
+         new = paste("ASQ4_fm", 4:6, ".3pp", sep = ""))
+
+# Add duplicates from 2mo and rename question #2
+df <- df %>%
+  mutate(ASQ4_fm1.3pp = ASQ2_fm5.3pp, 
+         ASQ4_fm3.3pp = ASQ2_fm6.3pp) %>%
+  rename(ASQ4_fm2.3pp = Q106_24.3pp) %>%
+  relocate(ASQ4_fm1.3pp, ASQ4_fm2.3pp, ASQ4_fm3.3pp, .before = ASQ4_fm4.3pp)
+```
+
+### Problem Solving (ps)
+#### 2 Months
+```{r}
+# Get Column Numbers 
+cols <- which(colnames(df)=="Q106_31.3pp"):which(colnames(df)=="Q106_36.3pp")
+
+# Set new names
+setnames(df, 
+         old = colnames(df[,cols]), 
+         new = paste("ASQ2_ps", 1:6, ".3pp", sep = ""))
+```
+
+#### 4 Months
+```{r}
+# Get Column Numbers 
+cols <- which(colnames(df)=="Q106_37.3pp"):which(colnames(df)=="Q106_38.3pp")
+
+# Set new names
+setnames(df, 
+         old = colnames(df[,cols]), 
+         new = paste("ASQ4_ps", 4:5, ".3pp", sep = ""))
+
+# Add duplicates from 2mo
+df <- df %>%
+  mutate(ASQ4_ps1.3pp = ASQ2_ps3.3pp, 
+         ASQ4_ps2.3pp = ASQ2_ps4.3pp, 
+         ASQ4_ps3.3pp = ASQ2_ps5.3pp, 
+         ASQ4_ps6.3pp = ASQ2_ps6.3pp) %>%
+  relocate(ASQ4_ps1.3pp:ASQ4_ps3.3pp, ASQ4_ps4.3pp, ASQ4_ps5.3pp, ASQ4_ps6.3pp, .after = ASQ2_ps6.3pp)
+```
+
+### Personal/Social (s)
+#### 2 Months
+```{r}
+# Get Column Numbers 
+cols <- which(colnames(df)=="Q106_39.3pp"):which(colnames(df)=="Q106_44.3pp")
+
+# Set new names
+setnames(df, 
+         old = colnames(df[,cols]), 
+         new = paste("ASQ2_s", 1:6, ".3pp", sep = ""))
+```
+
+#### 4 Months
+```{r}
+# Get Column Numbers 
+cols <- which(colnames(df)=="Q106_45.3pp"):which(colnames(df)=="Q106_48.3pp")
+
+# Set new names
+setnames(df, 
+         old = colnames(df[,cols]), 
+         new = paste("ASQ4_s", c(2, 4:6), ".3pp", sep = ""))
+
+# Add duplicates from 2mo
+df <- df %>%
+  mutate(ASQ4_s1.3pp = ASQ2_s5.3pp, 
+         ASQ4_s3.3pp = ASQ2_s6.3pp) %>%
+  relocate(ASQ4_s1.3pp, ASQ4_s2.3pp, ASQ4_s3.3pp, .before = ASQ4_s4.3pp)
+```
+
+### Overall (o)
+#### 2 Months
+```{r}
+# Get Column Numbers 
+cols <- which(colnames(df)=="Q107.3pp"):which(colnames(df)=="Q112.3pp")
+
+# Set new names
+setnames(df, 
+         old = colnames(df[,cols]), 
+         new = paste("ASQ2_o", 1:6, ".3pp", sep = ""))
+```
+
+#### 4 Months
+```{r}
+# Get Column Numbers 
+cols <- which(colnames(df)=="Q114.3pp"):which(colnames(df)=="Q117.3pp")
+
+# Set new names
+setnames(df, 
+         old = colnames(df[,cols]), 
+         new = paste("ASQ4_o", c(2, 3, 5, 6), ".3pp", sep = ""))
+
+# Add duplicates from 2mo
+df <- df %>%
+  mutate(ASQ4_o1.3pp = ASQ2_o2.3pp, 
+         ASQ4_o4.3pp = ASQ2_o3.3pp, 
+         ASQ4_o7.3pp = ASQ2_o5.3pp, 
+         ASQ4_o8.3pp = ASQ2_o6.3pp) %>%
+  relocate(ASQ4_o1.3pp, ASQ4_o2.3pp, ASQ4_o3.3pp, ASQ4_o4.3pp,
+           ASQ4_o5.3pp, ASQ4_o6.3pp, ASQ4_o7.3pp, ASQ4_o8.3pp,
+           .after = ASQ2_o6.3pp)
+```
+
+### Relocate
+```{r}
+df <- df %>%
+  relocate(contains("ASQ4"), .after = ASQ2_o6.3pp)
+```
+
+### Check
+```{r}
+inspect_labels(df, contains("ASQ"))
+```
+:::
+
+## BCQ: Baby Care Questionnaire
+### Sleep
+```{r}
+# Get Column Numbers 
+cols <- which(colnames(df)=="Q94_1.3pp"):which(colnames(df)=="Q94_9.3pp")
+
+# Set new names
+setnames(df, 
+         old = colnames(df[,cols]), 
+         new = paste("BCQ_S", c(1:9), ".3pp", sep = ""))
+```
+
+### Eating
+```{r}
+# Get Column Numbers 
+cols <- which(colnames(df)=="Q94_10.3pp"):which(colnames(df)=="Q94_19.3pp")
+
+# Set new names
+setnames(df, 
+         old = colnames(df[,cols]), 
+         new = paste("BCQ_E", c(1:3, 6, 7, 10, 4, 5, 8, 9), ".3pp", sep = ""))
+
+# Reorder variables
+df <- df %>%
+  relocate(BCQ_E4.3pp, BCQ_E5.3pp, BCQ_E6.3pp, BCQ_E7.3pp, BCQ_E8.3pp, BCQ_E9.3pp, BCQ_E10.3pp, .after = BCQ_E3.3pp)
+```
+
+### Soothing
+```{r}
+# Get Column Numbers 
+cols <- which(colnames(df)=="Q94_20.3pp"):which(colnames(df)=="Q94_30.3pp")
+
+# Set new names
+setnames(df, 
+         old = colnames(df[,cols]), 
+         new = paste("BCQ_So", c(1, 2, 4, 9, 10, 3, 5:8, 11), ".3pp", sep = ""))
+
+# Reorder variables
+df <- df %>%
+  relocate(BCQ_So3.3pp, BCQ_So4.3pp, BCQ_So5.3pp:BCQ_So8.3pp, BCQ_So9.3pp, BCQ_So10.3pp, BCQ_So11.3pp, .after = BCQ_So2.3pp)
+```
+
+### Check
+```{r}
+inspect_labels(df, contains("BCQ"))
+```
+
+
+
+
+
+## BDI: Beck Depression Inventory
+```{r BDI-rename}
+# Get Column Numbers
+cols <- which(colnames(df)=="BDI1_Sad.3pp"):which(colnames(df)=="BDI21_Sex.3pp")
+
+# Set new names
+setnames(df, 
+         old = colnames(df[,cols]), 
+         new = paste("BDI", c(1:8, 10:21), ".3pp", sep = ""))
+```
+
+## DAS: Dyadic Adjustment Scale
+```{r DAS-rename}
+# Get Column Numbers
+cols <- which(colnames(df)=="DAS1.15_1.3pp"):which(colnames(df)=="DAS.32.3pp")
+
+# Set New Names
+setnames(df, 
+         old = colnames(df[,cols]), 
+         new = paste("DAS", 1:32, ".3pp", sep = ""))
+```
+
+## EPDS: Edinburgh Postnatal Depression Scale
+```{r}
+# Get Column Numbers
+cols <- which(colnames(df)=="PDS_1.3pp"):which(colnames(df)=="PDS_9.3pp")
+
+# Set new names
+setnames(df, 
+         old = colnames(df[,cols]), 
+         new = gsub(pattern = "PDS_", replacement = "EPDS", x = colnames(df[,cols])))
+```
+
+## IBQR: Infant Behavior Questionnaire-Revised
+```{r}
+# Get Column Numbers 
+cols <- which(colnames(df)=="Q87_1.3pp"):which(colnames(df)=="Q87_37.3pp")
+
+# Set new names
+setnames(df, 
+         old = colnames(df[,cols]), 
+         new = gsub(pattern = "Q87_", replacement = "IBQR", x = colnames(df[,cols])))
+```
+
+## MAI: Maternal Attachment Inventory
+```{r}
+# Get Column Numbers
+cols <- which(colnames(df)=="Q102_1.3pp"):which(colnames(df)=="Q102_26.3pp")
+
+# Set new names
+setnames(df, 
+         old = colnames(df[,cols]), 
+         new = paste("MAI", c(1:26), ".3pp", sep = ""))
+```
+
+## MAT: Marital Adjustment Test
+```{r MAT-rename}
+# Get Column Numbers
+cols <- which(colnames(df)=="MAT_1.3pp"):which(colnames(df)=="MAT_15.3pp")
+
+# Set New Names
+setnames(df, 
+         old = colnames(df[,cols]), 
+         new = 
+           c(paste("MAT", 1:11, ".3pp", sep = ""),
+             "MAT12a.3pp", "MAT12b.3pp",
+             paste("MAT", 13:15, ".3pp", sep = "")))
+```
+
+
+## MOS Social Support
+```{r MOS-rename}
+# Get Column Numbers 
+cols <- which(colnames(df)=="Q103_1.3pp"):which(colnames(df)=="Q103_19.3pp")
+
+# Set new names
+setnames(df, 
+         old = colnames(df[,cols]), 
+         new = paste("MOS", 1:19, ".3pp", sep = ""))
+```
+
+## MPAS/PPAS: Maternal/Paternal Postnatal Attachment Scale
+### MPAS
+```{r}
+# Get Column Numbers 
+cols <- which(colnames(df)=="Q129.1.3pp"):which(colnames(df)=="Q147.3pp")
+
+# Set new names
+setnames(df, 
+         old = colnames(df[,cols]), 
+         new = paste("MPAS", 1:19, ".3pp", sep = ""))
+```
+
+### PPAS
+```{r}
+# Get Column Numbers 
+cols <- which(colnames(df)=="Q103.3pp"):which(colnames(df)=="Q121.3pp")
+
+# Set new names
+setnames(df, 
+         old = colnames(df[,cols]), 
+         new = paste("PPAS", 1:19, ".3pp", sep = ""))
+```
+
+## PBQ: Postpartum Bonding Questionnaire
+```{r}
+# Get Column Numbers 
+cols <- which(colnames(df)=="Q119_1.3pp"):which(colnames(df)=="Q119_25.3pp")
+
+# Set new names
+setnames(df, 
+         old = colnames(df[,cols]), 
+         new = gsub(pattern = "Q119_", replacement = "PBQ", x = colnames(df[,cols])))
+```
+
+## PingSS: Parenting Stress Scale
+```{r}
+# Get Column Numbers
+cols <- which(colnames(df)=="PingSS_1.3pp"):which(colnames(df)=="PingSS_18.3pp")
+
+# Set new names
+setnames(df, 
+         old = colnames(df[,cols]), 
+         new = gsub(pattern = "_", replacement = "", x = colnames(df[,cols])))
+```
+
+## PSI: Parenting Stress Index
+```{r}
+# Get Column Numbers
+cols <- which(colnames(df)=="PSI_1.3pp"):which(colnames(df)=="PSI_33.1.3pp")
+
+# Set new names
+setnames(df, 
+         old = colnames(df[,cols]), 
+         new = paste("PSI", c(1:21, 23:31, 34:36, 22, 32, 33), ".3pp", sep = ""))
+
+# Reorder variables
+df <- df %>%
+  relocate(c(PSI22.3pp, PSI23.3pp:PSI31.3pp, PSI32.3pp:PSI33.3pp), .after = PSI21.3pp)
+```
+## PSQI: Pittsburgh Sleep Quality Index
+```{r}
+# Get Column Numbers
+cols <- which(colnames(df)=="Q123.3pp"):which(colnames(df)=="Q137.3pp")
+# Set new names
+setnames(df, 
+         old = colnames(df[,cols]), 
+         new = c(
+           # Questions 1-4
+           paste("PSQI", 1:4, ".3pp", sep = ""),
+           # Questions 5a-5j
+           paste("PSQI", "5", letters[1:10], ".3pp", sep = ""), 
+           # Questions 6-9
+           paste("PSQI", c(9, 6:8), ".3pp", sep = "")))
+
+# Relocate question 9 to be in the correct order
+df <- df %>%
+  relocate(PSQI9.3pp, .after = PSQI8.3pp)
+```
+
+
+
+## PSS: Perceived Stress Scale
+```{r PSS-rename}
+# Get Column Numbers
+cols <- which(colnames(df)=="PSS_1.3pp"):which(colnames(df)=="PSS_14.3pp")
+# Set new names
+setnames(df, 
+         old = colnames(df[,cols]), 
+         new = gsub(pattern = "_", replacement = "", x = colnames(df[,cols])))
+```
+
+
+
+## SCL: Symptom Checklist 90 
+- in the 3pp version, #87 and #88 have been accidentally combined to read "The idea that something serious is wrong with your body ever feeling close to another person"
+- we will treat that item as #87 ("The idea that something serious is wrong with your body")
+- "Thoughts and images of a frightening nature (83)" replaces "feeling pushed to get things done (86)"
+
+```{r SCL-rename}
+# Get Column Numbers
+cols <- which(colnames(df)=="SCL90_1.3pp"):which(colnames(df)=="SCL90_86.3pp")
+# Set new names
+setnames(df, 
+         old = colnames(df[,cols]), 
+         new = paste("SCL", c(1:14, # rename 1-14; remove 15
+                              16:58, # rename 16-58; remove 59
+                              60:62, # rename 60-62; remove 63
+                              64:86, # rename 64-90; remove 87
+                              88:90), 
+                     ".3pp", sep = ""))
+```
+:::
+
+
+
+
+
+# HATCH-Designed Questions
+::: panel-tabset
+## COVID Parenting Questions
+```{r}
+# Get Column Numbers 
+cols <- which(colnames(df)=="Q182.3pp"):which(colnames(df)=="Q192.3pp")
+
+# Set new names
+setnames(df, 
+         old = colnames(df[,cols]), 
+         new = c("COVID_precautions.3pp",
+                 "COVID_impact.3pp", 
+                 #"COVID_childcare.3pp", # not actually in 3pp?
+                 "COVID_contact_community.3pp", 
+                 "COVID_contact_coworkers.3pp", 
+                 "COVID_contact_friends.3pp",
+                 "COVID_contact_family.3pp", 
+                 "COVID_contact_partner.3pp",
+                 "COVID_social.3pp", 
+                 "COVID_mh.3pp", 
+                 "COVID_parenting.3pp", 
+                 "COVID_work.3pp", 
+                 "COVID_contracted.3pp", 
+                 "COVID_baby.3pp", 
+                 "COVID_open.3pp"))
+```
+
+## PRQ: Parenting Responsibilities Questionnaire
+```{r}
+# Get Column Numbers 
+cols <- which(colnames(df)=="Q148.3pp"):which(colnames(df)=="Q154.3pp")
+
+# Set new names
+setnames(df, 
+         old = colnames(df[,cols]), 
+         new = c("PRQ_WeekTot.3pp", 
+                 "PRQ_WeekPrimary.3pp", 
+                 "PRQ_WkendTot.3pp", 
+                 "PRQ_WkendPrimary.3pp", 
+                 "PRQ_Share.3pp"))
+```
+:::
+
+# Finishing up 
+::: panel-tabset
+## Reorder alphabetically
+```{r}
+df <- df %>%
+  relocate(
+    # Inventories
+    contains("ASQ"), 
+    contains("BCQ"), 
+    contains("BDI"), 
+    contains("DAS"), 
+    contains("EPDS"), 
+    contains("IBQR"), 
+    contains("MAI"), 
+    contains("MAT"), 
+    contains("MOS"), 
+    contains("MPAS"), 
+    contains("PPAS"), 
+    contains("PBQ"),
+    contains("PingSS"), 
+    contains("PSI"), 
+    contains("PSQI"), 
+    contains("PSS"), 
+    contains("SCL"), 
+    
+    # HATCH Items
+    contains("COVID"), 
+    contains("PRQ"), 
+    .after = Placenta_form.3pp
+  )
+```
+
+## Check for unnamed 
+```{r}
+inspect_labels(df, Placenta_form.3pp:ncol(df))
+```
+
+## Write CSV Files
+```{r}
+write_sav(df, here("data/3_renamed", "3pp_renamed.sav"))
+```
+
+:::
+
