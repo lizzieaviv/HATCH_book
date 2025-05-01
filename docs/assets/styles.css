@@ -28,3 +28,40 @@ table th {
 td.numeric {
   text-align: center;
 }
+
+/* Center the entire table block */
+.table-wrapper,
+.table,
+.kable_wrapper {
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+}
+
+/* Bold and center table captions (tbl-cap) */
+.table > caption,
+.table caption,
+caption,
+figcaption {
+  color: black !important;
+  text-align: center;
+}
+
+/* Optional: Add border around the entire table */
+table {
+  border-collapse: collapse;
+  border: 1px solid #aaa;
+  width: auto;
+}
+
+.flex {
+  display: flex;
+  gap: 2em;
+  justify-content: center;
+  align-items: flex-start;
+  flex-wrap: wrap;
+}
+
+.flex table {
+  margin: 0 auto;
+}

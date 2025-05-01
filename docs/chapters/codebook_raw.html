@@ -1,0 +1,5499 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.7.29">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Code Book – HATCH Data</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../chapters/clean_inventory/HATCH_0pn_inventories.html" rel="next">
+<link href="../index.html" rel="prev">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-0815c480559380816a4d1ea211a47e91.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-231ef2f9d4ce3268f31ef752336c15d2.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<link href="../site_libs/pagedtable-1.1/css/pagedtable.css" rel="stylesheet">
+<script src="../site_libs/pagedtable-1.1/js/pagedtable.js"></script>
+
+
+<link rel="stylesheet" href="../assets/styles.css">
+</head>
+
+<body class="nav-sidebar floating quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../chapters/codebook_raw.html"><span class="chapter-title">Code Book</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="../">HATCH Data</a> 
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../index.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Welcome Page</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/codebook_raw.html" class="sidebar-item-text sidebar-link active"><span class="chapter-title">Code Book</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Inventory Cleaning</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/clean_inventory/HATCH_0pn_inventories.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Prenatal</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/clean_inventory/HATCH_3pp_inventories.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">3-Month Postpartum</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/clean_inventory/HATCH_6pp_inventories.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">6-Month Postpartum</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/clean_inventory/HATCH_12pp_inventories.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">12-Month Postpartum</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">Demographics Cleaning</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/clean_demographics/HATCH_0pn_demographics.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">Prenatal</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/clean_demographics/HATCH_3pp_demographics.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">3-Month Postpartum</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/clean_demographics/HATCH_6pp_demographics.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">6-Month Postpartum</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../chapters/clean_demographics/HATCH_12pp_demographics.html" class="sidebar-item-text sidebar-link"><span class="chapter-title">12-Month Postpartum</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#aas-adult-attachment-scale" id="toc-aas-adult-attachment-scale" class="nav-link active" data-scroll-target="#aas-adult-attachment-scale">AAS: Adult Attachment Scale</a>
+  <ul class="collapse">
+  <li><a href="#notes" id="toc-notes" class="nav-link" data-scroll-target="#notes">Notes</a></li>
+  </ul></li>
+  <li><a href="#asq12-ages-and-stages-questionnaire-12-month" id="toc-asq12-ages-and-stages-questionnaire-12-month" class="nav-link" data-scroll-target="#asq12-ages-and-stages-questionnaire-12-month">ASQ12: Ages and Stages Questionnaire, 12-month</a>
+  <ul class="collapse">
+  <li><a href="#notes-1" id="toc-notes-1" class="nav-link" data-scroll-target="#notes-1">Notes</a></li>
+  </ul></li>
+  <li><a href="#asq2-ages-and-stages-questionnaire-2-month" id="toc-asq2-ages-and-stages-questionnaire-2-month" class="nav-link" data-scroll-target="#asq2-ages-and-stages-questionnaire-2-month">ASQ2: Ages and Stages Questionnaire, 2-month</a>
+  <ul class="collapse">
+  <li><a href="#notes-2" id="toc-notes-2" class="nav-link" data-scroll-target="#notes-2">Notes</a></li>
+  </ul></li>
+  <li><a href="#asq4-ages-and-stages-questionnaire-4-month" id="toc-asq4-ages-and-stages-questionnaire-4-month" class="nav-link" data-scroll-target="#asq4-ages-and-stages-questionnaire-4-month">ASQ4: Ages and Stages Questionnaire, 4-month</a>
+  <ul class="collapse">
+  <li><a href="#notes-3" id="toc-notes-3" class="nav-link" data-scroll-target="#notes-3">Notes</a></li>
+  </ul></li>
+  <li><a href="#asq6-ages-and-stages-questionnaire-6-month" id="toc-asq6-ages-and-stages-questionnaire-6-month" class="nav-link" data-scroll-target="#asq6-ages-and-stages-questionnaire-6-month">ASQ6: Ages and Stages Questionnaire: 6-month</a>
+  <ul class="collapse">
+  <li><a href="#notes-4" id="toc-notes-4" class="nav-link" data-scroll-target="#notes-4">Notes</a></li>
+  </ul></li>
+  <li><a href="#bcq-baby-care-questionnaire" id="toc-bcq-baby-care-questionnaire" class="nav-link" data-scroll-target="#bcq-baby-care-questionnaire">BCQ: Baby Care Questionnaire</a>
+  <ul class="collapse">
+  <li><a href="#notes-5" id="toc-notes-5" class="nav-link" data-scroll-target="#notes-5">Notes</a></li>
+  </ul></li>
+  <li><a href="#bdi-beck-depression-inventory" id="toc-bdi-beck-depression-inventory" class="nav-link" data-scroll-target="#bdi-beck-depression-inventory">BDI: Beck Depression Inventory</a>
+  <ul class="collapse">
+  <li><a href="#notes-6" id="toc-notes-6" class="nav-link" data-scroll-target="#notes-6">Notes</a></li>
+  </ul></li>
+  <li><a href="#bfi-big-five-inventory" id="toc-bfi-big-five-inventory" class="nav-link" data-scroll-target="#bfi-big-five-inventory">BFI: Big Five Inventory</a>
+  <ul class="collapse">
+  <li><a href="#notes-7" id="toc-notes-7" class="nav-link" data-scroll-target="#notes-7">Notes</a></li>
+  </ul></li>
+  <li><a href="#cope-brief-cope" id="toc-cope-brief-cope" class="nav-link" data-scroll-target="#cope-brief-cope">COPE: Brief Cope</a>
+  <ul class="collapse">
+  <li><a href="#notes-8" id="toc-notes-8" class="nav-link" data-scroll-target="#notes-8">Notes</a></li>
+  </ul></li>
+  <li><a href="#das-dyadic-adjustment-scale" id="toc-das-dyadic-adjustment-scale" class="nav-link" data-scroll-target="#das-dyadic-adjustment-scale">DAS: Dyadic Adjustment Scale</a>
+  <ul class="collapse">
+  <li><a href="#notes-9" id="toc-notes-9" class="nav-link" data-scroll-target="#notes-9">Notes</a></li>
+  </ul></li>
+  <li><a href="#ecr-r-experiences-in-close-relationships" id="toc-ecr-r-experiences-in-close-relationships" class="nav-link" data-scroll-target="#ecr-r-experiences-in-close-relationships">ECR-R: Experiences in Close Relationships</a>
+  <ul class="collapse">
+  <li><a href="#notes-10" id="toc-notes-10" class="nav-link" data-scroll-target="#notes-10">Notes</a></li>
+  </ul></li>
+  <li><a href="#epds-edinburgh-postnatal-depression-scale" id="toc-epds-edinburgh-postnatal-depression-scale" class="nav-link" data-scroll-target="#epds-edinburgh-postnatal-depression-scale">EPDS: Edinburgh Postnatal Depression Scale</a>
+  <ul class="collapse">
+  <li><a href="#notes-11" id="toc-notes-11" class="nav-link" data-scroll-target="#notes-11">Notes</a></li>
+  </ul></li>
+  <li><a href="#ibqr-infant-behavior-questionnairerevised" id="toc-ibqr-infant-behavior-questionnairerevised" class="nav-link" data-scroll-target="#ibqr-infant-behavior-questionnairerevised">IBQR: Infant Behavior Questionnaire—Revised</a>
+  <ul class="collapse">
+  <li><a href="#notes-12" id="toc-notes-12" class="nav-link" data-scroll-target="#notes-12">Notes</a></li>
+  </ul></li>
+  <li><a href="#ims-investment-model-scale" id="toc-ims-investment-model-scale" class="nav-link" data-scroll-target="#ims-investment-model-scale">IMS: Investment Model Scale</a>
+  <ul class="collapse">
+  <li><a href="#notes-13" id="toc-notes-13" class="nav-link" data-scroll-target="#notes-13">Notes</a></li>
+  </ul></li>
+  <li><a href="#iri-interpersonal-reactivity-index" id="toc-iri-interpersonal-reactivity-index" class="nav-link" data-scroll-target="#iri-interpersonal-reactivity-index">IRI: Interpersonal Reactivity Index</a>
+  <ul class="collapse">
+  <li><a href="#notes-14" id="toc-notes-14" class="nav-link" data-scroll-target="#notes-14">Notes</a></li>
+  </ul></li>
+  <li><a href="#iss-index-of-sexual-satisfaction" id="toc-iss-index-of-sexual-satisfaction" class="nav-link" data-scroll-target="#iss-index-of-sexual-satisfaction">ISS: Index of Sexual Satisfaction</a>
+  <ul class="collapse">
+  <li><a href="#notes-15" id="toc-notes-15" class="nav-link" data-scroll-target="#notes-15">Notes</a></li>
+  </ul></li>
+  <li><a href="#lapr-life-attitudes-profilerevised" id="toc-lapr-life-attitudes-profilerevised" class="nav-link" data-scroll-target="#lapr-life-attitudes-profilerevised">LAPR: Life Attitudes Profile—Revised</a>
+  <ul class="collapse">
+  <li><a href="#notes-16" id="toc-notes-16" class="nav-link" data-scroll-target="#notes-16">Notes</a></li>
+  </ul></li>
+  <li><a href="#lec-life-events-checklist" id="toc-lec-life-events-checklist" class="nav-link" data-scroll-target="#lec-life-events-checklist">LEC: Life Events Checklist</a>
+  <ul class="collapse">
+  <li><a href="#notes-17" id="toc-notes-17" class="nav-link" data-scroll-target="#notes-17">Notes</a></li>
+  </ul></li>
+  <li><a href="#les-life-experiences-survey" id="toc-les-life-experiences-survey" class="nav-link" data-scroll-target="#les-life-experiences-survey">LES: Life Experiences Survey</a>
+  <ul class="collapse">
+  <li><a href="#notes-18" id="toc-notes-18" class="nav-link" data-scroll-target="#notes-18">Notes</a></li>
+  </ul></li>
+  <li><a href="#mai-maternal-attachment-inventory" id="toc-mai-maternal-attachment-inventory" class="nav-link" data-scroll-target="#mai-maternal-attachment-inventory">MAI: Maternal Attachment Inventory</a>
+  <ul class="collapse">
+  <li><a href="#notes-19" id="toc-notes-19" class="nav-link" data-scroll-target="#notes-19">Notes</a></li>
+  </ul></li>
+  <li><a href="#mat-marital-adjustment-test" id="toc-mat-marital-adjustment-test" class="nav-link" data-scroll-target="#mat-marital-adjustment-test">MAT: Marital Adjustment Test</a>
+  <ul class="collapse">
+  <li><a href="#notes-20" id="toc-notes-20" class="nav-link" data-scroll-target="#notes-20">Notes</a></li>
+  </ul></li>
+  <li><a href="#mos-medical-outcomes-study-social-support-survey" id="toc-mos-medical-outcomes-study-social-support-survey" class="nav-link" data-scroll-target="#mos-medical-outcomes-study-social-support-survey">MOS: Medical Outcomes Study Social Support Survey</a>
+  <ul class="collapse">
+  <li><a href="#notes-21" id="toc-notes-21" class="nav-link" data-scroll-target="#notes-21">Notes</a></li>
+  </ul></li>
+  <li><a href="#pas-pregnancy-anxiety-scale" id="toc-pas-pregnancy-anxiety-scale" class="nav-link" data-scroll-target="#pas-pregnancy-anxiety-scale">PAS: Pregnancy Anxiety Scale</a>
+  <ul class="collapse">
+  <li><a href="#notes-22" id="toc-notes-22" class="nav-link" data-scroll-target="#notes-22">Notes</a></li>
+  </ul></li>
+  <li><a href="#pat-parental-attribution-test" id="toc-pat-parental-attribution-test" class="nav-link" data-scroll-target="#pat-parental-attribution-test">PAT: Parental Attribution Test</a>
+  <ul class="collapse">
+  <li><a href="#notes-23" id="toc-notes-23" class="nav-link" data-scroll-target="#notes-23">Notes</a></li>
+  </ul></li>
+  <li><a href="#pbq-postpartum-bonding-questionnaire" id="toc-pbq-postpartum-bonding-questionnaire" class="nav-link" data-scroll-target="#pbq-postpartum-bonding-questionnaire">PBQ: Postpartum Bonding Questionnaire</a>
+  <ul class="collapse">
+  <li><a href="#notes-24" id="toc-notes-24" class="nav-link" data-scroll-target="#notes-24">Notes</a></li>
+  </ul></li>
+  <li><a href="#pingss-parenting-stress-scale" id="toc-pingss-parenting-stress-scale" class="nav-link" data-scroll-target="#pingss-parenting-stress-scale">PingSS: Parenting Stress Scale</a>
+  <ul class="collapse">
+  <li><a href="#notes-25" id="toc-notes-25" class="nav-link" data-scroll-target="#notes-25">Notes</a></li>
+  </ul></li>
+  <li><a href="#pregnancycouvade-syndrome-symptoms" id="toc-pregnancycouvade-syndrome-symptoms" class="nav-link" data-scroll-target="#pregnancycouvade-syndrome-symptoms">Pregnancy/Couvade Syndrome Symptoms</a>
+  <ul class="collapse">
+  <li><a href="#notes-26" id="toc-notes-26" class="nav-link" data-scroll-target="#notes-26">Notes</a></li>
+  </ul></li>
+  <li><a href="#psam-pregnancy-specific-anxiety-measure" id="toc-psam-pregnancy-specific-anxiety-measure" class="nav-link" data-scroll-target="#psam-pregnancy-specific-anxiety-measure">PSAM: Pregnancy Specific Anxiety Measure</a>
+  <ul class="collapse">
+  <li><a href="#notes-27" id="toc-notes-27" class="nav-link" data-scroll-target="#notes-27">Notes</a></li>
+  </ul></li>
+  <li><a href="#psi-parenting-stress-index" id="toc-psi-parenting-stress-index" class="nav-link" data-scroll-target="#psi-parenting-stress-index">PSI: Parenting Stress Index</a>
+  <ul class="collapse">
+  <li><a href="#notes-28" id="toc-notes-28" class="nav-link" data-scroll-target="#notes-28">Notes</a></li>
+  </ul></li>
+  <li><a href="#psqi-pittsburgh-sleep-quality-index" id="toc-psqi-pittsburgh-sleep-quality-index" class="nav-link" data-scroll-target="#psqi-pittsburgh-sleep-quality-index">PSQI: Pittsburgh Sleep Quality Index</a>
+  <ul class="collapse">
+  <li><a href="#notes-29" id="toc-notes-29" class="nav-link" data-scroll-target="#notes-29">Notes</a></li>
+  </ul></li>
+  <li><a href="#pss-perceived-stress-scale" id="toc-pss-perceived-stress-scale" class="nav-link" data-scroll-target="#pss-perceived-stress-scale">PSS: Perceived Stress Scale</a>
+  <ul class="collapse">
+  <li><a href="#notes-30" id="toc-notes-30" class="nav-link" data-scroll-target="#notes-30">Notes</a></li>
+  </ul></li>
+  <li><a href="#pyb-parenting-your-baby" id="toc-pyb-parenting-your-baby" class="nav-link" data-scroll-target="#pyb-parenting-your-baby">PYB: Parenting Your Baby</a>
+  <ul class="collapse">
+  <li><a href="#notes-31" id="toc-notes-31" class="nav-link" data-scroll-target="#notes-31">Notes</a></li>
+  </ul></li>
+  <li><a href="#rf-risky-families" id="toc-rf-risky-families" class="nav-link" data-scroll-target="#rf-risky-families">RF: Risky Families</a>
+  <ul class="collapse">
+  <li><a href="#notes-32" id="toc-notes-32" class="nav-link" data-scroll-target="#notes-32">Notes</a></li>
+  </ul></li>
+  <li><a href="#scl-symptom-checklist-90" id="toc-scl-symptom-checklist-90" class="nav-link" data-scroll-target="#scl-symptom-checklist-90">SCL: Symptom Checklist-90</a>
+  <ul class="collapse">
+  <li><a href="#notes-33" id="toc-notes-33" class="nav-link" data-scroll-target="#notes-33">Notes</a></li>
+  </ul></li>
+  <li><a href="#scl-symptom-checklist90" id="toc-scl-symptom-checklist90" class="nav-link" data-scroll-target="#scl-symptom-checklist90">SCL: Symptom Checklist—90</a>
+  <ul class="collapse">
+  <li><a href="#notes-34" id="toc-notes-34" class="nav-link" data-scroll-target="#notes-34">Notes</a></li>
+  </ul></li>
+  <li><a href="#stai-state-trait-anxiety-inventory" id="toc-stai-state-trait-anxiety-inventory" class="nav-link" data-scroll-target="#stai-state-trait-anxiety-inventory">STAI: State-Trait Anxiety Inventory</a>
+  <ul class="collapse">
+  <li><a href="#notes-35" id="toc-notes-35" class="nav-link" data-scroll-target="#notes-35">Notes</a></li>
+  </ul></li>
+  <li><a href="#wiaf-what-is-a-father" id="toc-wiaf-what-is-a-father" class="nav-link" data-scroll-target="#wiaf-what-is-a-father">WIAF: What is a Father</a>
+  <ul class="collapse">
+  <li><a href="#notes-36" id="toc-notes-36" class="nav-link" data-scroll-target="#notes-36">Notes</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title"><span class="chapter-title">Code Book</span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="aas-adult-attachment-scale" class="level1">
+<h1>AAS: Adult Attachment Scale</h1>
+<section id="notes" class="level2">
+<h2 class="anchored" data-anchor-id="notes">Notes</h2>
+<ul>
+<li>Collins, 1996</li>
+<li>18 items</li>
+<li>1-5 Likert Scale
+<ul>
+<li>1 = Not at all characteristic of me</li>
+<li>5 = Very characteristic of me</li>
+</ul></li>
+<li>Mean scores
+<ul>
+<li>Higher close: more comfort with closeness</li>
+<li>Higher depend: more comfort depending on others</li>
+<li>Higher anxiety: more anxiety about rejection/abandonment</li>
+</ul></li>
+<li>Subscales
+<ul>
+<li>Close: 1, 6, 8R, 12, 13R, 17R</li>
+<li>Depend: 2R, 5, 7R, 14, 16R, 18R</li>
+<li>Anxiety: 3, 4, 9, 10, 11, 15</li>
+</ul></li>
+<li>Reverse score: 2, 7, 8, 13, 16, 17, 18</li>
+</ul>
+<div class="flex">
+<div class="cell" data-tbl-cap="**Means**">
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<caption><strong>Means</strong></caption>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Subscale</th>
+<th style="text-align: right;">0pn</th>
+<th style="text-align: right;">6pp</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Anxiety</td>
+<td style="text-align: right;">2.2</td>
+<td style="text-align: right;">2.1</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Close</td>
+<td style="text-align: right;">3.7</td>
+<td style="text-align: right;">3.8</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Depend</td>
+<td style="text-align: right;">3.3</td>
+<td style="text-align: right;">3.4</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="cell" data-tbl-cap="**N Missing**">
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<caption><strong>N Missing</strong></caption>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Subscale</th>
+<th style="text-align: right;">0pn</th>
+<th style="text-align: right;">6pp</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Anxiety</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">14</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Close</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">14</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Depend</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">14</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="cell" data-tbl-cap="**Cronbach’s α**">
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<caption><strong>Cronbach’s α</strong></caption>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Subscale</th>
+<th style="text-align: right;">0pn</th>
+<th style="text-align: right;">6pp</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Anxiety</td>
+<td style="text-align: right;">0.84</td>
+<td style="text-align: right;">0.87</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Close</td>
+<td style="text-align: right;">0.73</td>
+<td style="text-align: right;">0.77</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Depend</td>
+<td style="text-align: right;">0.82</td>
+<td style="text-align: right;">0.88</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="asq12-ages-and-stages-questionnaire-12-month" class="level1">
+<h1>ASQ12: Ages and Stages Questionnaire, 12-month</h1>
+<section id="notes-1" class="level2">
+<h2 class="anchored" data-anchor-id="notes-1">Notes</h2>
+<ul>
+<li>Squires &amp; Bricker, 2009</li>
+<li>6 questions per developmental domain + 9 additional overall questions</li>
+<li>For developmental questions: 3-point Likert scale
+<ul>
+<li>0 = not yet</li>
+<li>5 = sometimes</li>
+<li>10 = yes</li>
+</ul></li>
+<li>For overall questions: 0-1 binary
+<ul>
+<li>0 = no</li>
+<li>1 = not yet</li>
+</ul></li>
+<li>Sum scores
+<ul>
+<li>Higher scores = more advanced development</li>
+</ul></li>
+<li>Subscales:
+<ul>
+<li>Communication</li>
+<li>Gross motor</li>
+<li>Fine motor</li>
+<li>Problem solving</li>
+<li>Personal/social</li>
+<li>Overall</li>
+</ul></li>
+<li>No reverse scores</li>
+<li>Other scores notes:
+<ul>
+<li>If three or more items are missing, do not score the area—screening results may not be accurate.</li>
+<li>If one or two items are missing, you will need to calculate an adjusted score.
+<ul>
+<li>Replace missing items with mean score of other items in the section</li>
+</ul></li>
+<li>Refer to scoring guidelines for cut-off information and information on “overall” items</li>
+</ul></li>
+</ul>
+<div class="flex">
+<div class="cell" data-tbl-cap="**Means**">
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<caption><strong>Means</strong></caption>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Subscale</th>
+<th style="text-align: right;">12pp</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Communication Subscale</td>
+<td style="text-align: right;">49.2</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Fine Motor Subscale</td>
+<td style="text-align: right;">52.6</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Gross Motor Subscale</td>
+<td style="text-align: right;">48.1</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Personal/Social Subscale</td>
+<td style="text-align: right;">46.2</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Problem Solving Subscale</td>
+<td style="text-align: right;">44.0</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="cell" data-tbl-cap="**N Missing**">
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<caption><strong>N Missing</strong></caption>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Subscale</th>
+<th style="text-align: right;">12pp</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Communication Subscale</td>
+<td style="text-align: right;">30</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Fine Motor Subscale</td>
+<td style="text-align: right;">28</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Gross Motor Subscale</td>
+<td style="text-align: right;">38</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Personal/Social Subscale</td>
+<td style="text-align: right;">30</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Problem Solving Subscale</td>
+<td style="text-align: right;">32</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="cell" data-tbl-cap="**Cronbach’s α**">
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<caption><strong>Cronbach’s α</strong></caption>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Subscale</th>
+<th style="text-align: right;">12pp</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Communication Subscale</td>
+<td style="text-align: right;">0.75</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Fine Motor Subscale</td>
+<td style="text-align: right;">0.70</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Gross Motor Subscale</td>
+<td style="text-align: right;">0.84</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Personal/Social Subscale</td>
+<td style="text-align: right;">0.80</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Problem Solving Subscale</td>
+<td style="text-align: right;">0.68</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="asq2-ages-and-stages-questionnaire-2-month" class="level1">
+<h1>ASQ2: Ages and Stages Questionnaire, 2-month</h1>
+<section id="notes-2" class="level2">
+<h2 class="anchored" data-anchor-id="notes-2">Notes</h2>
+<ul>
+<li>Squires &amp; Bricker, 2009</li>
+<li>6 questions per developmental domain + 8 additional overall questions</li>
+<li>For developmental questions: 3-point Likert scale
+<ul>
+<li>0 = not yet</li>
+<li>5 = sometimes</li>
+<li>10 = yes</li>
+</ul></li>
+<li>For overall questions: 0-1 binary
+<ul>
+<li>0 = no</li>
+<li>1 = not yet</li>
+</ul></li>
+<li>Sum scores
+<ul>
+<li>Higher scores = more advanced development</li>
+</ul></li>
+<li>Subscales:
+<ul>
+<li>Communication</li>
+<li>Gross motor</li>
+<li>Fine motor</li>
+<li>Problem solving</li>
+<li>Personal/social</li>
+<li>Overall</li>
+</ul></li>
+<li>No reverse scores</li>
+<li>Other scores notes:
+<ul>
+<li>If three or more items are missing, do not score the area—screening results may not be accurate.</li>
+<li>If one or two items are missing, you will need to calculate an adjusted score.
+<ul>
+<li>Replace missing items with mean score of other items in the section</li>
+</ul></li>
+<li>Refer to scoring guidelines for cut-off information and information on “overall” items</li>
+</ul></li>
+</ul>
+<div class="flex">
+<div class="cell" data-tbl-cap="**Means**">
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<caption><strong>Means</strong></caption>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Subscale</th>
+<th style="text-align: right;">3pp</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Communication Subscale</td>
+<td style="text-align: right;">51.4</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Fine Motor Subscale</td>
+<td style="text-align: right;">51.8</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Gross Motor Subscale</td>
+<td style="text-align: right;">55.3</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Personal/Social Subscale</td>
+<td style="text-align: right;">49.7</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Problem Solving Subscale</td>
+<td style="text-align: right;">51.9</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="cell" data-tbl-cap="**N Missing**">
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<caption><strong>N Missing</strong></caption>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Subscale</th>
+<th style="text-align: right;">3pp</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Communication Subscale</td>
+<td style="text-align: right;">42</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Fine Motor Subscale</td>
+<td style="text-align: right;">42</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Gross Motor Subscale</td>
+<td style="text-align: right;">42</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Personal/Social Subscale</td>
+<td style="text-align: right;">42</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Problem Solving Subscale</td>
+<td style="text-align: right;">42</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="cell" data-tbl-cap="**Cronbach’s α**">
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<caption><strong>Cronbach’s α</strong></caption>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Subscale</th>
+<th style="text-align: right;">3pp</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Communication Subscale</td>
+<td style="text-align: right;">0.66</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Fine Motor Subscale</td>
+<td style="text-align: right;">0.53</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Gross Motor Subscale</td>
+<td style="text-align: right;">0.54</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Personal/Social Subscale</td>
+<td style="text-align: right;">0.58</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Problem Solving Subscale</td>
+<td style="text-align: right;">0.74</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="asq4-ages-and-stages-questionnaire-4-month" class="level1">
+<h1>ASQ4: Ages and Stages Questionnaire, 4-month</h1>
+<section id="notes-3" class="level2">
+<h2 class="anchored" data-anchor-id="notes-3">Notes</h2>
+<ul>
+<li>Yes = 10; 5 = Sometimes; 0 = Not yet</li>
+<li>If three or more items are missing, do not score the area—screening results may not be accurate.</li>
+<li>If one or two items are missing, you will need to calculate an adjusted score.
+<ul>
+<li>Replace missing items with mean score of other items in the section</li>
+</ul></li>
+<li>Refer to scoring guidelines for cut-off information and information on “overall” items</li>
+</ul>
+<div class="flex">
+<div class="cell" data-tbl-cap="**Means**">
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<caption><strong>Means</strong></caption>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Subscale</th>
+<th style="text-align: right;">3pp</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Communication Subscale</td>
+<td style="text-align: right;">43.4</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Fine Motor Subscale</td>
+<td style="text-align: right;">36.1</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Gross Motor Subscale</td>
+<td style="text-align: right;">49.2</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Personal/Social Subscale</td>
+<td style="text-align: right;">42.8</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Problem Solving Subscale</td>
+<td style="text-align: right;">42.4</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="cell" data-tbl-cap="**N Missing**">
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<caption><strong>N Missing</strong></caption>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Subscale</th>
+<th style="text-align: right;">3pp</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Communication Subscale</td>
+<td style="text-align: right;">42</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Fine Motor Subscale</td>
+<td style="text-align: right;">42</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Gross Motor Subscale</td>
+<td style="text-align: right;">42</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Personal/Social Subscale</td>
+<td style="text-align: right;">43</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Problem Solving Subscale</td>
+<td style="text-align: right;">42</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="cell" data-tbl-cap="**Cronbach’s α**">
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<caption><strong>Cronbach’s α</strong></caption>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Subscale</th>
+<th style="text-align: right;">3pp</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Communication Subscale</td>
+<td style="text-align: right;">0.70</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Fine Motor Subscale</td>
+<td style="text-align: right;">0.78</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Gross Motor Subscale</td>
+<td style="text-align: right;">0.63</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Personal/Social Subscale</td>
+<td style="text-align: right;">0.76</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Problem Solving Subscale</td>
+<td style="text-align: right;">0.80</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="asq6-ages-and-stages-questionnaire-6-month" class="level1">
+<h1>ASQ6: Ages and Stages Questionnaire: 6-month</h1>
+<section id="notes-4" class="level2">
+<h2 class="anchored" data-anchor-id="notes-4">Notes</h2>
+<ul>
+<li>Squires &amp; Bricker, 2009</li>
+<li>6 questions per developmental domain + 8 additional overall questions</li>
+<li>For developmental questions: 3-point Likert scale
+<ul>
+<li>0 = not yet</li>
+<li>5 = sometimes</li>
+<li>10 = yes</li>
+</ul></li>
+<li>For overall questions: 0-1 binary
+<ul>
+<li>0 = no</li>
+<li>1 = not yet</li>
+</ul></li>
+<li>Sum scores
+<ul>
+<li>Higher scores = more advanced development</li>
+</ul></li>
+<li>Subscales:
+<ul>
+<li>Communication</li>
+<li>Gross motor</li>
+<li>Fine motor</li>
+<li>Problem solving</li>
+<li>Personal/social</li>
+<li>Overall</li>
+</ul></li>
+<li>No reverse scores</li>
+<li>Other scores notes:
+<ul>
+<li>If three or more items are missing, do not score the area—screening results may not be accurate.</li>
+<li>If one or two items are missing, you will need to calculate an adjusted score.
+<ul>
+<li>Replace missing items with mean score of other items in the section</li>
+</ul></li>
+<li>Refer to scoring guidelines for cut-off information and information on “overall” items</li>
+</ul></li>
+</ul>
+<div class="flex">
+<div class="cell" data-tbl-cap="**Means**">
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<caption><strong>Means</strong></caption>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Subscale</th>
+<th style="text-align: right;">6pp</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Communication Subscale</td>
+<td style="text-align: right;">49.5</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Fine Motor Subscale</td>
+<td style="text-align: right;">46.2</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Gross Motor Subscale</td>
+<td style="text-align: right;">47.4</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Personal/Social Subscale</td>
+<td style="text-align: right;">51.0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Problem Solving Subscale</td>
+<td style="text-align: right;">48.8</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="cell" data-tbl-cap="**N Missing**">
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<caption><strong>N Missing</strong></caption>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Subscale</th>
+<th style="text-align: right;">6pp</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Communication Subscale</td>
+<td style="text-align: right;">25</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Fine Motor Subscale</td>
+<td style="text-align: right;">25</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Gross Motor Subscale</td>
+<td style="text-align: right;">25</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Personal/Social Subscale</td>
+<td style="text-align: right;">25</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Problem Solving Subscale</td>
+<td style="text-align: right;">25</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="cell" data-tbl-cap="**Cronbach’s α**">
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<caption><strong>Cronbach’s α</strong></caption>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Subscale</th>
+<th style="text-align: right;">6pp</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Communication Subscale</td>
+<td style="text-align: right;">0.44</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Fine Motor Subscale</td>
+<td style="text-align: right;">0.71</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Gross Motor Subscale</td>
+<td style="text-align: right;">0.59</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Personal/Social Subscale</td>
+<td style="text-align: right;">0.61</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Problem Solving Subscale</td>
+<td style="text-align: right;">0.66</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="bcq-baby-care-questionnaire" class="level1">
+<h1>BCQ: Baby Care Questionnaire</h1>
+<section id="notes-5" class="level2">
+<h2 class="anchored" data-anchor-id="notes-5">Notes</h2>
+<ul>
+<li>Winstanley &amp; Gattis, 2013</li>
+<li>30 items
+<ul>
+<li>3 sections: Sleeping, Feeding, Soothing</li>
+</ul></li>
+<li>1-4 Likert scale
+<ul>
+<li>1=strongly disagree</li>
+<li>4=strongly agree</li>
+</ul></li>
+<li>Mean scores
+<ul>
+<li>Higher scores = higher structure/attunement</li>
+</ul></li>
+<li>Subscales:
+<ul>
+<li>Structure
+<ul>
+<li>S1-S6</li>
+<li>E1-E3, E6, E7, E10</li>
+<li>So1, So2, So4, So9, So10</li>
+</ul></li>
+<li>Attunement
+<ul>
+<li>S7-S9</li>
+<li>E4, E5, E8, E9</li>
+<li>So3, So5, So6-So8, So11</li>
+</ul></li>
+</ul></li>
+<li>Reverse score for
+<ul>
+<li>S1-S3, S9</li>
+<li>E2, E3, E5, E6, E9, E10</li>
+<li>So2-So5, So7, So10</li>
+</ul></li>
+</ul>
+<div class="flex">
+<div class="cell" data-tbl-cap="**Means**">
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<caption><strong>Means</strong></caption>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Subscale</th>
+<th style="text-align: right;">6pp</th>
+<th style="text-align: right;">12pp</th>
+<th style="text-align: right;">3pp</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Attunement Subscale</td>
+<td style="text-align: right;">2.9</td>
+<td style="text-align: right;">2.9</td>
+<td style="text-align: right;">3.0</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Structure Subscale</td>
+<td style="text-align: right;">2.9</td>
+<td style="text-align: right;">2.9</td>
+<td style="text-align: right;">2.8</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="cell" data-tbl-cap="**N Missing**">
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<caption><strong>N Missing</strong></caption>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Subscale</th>
+<th style="text-align: right;">6pp</th>
+<th style="text-align: right;">12pp</th>
+<th style="text-align: right;">3pp</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Attunement Subscale</td>
+<td style="text-align: right;">15</td>
+<td style="text-align: right;">28</td>
+<td style="text-align: right;">42</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Structure Subscale</td>
+<td style="text-align: right;">15</td>
+<td style="text-align: right;">28</td>
+<td style="text-align: right;">42</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="cell" data-tbl-cap="**Cronbach’s α**">
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<caption><strong>Cronbach’s α</strong></caption>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Subscale</th>
+<th style="text-align: right;">3pp</th>
+<th style="text-align: right;">6pp</th>
+<th style="text-align: right;">12pp</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Attunement Subscale</td>
+<td style="text-align: right;">0.78</td>
+<td style="text-align: right;">0.83</td>
+<td style="text-align: right;">0.76</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Structure Subscale</td>
+<td style="text-align: right;">0.83</td>
+<td style="text-align: right;">0.84</td>
+<td style="text-align: right;">0.84</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="bdi-beck-depression-inventory" class="level1">
+<h1>BDI: Beck Depression Inventory</h1>
+<section id="notes-6" class="level2">
+<h2 class="anchored" data-anchor-id="notes-6">Notes</h2>
+<ul>
+<li>Beck, 1996</li>
+<li>21 items
+<ul>
+<li>We removed item 9 for IRB purposes (suicidality)</li>
+</ul></li>
+<li>0-3 Likert scale (different anchor labels for each question)</li>
+<li>Sum score
+<ul>
+<li>Higher score = more depressive symptoms</li>
+</ul></li>
+<li>No subscales</li>
+<li>No reverse scores</li>
+</ul>
+<div class="flex">
+<div class="cell" data-tbl-cap="**Means**">
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<caption><strong>Means</strong></caption>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Subscale</th>
+<th style="text-align: right;">0pn</th>
+<th style="text-align: right;">6pp</th>
+<th style="text-align: right;">12pp</th>
+<th style="text-align: right;">3pp</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Total Score</td>
+<td style="text-align: right;">8.9</td>
+<td style="text-align: right;">9.2</td>
+<td style="text-align: right;">7.7</td>
+<td style="text-align: right;">8.4</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="cell" data-tbl-cap="**N Missing**">
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<caption><strong>N Missing</strong></caption>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Subscale</th>
+<th style="text-align: right;">0pn</th>
+<th style="text-align: right;">6pp</th>
+<th style="text-align: right;">12pp</th>
+<th style="text-align: right;">3pp</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Total Score</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">14</td>
+<td style="text-align: right;">27</td>
+<td style="text-align: right;">40</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="cell" data-tbl-cap="**Cronbach’s α**">
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<caption><strong>Cronbach’s α</strong></caption>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Subscale</th>
+<th style="text-align: right;">0pn</th>
+<th style="text-align: right;">3pp</th>
+<th style="text-align: right;">6pp</th>
+<th style="text-align: right;">12pp</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Total Score</td>
+<td style="text-align: right;">0.85</td>
+<td style="text-align: right;">0.85</td>
+<td style="text-align: right;">0.88</td>
+<td style="text-align: right;">0.87</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="bfi-big-five-inventory" class="level1">
+<h1>BFI: Big Five Inventory</h1>
+<section id="notes-7" class="level2">
+<h2 class="anchored" data-anchor-id="notes-7">Notes</h2>
+<ul>
+<li>John et al., 1991</li>
+<li>44 items</li>
+<li>1-5 Likert scale
+<ul>
+<li>1 = Disagree strongly</li>
+<li>5 = Agree strongly</li>
+</ul></li>
+<li>Mean scores
+<ul>
+<li>Higher scores = stronger presence of personality trait</li>
+</ul></li>
+<li>5 subscales:
+<ul>
+<li>Extraversion: 1, 6R, 11, 16,21R, 26, 31R, 36</li>
+<li>Agreeableness: 2R, 7, 12R, 17, 22, 27R, 32, 37R, 42</li>
+<li>Conscientiousness: 3, 8R, 13, 18R, 23R, 28, 33, 38, 43R</li>
+<li>Neuroticism: 4, 9R, 14, 19, 24R, 29, 34R, 39</li>
+<li>Openness: 5, 10, 15, 20, 25, 30, 35R, 40, 41R, 44</li>
+</ul></li>
+<li>Reverse score: 6, 17, 21, 27, 33, 4, 9, 14</li>
+</ul>
+<div class="flex">
+<div class="cell" data-tbl-cap="**Means**">
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<caption><strong>Means</strong></caption>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Subscale</th>
+<th style="text-align: right;">0pn</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Agreeableness</td>
+<td style="text-align: right;">4.0</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Conscientiousness</td>
+<td style="text-align: right;">3.8</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Extroversion</td>
+<td style="text-align: right;">3.5</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Neuroticism</td>
+<td style="text-align: right;">2.4</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Openness</td>
+<td style="text-align: right;">3.8</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="cell" data-tbl-cap="**N Missing**">
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<caption><strong>N Missing</strong></caption>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Subscale</th>
+<th style="text-align: right;">0pn</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Agreeableness</td>
+<td style="text-align: right;">3</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Conscientiousness</td>
+<td style="text-align: right;">3</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Extroversion</td>
+<td style="text-align: right;">3</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Neuroticism</td>
+<td style="text-align: right;">3</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Openness</td>
+<td style="text-align: right;">3</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="cell" data-tbl-cap="**Cronbach’s α**">
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<caption><strong>Cronbach’s α</strong></caption>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Subscale</th>
+<th style="text-align: right;">0pn</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Agreeableness</td>
+<td style="text-align: right;">0.75</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Conscientiousness</td>
+<td style="text-align: right;">0.76</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Extroversion</td>
+<td style="text-align: right;">0.88</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Neuroticism</td>
+<td style="text-align: right;">0.84</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Openness</td>
+<td style="text-align: right;">0.83</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="cope-brief-cope" class="level1">
+<h1>COPE: Brief Cope</h1>
+<section id="notes-8" class="level2">
+<h2 class="anchored" data-anchor-id="notes-8">Notes</h2>
+<ul>
+<li>Carver, 1997</li>
+<li>28 items</li>
+<li>1-4 Likert Scale
+<ul>
+<li>1 = I don’t do this at all</li>
+<li>4 = I do this all the time</li>
+</ul></li>
+<li>Sum scores
+<ul>
+<li>Higher scores = more behaviors related to the subscale</li>
+</ul></li>
+<li>14 subscales:
+<ul>
+<li>Self-Distraction (1 and 19)</li>
+<li>Active Coping (2 and 7)</li>
+<li>Denial (3 and 8)</li>
+<li>Substance Use (4 and 11)</li>
+<li>Using Emotional Support (5 and 15)</li>
+<li>Using Instrumental Support (10 and 23)</li>
+<li>Behavior Disengagement (6 and 16)</li>
+<li>Venting (9 and 21)</li>
+<li>Positive Reframing (12 and 17)</li>
+<li>Planning (14 and 25)</li>
+<li>Humor (18 and 28)</li>
+<li>Acceptance (20 and 24)</li>
+<li>Religion (22 and 27)</li>
+<li>Self-Blame (13 and 26)</li>
+</ul></li>
+<li>Reverse score: none</li>
+</ul>
+<div class="flex">
+<div class="cell" data-tbl-cap="**Means**">
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<caption><strong>Means</strong></caption>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Variable</th>
+<th style="text-align: right;">0pn</th>
+<th style="text-align: right;">6pp</th>
+<th style="text-align: right;">12pp</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">COPE_acc</td>
+<td style="text-align: right;">6.3</td>
+<td style="text-align: right;">6.1</td>
+<td style="text-align: right;">5.9</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">COPE_act</td>
+<td style="text-align: right;">6.6</td>
+<td style="text-align: right;">6.6</td>
+<td style="text-align: right;">6.2</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">COPE_blame</td>
+<td style="text-align: right;">4.1</td>
+<td style="text-align: right;">4.0</td>
+<td style="text-align: right;">4.0</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">COPE_den</td>
+<td style="text-align: right;">2.4</td>
+<td style="text-align: right;">2.3</td>
+<td style="text-align: right;">2.3</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">COPE_diseng</td>
+<td style="text-align: right;">2.6</td>
+<td style="text-align: right;">2.6</td>
+<td style="text-align: right;">2.7</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">COPE_dist</td>
+<td style="text-align: right;">4.9</td>
+<td style="text-align: right;">4.8</td>
+<td style="text-align: right;">5.1</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">COPE_emo</td>
+<td style="text-align: right;">5.8</td>
+<td style="text-align: right;">5.5</td>
+<td style="text-align: right;">5.5</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">COPE_hum</td>
+<td style="text-align: right;">5.1</td>
+<td style="text-align: right;">5.1</td>
+<td style="text-align: right;">4.9</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">COPE_inst</td>
+<td style="text-align: right;">5.9</td>
+<td style="text-align: right;">5.4</td>
+<td style="text-align: right;">5.5</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">COPE_plan</td>
+<td style="text-align: right;">6.6</td>
+<td style="text-align: right;">6.4</td>
+<td style="text-align: right;">6.3</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">COPE_reframe</td>
+<td style="text-align: right;">5.8</td>
+<td style="text-align: right;">5.9</td>
+<td style="text-align: right;">5.5</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">COPE_rel</td>
+<td style="text-align: right;">4.0</td>
+<td style="text-align: right;">4.0</td>
+<td style="text-align: right;">4.1</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">COPE_sub</td>
+<td style="text-align: right;">2.4</td>
+<td style="text-align: right;">2.6</td>
+<td style="text-align: right;">2.7</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">COPE_vent</td>
+<td style="text-align: right;">4.5</td>
+<td style="text-align: right;">4.4</td>
+<td style="text-align: right;">4.5</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="cell" data-tbl-cap="**N Missing**">
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<caption><strong>N Missing</strong></caption>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Variable</th>
+<th style="text-align: right;">0pn</th>
+<th style="text-align: right;">6pp</th>
+<th style="text-align: right;">12pp</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">COPE_acc</td>
+<td style="text-align: right;">13</td>
+<td style="text-align: right;">17</td>
+<td style="text-align: right;">28</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">COPE_act</td>
+<td style="text-align: right;">13</td>
+<td style="text-align: right;">17</td>
+<td style="text-align: right;">28</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">COPE_blame</td>
+<td style="text-align: right;">13</td>
+<td style="text-align: right;">17</td>
+<td style="text-align: right;">28</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">COPE_den</td>
+<td style="text-align: right;">13</td>
+<td style="text-align: right;">16</td>
+<td style="text-align: right;">28</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">COPE_diseng</td>
+<td style="text-align: right;">13</td>
+<td style="text-align: right;">17</td>
+<td style="text-align: right;">28</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">COPE_dist</td>
+<td style="text-align: right;">13</td>
+<td style="text-align: right;">17</td>
+<td style="text-align: right;">28</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">COPE_emo</td>
+<td style="text-align: right;">13</td>
+<td style="text-align: right;">17</td>
+<td style="text-align: right;">28</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">COPE_hum</td>
+<td style="text-align: right;">13</td>
+<td style="text-align: right;">17</td>
+<td style="text-align: right;">29</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">COPE_inst</td>
+<td style="text-align: right;">13</td>
+<td style="text-align: right;">17</td>
+<td style="text-align: right;">28</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">COPE_plan</td>
+<td style="text-align: right;">13</td>
+<td style="text-align: right;">17</td>
+<td style="text-align: right;">28</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">COPE_reframe</td>
+<td style="text-align: right;">13</td>
+<td style="text-align: right;">17</td>
+<td style="text-align: right;">28</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">COPE_rel</td>
+<td style="text-align: right;">13</td>
+<td style="text-align: right;">17</td>
+<td style="text-align: right;">28</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">COPE_sub</td>
+<td style="text-align: right;">13</td>
+<td style="text-align: right;">16</td>
+<td style="text-align: right;">28</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">COPE_vent</td>
+<td style="text-align: right;">13</td>
+<td style="text-align: right;">17</td>
+<td style="text-align: right;">28</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="das-dyadic-adjustment-scale" class="level1">
+<h1>DAS: Dyadic Adjustment Scale</h1>
+<section id="notes-9" class="level2">
+<h2 class="anchored" data-anchor-id="notes-9">Notes</h2>
+<ul>
+<li>Spanier, 1976</li>
+<li>32 items</li>
+<li>Variable Likert Scales:
+<ul>
+<li>Items 1-22: 0-5 Likert Scale
+<ul>
+<li>0 = Always disagree/Never</li>
+<li>5 = Always agree/All the time</li>
+</ul></li>
+<li>Items 23-24: 0-4 Likert Scale
+<ul>
+<li>0 = Never/None of them</li>
+<li>4 = Every day/All of them</li>
+</ul></li>
+<li>Items 25-28: 0-5 Likert Scale
+<ul>
+<li>0 = Never</li>
+<li>5 = More often</li>
+</ul></li>
+<li>Items 29-30: 0-1 Binary Scale
+<ul>
+<li>0 = Yes</li>
+<li>1 = No</li>
+</ul></li>
+<li>Item 31: 0-6 Likert Scale</li>
+<li>Item 32: 0-5 Likert Scale</li>
+</ul></li>
+<li>Sum score
+<ul>
+<li>Higher scores = healthier relationships</li>
+</ul></li>
+<li>4 subscales:
+<ul>
+<li>Dyadic consensus: 1, 2, 3, 5, 7-15</li>
+<li>Dyadic satisfaction: 16-23, 31-32</li>
+<li>Dyadic cohesion: 24-28</li>
+<li>Affectional expression: 4, 6, 29-30</li>
+</ul></li>
+<li>Items 16, 17, 20, 21, and 22 are reverse coded</li>
+</ul>
+<div class="flex">
+<div class="cell" data-tbl-cap="**Means**">
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<caption><strong>Means</strong></caption>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Variable</th>
+<th style="text-align: right;">0pn</th>
+<th style="text-align: right;">6pp</th>
+<th style="text-align: right;">12pp</th>
+<th style="text-align: right;">3pp</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">DAS_aff</td>
+<td style="text-align: right;">9.0</td>
+<td style="text-align: right;">8.3</td>
+<td style="text-align: right;">8.3</td>
+<td style="text-align: right;">8.7</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">DAS_coh</td>
+<td style="text-align: right;">18.1</td>
+<td style="text-align: right;">17.7</td>
+<td style="text-align: right;">17.2</td>
+<td style="text-align: right;">17.6</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">DAS_con</td>
+<td style="text-align: right;">52.3</td>
+<td style="text-align: right;">52.1</td>
+<td style="text-align: right;">51.8</td>
+<td style="text-align: right;">52.9</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">DAS_sat</td>
+<td style="text-align: right;">42.0</td>
+<td style="text-align: right;">40.7</td>
+<td style="text-align: right;">40.1</td>
+<td style="text-align: right;">41.5</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">DAS_tot</td>
+<td style="text-align: right;">121.3</td>
+<td style="text-align: right;">118.8</td>
+<td style="text-align: right;">117.4</td>
+<td style="text-align: right;">120.6</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="cell" data-tbl-cap="**N Missing**">
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<caption><strong>N Missing</strong></caption>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Variable</th>
+<th style="text-align: right;">0pn</th>
+<th style="text-align: right;">6pp</th>
+<th style="text-align: right;">12pp</th>
+<th style="text-align: right;">3pp</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">DAS_aff</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">15</td>
+<td style="text-align: right;">28</td>
+<td style="text-align: right;">40</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">DAS_coh</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">14</td>
+<td style="text-align: right;">28</td>
+<td style="text-align: right;">40</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">DAS_con</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">14</td>
+<td style="text-align: right;">28</td>
+<td style="text-align: right;">40</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">DAS_sat</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">14</td>
+<td style="text-align: right;">28</td>
+<td style="text-align: right;">40</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">DAS_tot</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">14</td>
+<td style="text-align: right;">28</td>
+<td style="text-align: right;">40</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="cell" data-tbl-cap="**Cronbach’s α**">
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<caption><strong>Cronbach’s α</strong></caption>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Subscale</th>
+<th style="text-align: right;">0pn</th>
+<th style="text-align: right;">3pp</th>
+<th style="text-align: right;">6pp</th>
+<th style="text-align: right;">12pp</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Total Score</td>
+<td style="text-align: right;">0.89</td>
+<td style="text-align: right;">0.91</td>
+<td style="text-align: right;">0.91</td>
+<td style="text-align: right;">0.92</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="ecr-r-experiences-in-close-relationships" class="level1">
+<h1>ECR-R: Experiences in Close Relationships</h1>
+<section id="notes-10" class="level2">
+<h2 class="anchored" data-anchor-id="notes-10">Notes</h2>
+<ul>
+<li>Fraley, Waller, and Brennan, 2000</li>
+<li>36 items</li>
+<li>1-7 Likert Scale
+<ul>
+<li>1 = stronly disagree</li>
+<li>7 = strongly agree</li>
+</ul></li>
+<li>Mean scores
+<ul>
+<li>Higher score = higher anxiety/avoidance</li>
+</ul></li>
+<li>2 subscales:
+<ul>
+<li>Anxiety: 1-18</li>
+<li>Avoidance: 9-36</li>
+</ul></li>
+<li>Reverse score: 9, 11, 20, 22, 26-31, 33-36</li>
+</ul>
+<div class="flex">
+<div class="cell" data-tbl-cap="**Means**">
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<caption><strong>Means</strong></caption>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Subscale</th>
+<th style="text-align: right;">0pn</th>
+<th style="text-align: right;">12pp</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Anxious Attachment</td>
+<td style="text-align: right;">2.2</td>
+<td style="text-align: right;">2.2</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Avoidant Attachment</td>
+<td style="text-align: right;">2.0</td>
+<td style="text-align: right;">2.1</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="cell" data-tbl-cap="**N Missing**">
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<caption><strong>N Missing</strong></caption>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Subscale</th>
+<th style="text-align: right;">0pn</th>
+<th style="text-align: right;">12pp</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Anxious Attachment</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">28</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Avoidant Attachment</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">28</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="cell" data-tbl-cap="**Cronbach’s α**">
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<caption><strong>Cronbach’s α</strong></caption>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Subscale</th>
+<th style="text-align: right;">0pn</th>
+<th style="text-align: right;">12pp</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Anxious Attachment</td>
+<td style="text-align: right;">0.93</td>
+<td style="text-align: right;">0.93</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Avoidant Attachment</td>
+<td style="text-align: right;">0.93</td>
+<td style="text-align: right;">0.92</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="epds-edinburgh-postnatal-depression-scale" class="level1">
+<h1>EPDS: Edinburgh Postnatal Depression Scale</h1>
+<section id="notes-11" class="level2">
+<h2 class="anchored" data-anchor-id="notes-11">Notes</h2>
+<ul>
+<li>Cox et al., 1987</li>
+<li>9 items (originally 10, but removed suicidality item)</li>
+<li>0-3 Likert Scale (different anchor labels for question)</li>
+<li>Sum score
+<ul>
+<li>Higher scores = greater depressive symptoms</li>
+<li>Darby’s syntax, it was a mean score, but online says it should be a sum score</li>
+</ul></li>
+<li>No subscales</li>
+<li>Reverse score: 3, 5, 6, 7, 8, 9</li>
+<li>According to Darby’s syntax, Question 2 was phrased incorrectly until Couple 10 and requires reverse scoring</li>
+</ul>
+<div class="flex">
+<div class="cell" data-tbl-cap="**Means**">
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<caption><strong>Means</strong></caption>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Subscale</th>
+<th style="text-align: right;">6pp</th>
+<th style="text-align: right;">12pp</th>
+<th style="text-align: right;">3pp</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Total Score</td>
+<td style="text-align: right;">5.2</td>
+<td style="text-align: right;">5.5</td>
+<td style="text-align: right;">5.3</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="cell" data-tbl-cap="**N Missing**">
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<caption><strong>N Missing</strong></caption>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Subscale</th>
+<th style="text-align: right;">6pp</th>
+<th style="text-align: right;">12pp</th>
+<th style="text-align: right;">3pp</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Total Score</td>
+<td style="text-align: right;">15</td>
+<td style="text-align: right;">28</td>
+<td style="text-align: right;">41</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="cell" data-tbl-cap="**Cronbach’s α**">
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<caption><strong>Cronbach’s α</strong></caption>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Subscale</th>
+<th style="text-align: right;">3pp</th>
+<th style="text-align: right;">6pp</th>
+<th style="text-align: right;">12pp</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Total Score</td>
+<td style="text-align: right;">0.81</td>
+<td style="text-align: right;">0.82</td>
+<td style="text-align: right;">0.85</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="ibqr-infant-behavior-questionnairerevised" class="level1">
+<h1>IBQR: Infant Behavior Questionnaire—Revised</h1>
+<section id="notes-12" class="level2">
+<h2 class="anchored" data-anchor-id="notes-12">Notes</h2>
+<ul>
+<li>Putman et al., 2014</li>
+<li>37 items</li>
+<li>1-7 Likert Scale
+<ul>
+<li>1 = Never</li>
+<li>7 = Always</li>
+</ul></li>
+<li>Mean score
+<ul>
+<li>Higher scores = more frequent expression of temperament trait</li>
+</ul></li>
+<li>3 Subscales:
+<ul>
+<li>Surgency: 1, 2, 7, 8, 13, 14, 15, 20, 21, 26, 27, 36, 37</li>
+<li>Negative Affect: 3, 4, 9, 10, 16, 17, 22. 23, 28, 29, 32, 33</li>
+<li>Effortful control: 5, 6, 11R, 12, 18, 19, 24, 25, 30, 31, 34, 35</li>
+</ul></li>
+<li>Reverse score: 11</li>
+</ul>
+<div class="flex">
+<div class="cell" data-tbl-cap="**Means**">
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<caption><strong>Means</strong></caption>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Subscale</th>
+<th style="text-align: right;">6pp</th>
+<th style="text-align: right;">12pp</th>
+<th style="text-align: right;">3pp</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Effortful Control</td>
+<td style="text-align: right;">5.4</td>
+<td style="text-align: right;">5.2</td>
+<td style="text-align: right;">5.5</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Negative Affect</td>
+<td style="text-align: right;">3.7</td>
+<td style="text-align: right;">4.2</td>
+<td style="text-align: right;">3.4</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Surgency</td>
+<td style="text-align: right;">4.9</td>
+<td style="text-align: right;">5.4</td>
+<td style="text-align: right;">3.9</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="cell" data-tbl-cap="**N Missing**">
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<caption><strong>N Missing</strong></caption>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Subscale</th>
+<th style="text-align: right;">6pp</th>
+<th style="text-align: right;">12pp</th>
+<th style="text-align: right;">3pp</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Effortful Control</td>
+<td style="text-align: right;">16</td>
+<td style="text-align: right;">28</td>
+<td style="text-align: right;">43</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Negative Affect</td>
+<td style="text-align: right;">16</td>
+<td style="text-align: right;">28</td>
+<td style="text-align: right;">43</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Surgency</td>
+<td style="text-align: right;">16</td>
+<td style="text-align: right;">28</td>
+<td style="text-align: right;">43</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="cell" data-tbl-cap="**Cronbach’s α**">
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<caption><strong>Cronbach’s α</strong></caption>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Subscale</th>
+<th style="text-align: right;">3pp</th>
+<th style="text-align: right;">6pp</th>
+<th style="text-align: right;">12pp</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Effortful Control</td>
+<td style="text-align: right;">0.85</td>
+<td style="text-align: right;">0.76</td>
+<td style="text-align: right;">0.81</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Negative Affect</td>
+<td style="text-align: right;">0.70</td>
+<td style="text-align: right;">0.80</td>
+<td style="text-align: right;">0.83</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Surgency</td>
+<td style="text-align: right;">0.76</td>
+<td style="text-align: right;">0.74</td>
+<td style="text-align: right;">0.70</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="ims-investment-model-scale" class="level1">
+<h1>IMS: Investment Model Scale</h1>
+<section id="notes-13" class="level2">
+<h2 class="anchored" data-anchor-id="notes-13">Notes</h2>
+<ul>
+<li>Rusbult et al., 1998</li>
+<li>37 items total, 22 included in scoring
+<ul>
+<li>15 are items in “facet scales”</li>
+<li>22 are items in “global scales”
+<ul>
+<li>5 in Satisfaction subscale</li>
+<li>5 in Alternatives subscale</li>
+<li>5 in Investment subscale</li>
+<li>7 in Committment subscales</li>
+</ul></li>
+</ul></li>
+<li>0-8 Likert scale
+<ul>
+<li>0 = Do not agree at all</li>
+<li>8 = Agree completely</li>
+<li>Facet scales are on a 1-4 Likert scale</li>
+</ul></li>
+<li>Mean score
+<ul>
+<li>Higher score = stronger committment to maintaining the relationship</li>
+</ul></li>
+<li>4 subscales:
+<ul>
+<li>Satisfaction: 1-5</li>
+<li>Alternatives: 6-10</li>
+<li>Investment: 11-15</li>
+<li>Commitment: 16-22</li>
+</ul></li>
+<li>Reverse score items: 6-10 (Alternatives), 18 &amp; 19 (Commitment)</li>
+<li>Other notes: “Facet items prepare participants to answer global items by activating thoughts about each construct and concretely illustrating each construct. Thus, facet items are utilized to enhance the comprehensibility of global items, thereby increasing their reliability and validity-the facet items are included solely to obtain good global measures of each Investment Model construct. The global measures of each construct are the measures that are employed in formal tests of Investment Model hypotheses.</li>
+</ul>
+<div class="flex">
+<div class="cell" data-tbl-cap="**Means**">
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<caption><strong>Means</strong></caption>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Subscale</th>
+<th style="text-align: right;">12pp</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Alternatives</td>
+<td style="text-align: right;">6.1</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Commitment</td>
+<td style="text-align: right;">7.4</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Investment</td>
+<td style="text-align: right;">6.3</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Satisfaction</td>
+<td style="text-align: right;">6.5</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="cell" data-tbl-cap="**N Missing**">
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<caption><strong>N Missing</strong></caption>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Subscale</th>
+<th style="text-align: right;">12pp</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Alternatives</td>
+<td style="text-align: right;">29</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Commitment</td>
+<td style="text-align: right;">29</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Investment</td>
+<td style="text-align: right;">29</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Satisfaction</td>
+<td style="text-align: right;">31</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="cell" data-tbl-cap="**Cronbach’s α**">
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<caption><strong>Cronbach’s α</strong></caption>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Subscale</th>
+<th style="text-align: right;">12pp</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Alternatives</td>
+<td style="text-align: right;">0.83</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Commitment</td>
+<td style="text-align: right;">0.63</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Investment</td>
+<td style="text-align: right;">0.80</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Satisfaction</td>
+<td style="text-align: right;">0.96</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="iri-interpersonal-reactivity-index" class="level1">
+<h1>IRI: Interpersonal Reactivity Index</h1>
+<section id="notes-14" class="level2">
+<h2 class="anchored" data-anchor-id="notes-14">Notes</h2>
+<ul>
+<li>Davis, 1980</li>
+<li>28 items</li>
+<li>0-4 Likert scale
+<ul>
+<li>0 = Does not describe me well</li>
+<li>4 = Describes me very well</li>
+</ul></li>
+<li>Mean score
+<ul>
+<li>Higher scores = greater empathy</li>
+</ul></li>
+<li>4 subscales
+<ul>
+<li>Perspective taking (<code>pt</code>): 3, 8, 11, 15, 21, 25, 28</li>
+<li>Fantasy (<code>fs</code>): 1, 5, 7, 12, 16, 23, 26</li>
+<li>Empathic Concerns (<code>ec</code>): 2, 4, 9, 14, 18, 20, 22</li>
+<li>Personal Distress (<code>pd</code>): 6, 10, 13, 17, 19, 24, 27</li>
+</ul></li>
+<li>Reverse codes: 3, 4, 7, 12, 13, 14, 15, 18, 19</li>
+<li>Other notes:
+<ul>
+<li>Qualtrics scoring from participants 6-17 is slightly different from participants 18-100.</li>
+<li>This issue is resolved in the script below</li>
+</ul></li>
+</ul>
+<div class="flex">
+<div class="cell" data-tbl-cap="**Means**">
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<caption><strong>Means</strong></caption>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Subscale</th>
+<th style="text-align: right;">0pn</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Empathic Concern</td>
+<td style="text-align: right;">20.8</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Fantasy</td>
+<td style="text-align: right;">16.0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Personal Distress</td>
+<td style="text-align: right;">9.7</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Perspective Taking</td>
+<td style="text-align: right;">19.2</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="cell" data-tbl-cap="**N Missing**">
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<caption><strong>N Missing</strong></caption>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Subscale</th>
+<th style="text-align: right;">0pn</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Empathic Concern</td>
+<td style="text-align: right;">15</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Fantasy</td>
+<td style="text-align: right;">14</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Personal Distress</td>
+<td style="text-align: right;">14</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Perspective Taking</td>
+<td style="text-align: right;">15</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="cell" data-tbl-cap="**Cronbach’s α**">
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<caption><strong>Cronbach’s α</strong></caption>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Subscale</th>
+<th style="text-align: right;">0pn</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Empathic Concern</td>
+<td style="text-align: right;">0.70</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Fantasy</td>
+<td style="text-align: right;">0.77</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Personal Distress</td>
+<td style="text-align: right;">0.74</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Perspective Taking</td>
+<td style="text-align: right;">0.73</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="iss-index-of-sexual-satisfaction" class="level1">
+<h1>ISS: Index of Sexual Satisfaction</h1>
+<section id="notes-15" class="level2">
+<h2 class="anchored" data-anchor-id="notes-15">Notes</h2>
+<ul>
+<li>Hudson, 1993</li>
+<li>25 items</li>
+<li>1-7 Likert
+<ul>
+<li>1 = None of the time</li>
+<li>7 = All of the time</li>
+</ul></li>
+<li>Sum score
+<ul>
+<li>Higher scores = greater sexual discord</li>
+</ul></li>
+<li>No subscales</li>
+<li>Reverse score: 1, 2, 3, 9, 10, 12, 16, 17, 19, 21, 22, 23</li>
+<li>Other notes:
+<ul>
+<li>There are several versions of this scale, with main difference being Likert scale (items stay the same)</li>
+</ul></li>
+</ul>
+<div class="flex">
+<div class="cell" data-tbl-cap="**Means**">
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<caption><strong>Means</strong></caption>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Subscale</th>
+<th style="text-align: right;">0pn</th>
+<th style="text-align: right;">6pp</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Total Score</td>
+<td style="text-align: right;">62.8</td>
+<td style="text-align: right;">69</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="cell" data-tbl-cap="**N Missing**">
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<caption><strong>N Missing</strong></caption>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Subscale</th>
+<th style="text-align: right;">0pn</th>
+<th style="text-align: right;">6pp</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Total Score</td>
+<td style="text-align: right;">13</td>
+<td style="text-align: right;">16</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="cell" data-tbl-cap="**Cronbach’s α**">
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<caption><strong>Cronbach’s α</strong></caption>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Subscale</th>
+<th style="text-align: right;">0pn</th>
+<th style="text-align: right;">6pp</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Total Score</td>
+<td style="text-align: right;">0.94</td>
+<td style="text-align: right;">0.94</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="lapr-life-attitudes-profilerevised" class="level1">
+<h1>LAPR: Life Attitudes Profile—Revised</h1>
+<section id="notes-16" class="level2">
+<h2 class="anchored" data-anchor-id="notes-16">Notes</h2>
+<ul>
+<li>Erci, 2008 (but adapted for HATCH)</li>
+<li>16 items (out of 48 total)</li>
+<li>1-7 Likert
+<ul>
+<li>1 = Strongly disagree</li>
+<li>7 = Strongly agree</li>
+</ul></li>
+<li>Sum score
+<ul>
+<li>Higher scores = greater sense of meaning</li>
+</ul></li>
+<li>2 dimensions (out of 6 in original scale):
+<ul>
+<li>Purpose: 1, 2, 5, 18, 26, 31, 37, 48</li>
+<li>Coherence: 7, 12, 27. 29. 35, 38, 46</li>
+</ul></li>
+<li>1 composite score (out of 2 in original scale):
+<ul>
+<li>Personal Meaning Index</li>
+</ul></li>
+<li>Reverse score: none</li>
+</ul>
+<div class="flex">
+<div class="cell" data-tbl-cap="**Means**">
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<caption><strong>Means</strong></caption>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Subscale</th>
+<th style="text-align: right;">0pn</th>
+<th style="text-align: right;">6pp</th>
+<th style="text-align: right;">12pp</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Coherence</td>
+<td style="text-align: right;">42.3</td>
+<td style="text-align: right;">43.1</td>
+<td style="text-align: right;">43.8</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Personal Meaning Index</td>
+<td style="text-align: right;">86.5</td>
+<td style="text-align: right;">87.3</td>
+<td style="text-align: right;">87.7</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Purpose</td>
+<td style="text-align: right;">44.2</td>
+<td style="text-align: right;">44.2</td>
+<td style="text-align: right;">43.9</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="cell" data-tbl-cap="**N Missing**">
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<caption><strong>N Missing</strong></caption>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Subscale</th>
+<th style="text-align: right;">0pn</th>
+<th style="text-align: right;">6pp</th>
+<th style="text-align: right;">12pp</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Coherence</td>
+<td style="text-align: right;">13</td>
+<td style="text-align: right;">17</td>
+<td style="text-align: right;">28</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Personal Meaning Index</td>
+<td style="text-align: right;">13</td>
+<td style="text-align: right;">17</td>
+<td style="text-align: right;">28</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Purpose</td>
+<td style="text-align: right;">13</td>
+<td style="text-align: right;">17</td>
+<td style="text-align: right;">28</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="cell" data-tbl-cap="**Cronbach’s α**">
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<caption><strong>Cronbach’s α</strong></caption>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Subscale</th>
+<th style="text-align: right;">0pn</th>
+<th style="text-align: right;">6pp</th>
+<th style="text-align: right;">12pp</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Coherence</td>
+<td style="text-align: right;">0.91</td>
+<td style="text-align: right;">0.90</td>
+<td style="text-align: right;">0.91</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Personal Meaning Index</td>
+<td style="text-align: right;">0.97</td>
+<td style="text-align: right;">0.97</td>
+<td style="text-align: right;">0.97</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Purpose</td>
+<td style="text-align: right;">0.88</td>
+<td style="text-align: right;">0.88</td>
+<td style="text-align: right;">0.91</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="lec-life-events-checklist" class="level1">
+<h1>LEC: Life Events Checklist</h1>
+<section id="notes-17" class="level2">
+<h2 class="anchored" data-anchor-id="notes-17">Notes</h2>
+<ul>
+<li>Weathers et al., 2013</li>
+<li>Varying number of items
+<ul>
+<li>17 items: couples 1-48</li>
+<li>15 items: couples 49-100 (skip items 11 and 14) - Item 11: Captivity - Item 14: Sudden, violent death</li>
+</ul></li>
+<li>Varying nominal scales
+<ul>
+<li>Couples 1-64: 1-5 nominal scale
+<ul>
+<li>1 = Happened to me</li>
+<li>2 = Witnessed it</li>
+<li>3 = Learned about it</li>
+<li>4 = Not sure</li>
+<li>5 = Doesn’t apply</li>
+</ul></li>
+<li>Couples 65-100: 1-3 nominal scale
+<ul>
+<li>1 = Happened to me</li>
+<li>2 = Witnessed it</li>
+<li>3 = Didn’t experience or witness</li>
+</ul></li>
+</ul></li>
+<li>Mean scores
+<ul>
+<li>Higher scores = greater number of events</li>
+</ul></li>
+<li>3 Subscales:
+<ul>
+<li>Happened: items endorsed as “Happened to me”</li>
+<li>Witnessed: items endorsed as “Witnessed”</li>
+<li>Happened/Witnessed: items endorsed as either “Happened to me” or “Witnessed”</li>
+</ul></li>
+<li>Reverse scores: none</li>
+</ul>
+<div class="flex">
+<div class="cell" data-tbl-cap="**Means**">
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<caption><strong>Means</strong></caption>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Variable</th>
+<th style="text-align: right;">0pn</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">LEC_hap</td>
+<td style="text-align: right;">0.2</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">LEC_hapwit</td>
+<td style="text-align: right;">0.3</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">LEC_wit</td>
+<td style="text-align: right;">0.2</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="cell" data-tbl-cap="**N Missing**">
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<caption><strong>N Missing</strong></caption>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Variable</th>
+<th style="text-align: right;">0pn</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">LEC_hap</td>
+<td style="text-align: right;">20</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">LEC_hapwit</td>
+<td style="text-align: right;">6</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">LEC_wit</td>
+<td style="text-align: right;">41</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="les-life-experiences-survey" class="level1">
+<h1>LES: Life Experiences Survey</h1>
+<section id="notes-18" class="level2">
+<h2 class="anchored" data-anchor-id="notes-18">Notes</h2>
+<ul>
+<li>Sarason et al., 1978</li>
+<li>22 items
+<ul>
+<li>The original measure has 57 items</li>
+<li>The revised measure that the HATCH study has on file contains 37 items</li>
+<li>The Qualtrics measure HATCH Study used has 22 items
+<ul>
+<li>Different genders saw different items, so each participant saw 20 items total</li>
+</ul></li>
+</ul></li>
+<li>Two scales per item:
+<ul>
+<li>0-1 Binary:
+<ul>
+<li>0 = Did not occur in the last year</li>
+<li>1 = Occurred in the last year</li>
+</ul></li>
+<li>-3 - 3 (7-point) Likert scale:
+<ul>
+<li>-3 = Extremely negative</li>
+<li>3 = Extremely positive</li>
+</ul></li>
+</ul></li>
+<li>Sum scores
+<ul>
+<li>Positive scale: higher scores = higher levels of positivity</li>
+<li>Negative sclae: higher scores = higher levels of negativity</li>
+<li>Total scale: higher scores = higher levels of positivity</li>
+</ul></li>
+<li>Subscales:
+<ul>
+<li>Positive: Adding scores of all items rated &gt;0</li>
+<li>Negative: Adding scores of all items rated &lt;0</li>
+<li>Total: Adding positive and negative scores</li>
+</ul></li>
+<li>Reverse scores: none</li>
+</ul>
+<div class="flex">
+<div class="cell" data-tbl-cap="**Means**">
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<caption><strong>Means</strong></caption>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Variable</th>
+<th style="text-align: right;">0pn</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">LES_neg</td>
+<td style="text-align: right;">-3.9</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">LES_pos</td>
+<td style="text-align: right;">6.4</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">LES_tot</td>
+<td style="text-align: right;">3.3</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="cell" data-tbl-cap="**N Missing**">
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<caption><strong>N Missing</strong></caption>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Variable</th>
+<th style="text-align: right;">0pn</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">LES_neg</td>
+<td style="text-align: right;">116</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">LES_pos</td>
+<td style="text-align: right;">100</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">LES_tot</td>
+<td style="text-align: right;">105</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="mai-maternal-attachment-inventory" class="level1">
+<h1>MAI: Maternal Attachment Inventory</h1>
+<section id="notes-19" class="level2">
+<h2 class="anchored" data-anchor-id="notes-19">Notes</h2>
+<ul>
+<li>Müller, 1994</li>
+<li>26 items</li>
+<li>1-4 Likert Scale
+<ul>
+<li>1 = Almost never</li>
+<li>4 = Almost always</li>
+</ul></li>
+<li>Sum score
+<ul>
+<li>Higher scores = more secure/positive attachment</li>
+</ul></li>
+<li>No subscales</li>
+<li>Reverse score: none</li>
+</ul>
+<div class="flex">
+<div class="cell" data-tbl-cap="**Means**">
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<caption><strong>Means</strong></caption>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Subscale</th>
+<th style="text-align: right;">6pp</th>
+<th style="text-align: right;">12pp</th>
+<th style="text-align: right;">3pp</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Total Score</td>
+<td style="text-align: right;">100.3</td>
+<td style="text-align: right;">100.3</td>
+<td style="text-align: right;">99</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="cell" data-tbl-cap="**N Missing**">
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<caption><strong>N Missing</strong></caption>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Subscale</th>
+<th style="text-align: right;">6pp</th>
+<th style="text-align: right;">12pp</th>
+<th style="text-align: right;">3pp</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Total Score</td>
+<td style="text-align: right;">39</td>
+<td style="text-align: right;">34</td>
+<td style="text-align: right;">56</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="cell" data-tbl-cap="**Cronbach’s α**">
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<caption><strong>Cronbach’s α</strong></caption>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Subscale</th>
+<th style="text-align: right;">3pp</th>
+<th style="text-align: right;">6pp</th>
+<th style="text-align: right;">12pp</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Total Score</td>
+<td style="text-align: right;">0.93</td>
+<td style="text-align: right;">0.9</td>
+<td style="text-align: right;">0.91</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="mat-marital-adjustment-test" class="level1">
+<h1>MAT: Marital Adjustment Test</h1>
+<section id="notes-20" class="level2">
+<h2 class="anchored" data-anchor-id="notes-20">Notes</h2>
+<ul>
+<li>Locke &amp; Wallace, 1959</li>
+<li>15 items</li>
+<li>Variable Likert Scales:
+<ul>
+<li>Item 1: 7-point Likert scale (0-35)</li>
+<li>Items 2-9: 0-5 Likert scale (varying numbers) - Lowest = Always disagree - Highest = Always agree</li>
+<li>Item 10: 3-point Likert scale (0-10)</li>
+<li>Item 11: 4-point Likert scale (0-10)</li>
+<li>Item 12: 2-10 points depending on agreement</li>
+<li>Item 13: 4-point Likert scale (0-15)</li>
+<li>Item 14: 3-point Likert scale (0-15)</li>
+<li>Item 15: 4-point Likert scale (0-10)</li>
+</ul></li>
+<li>Sum score
+<ul>
+<li>Higher scores = greater satisfaction</li>
+</ul></li>
+<li>No subscales</li>
+<li>Reverse score: none</li>
+</ul>
+<div class="flex">
+<div class="cell" data-tbl-cap="**Means**">
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<caption><strong>Means</strong></caption>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Subscale</th>
+<th style="text-align: right;">0pn</th>
+<th style="text-align: right;">6pp</th>
+<th style="text-align: right;">12pp</th>
+<th style="text-align: right;">3pp</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Total Score</td>
+<td style="text-align: right;">123.2</td>
+<td style="text-align: right;">117.6</td>
+<td style="text-align: right;">116</td>
+<td style="text-align: right;">120.1</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="cell" data-tbl-cap="**N Missing**">
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<caption><strong>N Missing</strong></caption>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Subscale</th>
+<th style="text-align: right;">0pn</th>
+<th style="text-align: right;">6pp</th>
+<th style="text-align: right;">12pp</th>
+<th style="text-align: right;">3pp</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Total Score</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">15</td>
+<td style="text-align: right;">28</td>
+<td style="text-align: right;">41</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="cell" data-tbl-cap="**Cronbach’s α**">
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<caption><strong>Cronbach’s α</strong></caption>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Subscale</th>
+<th style="text-align: right;">0pn</th>
+<th style="text-align: right;">3pp</th>
+<th style="text-align: right;">6pp</th>
+<th style="text-align: right;">12pp</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Total Score</td>
+<td style="text-align: right;">0.65</td>
+<td style="text-align: right;">0.69</td>
+<td style="text-align: right;">0.72</td>
+<td style="text-align: right;">0.69</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="mos-medical-outcomes-study-social-support-survey" class="level1">
+<h1>MOS: Medical Outcomes Study Social Support Survey</h1>
+<section id="notes-21" class="level2">
+<h2 class="anchored" data-anchor-id="notes-21">Notes</h2>
+<ul>
+<li>Sherborne &amp; Stewart, 1991</li>
+<li>19 items</li>
+<li>1-5 Likert scale
+<ul>
+<li>1 = None of the time</li>
+<li>5 = All of the time</li>
+</ul></li>
+<li>Mean score
+<ul>
+<li>Higher score = higher levels of social support</li>
+</ul></li>
+<li>4 Subscales:
+<ul>
+<li>Emotional/ informational social support: 1-8</li>
+<li>Tangible social support: 9-12</li>
+<li>Positive interaction social support: 13-15</li>
+<li>Affectionate social support: 16-18</li>
+</ul></li>
+<li>Revere score: None</li>
+</ul>
+<div class="flex">
+<div class="cell" data-tbl-cap="**Means**">
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<caption><strong>Means</strong></caption>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Variable</th>
+<th style="text-align: right;">0pn</th>
+<th style="text-align: right;">12pp</th>
+<th style="text-align: right;">3pp</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">MOS_aff</td>
+<td style="text-align: right;">4.8</td>
+<td style="text-align: right;">4.5</td>
+<td style="text-align: right;">4.6</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">MOS_emo</td>
+<td style="text-align: right;">4.4</td>
+<td style="text-align: right;">4.2</td>
+<td style="text-align: right;">4.3</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">MOS_soc</td>
+<td style="text-align: right;">4.7</td>
+<td style="text-align: right;">4.6</td>
+<td style="text-align: right;">4.7</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">MOS_tang</td>
+<td style="text-align: right;">4.7</td>
+<td style="text-align: right;">4.6</td>
+<td style="text-align: right;">4.6</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">MOS_tot</td>
+<td style="text-align: right;">4.6</td>
+<td style="text-align: right;">4.4</td>
+<td style="text-align: right;">4.5</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="cell" data-tbl-cap="**N Missing**">
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<caption><strong>N Missing</strong></caption>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Variable</th>
+<th style="text-align: right;">0pn</th>
+<th style="text-align: right;">12pp</th>
+<th style="text-align: right;">3pp</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">MOS_aff</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">28</td>
+<td style="text-align: right;">41</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">MOS_emo</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">28</td>
+<td style="text-align: right;">41</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">MOS_soc</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">28</td>
+<td style="text-align: right;">41</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">MOS_tang</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">28</td>
+<td style="text-align: right;">41</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">MOS_tot</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">28</td>
+<td style="text-align: right;">41</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="cell" data-tbl-cap="**Cronbach’s α**">
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<caption><strong>Cronbach’s α</strong></caption>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Subscale</th>
+<th style="text-align: right;">0pn</th>
+<th style="text-align: right;">3pp</th>
+<th style="text-align: right;">12pp</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Total Score</td>
+<td style="text-align: right;">0.94</td>
+<td style="text-align: right;">0.95</td>
+<td style="text-align: right;">0.97</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="pas-pregnancy-anxiety-scale" class="level1">
+<h1>PAS: Pregnancy Anxiety Scale</h1>
+<section id="notes-22" class="level2">
+<h2 class="anchored" data-anchor-id="notes-22">Notes</h2>
+<ul>
+<li>Rini et al., 1999</li>
+<li>10 items
+<ul>
+<li>In Qualtrics, asked 13 items</li>
+<li>Dropped items 2, 9, 10 based on scoring instructions</li>
+</ul></li>
+<li>1-4 Likert scale
+<ul>
+<li>1 = Not at all/Never</li>
+<li>4 = Very much/A lot of the time</li>
+</ul></li>
+<li>Mean score
+<ul>
+<li>Higher score = higher anxiety about pregnancy</li>
+</ul></li>
+<li>No subscales</li>
+<li>Reverse score: 1, 2, 3</li>
+<li>Other notes:
+<ul>
+<li>Lumped in with PAS in Qualtrics</li>
+</ul></li>
+</ul>
+<div class="flex">
+<div class="cell" data-tbl-cap="**Means**">
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<caption><strong>Means</strong></caption>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Subscale</th>
+<th style="text-align: right;">0pn</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Total Score</td>
+<td style="text-align: right;">1.8</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="cell" data-tbl-cap="**N Missing**">
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<caption><strong>N Missing</strong></caption>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Subscale</th>
+<th style="text-align: right;">0pn</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Total Score</td>
+<td style="text-align: right;">2</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="cell" data-tbl-cap="**Cronbach’s α**">
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<caption><strong>Cronbach’s α</strong></caption>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Subscale</th>
+<th style="text-align: right;">0pn</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Total Score</td>
+<td style="text-align: right;">0.83</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="pat-parental-attribution-test" class="level1">
+<h1>PAT: Parental Attribution Test</h1>
+<section id="notes-23" class="level2">
+<h2 class="anchored" data-anchor-id="notes-23">Notes</h2>
+<ul>
+<li>Bugental, 2011</li>
+<li>18 items</li>
+<li>1-7 Likert scale
+<ul>
+<li>1 = Not at all important</li>
+<li>7 = Very important</li>
+</ul></li>
+<li>Mean scores
+<ul>
+<li>Higher ACF scores = parent tends to blame themselves more</li>
+<li>Higher CCF scores = parent tends to blame the child more</li>
+<li>Higher US scores = parent tends to blame uncontrollable/situational factors more</li>
+<li>Higher PCF scores = parent tends to blame themselves more than the child</li>
+</ul></li>
+<li>3 subscales
+<ul>
+<li>Adult Controlled Factors (ACF): 2d, 2i, 2k, 2m, 2u, 2z</li>
+<li>Child Controlled Factors (CCF): 2b, 2c, 2f, 2j, 2q, 2t</li>
+<li>Uncontrollable/Situational (US): 1a-1f</li>
+<li>Parent Centered Focus (PCF): ACF - CCF</li>
+</ul></li>
+<li>Reverse code: none
+<ul>
+<li>The scoring instructions say to reverse score these items: 2c, 2f, 2m, 2q, 2u, 2z</li>
+<li>However, when you reverse score them, the cronbach’s alpha become negative. When you don’t reverse them, they are &gt;.8</li>
+<li>My conclusion is that the items the scoring instructions use are worded differently than the items we have</li>
+</ul></li>
+<li>Other notes:
+<ul>
+<li>Authors “have never found [US] scale to be predictive of parenting practices and advise against its use”</li>
+<li>The item numbers (1a-1f and 2a-2l) on our item list do not correspond to the author scoring information
+<ul>
+<li>Doesn’t matter for US scale, where all 6 items are from #1 and are direct coded</li>
+<li>Fixed in <code>Rename</code> file based on SPSS syntax and reading through items</li>
+</ul></li>
+</ul></li>
+</ul>
+<div class="flex">
+<div class="cell" data-tbl-cap="**Means**">
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<caption><strong>Means</strong></caption>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Variable</th>
+<th style="text-align: right;">12pp</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">PAT_ACF</td>
+<td style="text-align: right;">4.8</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">PAT_CCF</td>
+<td style="text-align: right;">5.1</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">PAT_PCF</td>
+<td style="text-align: right;">-0.2</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">PAT_US</td>
+<td style="text-align: right;">5.2</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="cell" data-tbl-cap="**N Missing**">
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<caption><strong>N Missing</strong></caption>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Variable</th>
+<th style="text-align: right;">12pp</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">PAT_ACF</td>
+<td style="text-align: right;">31</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">PAT_CCF</td>
+<td style="text-align: right;">31</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">PAT_PCF</td>
+<td style="text-align: right;">31</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">PAT_US</td>
+<td style="text-align: right;">31</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="cell" data-tbl-cap="**Cronbach’s α**">
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<caption><strong>Cronbach’s α</strong></caption>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Subscale</th>
+<th style="text-align: right;">12pp</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">ACF</td>
+<td style="text-align: right;">0.89</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">CCF</td>
+<td style="text-align: right;">0.81</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">US</td>
+<td style="text-align: right;">0.85</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="pbq-postpartum-bonding-questionnaire" class="level1">
+<h1>PBQ: Postpartum Bonding Questionnaire</h1>
+<section id="notes-24" class="level2">
+<h2 class="anchored" data-anchor-id="notes-24">Notes</h2>
+<ul>
+<li>Brockington et al., 2001</li>
+<li>25 items</li>
+<li>0-5 Likert Scale
+<ul>
+<li>0 = Always/Never</li>
+<li>5 = Never/Always</li>
+</ul></li>
+<li>Sum score
+<ul>
+<li>Higher scores = more impaired bonding Darby’s SPSS script, it’s a mean. but scoring instructions say to take a sum</li>
+</ul></li>
+<li>Subscales:
+<ul>
+<li>Impaired bonding: 1, 2, 6, 7, 8, 9, 10, 12, 13, 15, 16, 17</li>
+<li>Rejection and pathological anger: 3, 4, 5, 11, 14, 21, 23</li>
+<li>Anxiety about the infant: 19, 20, 22, 25 cipient abuse: 18, 24</li>
+</ul></li>
+<li>Reverse score: 1, 4, 8, 9, 11, 16, 22, 25</li>
+</ul>
+<div class="flex">
+<div class="cell" data-tbl-cap="**Means**">
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<caption><strong>Means</strong></caption>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Variable</th>
+<th style="text-align: right;">6pp</th>
+<th style="text-align: right;">12pp</th>
+<th style="text-align: right;">3pp</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">PBQ_abuse</td>
+<td style="text-align: right;">0.1</td>
+<td style="text-align: right;">0.1</td>
+<td style="text-align: right;">0.0</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">PBQ_anger</td>
+<td style="text-align: right;">2.0</td>
+<td style="text-align: right;">2.4</td>
+<td style="text-align: right;">2.1</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">PBQ_anxiety</td>
+<td style="text-align: right;">2.5</td>
+<td style="text-align: right;">2.6</td>
+<td style="text-align: right;">2.6</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">PBQ_impaired</td>
+<td style="text-align: right;">5.0</td>
+<td style="text-align: right;">5.4</td>
+<td style="text-align: right;">5.6</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="cell" data-tbl-cap="**N Missing**">
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<caption><strong>N Missing</strong></caption>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Variable</th>
+<th style="text-align: right;">6pp</th>
+<th style="text-align: right;">12pp</th>
+<th style="text-align: right;">3pp</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">PBQ_abuse</td>
+<td style="text-align: right;">25</td>
+<td style="text-align: right;">28</td>
+<td style="text-align: right;">45</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">PBQ_anger</td>
+<td style="text-align: right;">25</td>
+<td style="text-align: right;">28</td>
+<td style="text-align: right;">45</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">PBQ_anxiety</td>
+<td style="text-align: right;">25</td>
+<td style="text-align: right;">28</td>
+<td style="text-align: right;">45</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">PBQ_impaired</td>
+<td style="text-align: right;">31</td>
+<td style="text-align: right;">33</td>
+<td style="text-align: right;">49</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="cell" data-tbl-cap="**Cronbach’s α**">
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<caption><strong>Cronbach’s α</strong></caption>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Subscale</th>
+<th style="text-align: right;">3pp</th>
+<th style="text-align: right;">6pp</th>
+<th style="text-align: right;">12pp</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Anxiety about the infant</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">0.55</td>
+<td style="text-align: right;">0.51</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Impaired Bonding</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">0.71</td>
+<td style="text-align: right;">0.77</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Incipient abuse</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">0.93</td>
+<td style="text-align: right;">0.06</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Rejection and pathological anger</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">0.79</td>
+<td style="text-align: right;">0.72</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Total Score</td>
+<td style="text-align: right;">0.87</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">NA</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="pingss-parenting-stress-scale" class="level1">
+<h1>PingSS: Parenting Stress Scale</h1>
+<section id="notes-25" class="level2">
+<h2 class="anchored" data-anchor-id="notes-25">Notes</h2>
+<ul>
+<li>Berry &amp; Jones, 1995</li>
+<li>18 items</li>
+<li>1-5 Likert scale:
+<ul>
+<li>1 = Strongly disagree</li>
+<li>5 = Strongly agree</li>
+</ul></li>
+<li>Sum score
+<ul>
+<li>Higher score = more stress</li>
+<li>But SPSS syntax calculated a mean</li>
+</ul></li>
+<li>No subscales</li>
+<li>Reverse score: 1, 2, 5, 6, 7, 8, 17, 18</li>
+</ul>
+<div class="flex">
+<div class="cell" data-tbl-cap="**Means**">
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<caption><strong>Means</strong></caption>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Subscale</th>
+<th style="text-align: right;">0pn</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Total Score</td>
+<td style="text-align: right;">2.3</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="cell" data-tbl-cap="**N Missing**">
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<caption><strong>N Missing</strong></caption>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Subscale</th>
+<th style="text-align: right;">0pn</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Total Score</td>
+<td style="text-align: right;">2</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="cell" data-tbl-cap="**Cronbach’s α**">
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<caption><strong>Cronbach’s α</strong></caption>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Subscale</th>
+<th style="text-align: right;">3pp</th>
+<th style="text-align: right;">6pp</th>
+<th style="text-align: right;">12pp</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Total Score</td>
+<td style="text-align: right;">0.84</td>
+<td style="text-align: right;">0.85</td>
+<td style="text-align: right;">0.88</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="pregnancycouvade-syndrome-symptoms" class="level1">
+<h1>Pregnancy/Couvade Syndrome Symptoms</h1>
+<section id="notes-26" class="level2">
+<h2 class="anchored" data-anchor-id="notes-26">Notes</h2>
+<ul>
+<li>Brennan</li>
+<li>44 symptoms, each with 4 questions</li>
+<li>Likert scale varies by question
+<ul>
+<li>Presence/Absence: 0-1 binary
+<ul>
+<li>0 = not present</li>
+<li>1 = present</li>
+</ul></li>
+<li>Severity: 1-9 Likert
+<ul>
+<li>1 = not at all severe</li>
+<li>9 = the most severe</li>
+</ul></li>
+<li>Distress: 1-9 Likert
+<ul>
+<li>1 = not at all distressing</li>
+<li>9 = the most distressing</li>
+</ul></li>
+<li>Frequency: removed</li>
+</ul></li>
+<li>Mean scores
+<ul>
+<li>Higher scores = more/worse symptoms</li>
+</ul></li>
+<li>3 subscales:
+<ul>
+<li>Number of symptoms</li>
+<li>Severity</li>
+<li>Distress</li>
+</ul></li>
+<li>Reverse score: none</li>
+</ul>
+<div class="flex">
+<div class="cell" data-tbl-cap="**Means**">
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<caption><strong>Means</strong></caption>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Variable</th>
+<th style="text-align: right;">6pp</th>
+<th style="text-align: right;">12pp</th>
+<th style="text-align: right;">3pp</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">PSI_dc</td>
+<td style="text-align: right;">19.8</td>
+<td style="text-align: right;">21.7</td>
+<td style="text-align: right;">20.4</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">PSI_dr</td>
+<td style="text-align: right;">15.0</td>
+<td style="text-align: right;">15.2</td>
+<td style="text-align: right;">14.6</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">PSI_pcdi</td>
+<td style="text-align: right;">16.3</td>
+<td style="text-align: right;">17.3</td>
+<td style="text-align: right;">17.7</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">PSI_pd</td>
+<td style="text-align: right;">25.9</td>
+<td style="text-align: right;">26.2</td>
+<td style="text-align: right;">25.4</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">PSI_tot</td>
+<td style="text-align: right;">62.0</td>
+<td style="text-align: right;">65.2</td>
+<td style="text-align: right;">63.6</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="cell" data-tbl-cap="**N Missing**">
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<caption><strong>N Missing</strong></caption>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Variable</th>
+<th style="text-align: right;">6pp</th>
+<th style="text-align: right;">12pp</th>
+<th style="text-align: right;">3pp</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">PSI_dc</td>
+<td style="text-align: right;">15</td>
+<td style="text-align: right;">28</td>
+<td style="text-align: right;">40</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">PSI_dr</td>
+<td style="text-align: right;">15</td>
+<td style="text-align: right;">28</td>
+<td style="text-align: right;">40</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">PSI_pcdi</td>
+<td style="text-align: right;">15</td>
+<td style="text-align: right;">29</td>
+<td style="text-align: right;">40</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">PSI_pd</td>
+<td style="text-align: right;">15</td>
+<td style="text-align: right;">28</td>
+<td style="text-align: right;">40</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">PSI_tot</td>
+<td style="text-align: right;">15</td>
+<td style="text-align: right;">29</td>
+<td style="text-align: right;">40</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="psam-pregnancy-specific-anxiety-measure" class="level1">
+<h1>PSAM: Pregnancy Specific Anxiety Measure</h1>
+<section id="notes-27" class="level2">
+<h2 class="anchored" data-anchor-id="notes-27">Notes</h2>
+<ul>
+<li>Guardino &amp; Dunkel Schetter, 2014</li>
+<li>13 items
+<ul>
+<li>Only 4 items included in total score</li>
+<li>1 (Anxious), 5 (Concerned), 9 (Afraid), 11 (Panicky)</li>
+</ul></li>
+<li>1-5 Likert scale
+<ul>
+<li>1 = Never</li>
+<li>5 = Always</li>
+</ul></li>
+<li>Mean score
+<ul>
+<li>Higher score = higher pregnancy anxiety</li>
+</ul></li>
+<li>No subscales</li>
+<li>Reverse score: none</li>
+<li>Other notes:
+<ul>
+<li>Lumped in with PAS in Qualtrics</li>
+</ul></li>
+</ul>
+<div class="flex">
+<div class="cell" data-tbl-cap="**Means**">
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<caption><strong>Means</strong></caption>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Subscale</th>
+<th style="text-align: right;">0pn</th>
+<th style="text-align: right;">6pp</th>
+<th style="text-align: right;">12pp</th>
+<th style="text-align: right;">3pp</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Total Score</td>
+<td style="text-align: right;">5.6</td>
+<td style="text-align: right;">6.8</td>
+<td style="text-align: right;">6.1</td>
+<td style="text-align: right;">6.8</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="cell" data-tbl-cap="**N Missing**">
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<caption><strong>N Missing</strong></caption>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Subscale</th>
+<th style="text-align: right;">0pn</th>
+<th style="text-align: right;">6pp</th>
+<th style="text-align: right;">12pp</th>
+<th style="text-align: right;">3pp</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Total Score</td>
+<td style="text-align: right;">55</td>
+<td style="text-align: right;">36</td>
+<td style="text-align: right;">38</td>
+<td style="text-align: right;">63</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="cell" data-tbl-cap="**Cronbach’s α**">
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<caption><strong>Cronbach’s α</strong></caption>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Subscale</th>
+<th style="text-align: right;">0pn</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Total Score</td>
+<td style="text-align: right;">0.83</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="psi-parenting-stress-index" class="level1">
+<h1>PSI: Parenting Stress Index</h1>
+<section id="notes-28" class="level2">
+<h2 class="anchored" data-anchor-id="notes-28">Notes</h2>
+<ul>
+<li>Abidin, 2012</li>
+<li>36 items</li>
+<li>1-5 Likert scale:
+<ul>
+<li>1 = Strongly disagree</li>
+<li>5 = Strongly agree</li>
+<li>The scoring instructions seem to be reversed</li>
+</ul></li>
+<li>Sum score
+<ul>
+<li>Higher scores for PD, PCDI, DC= more parenting stress</li>
+<li>Higher scores for DR = increased social desirability bias</li>
+</ul></li>
+<li>Subscales:
+<ul>
+<li>Defensive responding (DR): 1, 2, 3, 7, 8, 9, 11</li>
+<li>Parental distress (PD): 1-12</li>
+<li>Parent-Child Dysfunctional Interaction (PCDI): 13-24</li>
+<li>Difficult Child (DC): 25-36</li>
+<li>Total score: PD+PCDI+DC</li>
+</ul></li>
+<li>Reverse score: all</li>
+</ul>
+<div class="flex">
+<div class="cell" data-tbl-cap="**Means**">
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<caption><strong>Means</strong></caption>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Subscale</th>
+<th style="text-align: right;">0pn</th>
+<th style="text-align: right;">6pp</th>
+<th style="text-align: right;">12pp</th>
+<th style="text-align: right;">3pp</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Total Score</td>
+<td style="text-align: right;">21.3</td>
+<td style="text-align: right;">20.4</td>
+<td style="text-align: right;">20.8</td>
+<td style="text-align: right;">19.6</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="cell" data-tbl-cap="**N Missing**">
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<caption><strong>N Missing</strong></caption>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Subscale</th>
+<th style="text-align: right;">0pn</th>
+<th style="text-align: right;">6pp</th>
+<th style="text-align: right;">12pp</th>
+<th style="text-align: right;">3pp</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Total Score</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">15</td>
+<td style="text-align: right;">28</td>
+<td style="text-align: right;">41</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="cell" data-tbl-cap="**Cronbach’s α**">
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<caption><strong>Cronbach’s α</strong></caption>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Subscale</th>
+<th style="text-align: right;">3pp</th>
+<th style="text-align: right;">6pp</th>
+<th style="text-align: right;">12pp</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Total Score</td>
+<td style="text-align: right;">0.92</td>
+<td style="text-align: right;">0.92</td>
+<td style="text-align: right;">0.94</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="psqi-pittsburgh-sleep-quality-index" class="level1">
+<h1>PSQI: Pittsburgh Sleep Quality Index</h1>
+<section id="notes-29" class="level2">
+<h2 class="anchored" data-anchor-id="notes-29">Notes</h2>
+<ul>
+<li>Buysee et al., 1989</li>
+<li>9 items (item 5 has A-J)</li>
+<li>0-3 Likert scale
+<ul>
+<li>Items 1-4 are open-ended</li>
+<li>Items 5-8: 0 = not during the past month; 3 = three or more times a week</li>
+<li>Item 9: 0 = very good; 3 = very bad</li>
+</ul></li>
+<li>Sum score of “components”
+<ul>
+<li>For global PSQI, a score over 5 indicates poor sleep quality</li>
+<li>See below for component score calculations</li>
+</ul></li>
+<li>No reverse scores</li>
+<li>Other notes:
+<ul>
+<li>Item 1: if they listed a range of times, we took the average</li>
+<li>Item 2: if they listed a range of times, we took the average</li>
+<li>Item 3: if they listed a range of times, we took the average</li>
+<li>Item 4: if they listed a range of times, we took the average</li>
+<li>Component 5: I replaced missing values in 5b-5j with the mean of 5b-5j and then took the sum before recoding</li>
+</ul></li>
+</ul>
+<div class="flex">
+<div class="cell" data-tbl-cap="**Means**">
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<caption><strong>Means</strong></caption>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Variable</th>
+<th style="text-align: right;">6pp</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">PYB_pa</td>
+<td style="text-align: right;">6.2</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">PYB_se</td>
+<td style="text-align: right;">6.1</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">PYB_tot</td>
+<td style="text-align: right;">6.1</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="cell" data-tbl-cap="**N Missing**">
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<caption><strong>N Missing</strong></caption>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Variable</th>
+<th style="text-align: right;">6pp</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">PYB_pa</td>
+<td style="text-align: right;">25</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">PYB_se</td>
+<td style="text-align: right;">25</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">PYB_tot</td>
+<td style="text-align: right;">25</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="cell" data-tbl-cap="**Cronbach’s α**">
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<caption><strong>Cronbach’s α</strong></caption>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Subscale</th>
+<th style="text-align: right;">0pn</th>
+<th style="text-align: right;">3pp</th>
+<th style="text-align: right;">6pp</th>
+<th style="text-align: right;">12pp</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Total Score</td>
+<td style="text-align: right;">0.66</td>
+<td style="text-align: right;">0.62</td>
+<td style="text-align: right;">0.7</td>
+<td style="text-align: right;">0.67</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="pss-perceived-stress-scale" class="level1">
+<h1>PSS: Perceived Stress Scale</h1>
+<section id="notes-30" class="level2">
+<h2 class="anchored" data-anchor-id="notes-30">Notes</h2>
+<ul>
+<li>Cohen et al., 1983</li>
+<li>14 items</li>
+<li>0-4 Likert Scale
+<ul>
+<li>0 = Never</li>
+<li>4 = Very often</li>
+</ul></li>
+<li>Sum score
+<ul>
+<li>Higher scores = increased stress level</li>
+</ul></li>
+<li>No subscale</li>
+<li>Reverse score: 4, 5, 6, 7, 9, 10, 13</li>
+</ul>
+<div class="flex">
+<div class="cell" data-tbl-cap="**Means**">
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<caption><strong>Means</strong></caption>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Subscale</th>
+<th style="text-align: right;">6pp</th>
+<th style="text-align: right;">12pp</th>
+<th style="text-align: right;">3pp</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Total Score</td>
+<td style="text-align: right;">34</td>
+<td style="text-align: right;">35</td>
+<td style="text-align: right;">35</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="cell" data-tbl-cap="**N Missing**">
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<caption><strong>N Missing</strong></caption>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Subscale</th>
+<th style="text-align: right;">6pp</th>
+<th style="text-align: right;">12pp</th>
+<th style="text-align: right;">3pp</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Total Score</td>
+<td style="text-align: right;">15</td>
+<td style="text-align: right;">28</td>
+<td style="text-align: right;">40</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="cell" data-tbl-cap="**Cronbach’s α**">
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<caption><strong>Cronbach’s α</strong></caption>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Subscale</th>
+<th style="text-align: right;">0pn</th>
+<th style="text-align: right;">3pp</th>
+<th style="text-align: right;">6pp</th>
+<th style="text-align: right;">12pp</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Total Score</td>
+<td style="text-align: right;">0.83</td>
+<td style="text-align: right;">0.87</td>
+<td style="text-align: right;">0.86</td>
+<td style="text-align: right;">0.86</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="pyb-parenting-your-baby" class="level1">
+<h1>PYB: Parenting Your Baby</h1>
+<section id="notes-31" class="level2">
+<h2 class="anchored" data-anchor-id="notes-31">Notes</h2>
+<ul>
+<li>Formerly “PARYC: Parenting Young Children”</li>
+<li>Guyon-Harris et al., 2023</li>
+<li>16 items + 2 “desire for change” items</li>
+<li>1-7 Likert
+<ul>
+<li>1 = Not at all</li>
+<li>7 = Most of the time</li>
+</ul></li>
+<li>Mean score
+<ul>
+<li>Higher scores = More frequent positive parenting behaviors</li>
+<li>“Desire for change”: higher scores = greater desire for change</li>
+</ul></li>
+<li>Subscales:
+<ul>
+<li>Supporting and enjoying your baby (se)</li>
+<li>Planning ahead with your baby (pa)</li>
+<li>Change items not included in either subscale</li>
+</ul></li>
+<li>Reverse score: both change items</li>
+</ul>
+<div class="flex">
+<div class="cell" data-tbl-cap="**Means**">
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<caption><strong>Means</strong></caption>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Subscale</th>
+<th style="text-align: right;">0pn</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Overall Mean</td>
+<td style="text-align: right;">12.5</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Planning Ahead</td>
+<td style="text-align: right;">2.4</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Support/Enjoy</td>
+<td style="text-align: right;">2.4</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="cell" data-tbl-cap="**N Missing**">
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<caption><strong>N Missing</strong></caption>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Subscale</th>
+<th style="text-align: right;">0pn</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Overall Mean</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Planning Ahead</td>
+<td style="text-align: right;">19</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Support/Enjoy</td>
+<td style="text-align: right;">4</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="cell" data-tbl-cap="**Cronbach’s α**">
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<caption><strong>Cronbach’s α</strong></caption>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Subscale</th>
+<th style="text-align: right;">6pp</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Overall Mean</td>
+<td style="text-align: right;">0.90</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Planning Ahead</td>
+<td style="text-align: right;">0.82</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Support/Enjoy</td>
+<td style="text-align: right;">0.86</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="rf-risky-families" class="level1">
+<h1>RF: Risky Families</h1>
+<section id="notes-32" class="level2">
+<h2 class="anchored" data-anchor-id="notes-32">Notes</h2>
+<ul>
+<li>Taylor et al., 2004</li>
+<li>11 items</li>
+<li>1-5 Likert scale
+<ul>
+<li>1 = Not at all</li>
+<li>5 = Very often</li>
+</ul></li>
+<li>Sum score
+<ul>
+<li>Higher score = riskier family environment</li>
+</ul></li>
+<li>No subscales</li>
+<li>Reverse score: 1, 3, 6</li>
+</ul>
+<div class="flex">
+<div class="cell" data-tbl-cap="**Means**">
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<caption><strong>Means</strong></caption>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Subscale</th>
+<th style="text-align: right;">0pn</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Total Score</td>
+<td style="text-align: right;">22.1</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="cell" data-tbl-cap="**N Missing**">
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<caption><strong>N Missing</strong></caption>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Subscale</th>
+<th style="text-align: right;">0pn</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Total Score</td>
+<td style="text-align: right;">2</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="cell" data-tbl-cap="**Cronbach’s α**">
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<caption><strong>Cronbach’s α</strong></caption>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Subscale</th>
+<th style="text-align: right;">0pn</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Total Score</td>
+<td style="text-align: right;">0.88</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="scl-symptom-checklist-90" class="level1">
+<h1>SCL: Symptom Checklist-90</h1>
+<section id="notes-33" class="level2">
+<h2 class="anchored" data-anchor-id="notes-33">Notes</h2>
+<ul>
+<li>Derogatis et al., 1973</li>
+<li>90 items
+<ul>
+<li>HATCH only includes 87 items</li>
+<li>2 suicidality items omitted:
+<ul>
+<li>“Thoughts of ending your life” (#15) - depression subscale</li>
+<li>“Thoughts of death or dying” (#59) - additional items</li>
+</ul></li>
+<li>1 aggression item omitted:
+<ul>
+<li>“Having urges to beat, injure, or harm someone.” (#63) - anger-hostility subscale</li>
+</ul></li>
+</ul></li>
+<li>0-4 Likert Scale
+<ul>
+<li>0 = Not at all</li>
+<li>4 = Extremely</li>
+</ul></li>
+<li>Mean scores
+<ul>
+<li>Higher scores = higher distress</li>
+</ul></li>
+<li>9 subscales, 3 global scales, and an “additional items” category:
+<ul>
+<li>Subscales:
+<ul>
+<li>Somatization (1, 4, 12, 27, 40, 42, 48, 49, 52, 53, 56, and
+<ol start="58" type="1">
+<li></li>
+</ol></li>
+<li>Obsessive-Compulsive (3, 9, 10, 28, 38, 45, 46, 51, 55, and
+<ol start="65" type="1">
+<li>terpersonal Sensitivity (6, 21, 34, 36, 37, 41, 61, 69, and 73)</li>
+</ol></li>
+<li>Depression (5, 14, 20, 22, 26, 29, 30, 31, 32, 54, 71, and
+<ol start="79" type="1">
+<li></li>
+</ol></li>
+<li>Anxiety (17, 23, 33, 39, 57, 72, 78, 80, and 86)</li>
+<li>Hostility (11, 24, 63, 67, 74, and 81)</li>
+<li>Phobic-Anxiety (13, 25, 47, 50, 70, 75, and 82)</li>
+<li>Paranoid Ideation (8, 18, 43, 68, 76, and 83)</li>
+<li>Psychoticism (7, 16, 35, 62, 77, 84, 85, 87, 88, and 90)</li>
+</ul></li>
+<li>Global scales:
+<ul>
+<li>Global Severity Index (All items)</li>
+<li>Positive Symptom Distress Index (Mean of non-zero responses)</li>
+<li>Positive Symptom Total (Count of non-zero items)</li>
+</ul></li>
+<li>“Additional Items” category (19, 44, 59, 60, 64, and 89)</li>
+</ul></li>
+<li>Reverse scored items: none</li>
+<li>Other notes: Add .005 based on most recent scoring instructions in QGlobal</li>
+</ul>
+<div class="flex">
+<div class="cell" data-tbl-cap="**Means**">
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<caption><strong>Means</strong></caption>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Variable</th>
+<th style="text-align: right;">6pp</th>
+<th style="text-align: right;">12pp</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">SCL_add</td>
+<td style="text-align: right;">0.6</td>
+<td style="text-align: right;">0.5</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">SCL_anx</td>
+<td style="text-align: right;">0.2</td>
+<td style="text-align: right;">0.2</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">SCL_dep</td>
+<td style="text-align: right;">0.5</td>
+<td style="text-align: right;">0.5</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">SCL_gsi</td>
+<td style="text-align: right;">0.4</td>
+<td style="text-align: right;">0.3</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">SCL_hos</td>
+<td style="text-align: right;">0.4</td>
+<td style="text-align: right;">0.4</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">SCL_is</td>
+<td style="text-align: right;">0.3</td>
+<td style="text-align: right;">0.4</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">SCL_oc</td>
+<td style="text-align: right;">0.7</td>
+<td style="text-align: right;">0.6</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">SCL_par</td>
+<td style="text-align: right;">0.2</td>
+<td style="text-align: right;">0.2</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">SCL_phob</td>
+<td style="text-align: right;">0.1</td>
+<td style="text-align: right;">0.1</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">SCL_psdi</td>
+<td style="text-align: right;">1.2</td>
+<td style="text-align: right;">1.2</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">SCL_pst</td>
+<td style="text-align: right;">20.8</td>
+<td style="text-align: right;">20.4</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">SCL_psy</td>
+<td style="text-align: right;">0.1</td>
+<td style="text-align: right;">0.1</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">SCL_som</td>
+<td style="text-align: right;">0.3</td>
+<td style="text-align: right;">0.3</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="cell" data-tbl-cap="**N Missing**">
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<caption><strong>N Missing</strong></caption>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Variable</th>
+<th style="text-align: right;">6pp</th>
+<th style="text-align: right;">12pp</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">SCL_add</td>
+<td style="text-align: right;">16</td>
+<td style="text-align: right;">28</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">SCL_anx</td>
+<td style="text-align: right;">16</td>
+<td style="text-align: right;">28</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">SCL_dep</td>
+<td style="text-align: right;">16</td>
+<td style="text-align: right;">28</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">SCL_gsi</td>
+<td style="text-align: right;">16</td>
+<td style="text-align: right;">28</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">SCL_hos</td>
+<td style="text-align: right;">16</td>
+<td style="text-align: right;">28</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">SCL_is</td>
+<td style="text-align: right;">16</td>
+<td style="text-align: right;">28</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">SCL_oc</td>
+<td style="text-align: right;">16</td>
+<td style="text-align: right;">28</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">SCL_par</td>
+<td style="text-align: right;">16</td>
+<td style="text-align: right;">28</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">SCL_phob</td>
+<td style="text-align: right;">16</td>
+<td style="text-align: right;">28</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">SCL_psdi</td>
+<td style="text-align: right;">16</td>
+<td style="text-align: right;">28</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">SCL_pst</td>
+<td style="text-align: right;">16</td>
+<td style="text-align: right;">28</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">SCL_psy</td>
+<td style="text-align: right;">16</td>
+<td style="text-align: right;">28</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">SCL_som</td>
+<td style="text-align: right;">16</td>
+<td style="text-align: right;">28</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="cell" data-tbl-cap="**Cronbach’s α**">
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<caption><strong>Cronbach’s α</strong></caption>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Subscale</th>
+<th style="text-align: right;">6pp</th>
+<th style="text-align: right;">12pp</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Total Score</td>
+<td style="text-align: right;">0.96</td>
+<td style="text-align: right;">0.96</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="scl-symptom-checklist90" class="level1">
+<h1>SCL: Symptom Checklist—90</h1>
+<section id="notes-34" class="level2">
+<h2 class="anchored" data-anchor-id="notes-34">Notes</h2>
+<ul>
+<li>Derogatis et al., 1973</li>
+<li>90 items
+<ul>
+<li>HATCH only includes 87 items</li>
+<li>2 suicidality items omitted:
+<ul>
+<li>“Thoughts of ending your life” (#15) - depression subscale</li>
+<li>“Thoughts of death or dying” (#59) - additional items</li>
+</ul></li>
+<li>1 aggression item omitted:
+<ul>
+<li>“Having urges to beat, injure, or harm someone.” (#63) - anger-hostility subscale</li>
+</ul></li>
+</ul></li>
+<li>0-4 Likert Scale
+<ul>
+<li>0 = Not at all</li>
+<li>4 = Extremely</li>
+</ul></li>
+<li>Mean scores
+<ul>
+<li>Higher scores = higher distress</li>
+</ul></li>
+<li>9 subscales, 3 global scales, and an “additional items” category:
+<ul>
+<li>Subscales:
+<ul>
+<li>Somatization (1, 4, 12, 27, 40, 42, 48, 49, 52, 53, 56, and
+<ol start="58" type="1">
+<li></li>
+</ol></li>
+<li>Obsessive-Compulsive (3, 9, 10, 28, 38, 45, 46, 51, 55, and
+<ol start="65" type="1">
+<li>terpersonal Sensitivity (6, 21, 34, 36, 37, 41, 61, 69, and 73)</li>
+</ol></li>
+<li>Depression (5, 14, 20, 22, 26, 29, 30, 31, 32, 54, 71, and
+<ol start="79" type="1">
+<li></li>
+</ol></li>
+<li>Anxiety (17, 23, 33, 39, 57, 72, 78, 80, and 86)</li>
+<li>Hostility (11, 24, 63, 67, 74, and 81)</li>
+<li>Phobic-Anxiety (13, 25, 47, 50, 70, 75, and 82)</li>
+<li>Paranoid Ideation (8, 18, 43, 68, 76, and 83)</li>
+<li>Psychoticism (7, 16, 35, 62, 77, 84, 85, 87, 88, and 90)</li>
+</ul></li>
+<li>Global scales:
+<ul>
+<li>Global Severity Index (All items)</li>
+<li>Positive Symptom Distress Index (Mean of non-zero responses)</li>
+<li>Positive Symptom Total (Count of non-zero items)</li>
+</ul></li>
+<li>“Additional Items” category (19, 44, 59, 60, 64, and 89)</li>
+</ul></li>
+<li>Reverse scored items: none</li>
+<li>Other notes: Add .005 based on most recent scoring instructions in QGlobal</li>
+</ul>
+<div class="flex">
+<div class="cell" data-tbl-cap="**Means**">
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<caption><strong>Means</strong></caption>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Variable</th>
+<th style="text-align: right;">0pn</th>
+<th style="text-align: right;">3pp</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">SCL_add</td>
+<td style="text-align: right;">0.6</td>
+<td style="text-align: right;">0.6</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">SCL_anx</td>
+<td style="text-align: right;">0.3</td>
+<td style="text-align: right;">0.2</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">SCL_dep</td>
+<td style="text-align: right;">0.5</td>
+<td style="text-align: right;">0.5</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">SCL_gsi</td>
+<td style="text-align: right;">0.4</td>
+<td style="text-align: right;">0.3</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">SCL_hos</td>
+<td style="text-align: right;">0.4</td>
+<td style="text-align: right;">0.4</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">SCL_is</td>
+<td style="text-align: right;">0.4</td>
+<td style="text-align: right;">0.4</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">SCL_oc</td>
+<td style="text-align: right;">0.7</td>
+<td style="text-align: right;">0.6</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">SCL_par</td>
+<td style="text-align: right;">0.3</td>
+<td style="text-align: right;">0.2</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">SCL_phob</td>
+<td style="text-align: right;">0.1</td>
+<td style="text-align: right;">0.1</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">SCL_psdi</td>
+<td style="text-align: right;">1.4</td>
+<td style="text-align: right;">1.0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">SCL_pst</td>
+<td style="text-align: right;">22.8</td>
+<td style="text-align: right;">17.1</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">SCL_psy</td>
+<td style="text-align: right;">0.1</td>
+<td style="text-align: right;">0.1</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">SCL_som</td>
+<td style="text-align: right;">0.4</td>
+<td style="text-align: right;">0.3</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="cell" data-tbl-cap="**N Missing**">
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<caption><strong>N Missing</strong></caption>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Variable</th>
+<th style="text-align: right;">0pn</th>
+<th style="text-align: right;">3pp</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">SCL_add</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">40</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">SCL_anx</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">40</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">SCL_dep</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">40</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">SCL_gsi</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">SCL_hos</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">40</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">SCL_is</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">40</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">SCL_oc</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">40</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">SCL_par</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">40</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">SCL_phob</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">40</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">SCL_psdi</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">SCL_pst</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">SCL_psy</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">40</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">SCL_som</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">40</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="cell" data-tbl-cap="**Cronbach’s α**">
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<caption><strong>Cronbach’s α</strong></caption>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Subscale</th>
+<th style="text-align: right;">0pn</th>
+<th style="text-align: right;">3pp</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Total Score</td>
+<td style="text-align: right;">0.97</td>
+<td style="text-align: right;">0.97</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="stai-state-trait-anxiety-inventory" class="level1">
+<h1>STAI: State-Trait Anxiety Inventory</h1>
+<section id="notes-35" class="level2">
+<h2 class="anchored" data-anchor-id="notes-35">Notes</h2>
+<ul>
+<li>Speilberger et al., 1993</li>
+<li>20 items per scale (state/trait)</li>
+<li>1-4 Likert Scale
+<ul>
+<li>1 = Not at all</li>
+<li>4 = Very much so</li>
+</ul></li>
+<li>Sum score
+<ul>
+<li>Higher scores = increased levels of anxiety</li>
+</ul></li>
+<li>No subscales within state/trait scales</li>
+<li>Reverse item scores:
+<ul>
+<li>State: 1, 2, 5, 8, 10, 11, 15, 16, 19, 20</li>
+<li>Trait: 1, 3, 6, 7, 10, 13, 14, 16, 19</li>
+</ul></li>
+</ul>
+<div class="flex">
+<div class="cell" data-tbl-cap="**Means**">
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<caption><strong>Means</strong></caption>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Subscale</th>
+<th style="text-align: right;">0pn</th>
+<th style="text-align: right;">6pp</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">State</td>
+<td style="text-align: right;">30.9</td>
+<td style="text-align: right;">30.5</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Trait</td>
+<td style="text-align: right;">34.7</td>
+<td style="text-align: right;">NA</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="cell" data-tbl-cap="**N Missing**">
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<caption><strong>N Missing</strong></caption>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Subscale</th>
+<th style="text-align: right;">0pn</th>
+<th style="text-align: right;">6pp</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">State</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">16</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Trait</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">NA</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="cell" data-tbl-cap="**Cronbach’s α**">
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<caption><strong>Cronbach’s α</strong></caption>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Subscale</th>
+<th style="text-align: right;">0pn</th>
+<th style="text-align: right;">6pp</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">State</td>
+<td style="text-align: right;">0.93</td>
+<td style="text-align: right;">0.92</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Trait</td>
+<td style="text-align: right;">0.92</td>
+<td style="text-align: right;">NA</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="wiaf-what-is-a-father" class="level1">
+<h1>WIAF: What is a Father</h1>
+<section id="notes-36" class="level2">
+<h2 class="anchored" data-anchor-id="notes-36">Notes</h2>
+<ul>
+<li>Schoppe, 2001</li>
+<li>15 items</li>
+<li>1-5 Likert scale
+<ul>
+<li>1 = strongly disagree</li>
+<li>5 = strongly agree</li>
+</ul></li>
+<li>Sum score
+<ul>
+<li>Higher scores = more progressive/nontraditional beliefs</li>
+</ul></li>
+<li>No subscales</li>
+<li>Reverse score: 3, 4, 8, 12, 14</li>
+</ul>
+<div class="flex">
+<div class="cell" data-tbl-cap="**Cronbach’s α**">
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<caption><strong>Cronbach’s α</strong></caption>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Subscale</th>
+<th style="text-align: right;">0pn</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Total Score</td>
+<td style="text-align: right;">0.62</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  document.querySelectorAll("table").forEach(function (table) {
+    // Scroll setup
+    table.style.display = "block";
+    table.style.overflowX = "auto";
+    table.style.whiteSpace = "nowrap";
+    table.style.width = "max-content";
+    table.style.maxWidth = "100%";
+
+    // Capitalize 'value' and 'label' headers
+    table.querySelectorAll("th").forEach(function (th) {
+      const text = th.textContent.trim().toLowerCase();
+      if (text === "value" || text === "label") {
+        th.textContent = text.charAt(0).toUpperCase() + text.slice(1);
+      }
+    });
+
+    // Center any cell with no space
+    table.querySelectorAll("td").forEach(function (td) {
+      const text = td.textContent.trim();
+      if (!text.includes(" ")) {
+        td.style.textAlign = "center";
+      }
+    });
+  });
+});
+</script>
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+        const codeEl = trigger.previousElementSibling.cloneNode(true);
+        for (const childEl of codeEl.children) {
+          if (isCodeAnnotation(childEl)) {
+            childEl.remove();
+          }
+        }
+        return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="../index.html" class="pagination-link" aria-label="Welcome Page">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-title">Welcome Page</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="../chapters/clean_inventory/HATCH_0pn_inventories.html" class="pagination-link" aria-label="Prenatal">
+        <span class="nav-page-text"><span class="chapter-title">Prenatal</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

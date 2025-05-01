@@ -477,30 +477,44 @@ check_continuous(df, BFI_ext.pn:BFI_open.pn) %>% knitr::kable()
 ```
 
 ##### Check Reliability
-
+###### Extroversion
 ```{r}
 #| echo: false
-# Extroversion
 ltm::cronbach.alpha(data = select(df, c(BFI1.pn, BFI6_r.pn, BFI11.pn, BFI16.pn,
                             BFI21_r.pn, BFI26.pn, BFI31_r.pn, BFI36.pn)), 
                     CI = T, 
                     na.rm = T)
-# Agreeableness
+```
+
+###### Agreeableness
+```{r}
+#| echo: false
 ltm::cronbach.alpha(data = select(df, c(BFI2_r.pn, BFI7.pn, BFI12_r.pn, BFI17.pn, 
                             BFI22.pn, BFI27_r.pn, BFI32.pn, BFI37_r.pn, BFI42.pn)), 
                     CI = T, 
                     na.rm = T)
-# Conscientiousness
+```
+###### Conscientiousness
+```{r}
+#| echo: false
 ltm::cronbach.alpha(data = select(df, c(BFI3.pn, BFI8_r.pn, BFI13.pn, BFI18_r.pn, 
                             BFI23_r.pn, BFI28.pn, BFI33.pn, BFI38.pn, BFI43_r.pn)), 
                     CI = T, 
                     na.rm = T)
-# Neuroticism
+```
+
+###### Neuroticism
+```{r}
+#| echo: false
 ltm::cronbach.alpha(data = select(df, c(BFI4.pn, BFI9_r.pn, BFI14.pn, BFI19.pn,
                             BFI24_r.pn, BFI29.pn, BFI34_r.pn, BFI39.pn)), 
                     CI = T, 
                     na.rm = T)
-# Openness
+```
+
+###### Openness
+```{r}
+#| echo: false
 ltm::cronbach.alpha(data = select(df, c(BFI5.pn, BFI10.pn, BFI15.pn, BFI20.pn, BFI25.pn,
                              BFI30.pn, BFI35_r.pn, BFI40.pn, BFI41_r.pn, BFI44.pn)), 
                     CI = T, 
@@ -855,7 +869,7 @@ print_slice(df, contains("DAS"))
 ::::
 :::::
 
-## ECR-R: Experiences in Close Relationships—Revised
+## ECR-R: Experiences in Close Relationships
 
 ::::: panel-tabset
 ### Notes
@@ -1163,10 +1177,38 @@ check_continuous(df, IRI_fs.pn:IRI_pd.pn) %>% knitr::kable()
 ```
 
 ##### Check Reliability
-
+###### Fantasy
 ```{r}
 #| echo: false
-ltm::cronbach.alpha(data = select(df, IRI1.pn:IRI28.pn), 
+ltm::cronbach.alpha(data = select(df, IRI1.pn, IRI5.pn, IRI7_r.pn, 
+                                     IRI12_r.pn, IRI16.pn, IRI23.pn, IRI26.pn), 
+                    CI = T, 
+                    na.rm = T)
+```
+
+###### Perspective Taking
+```{r}
+#| echo: false
+ltm::cronbach.alpha(data = select(df, IRI3_r.pn, IRI8.pn, IRI11.pn, 
+                                     IRI15_r.pn, IRI21.pn, IRI25.pn, IRI28.pn), 
+                    CI = T, 
+                    na.rm = T)
+```
+
+###### Empathic Concern
+```{r}
+#| echo: false
+ltm::cronbach.alpha(data = select(df, IRI2.pn, IRI4_r.pn, IRI9.pn, 
+                                     IRI14_r.pn, IRI18_r.pn, IRI20.pn, IRI22.pn), 
+                    CI = T, 
+                    na.rm = T)
+```
+
+###### Personal Distress
+```{r}
+#| echo: false
+ltm::cronbach.alpha(data = select(df, IRI6.pn, IRI10.pn, IRI13_r.pn, 
+                                     IRI17.pn, IRI19_r.pn, IRI24.pn, IRI27.pn), 
                     CI = T, 
                     na.rm = T)
 ```
@@ -1425,12 +1467,27 @@ check_continuous(df, LAPR_pur.pn:LAPR_pmi.pn) %>% knitr::kable()
 ```
 
 ##### Check Reliability
+###### Purpose
 
 ```{r}
 #| echo: false
-ltm::cronbach.alpha(data = select(df, contains("LAPR") & !contains("_")), 
-                    CI = T, 
-                    na.rm = T)
+ltm::cronbach.alpha(data = select(df, LAPR1.pn, LAPR2.pn, LAPR5.pn, LAPR18.pn, 
+                              LAPR26.pn, LAPR31.pn, LAPR37.pn, LAPR48.pn), na.rm = T)
+```
+
+###### Coherence
+
+```{r}
+#| echo: false
+ltm::cronbach.alpha(data = select(df, LAPR7.pn, LAPR12.pn, LAPR16.pn, LAPR27.pn, 
+                             LAPR29.pn, LAPR35.pn, LAPR38.pn, LAPR46.pn), na.rm = T)
+```
+
+###### Personal Meaning Index
+
+```{r}
+#| echo: false
+ltm::cronbach.alpha(data = select(df, contains("LAPR") & !contains("_")), na.rm = T)
 ```
 
 ##### Check Variable Labels
@@ -3891,15 +3948,18 @@ check_continuous(df, c(STAI_state.pn, STAI_trait.pn)) %>% knitr::kable()
 ```
 
 ##### Check Reliability
-
+###### State
 ```{r}
 #| echo: false
-# State
+
 ltm::cronbach.alpha(data = select(df, STAI_s1_r.pn:STAI_s20_r.pn), 
                     CI = T, 
                     na.rm = T)
+```
 
-# State
+###### Trait
+```{r}
+#| echo: false
 ltm::cronbach.alpha(data = select(df, STAI_t1_r.pn:STAI_t20.pn), 
                     CI = T, 
                     na.rm = T)

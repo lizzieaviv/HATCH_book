@@ -242,13 +242,40 @@ check_continuous(df, ASQ2_comm.3pp:ASQ2_social.3pp) %>% knitr::kable()
 ```
 
 ##### Check Reliability
+##### Check Reliability
+
+###### Communication Subscale
 
 ```{r}
 #| echo: false
 ltm::cronbach.alpha(data = select(df, ASQ2_c1.3pp:ASQ2_c6.3pp), na.rm = T)
+```
+
+###### Gross Motor Subscale
+
+```{r}
+#| echo: false
 ltm::cronbach.alpha(data = select(df, ASQ2_gm1.3pp:ASQ2_gm6.3pp), na.rm = T)
+```
+
+###### Fine Motor Subscale
+
+```{r}
+#| echo: false
 ltm::cronbach.alpha(data = select(df, ASQ2_fm1.3pp:ASQ2_fm6.3pp), na.rm = T)
+```
+
+###### Problem Solving Subscale
+
+```{r}
+#| echo: false
 ltm::cronbach.alpha(data = select(df, ASQ2_ps1.3pp:ASQ2_ps6.3pp), na.rm = T)
+```
+
+###### Personal/Social Subscale
+
+```{r}
+#| echo: false
 ltm::cronbach.alpha(data = select(df, ASQ2_s1.3pp:ASQ2_s6.3pp), na.rm = T)
 ```
 
@@ -421,16 +448,42 @@ check_continuous(df, c(ASQ4_comm.3pp:ASQ4_social.3pp)) %>% knitr::kable()
 ```
 
 ##### Check Reliability
+##### Check Reliability
+
+###### Communication Subscale
 
 ```{r}
 #| echo: false
 ltm::cronbach.alpha(data = select(df, ASQ4_c1.3pp:ASQ4_c6.3pp), na.rm = T)
-ltm::cronbach.alpha(data = select(df, ASQ4_gm1.3pp:ASQ4_gm6.3pp), na.rm = T)
-ltm::cronbach.alpha(data = select(df, ASQ4_fm1.3pp:ASQ4_fm6.3pp), na.rm = T)
-ltm::cronbach.alpha(data = select(df, ASQ4_ps1.3pp:ASQ4_ps6.3pp), na.rm = T)
-ltm::cronbach.alpha(data = select(df, ASQ4_s1.3pp:ASQ4_s6.3pp), na.rm = T)
 ```
 
+###### Gross Motor Subscale
+
+```{r}
+#| echo: false
+ltm::cronbach.alpha(data = select(df, ASQ4_gm1.3pp:ASQ4_gm6.3pp), na.rm = T)
+```
+
+###### Fine Motor Subscale
+
+```{r}
+#| echo: false
+ltm::cronbach.alpha(data = select(df, ASQ4_fm1.3pp:ASQ4_fm6.3pp), na.rm = T)
+```
+
+###### Problem Solving Subscale
+
+```{r}
+#| echo: false
+ltm::cronbach.alpha(data = select(df, ASQ4_ps1.3pp:ASQ4_ps6.3pp), na.rm = T)
+```
+
+###### Personal/Social Subscale
+
+```{r}
+#| echo: false
+ltm::cronbach.alpha(data = select(df, ASQ4_s1.3pp:ASQ4_s6.3pp), na.rm = T)
+```
 ##### Check Variable Labels
 
 ```{r}
@@ -570,12 +623,17 @@ check_continuous(df, BCQ_structure.3pp:BCQ_attune.3pp) %>% knitr::kable()
 ```
 
 ##### Check Reliability
-
+###### Structure Subscale
 ```{r}
 #| echo: false
 ltm::cronbach.alpha(data = select(df, c(BCQ_S1_r.3pp:BCQ_S6.3pp, 
                                           BCQ_E1.3pp, BCQ_E2_r.3pp, BCQ_E3_r.3pp, BCQ_E6_r.3pp, BCQ_E7.3pp, BCQ_E10_r.3pp, 
                                           BCQ_So1.3pp, BCQ_So2_r.3pp, BCQ_So4_r.3pp, BCQ_So9.3pp, BCQ_So10_r.3pp)), na.rm = T)
+```
+
+###### Attunement Subscale
+```{r}
+#| echo: false
 ltm::cronbach.alpha(data = select(df, c(BCQ_S7.3pp:BCQ_S9_r.3pp, 
                                        BCQ_E4.3pp, BCQ_E5_r.3pp, BCQ_E8.3pp, BCQ_E9_r.3pp, 
                                        BCQ_So3_r.3pp, BCQ_So5_r.3pp:BCQ_So8.3pp, BCQ_So11.3pp)), na.rm = T)
@@ -1043,7 +1101,7 @@ print_slice(df, contains("EPDS"))
 :::
 :::
 
-## IBQR: Infant Behavior Questionnaire
+## IBQR: Infant Behavior Questionnaire—Revised
 
 ::: panel-tabset
 ### Notes
@@ -1166,20 +1224,27 @@ check_continuous(df, IBQR_surgency.3pp:IBQR_effcontrol.3pp) %>% knitr::kable()
 ```
 
 ##### Check Reliability
-
+###### Surgency
 ```{r}
 #| echo: false
-# Surgency
 ltm::cronbach.alpha(data = select(df, IBQR1.3pp, IBQR2.3pp, IBQR7.3pp, IBQR8.3pp, 
                                   IBQR13.3pp, IBQR14.3pp, IBQR15.3pp, 
                                   IBQR20.3pp, IBQR21.3pp, IBQR26.3pp, IBQR27.3pp, 
                                   IBQR36.3pp, IBQR37.3pp), na.rm = T)
-# Negative Affect
+```
+
+###### Negative Affect
+```{r}
+#| echo: false
 ltm::cronbach.alpha(data = select(df, IBQR3.3pp, IBQR4.3pp, IBQR9.3pp, 
                                               IBQR10.3pp, IBQR16.3pp, IBQR17.3pp, 
                                               IBQR22.3pp, IBQR23.3pp, IBQR28.3pp, IBQR29.3pp, 
                                               IBQR32.3pp, IBQR33.3pp), na.rm = T)
-# Effortful Control 
+```
+
+###### Effortful Control
+```{r}
+#| echo: false
 ltm::cronbach.alpha(data = select(df, IBQR5.3pp, IBQR6.3pp, 
                                   IBQR11_r.3pp, IBQR12.3pp, IBQR18.3pp, IBQR19.3pp, 
                                   IBQR24.3pp, IBQR25.3pp, 
@@ -1851,35 +1916,41 @@ check_continuous(df, c(MPAS_attach.3pp:MPAS_pleasure.3pp, PPAS_patience.3pp:PPAS
 
 ::: panel-tabset
 ###### MPAS
-
+####### MPAS Attach
 ```{r}
 #| echo: false
-# MPAS Attach
 ltm::cronbach.alpha(data = select(df, MPAS3.3pp:MPAS7_r.3pp, MPAS10_r.3pp, MPAS14_r.3pp, MPAS18.3pp, MPAS19.3pp), na.rm = T)
+```
 
-# MPAS Absence of Hostility
+####### MPAS Absence of Hostility
+```{r}
+#| echo: false
 ltm::cronbach.alpha(data = select(df, MPAS1.3pp, MPAS2.3pp, MPAS15.3pp:MPAS17.3pp), na.rm = T)
-
-# MPAS: Pleasure in Interaction
+```
+####### MPAS: Pleasure in Interaction
+```{r}
+#| echo: false
 ltm::cronbach.alpha(data = select(df, MPAS8_r.3pp, MPAS9_r.3pp, MPAS11_r.3pp:MPAS13_r.3pp), na.rm = T)
-
 ```
 
 ###### PPAS
-
+####### PPAS Patience
 ```{r}
 #| echo: false
-# PPAS Patience
 ltm::cronbach.alpha(data = select(df, PPAS1.3pp, PPAS2.3pp, PPAS6.3pp, PPAS11_r.3pp, PPAS13_r.3pp, 
                                    PPAS17.3pp, PPAS18.3pp, PPAS19.3pp), na.rm = T)
+```
 
-# PPAS Pleasure
+####### PPAS Pleasure
+```{r}
+#| echo: false
 ltm::cronbach.alpha(data = select(df, PPAS4_r.3pp, PPAS5_r.3pp, PPAS8_r.3pp, PPAS9_r.3pp, PPAS10_r.3pp, PPAS12_r.3pp, PPAS15_r.3pp), na.rm = T)
+```
 
-# PPAS Affection
+####### PPAS Affection
+```{r}
+#| echo: false
 ltm::cronbach.alpha(data = select(df, PPAS3.3pp, PPAS7_r.3pp, PPAS14_r.3pp, PPAS16_r.3pp), na.rm = T)
-
-
 ```
 :::
 

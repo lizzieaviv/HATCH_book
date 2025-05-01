@@ -182,7 +182,7 @@ check_continuous(df, AAS_close.6pp:AAS_anx.6pp) %>% knitr::kable()
 
 ##### Check Reliability
 
-###### Close Subscale
+###### Close
 
 ```{r}
 #| echo: false
@@ -190,7 +190,7 @@ ltm::cronbach.alpha(data = select(df, c(AAS1.6pp, AAS6.6pp, AAS8_r.6pp,
                                   AAS12.6pp, AAS13_r.6pp, AAS17_r.6pp)), na.rm = T)
 ```
 
-###### Depend Subscale
+###### Depend
 
 ```{r}
 #| echo: false
@@ -198,7 +198,7 @@ ltm::cronbach.alpha(data = select(df, c(AAS2_r.6pp, AAS5.6pp, AAS7_r.6pp,
                                   AAS14.6pp, AAS16_r.6pp, AAS18_r.6pp)), na.rm = T)
 ```
 
-###### Anxiety Subscale
+###### Anxiety
 
 ```{r}
 #| echo: false
@@ -223,7 +223,7 @@ print_slice(df, AAS1.6pp:AAS_anx.6pp)
 ::::
 :::::
 
-## ASQ: Ages and Stages Questionnaire: 6-month
+## ASQ6: Ages and Stages Questionnaire: 6-month
 
 ::::: panel-tabset
 ### Notes
@@ -693,21 +693,21 @@ df <- df %>%
 #### Check
 
 ::: panel-tabset
-#### Check Counts
+##### Check Counts
 
 ```{r}
 #| echo: false
 check_categorical(df, BDI1.6pp:BDI21.6pp) %>% select(-label) %>% arrange(value) %>% knitr::kable()
 ```
 
-#### Check Numbers
+##### Check Numbers
 
 ```{r}
 #| echo: false
 check_continuous(df, BDI_tot.6pp) %>% knitr::kable()
 ```
 
-#### Check Reliability
+##### Check Reliability
 
 ```{r}
 #| echo: false
@@ -716,7 +716,7 @@ ltm::cronbach.alpha(data = select(df, BDI1.6pp:BDI21.6pp),
                     na.rm = T)
 ```
 
-#### Check Variable Labels
+##### Check Variable Labels
 
 ```{r}
 #| echo: false
@@ -1590,23 +1590,23 @@ df <- df %>%
 #### Check
 
 ::: panel-tabset
-#### Check Counts
+##### Check Counts
 
 ```{r}
 #| echo: false
 check_categorical(df, contains("LAPR") & !contains("_")) %>% knitr::kable()
 ```
 
-#### Check Numbers
+##### Check Numbers
 
 ```{r}
 #| echo: false
 check_continuous(df, LAPR_pur.6pp:LAPR_pmi.6pp) %>% knitr::kable()
 ```
 
-#### Check Reliability
+##### Check Reliability
 
-##### Purpose
+###### Purpose
 
 ```{r}
 #| echo: false
@@ -1614,7 +1614,7 @@ ltm::cronbach.alpha(data = select(df, LAPR1.6pp, LAPR2.6pp, LAPR5.6pp, LAPR18.6p
                               LAPR26.6pp, LAPR31.6pp, LAPR37.6pp, LAPR48.6pp), na.rm = T)
 ```
 
-##### Coherence
+###### Coherence
 
 ```{r}
 #| echo: false
@@ -1622,14 +1622,14 @@ ltm::cronbach.alpha(data = select(df, LAPR7.6pp, LAPR12.6pp, LAPR16.6pp, LAPR27.
                              LAPR29.6pp, LAPR35.6pp, LAPR38.6pp, LAPR46.6pp), na.rm = T)
 ```
 
-##### PMI
+###### Personal Meaning Index
 
 ```{r}
 #| echo: false
 ltm::cronbach.alpha(data = select(df, contains("LAPR") & !contains("_")), na.rm = T)
 ```
 
-#### Check Variable Labels
+##### Check Variable Labels
 
 ```{r}
 #| echo: false
@@ -3230,7 +3230,7 @@ print_slice(df, contains("PYB") & !contains("MRI"))
 ::::
 :::::
 
-## SCL: Symptom Checklist 90
+## SCL: Symptom Checklist-90
 
 :::::: panel-tabset
 ### Notes
@@ -3453,28 +3453,28 @@ df <- df %>%
 #### Check
 
 ::: panel-tabset
-#### Check Counts
+##### Check Counts
 
 ```{r}
 #| echo: false
 check_categorical(df, contains("SCL") & !contains("_")) %>% arrange(value) %>% knitr::kable()
 ```
 
-#### Check Numbers
+##### Check Numbers
 
 ```{r}
 #| echo: false
 check_continuous(df, SCL_som.6pp:SCL_psdi.6pp) %>% knitr::kable()
 ```
 
-#### Check Reliability
+##### Check Reliability
 
 ```{r}
 #| echo: false
 ltm::cronbach.alpha(data = select(df, SCL1.6pp:SCL90.6pp), na.rm = T)
 ```
 
-#### Check Variable Labels
+##### Check Variable Labels
 
 ```{r}
 #| echo: false
@@ -3491,7 +3491,7 @@ print_slice(df, contains("SCL"))
 ::::
 ::::::
 
-## STAI: State-Trait Anxiety Scale
+## STAI: State-Trait Anxiety Inventory
 
 ::::: panel-tabset
 ### Notes
@@ -3575,38 +3575,37 @@ df <- df %>%
 #### Check
 
 ::: panel-tabset
-#### Check Counts
+##### Check Counts
 
-##### Direct Scores
+###### Direct Scores
 
 ```{r}
 #| echo: false
 check_categorical(df, contains("STAI") & !contains("_r") & !contains("_state")) %>% knitr::kable()
 ```
 
-##### Reverse Score
+###### Reverse Score
 
 ```{r}
 #| echo: false
 check_categorical(df, contains("STAI") & contains("_r")) %>% knitr::kable()
 ```
 
-#### Check Numbers
+##### Check Numbers
 
 ```{r}
 #| echo: false
 check_continuous(df, STAI_state.6pp) %>% knitr::kable()
 ```
 
-#### Check Reliability
-
+##### Check Reliability
+###### State
 ```{r}
 #| echo: false
-# State
 ltm::cronbach.alpha(data = select(df, STAI_s1_r.6pp:STAI_s20_r.6pp), na.rm = T)
 ```
 
-#### Check Variable Labels
+##### Check Variable Labels
 
 ```{r}
 #| echo: false

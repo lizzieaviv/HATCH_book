@@ -530,28 +530,28 @@ df <- df %>%
 #### Check
 
 ::: panel-tabset
-#### Check Counts
+##### Check Counts
 
 ```{r}
 #| echo: false
 check_categorical(df, BDI1.12pp:BDI21.12pp) %>% select(-label) %>% arrange(value) %>% knitr::kable()
 ```
 
-#### Check Numbers
+##### Check Numbers
 
 ```{r}
 #| echo: false
 check_continuous(df, BDI_tot.12pp) %>% knitr::kable()
 ```
 
-#### Check Reliability
+##### Check Reliability
 
 ```{r}
 #| echo: false
 ltm::cronbach.alpha(data = select(df, BDI1.12pp:BDI21.12pp), na.rm = T)
 ```
 
-#### Check Variable Labels
+##### Check Variable Labels
 
 ```{r}
 #| echo: false
@@ -1006,7 +1006,7 @@ df <- df %>%
 #### Check
 
 ::: panel-tabset
-#### Check Counts
+##### Check Counts
 
 ```{r}
 #| echo: false
@@ -1016,16 +1016,16 @@ check_categorical(df, contains("ECR") & !contains("_")) %>% knitr::kable()
 check_categorical(df, contains("ECR") & contains("_r")) %>% knitr::kable()
 ```
 
-#### Check Numbers
+##### Check Numbers
 
 ```{r}
 #| echo: false
 check_continuous(df, ECR_anx.12pp:ECR_avoid.12pp) %>% knitr::kable()
 ```
 
-#### Check Reliability
+##### Check Reliability
 
-##### Anxious Attachment
+###### Anxious Attachment
 
 ```{r}
 #| echo: false
@@ -1033,14 +1033,14 @@ check_continuous(df, ECR_anx.12pp:ECR_avoid.12pp) %>% knitr::kable()
 ltm::cronbach.alpha(data = select(df, ECR1.12pp:ECR18.12pp), na.rm = T)
 ```
 
-##### Avoidant Attachment
+###### Avoidant Attachment
 
 ```{r}
 #| echo: false
 ltm::cronbach.alpha(data = select(df, ECR19.12pp:ECR36_r.12pp), na.rm = T)
 ```
 
-#### Check Variable Labels
+##### Check Variable Labels
 
 ```{r}
 #| echo: false
@@ -1571,12 +1571,6 @@ ltm::cronbach.alpha(data = select(df, IMS11.12pp:IMS15.12pp), na.rm = T)
 ltm::cronbach.alpha(data = select(df, IMS16.12pp:IMS22.12pp), na.rm = T)
 ```
 
-###### Overall
-
-```{r}
-#| echo: false
-ltm::cronbach.alpha(data = select(df, IMS1.12pp:IMS22.12pp), na.rm = T)
-```
 
 ##### Check Variable Labels
 
@@ -1698,23 +1692,23 @@ df <- df %>%
 #### Check
 
 ::: panel-tabset
-#### Check Counts
+##### Check Counts
 
 ```{r}
 #| echo: false
 check_categorical(df, contains("LAPR") & !contains("_")) %>% knitr::kable()
 ```
 
-#### Check Numbers
+##### Check Numbers
 
 ```{r}
 #| echo: false
 check_continuous(df, LAPR_pur.12pp:LAPR_pmi.12pp) %>% knitr::kable()
 ```
 
-#### Check Reliability
+##### Check Reliability
 
-##### Purpose
+###### Purpose
 
 ```{r}
 #| echo: false
@@ -1722,7 +1716,7 @@ ltm::cronbach.alpha(data = select(df, LAPR1.12pp, LAPR2.12pp, LAPR5.12pp, LAPR18
                               LAPR26.12pp, LAPR31.12pp, LAPR37.12pp, LAPR48.12pp), na.rm = T)
 ```
 
-##### Coherence
+###### Coherence
 
 ```{r}
 #| echo: false
@@ -1730,14 +1724,14 @@ ltm::cronbach.alpha(data = select(df, LAPR7.12pp, LAPR12.12pp, LAPR16.12pp, LAPR
                              LAPR29.12pp, LAPR35.12pp, LAPR38.12pp, LAPR46.12pp), na.rm = T)
 ```
 
-##### PMI
+###### Personal Meaning Index
 
 ```{r}
 #| echo: false
 ltm::cronbach.alpha(data = select(df, contains("LAPR") & !contains("_")), na.rm = T)
 ```
 
-#### Check Variable Labels
+##### Check Variable Labels
 
 ```{r}
 #| echo: false
@@ -2035,7 +2029,7 @@ print_slice(df, contains("MAT"))
 ::::
 :::::
 
-## MOS: MOS Social Support
+## MOS: Medical Outcomes Study Social Support Survey
 
 ::::: panel-tabset
 ### Notes
@@ -2107,28 +2101,28 @@ df <- df %>%
 #### Check
 
 ::: panel-tabset
-#### Check Counts
+##### Check Counts
 
 ```{r}
 #| echo: false
 check_categorical(df, contains("MOS") & !contains("_")) %>% arrange(value) %>% knitr::kable()
 ```
 
-#### Check Numbers
+##### Check Numbers
 
 ```{r}
 #| echo: false
 check_continuous(df, MOS_emo.12pp:MOS_tot.12pp) %>% knitr::kable()
 ```
 
-#### Check Reliability
+##### Check Reliability
 
 ```{r}
 #| echo: false
 ltm::cronbach.alpha(data = select(df, MOS1.12pp:MOS19.12pp), na.rm = T)
 ```
 
-#### Check Variable Labels
+##### Check Variable Labels
 
 ```{r}
 #| echo: false
@@ -3492,7 +3486,7 @@ print_slice(df, contains("PSS"))
 ::::
 :::::
 
-## SCL: Symptom Checklist 90
+## SCL: Symptom Checklist-90
 
 :::::: panel-tabset
 ### Notes
@@ -3715,28 +3709,28 @@ df <- df %>%
 #### Check
 
 ::: panel-tabset
-#### Check Counts
+##### Check Counts
 
 ```{r}
 #| echo: false
 check_categorical(df, contains("SCL") & !contains("_")) %>% arrange(value) %>% knitr::kable()
 ```
 
-#### Check Numbers
+##### Check Numbers
 
 ```{r}
 #| echo: false
 check_continuous(df, SCL_som.12pp:SCL_psdi.12pp) %>% knitr::kable()
 ```
 
-#### Check Reliability
+##### Check Reliability
 
 ```{r}
 #| echo: false
 ltm::cronbach.alpha(data = select(df, SCL1.12pp:SCL90.12pp), na.rm = T)
 ```
 
-#### Check Variable Labels
+##### Check Variable Labels
 
 ```{r}
 #| echo: false

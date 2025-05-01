@@ -6,6 +6,7 @@ book:
   title: "HATCH Data"
   chapters:
     - index.qmd
+    - chapters/codebook_raw.qmd
     - part: Inventory Cleaning
       chapters:
       - chapters/clean_inventory/HATCH_0pn_inventories.qmd

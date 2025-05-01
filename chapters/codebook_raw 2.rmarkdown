@@ -1,0 +1,2046 @@
+---
+title: "Code Book"
+format:
+  html:
+    df-print: paged
+    code-folding: show
+editor_options:
+  markdown:
+    wrap: 72
+---
+
+```{r}
+#| warning: false
+#| message: false
+#| echo: false
+library(tidyverse)
+library(knitr)
+library(here)
+library(haven)
+library(labelled)
+library(kableExtra)
+library(nestclean)
+```
+
+```{r}
+#| echo: false
+df.pn <- read_sav(here("data/5_complete", "0pn_complete.sav"))
+df.3pp <- read_sav(here("data/5_complete", "3pp_complete.sav"))
+df.6pp <- read_sav(here("data/5_complete", "6pp_complete.sav"))
+df.12pp <- read_sav(here("data/5_complete", "12pp_complete.sav"))
+
+df <- df.pn %>%
+  left_join(df.3pp, by = c("CoupleID", "Parent")) %>%
+  left_join(df.6pp, by = c("CoupleID", "Parent")) %>%
+  left_join(df.12pp, by = c("CoupleID", "Parent"))
+```
+
+# AAS: Adult Attachment Scale
+## Notes
+
+-   Collins, 1996
+-   18 items
+-   1-5 Likert Scale
+    -   1 = Not at all characteristic of me
+    -   5 = Very characteristic of me
+-   Mean scores
+    -   Higher close: more comfort with closeness
+    -   Higher depend: more comfort depending on others
+    -   Higher anxiety: more anxiety about rejection/abandonment
+-   Subscales
+    -   Close: 1, 6, 8R, 12, 13R, 17R
+    -   Depend: 2R, 5, 7R, 14, 16R, 18R
+    -   Anxiety: 3, 4, 9, 10, 11, 15
+-   Reverse score: 2, 7, 8, 13, 16, 17, 18
+
+
+```{r}
+#| echo: false
+#| tbl-cap: "Means"
+mean_AAS <- tibble::tibble(
+  `Subscale` = c('Anxiety', 'Close', 'Depend'),
+  `0pn` = c(2.20, 3.70, 3.30),
+  `6pp` = c(2.10, 3.80, 3.40)
+)
+mean_AAS %>% knitr::kable()
+```
+
+```{r}
+#| echo: false
+#| tbl-cap: "Number of Missing Values"
+missing_AAS <- tibble::tibble(
+  `Subscale` = c('Anxiety', 'Close', 'Depend'),
+  `0pn` = c(1, 1, 1),
+  `6pp` = c(14, 14, 14)
+)
+missing_AAS %>% knitr::kable()
+```
+
+```{r}
+#| echo: false
+#| tbl-cap: "Reliability"
+alpha_AAS <- tibble::tibble(
+  `Subscale` = c('Anxiety', 'Close', 'Depend'),
+  `0pn` = c(0.84, 0.73, 0.82),
+  `6pp` = c(0.87, 0.77, 0.88)
+)
+alpha_AAS %>% knitr::kable()
+```
+
+# ASQ12: Ages and Stages Questionnaire, 12-month
+## Notes
+
+-   Squires & Bricker, 2009
+-   6 questions per developmental domain + 9 additional overall
+    questions
+-   For developmental questions: 3-point Likert scale
+    -   0 = not yet
+    -   5 = sometimes
+    -   10 = yes
+-   For overall questions: 0-1 binary
+    -   0 = no
+    -   1 = not yet
+-   Sum scores
+    -   Higher scores = more advanced development
+-   Subscales:
+    -   Communication
+    -   Gross motor
+    -   Fine motor
+    -   Problem solving
+    -   Personal/social
+    -   Overall
+-   No reverse scores
+-   Other scores notes:
+    -   If three or more items are missing, do not score the
+        area—screening results may not be accurate.
+    -   If one or two items are missing, you will need to calculate an
+        adjusted score.
+        -   Replace missing items with mean score of other items in the
+            section
+    -   Refer to scoring guidelines for cut-off information and
+        information on "overall" items
+
+
+```{r}
+#| echo: false
+#| tbl-cap: "Means"
+mean_ASQ12 <- tibble::tibble(
+  `Subscale` = c('Communication Subscale', 'Fine Motor Subscale', 'Gross Motor Subscale', 'Personal/Social Subscale', 'Problem Solving Subscale'),
+  `12pp` = c(49.20, 52.60, 48.10, 46.20, 44.00)
+)
+mean_ASQ12 %>% knitr::kable()
+```
+
+```{r}
+#| echo: false
+#| tbl-cap: "Number of Missing Values"
+missing_ASQ12 <- tibble::tibble(
+  `Subscale` = c('Communication Subscale', 'Fine Motor Subscale', 'Gross Motor Subscale', 'Personal/Social Subscale', 'Problem Solving Subscale'),
+  `12pp` = c(30, 28, 38, 30, 32)
+)
+missing_ASQ12 %>% knitr::kable()
+```
+
+```{r}
+#| echo: false
+#| tbl-cap: "Reliability"
+alpha_ASQ12 <- tibble::tibble(
+  `Subscale` = c('Communication Subscale', 'Fine Motor Subscale', 'Gross Motor Subscale', 'Personal/Social Subscale', 'Problem Solving Subscale'),
+  `12pp` = c(0.75, 0.70, 0.84, 0.80, 0.68)
+)
+alpha_ASQ12 %>% knitr::kable()
+```
+
+# ASQ2: Ages and Stages Questionnaire, 2-month
+## Notes
+
+-   Squires & Bricker, 2009
+-   6 questions per developmental domain + 8 additional overall
+    questions
+-   For developmental questions: 3-point Likert scale
+    -   0 = not yet
+    -   5 = sometimes
+    -   10 = yes
+-   For overall questions: 0-1 binary
+    -   0 = no
+    -   1 = not yet
+-   Sum scores
+    -   Higher scores = more advanced development
+-   Subscales:
+    -   Communication
+    -   Gross motor
+    -   Fine motor
+    -   Problem solving
+    -   Personal/social
+    -   Overall
+-   No reverse scores
+-   Other scores notes:
+    -   If three or more items are missing, do not score the
+        area—screening results may not be accurate.
+    -   If one or two items are missing, you will need to calculate an
+        adjusted score.
+        -   Replace missing items with mean score of other items in the
+            section
+    -   Refer to scoring guidelines for cut-off information and
+        information on "overall" items
+
+
+```{r}
+#| echo: false
+#| tbl-cap: "Means"
+mean_ASQ2 <- tibble::tibble(
+  `Subscale` = c('Communication Subscale', 'Fine Motor Subscale', 'Gross Motor Subscale', 'Personal/Social Subscale', 'Problem Solving Subscale'),
+  `3pp` = c(51.40, 51.80, 55.30, 49.70, 51.90)
+)
+mean_ASQ2 %>% knitr::kable()
+```
+
+```{r}
+#| echo: false
+#| tbl-cap: "Number of Missing Values"
+missing_ASQ2 <- tibble::tibble(
+  `Subscale` = c('Communication Subscale', 'Fine Motor Subscale', 'Gross Motor Subscale', 'Personal/Social Subscale', 'Problem Solving Subscale'),
+  `3pp` = c(42, 42, 42, 42, 42)
+)
+missing_ASQ2 %>% knitr::kable()
+```
+
+```{r}
+#| echo: false
+#| tbl-cap: "Reliability"
+alpha_ASQ2 <- tibble::tibble(
+  `Subscale` = c('Communication Subscale', 'Fine Motor Subscale', 'Gross Motor Subscale', 'Personal/Social Subscale', 'Problem Solving Subscale'),
+  `3pp` = c(0.66, 0.53, 0.54, 0.58, 0.74)
+)
+alpha_ASQ2 %>% knitr::kable()
+```
+
+# ASQ4: Ages and Stages Questionnaire, 4-month
+## Notes
+
+-   Yes = 10; 5 = Sometimes; 0 = Not yet
+-   If three or more items are missing, do not score the area—screening
+    results may not be accurate.
+-   If one or two items are missing, you will need to calculate an
+    adjusted score.
+    -   Replace missing items with mean score of other items in the
+        section
+-   Refer to scoring guidelines for cut-off information and information
+    on "overall" items
+
+
+```{r}
+#| echo: false
+#| tbl-cap: "Means"
+mean_ASQ4 <- tibble::tibble(
+  `Subscale` = c('Communication Subscale', 'Fine Motor Subscale', 'Gross Motor Subscale', 'Personal/Social Subscale', 'Problem Solving Subscale'),
+  `3pp` = c(43.40, 36.10, 49.20, 42.80, 42.40)
+)
+mean_ASQ4 %>% knitr::kable()
+```
+
+```{r}
+#| echo: false
+#| tbl-cap: "Number of Missing Values"
+missing_ASQ4 <- tibble::tibble(
+  `Subscale` = c('Communication Subscale', 'Fine Motor Subscale', 'Gross Motor Subscale', 'Personal/Social Subscale', 'Problem Solving Subscale'),
+  `3pp` = c(42, 42, 42, 43, 42)
+)
+missing_ASQ4 %>% knitr::kable()
+```
+
+```{r}
+#| echo: false
+#| tbl-cap: "Reliability"
+alpha_ASQ4 <- tibble::tibble(
+  `Subscale` = c('Communication Subscale', 'Fine Motor Subscale', 'Gross Motor Subscale', 'Personal/Social Subscale', 'Problem Solving Subscale'),
+  `3pp` = c(0.70, 0.78, 0.63, 0.76, 0.80)
+)
+alpha_ASQ4 %>% knitr::kable()
+```
+
+# ASQ6: Ages and Stages Questionnaire: 6-month
+## Notes
+
+-   Squires & Bricker, 2009
+-   6 questions per developmental domain + 8 additional overall
+    questions
+-   For developmental questions: 3-point Likert scale
+    -   0 = not yet
+    -   5 = sometimes
+    -   10 = yes
+-   For overall questions: 0-1 binary
+    -   0 = no
+    -   1 = not yet
+-   Sum scores
+    -   Higher scores = more advanced development
+-   Subscales:
+    -   Communication
+    -   Gross motor
+    -   Fine motor
+    -   Problem solving
+    -   Personal/social
+    -   Overall
+-   No reverse scores
+-   Other scores notes:
+    -   If three or more items are missing, do not score the
+        area—screening results may not be accurate.
+    -   If one or two items are missing, you will need to calculate an
+        adjusted score.
+        -   Replace missing items with mean score of other items in the
+            section
+    -   Refer to scoring guidelines for cut-off information and
+        information on "overall" items
+
+
+```{r}
+#| echo: false
+#| tbl-cap: "Means"
+mean_ASQ6 <- tibble::tibble(
+  `Subscale` = c('Communication Subscale', 'Fine Motor Subscale', 'Gross Motor Subscale', 'Personal/Social Subscale', 'Problem Solving Subscale'),
+  `6pp` = c(49.50, 46.20, 47.40, 51.00, 48.80)
+)
+mean_ASQ6 %>% knitr::kable()
+```
+
+```{r}
+#| echo: false
+#| tbl-cap: "Number of Missing Values"
+missing_ASQ6 <- tibble::tibble(
+  `Subscale` = c('Communication Subscale', 'Fine Motor Subscale', 'Gross Motor Subscale', 'Personal/Social Subscale', 'Problem Solving Subscale'),
+  `6pp` = c(25, 25, 25, 25, 25)
+)
+missing_ASQ6 %>% knitr::kable()
+```
+
+```{r}
+#| echo: false
+#| tbl-cap: "Reliability"
+alpha_ASQ6 <- tibble::tibble(
+  `Subscale` = c('Communication Subscale', 'Fine Motor Subscale', 'Gross Motor Subscale', 'Personal/Social Subscale', 'Problem Solving Subscale'),
+  `6pp` = c(0.44, 0.71, 0.59, 0.61, 0.66)
+)
+alpha_ASQ6 %>% knitr::kable()
+```
+
+# BCQ: Baby Care Questionnaire
+## Notes
+
+-   Winstanley & Gattis, 2013
+-   30 items
+    -   3 sections: Sleeping, Feeding, Soothing
+-   1-4 Likert scale
+    -   1=strongly disagree
+    -   4=strongly agree
+-   Mean scores
+    -   Higher scores = higher structure/attunement
+-   Subscales:
+    -   Structure
+        -   S1-S6
+        -   E1-E3, E6, E7, E10
+        -   So1, So2, So4, So9, So10
+    -   Attunement
+        -   S7-S9
+        -   E4, E5, E8, E9
+        -   So3, So5, So6-So8, So11
+-   Reverse score for
+    -   S1-S3, S9
+    -   E2, E3, E5, E6, E9, E10
+    -   So2-So5, So7, So10
+
+
+```{r}
+#| echo: false
+#| tbl-cap: "Means"
+mean_BCQ <- tibble::tibble(
+  `Subscale` = c('Attunement Subscale', 'Structure Subscale'),
+  `6pp` = c(2.90, 2.90),
+  `12pp` = c(2.90, 2.90),
+  `3pp` = c(3.00, 2.80)
+)
+mean_BCQ %>% knitr::kable()
+```
+
+```{r}
+#| echo: false
+#| tbl-cap: "Number of Missing Values"
+missing_BCQ <- tibble::tibble(
+  `Subscale` = c('Attunement Subscale', 'Structure Subscale'),
+  `6pp` = c(15, 15),
+  `12pp` = c(28, 28),
+  `3pp` = c(42, 42)
+)
+missing_BCQ %>% knitr::kable()
+```
+
+```{r}
+#| echo: false
+#| tbl-cap: "Reliability"
+alpha_BCQ <- tibble::tibble(
+  `Subscale` = c('Attunement Subscale', 'Structure Subscale'),
+  `3pp` = c(0.78, 0.83),
+  `6pp` = c(0.83, 0.84),
+  `12pp` = c(0.76, 0.84)
+)
+alpha_BCQ %>% knitr::kable()
+```
+
+# BDI: Beck Depression Inventory
+## Notes
+
+-   Beck, 1996
+-   21 items
+    -   We removed item 9 for IRB purposes (suicidality)
+-   0-3 Likert scale (different anchor labels for each question)
+-   Sum score
+    -   Higher score = more depressive symptoms
+-   No subscales
+-   No reverse scores
+
+
+```{r}
+#| echo: false
+#| tbl-cap: "Means"
+mean_BDI <- tibble::tibble(
+  `Subscale` = c('Total Score'),
+  `0pn` = c(8.90),
+  `6pp` = c(9.20),
+  `12pp` = c(7.70),
+  `3pp` = c(8.40)
+)
+mean_BDI %>% knitr::kable()
+```
+
+```{r}
+#| echo: false
+#| tbl-cap: "Number of Missing Values"
+missing_BDI <- tibble::tibble(
+  `Subscale` = c('Total Score'),
+  `0pn` = c(1),
+  `6pp` = c(14),
+  `12pp` = c(27),
+  `3pp` = c(40)
+)
+missing_BDI %>% knitr::kable()
+```
+
+```{r}
+#| echo: false
+#| tbl-cap: "Reliability"
+alpha_BDI <- tibble::tibble(
+  `Subscale` = c('Total Score'),
+  `0pn` = c(0.85),
+  `3pp` = c(0.85),
+  `6pp` = c(0.88),
+  `12pp` = c(0.87)
+)
+alpha_BDI %>% knitr::kable()
+```
+
+# BFI: Big Five Inventory
+## Notes
+
+-   John et al., 1991
+-   44 items
+-   1-5 Likert scale
+    -   1 = Disagree strongly
+    -   5 = Agree strongly
+-   Mean scores
+    -   Higher scores = stronger presence of personality trait
+-   5 subscales:
+    -   Extraversion: 1, 6R, 11, 16,21R, 26, 31R, 36
+    -   Agreeableness: 2R, 7, 12R, 17, 22, 27R, 32, 37R, 42
+    -   Conscientiousness: 3, 8R, 13, 18R, 23R, 28, 33, 38, 43R
+    -   Neuroticism: 4, 9R, 14, 19, 24R, 29, 34R, 39
+    -   Openness: 5, 10, 15, 20, 25, 30, 35R, 40, 41R, 44
+-   Reverse score: 6, 17, 21, 27, 33, 4, 9, 14
+
+
+```{r}
+#| echo: false
+#| tbl-cap: "Means"
+mean_BFI <- tibble::tibble(
+  `Subscale` = c('Agreeableness', 'Conscientiousness', 'Extroversion', 'Neuroticism', 'Openness'),
+  `0pn` = c(4.00, 3.80, 3.50, 2.40, 3.80)
+)
+mean_BFI %>% knitr::kable()
+```
+
+```{r}
+#| echo: false
+#| tbl-cap: "Number of Missing Values"
+missing_BFI <- tibble::tibble(
+  `Subscale` = c('Agreeableness', 'Conscientiousness', 'Extroversion', 'Neuroticism', 'Openness'),
+  `0pn` = c(3, 3, 3, 3, 3)
+)
+missing_BFI %>% knitr::kable()
+```
+
+```{r}
+#| echo: false
+#| tbl-cap: "Reliability"
+alpha_BFI <- tibble::tibble(
+  `Subscale` = c('Agreeableness', 'Conscientiousness', 'Extroversion', 'Neuroticism', 'Openness'),
+  `0pn` = c(0.75, 0.76, 0.88, 0.84, 0.83)
+)
+alpha_BFI %>% knitr::kable()
+```
+
+# COPE: Brief Cope
+## Notes
+
+-   Carver, 1997
+-   28 items
+-   1-4 Likert Scale
+    -   1 = I don't do this at all
+    -   4 = I do this all the time
+-   Sum scores
+    -   Higher scores = more behaviors related to the subscale
+-   14 subscales:
+    -   Self-Distraction (1 and 19)
+    -   Active Coping (2 and 7)
+    -   Denial (3 and 8)
+    -   Substance Use (4 and 11)
+    -   Using Emotional Support (5 and 15)
+    -   Using Instrumental Support (10 and 23)
+    -   Behavior Disengagement (6 and 16)
+    -   Venting (9 and 21)
+    -   Positive Reframing (12 and 17)
+    -   Planning (14 and 25)
+    -   Humor (18 and 28)
+    -   Acceptance (20 and 24)
+    -   Religion (22 and 27)
+    -   Self-Blame (13 and 26)
+-   Reverse score: none
+
+
+```{r}
+#| echo: false
+#| tbl-cap: "Means"
+mean_COPE <- tibble::tibble(
+  `Variable` = c('COPE_acc', 'COPE_act', 'COPE_blame', 'COPE_den', 'COPE_diseng', 'COPE_dist', 'COPE_emo', 'COPE_hum', 'COPE_inst', 'COPE_plan', 'COPE_reframe', 'COPE_rel', 'COPE_sub', 'COPE_vent'),
+  `0pn` = c(6.30, 6.60, 4.10, 2.40, 2.60, 4.90, 5.80, 5.10, 5.90, 6.60, 5.80, 4.00, 2.40, 4.50),
+  `6pp` = c(6.10, 6.60, 4.00, 2.30, 2.60, 4.80, 5.50, 5.10, 5.40, 6.40, 5.90, 4.00, 2.60, 4.40),
+  `12pp` = c(5.90, 6.20, 4.00, 2.30, 2.70, 5.10, 5.50, 4.90, 5.50, 6.30, 5.50, 4.10, 2.70, 4.50)
+)
+mean_COPE %>% knitr::kable()
+```
+
+```{r}
+#| echo: false
+#| tbl-cap: "Number of Missing Values"
+missing_COPE <- tibble::tibble(
+  `Variable` = c('COPE_acc', 'COPE_act', 'COPE_blame', 'COPE_den', 'COPE_diseng', 'COPE_dist', 'COPE_emo', 'COPE_hum', 'COPE_inst', 'COPE_plan', 'COPE_reframe', 'COPE_rel', 'COPE_sub', 'COPE_vent'),
+  `0pn` = c(13, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13, 13),
+  `6pp` = c(17, 17, 17, 16, 17, 17, 17, 17, 17, 17, 17, 17, 16, 17),
+  `12pp` = c(28, 28, 28, 28, 28, 28, 28, 29, 28, 28, 28, 28, 28, 28)
+)
+missing_COPE %>% knitr::kable()
+```
+
+# DAS: Dyadic Adjustment Scale
+## Notes
+
+-   Spanier, 1976
+-   32 items
+-   Variable Likert Scales:
+    -   Items 1-22: 0-5 Likert Scale
+        -   0 = Always disagree/Never
+        -   5 = Always agree/All the time
+    -   Items 23-24: 0-4 Likert Scale
+        -   0 = Never/None of them
+        -   4 = Every day/All of them
+    -   Items 25-28: 0-5 Likert Scale
+        -   0 = Never
+        -   5 = More often
+    -   Items 29-30: 0-1 Binary Scale
+        -   0 = Yes
+        -   1 = No
+    -   Item 31: 0-6 Likert Scale
+    -   Item 32: 0-5 Likert Scale
+-   Sum score
+    -   Higher scores = healthier relationships
+-   4 subscales:
+    -   Dyadic consensus: 1, 2, 3, 5, 7-15
+    -   Dyadic satisfaction: 16-23, 31-32
+    -   Dyadic cohesion: 24-28
+    -   Affectional expression: 4, 6, 29-30
+-   Items 16, 17, 20, 21, and 22 are reverse coded
+
+
+```{r}
+#| echo: false
+#| tbl-cap: "Means"
+mean_DAS <- tibble::tibble(
+  `Variable` = c('DAS_aff', 'DAS_coh', 'DAS_con', 'DAS_sat', 'DAS_tot'),
+  `0pn` = c(9.00, 18.10, 52.30, 42.00, 121.30),
+  `6pp` = c(8.30, 17.70, 52.10, 40.70, 118.80),
+  `12pp` = c(8.30, 17.20, 51.80, 40.10, 117.40),
+  `3pp` = c(8.70, 17.60, 52.90, 41.50, 120.60)
+)
+mean_DAS %>% knitr::kable()
+```
+
+```{r}
+#| echo: false
+#| tbl-cap: "Number of Missing Values"
+missing_DAS <- tibble::tibble(
+  `Variable` = c('DAS_aff', 'DAS_coh', 'DAS_con', 'DAS_sat', 'DAS_tot'),
+  `0pn` = c(1, 1, 1, 1, 1),
+  `6pp` = c(15, 14, 14, 14, 14),
+  `12pp` = c(28, 28, 28, 28, 28),
+  `3pp` = c(40, 40, 40, 40, 40)
+)
+missing_DAS %>% knitr::kable()
+```
+
+```{r}
+#| echo: false
+#| tbl-cap: "Reliability"
+alpha_DAS <- tibble::tibble(
+  `Subscale` = c('Total Score'),
+  `0pn` = c(0.89),
+  `3pp` = c(0.91),
+  `6pp` = c(0.91),
+  `12pp` = c(0.92)
+)
+alpha_DAS %>% knitr::kable()
+```
+
+# ECR-R: Experiences in Close Relationships
+## Notes
+
+-   Fraley, Waller, and Brennan, 2000
+-   36 items
+-   1-7 Likert Scale
+    -   1 = stronly disagree
+    -   7 = strongly agree
+-   Mean scores
+    -   Higher score = higher anxiety/avoidance
+-   2 subscales:
+    -   Anxiety: 1-18
+    -   Avoidance: 9-36
+-   Reverse score: 9, 11, 20, 22, 26-31, 33-36
+
+
+```{r}
+#| echo: false
+#| tbl-cap: "Means"
+mean_ECR <- tibble::tibble(
+  `Subscale` = c('Anxious Attachment', 'Avoidant Attachment'),
+  `0pn` = c(2.20, 2.00),
+  `12pp` = c(2.20, 2.10)
+)
+mean_ECR %>% knitr::kable()
+```
+
+```{r}
+#| echo: false
+#| tbl-cap: "Number of Missing Values"
+missing_ECR <- tibble::tibble(
+  `Subscale` = c('Anxious Attachment', 'Avoidant Attachment'),
+  `0pn` = c(2, 2),
+  `12pp` = c(28, 28)
+)
+missing_ECR %>% knitr::kable()
+```
+
+```{r}
+#| echo: false
+#| tbl-cap: "Reliability"
+alpha_ECR <- tibble::tibble(
+  `Subscale` = c('Anxious Attachment', 'Avoidant Attachment'),
+  `0pn` = c(0.93, 0.93),
+  `12pp` = c(0.93, 0.92)
+)
+alpha_ECR %>% knitr::kable()
+```
+
+# EPDS: Edinburgh Postnatal Depression Scale
+## Notes
+
+-   Cox et al., 1987
+-   9 items (originally 10, but removed suicidality item)
+-   0-3 Likert Scale (different anchor labels for question)
+-   Sum score
+    -   Higher scores = greater depressive symptoms
+    -   Darby's syntax, it was a mean score, but online says it should
+        be a sum score
+-   No subscales
+-   Reverse score: 3, 5, 6, 7, 8, 9
+-   According to Darby's syntax, Question 2 was phrased incorrectly
+    until Couple 10 and requires reverse scoring
+
+
+```{r}
+#| echo: false
+#| tbl-cap: "Means"
+mean_EPDS <- tibble::tibble(
+  `Subscale` = c('Total Score'),
+  `6pp` = c(5.20),
+  `12pp` = c(5.50),
+  `3pp` = c(5.30)
+)
+mean_EPDS %>% knitr::kable()
+```
+
+```{r}
+#| echo: false
+#| tbl-cap: "Number of Missing Values"
+missing_EPDS <- tibble::tibble(
+  `Subscale` = c('Total Score'),
+  `6pp` = c(15),
+  `12pp` = c(28),
+  `3pp` = c(41)
+)
+missing_EPDS %>% knitr::kable()
+```
+
+```{r}
+#| echo: false
+#| tbl-cap: "Reliability"
+alpha_EPDS <- tibble::tibble(
+  `Subscale` = c('Total Score'),
+  `3pp` = c(0.81),
+  `6pp` = c(0.82),
+  `12pp` = c(0.85)
+)
+alpha_EPDS %>% knitr::kable()
+```
+
+# IBQR: Infant Behavior Questionnaire—Revised
+## Notes
+
+-   Putman et al., 2014
+-   37 items
+-   1-7 Likert Scale
+    -   1 = Never
+    -   7 = Always
+-   Mean score
+    -   Higher scores = more frequent expression of temperament trait
+-   3 Subscales:
+    -   Surgency: 1, 2, 7, 8, 13, 14, 15, 20, 21, 26, 27, 36, 37
+    -   Negative Affect: 3, 4, 9, 10, 16, 17, 22. 23, 28, 29, 32, 33
+    -   Effortful control: 5, 6, 11R, 12, 18, 19, 24, 25, 30, 31, 34, 35
+-   Reverse score: 11
+
+
+```{r}
+#| echo: false
+#| tbl-cap: "Means"
+mean_IBQR <- tibble::tibble(
+  `Variable` = c('IBQR_effcontrol', 'IBQR_negaffect', 'IBQR_surgency'),
+  `6pp` = c(5.40, 3.70, 4.90),
+  `12pp` = c(5.20, 4.20, 5.40),
+  `3pp` = c(5.50, 3.40, 3.90)
+)
+mean_IBQR %>% knitr::kable()
+```
+
+```{r}
+#| echo: false
+#| tbl-cap: "Number of Missing Values"
+missing_IBQR <- tibble::tibble(
+  `Variable` = c('IBQR_effcontrol', 'IBQR_negaffect', 'IBQR_surgency'),
+  `6pp` = c(16, 16, 16),
+  `12pp` = c(28, 28, 28),
+  `3pp` = c(43, 43, 43)
+)
+missing_IBQR %>% knitr::kable()
+```
+
+```{r}
+#| echo: false
+#| tbl-cap: "Reliability"
+alpha_IBQR <- tibble::tibble(
+  `Subscale` = c('Effortful Control', 'Effortful Control ', 'Negative Affect', 'Surgency'),
+  `3pp` = c(NA, 0.85, 0.70, 0.76),
+  `6pp` = c(0.76, NA, 0.80, 0.74),
+  `12pp` = c(0.81, NA, 0.83, 0.70)
+)
+alpha_IBQR %>% knitr::kable()
+```
+
+# IMS: Investment Model Scale
+## Notes
+
+-   Rusbult et al., 1998
+-   37 items total, 22 included in scoring
+    -   15 are items in "facet scales"
+    -   22 are items in "global scales"
+        -   5 in Satisfaction subscale
+        -   5 in Alternatives subscale
+        -   5 in Investment subscale
+        -   7 in Committment subscales
+-   0-8 Likert scale
+    -   0 = Do not agree at all
+    -   8 = Agree completely
+    -   Facet scales are on a 1-4 Likert scale
+-   Mean score
+    -   Higher score = stronger committment to maintaining the
+        relationship
+-   4 subscales:
+    -   Satisfaction: 1-5
+    -   Alternatives: 6-10
+    -   Investment: 11-15
+    -   Commitment: 16-22
+-   Reverse score items: 6-10 (Alternatives), 18 & 19 (Commitment)
+-   Other notes: "Facet items prepare participants to answer global
+    items by activating thoughts about each construct and concretely
+    illustrating each construct. Thus, facet items are utilized to
+    enhance the comprehensibility of global items, thereby increasing
+    their reliability and validity-the facet items are included solely
+    to obtain good global measures of each Investment Model construct.
+    The global measures of each construct are the measures that are
+    employed in formal tests of Investment Model hypotheses.
+
+
+```{r}
+#| echo: false
+#| tbl-cap: "Means"
+mean_IMS <- tibble::tibble(
+  `Variable` = c('IMS_alternatives', 'IMS_commitment', 'IMS_investment', 'IMS_satisfaction'),
+  `12pp` = c(6.10, 7.40, 6.30, 6.50)
+)
+mean_IMS %>% knitr::kable()
+```
+
+```{r}
+#| echo: false
+#| tbl-cap: "Number of Missing Values"
+missing_IMS <- tibble::tibble(
+  `Variable` = c('IMS_alternatives', 'IMS_commitment', 'IMS_investment', 'IMS_satisfaction'),
+  `12pp` = c(29, 29, 29, 31)
+)
+missing_IMS %>% knitr::kable()
+```
+
+```{r}
+#| echo: false
+#| tbl-cap: "Reliability"
+alpha_IMS <- tibble::tibble(
+  `Subscale` = c('Alternatives', 'Commitment', 'Investment', 'Overall', 'Satisfaction'),
+  `12pp` = c(0.83, 0.63, 0.80, 0.86, 0.96)
+)
+alpha_IMS %>% knitr::kable()
+```
+
+# IRI: Interpersonal Reactivity Index
+## Notes
+
+-   Davis, 1980
+-   28 items
+-   0-4 Likert scale
+    -   0 = Does not describe me well
+    -   4 = Describes me very well
+-   Mean score
+    -   Higher scores = greater empathy
+-   4 subscales
+    -   Perspective taking (`pt`): 3, 8, 11, 15, 21, 25, 28
+    -   Fantasy (`fs`): 1, 5, 7, 12, 16, 23, 26
+    -   Empathic Concerns (`ec`): 2, 4, 9, 14, 18, 20, 22
+    -   Personal Distress (`pd`): 6, 10, 13, 17, 19, 24, 27
+-   Reverse codes: 3, 4, 7, 12, 13, 14, 15, 18, 19
+-   Other notes:
+    -   Qualtrics scoring from participants 6-17 is slightly different
+        from participants 18-100.
+    -   This issue is resolved in the script below
+
+
+```{r}
+#| echo: false
+#| tbl-cap: "Means"
+mean_IRI <- tibble::tibble(
+  `Variable` = c('IRI_ec', 'IRI_fs', 'IRI_pd', 'IRI_pt'),
+  `0pn` = c(20.80, 16.00, 9.70, 19.20)
+)
+mean_IRI %>% knitr::kable()
+```
+
+```{r}
+#| echo: false
+#| tbl-cap: "Number of Missing Values"
+missing_IRI <- tibble::tibble(
+  `Variable` = c('IRI_ec', 'IRI_fs', 'IRI_pd', 'IRI_pt'),
+  `0pn` = c(15, 14, 14, 15)
+)
+missing_IRI %>% knitr::kable()
+```
+
+```{r}
+#| echo: false
+#| tbl-cap: "Reliability"
+alpha_IRI <- tibble::tibble(
+  `Subscale` = c('Total Score'),
+  `0pn` = c(0.75)
+)
+alpha_IRI %>% knitr::kable()
+```
+
+# ISS: Index of Sexual Satisfaction
+## Notes
+
+-   Hudson, 1993
+-   25 items
+-   1-7 Likert
+    -   1 = None of the time
+    -   7 = All of the time
+-   Sum score
+    -   Higher scores = greater sexual discord
+-   No subscales
+-   Reverse score: 1, 2, 3, 9, 10, 12, 16, 17, 19, 21, 22, 23
+-   Other notes:
+    -   There are several versions of this scale, with main difference
+        being Likert scale (items stay the same)
+
+
+```{r}
+#| echo: false
+#| tbl-cap: "Means"
+mean_ISS <- tibble::tibble(
+  `Subscale` = c('Total Score'),
+  `0pn` = c(62.80),
+  `6pp` = c(69.00)
+)
+mean_ISS %>% knitr::kable()
+```
+
+```{r}
+#| echo: false
+#| tbl-cap: "Number of Missing Values"
+missing_ISS <- tibble::tibble(
+  `Subscale` = c('Total Score'),
+  `0pn` = c(13),
+  `6pp` = c(16)
+)
+missing_ISS %>% knitr::kable()
+```
+
+```{r}
+#| echo: false
+#| tbl-cap: "Reliability"
+alpha_ISS <- tibble::tibble(
+  `Subscale` = c('Total Score'),
+  `0pn` = c(0.94),
+  `6pp` = c(0.94)
+)
+alpha_ISS %>% knitr::kable()
+```
+
+# LAPR: Life Attitudes Profile—Revised
+## Notes
+
+-   Erci, 2008 (but adapted for HATCH)
+-   16 items (out of 48 total)
+-   1-7 Likert
+    -   1 = Strongly disagree
+    -   7 = Strongly agree
+-   Sum score
+    -   Higher scores = greater sense of meaning
+-   2 dimensions (out of 6 in original scale):
+    -   Purpose: 1, 2, 5, 18, 26, 31, 37, 48
+    -   Coherence: 7, 12, 27. 29. 35, 38, 46
+-   1 composite score (out of 2 in original scale):
+    -   Personal Meaning Index
+-   Reverse score: none
+
+
+```{r}
+#| echo: false
+#| tbl-cap: "Means"
+mean_LAPR <- tibble::tibble(
+  `Variable` = c('LAPR_coh', 'LAPR_pmi', 'LAPR_pur'),
+  `0pn` = c(42.30, 86.50, 44.20),
+  `6pp` = c(43.10, 87.30, 44.20),
+  `12pp` = c(43.80, 87.70, 43.90)
+)
+mean_LAPR %>% knitr::kable()
+```
+
+```{r}
+#| echo: false
+#| tbl-cap: "Number of Missing Values"
+missing_LAPR <- tibble::tibble(
+  `Variable` = c('LAPR_coh', 'LAPR_pmi', 'LAPR_pur'),
+  `0pn` = c(13, 13, 13),
+  `6pp` = c(17, 17, 17),
+  `12pp` = c(28, 28, 28)
+)
+missing_LAPR %>% knitr::kable()
+```
+
+```{r}
+#| echo: false
+#| tbl-cap: "Reliability"
+alpha_LAPR <- tibble::tibble(
+  `Subscale` = c('Coherence', 'PMI', 'Purpose', 'Total Score'),
+  `0pn` = c(NA, NA, NA, 0.97),
+  `6pp` = c(0.90, 0.97, 0.88, NA),
+  `12pp` = c(0.91, 0.97, 0.91, NA)
+)
+alpha_LAPR %>% knitr::kable()
+```
+
+# LEC: Life Events Checklist
+## Notes
+
+-   Weathers et al., 2013
+-   Varying number of items
+    -   17 items: couples 1-48
+    -   15 items: couples 49-100 (skip items 11 and 14) - Item 11:
+        Captivity - Item 14: Sudden, violent death
+-   Varying nominal scales
+    -   Couples 1-64: 1-5 nominal scale
+        -   1 = Happened to me
+        -   2 = Witnessed it
+        -   3 = Learned about it
+        -   4 = Not sure
+        -   5 = Doesn't apply
+    -   Couples 65-100: 1-3 nominal scale
+        -   1 = Happened to me
+        -   2 = Witnessed it
+        -   3 = Didn't experience or witness
+-   Mean scores
+    -   Higher scores = greater number of events
+-   3 Subscales:
+    -   Happened: items endorsed as "Happened to me"
+    -   Witnessed: items endorsed as "Witnessed"
+    -   Happened/Witnessed: items endorsed as either "Happened to me" or
+        "Witnessed"
+-   Reverse scores: none
+
+
+```{r}
+#| echo: false
+#| tbl-cap: "Means"
+mean_LEC <- tibble::tibble(
+  `Variable` = c('LEC_hap', 'LEC_hapwit', 'LEC_wit'),
+  `0pn` = c(0.20, 0.30, 0.20)
+)
+mean_LEC %>% knitr::kable()
+```
+
+```{r}
+#| echo: false
+#| tbl-cap: "Number of Missing Values"
+missing_LEC <- tibble::tibble(
+  `Variable` = c('LEC_hap', 'LEC_hapwit', 'LEC_wit'),
+  `0pn` = c(20, 6, 41)
+)
+missing_LEC %>% knitr::kable()
+```
+
+# LES: Life Experiences Survey
+## Notes
+
+-   Sarason et al., 1978
+-   22 items
+    -   The original measure has 57 items
+    -   The revised measure that the HATCH study has on file contains 37
+        items
+    -   The Qualtrics measure HATCH Study used has 22 items
+        -   Different genders saw different items, so each participant
+            saw 20 items total
+-   Two scales per item:
+    -   0-1 Binary:
+        -   0 = Did not occur in the last year
+        -   1 = Occurred in the last year
+    -   -3 - 3 (7-point) Likert scale:
+        -   -3 = Extremely negative
+        -   3 = Extremely positive
+-   Sum scores
+    -   Positive scale: higher scores = higher levels of positivity
+    -   Negative sclae: higher scores = higher levels of negativity
+    -   Total scale: higher scores = higher levels of positivity
+-   Subscales:
+    -   Positive: Adding scores of all items rated \>0
+    -   Negative: Adding scores of all items rated \<0
+    -   Total: Adding positive and negative scores
+-   Reverse scores: none
+
+
+```{r}
+#| echo: false
+#| tbl-cap: "Means"
+mean_LES <- tibble::tibble(
+  `Variable` = c('LES_neg', 'LES_pos', 'LES_tot'),
+  `0pn` = c(-3.90, 6.40, 3.30)
+)
+mean_LES %>% knitr::kable()
+```
+
+```{r}
+#| echo: false
+#| tbl-cap: "Number of Missing Values"
+missing_LES <- tibble::tibble(
+  `Variable` = c('LES_neg', 'LES_pos', 'LES_tot'),
+  `0pn` = c(116, 100, 105)
+)
+missing_LES %>% knitr::kable()
+```
+
+# MAI: Maternal Attachment Inventory
+## Notes
+
+-   Müller, 1994
+-   26 items
+-   1-4 Likert Scale
+    -   1 = Almost never
+    -   4 = Almost always
+-   Sum score
+    -   Higher scores = more secure/positive attachment
+-   No subscales
+-   Reverse score: none
+
+
+```{r}
+#| echo: false
+#| tbl-cap: "Means"
+mean_MAI <- tibble::tibble(
+  `Subscale` = c('Total Score'),
+  `6pp` = c(100.30),
+  `12pp` = c(100.30),
+  `3pp` = c(99.00)
+)
+mean_MAI %>% knitr::kable()
+```
+
+```{r}
+#| echo: false
+#| tbl-cap: "Number of Missing Values"
+missing_MAI <- tibble::tibble(
+  `Subscale` = c('Total Score'),
+  `6pp` = c(39),
+  `12pp` = c(34),
+  `3pp` = c(56)
+)
+missing_MAI %>% knitr::kable()
+```
+
+```{r}
+#| echo: false
+#| tbl-cap: "Reliability"
+alpha_MAI <- tibble::tibble(
+  `Subscale` = c('Total Score'),
+  `3pp` = c(0.93),
+  `6pp` = c(0.90),
+  `12pp` = c(0.91)
+)
+alpha_MAI %>% knitr::kable()
+```
+
+# MAT: Marital Adjustment Test
+## Notes
+
+-   Locke & Wallace, 1959
+-   15 items
+-   Variable Likert Scales:
+    -   Item 1: 7-point Likert scale (0-35)
+    -   Items 2-9: 0-5 Likert scale (varying numbers) - Lowest = Always
+        disagree - Highest = Always agree
+    -   Item 10: 3-point Likert scale (0-10)
+    -   Item 11: 4-point Likert scale (0-10)
+    -   Item 12: 2-10 points depending on agreement
+    -   Item 13: 4-point Likert scale (0-15)
+    -   Item 14: 3-point Likert scale (0-15)
+    -   Item 15: 4-point Likert scale (0-10)
+-   Sum score
+    -   Higher scores = greater satisfaction
+-   No subscales
+-   Reverse score: none
+
+
+```{r}
+#| echo: false
+#| tbl-cap: "Means"
+mean_MAT <- tibble::tibble(
+  `Subscale` = c('Total Score'),
+  `0pn` = c(123.20),
+  `6pp` = c(117.60),
+  `12pp` = c(116.00),
+  `3pp` = c(120.10)
+)
+mean_MAT %>% knitr::kable()
+```
+
+```{r}
+#| echo: false
+#| tbl-cap: "Number of Missing Values"
+missing_MAT <- tibble::tibble(
+  `Subscale` = c('Total Score'),
+  `0pn` = c(2),
+  `6pp` = c(15),
+  `12pp` = c(28),
+  `3pp` = c(41)
+)
+missing_MAT %>% knitr::kable()
+```
+
+```{r}
+#| echo: false
+#| tbl-cap: "Reliability"
+alpha_MAT <- tibble::tibble(
+  `Subscale` = c('Total Score'),
+  `0pn` = c(0.65),
+  `3pp` = c(0.69),
+  `6pp` = c(0.72),
+  `12pp` = c(0.69)
+)
+alpha_MAT %>% knitr::kable()
+```
+
+# MOS: Medical Outcomes Study Social Support Survey
+## Notes
+
+-   Sherborne & Stewart, 1991
+-   19 items
+-   1-5 Likert scale
+    -   1 = None of the time
+    -   5 = All of the time
+-   Mean score
+    -   Higher score = higher levels of social support
+-   4 Subscales:
+    -   Emotional/ informational social support: 1-8
+    -   Tangible social support: 9-12
+    -   Positive interaction social support: 13-15
+    -   Affectionate social support: 16-18
+-   Revere score: None
+
+
+```{r}
+#| echo: false
+#| tbl-cap: "Means"
+mean_MOS <- tibble::tibble(
+  `Variable` = c('MOS_aff', 'MOS_emo', 'MOS_soc', 'MOS_tang', 'MOS_tot'),
+  `0pn` = c(4.80, 4.40, 4.70, 4.70, 4.60),
+  `12pp` = c(4.50, 4.20, 4.60, 4.60, 4.40),
+  `3pp` = c(4.60, 4.30, 4.70, 4.60, 4.50)
+)
+mean_MOS %>% knitr::kable()
+```
+
+```{r}
+#| echo: false
+#| tbl-cap: "Number of Missing Values"
+missing_MOS <- tibble::tibble(
+  `Variable` = c('MOS_aff', 'MOS_emo', 'MOS_soc', 'MOS_tang', 'MOS_tot'),
+  `0pn` = c(2, 2, 2, 2, 2),
+  `12pp` = c(28, 28, 28, 28, 28),
+  `3pp` = c(41, 41, 41, 41, 41)
+)
+missing_MOS %>% knitr::kable()
+```
+
+```{r}
+#| echo: false
+#| tbl-cap: "Reliability"
+alpha_MOS <- tibble::tibble(
+  `Subscale` = c('Total Score'),
+  `0pn` = c(0.94),
+  `3pp` = c(0.95),
+  `12pp` = c(0.97)
+)
+alpha_MOS %>% knitr::kable()
+```
+
+# PAS: Pregnancy Anxiety Scale
+## Notes
+
+-   Rini et al., 1999
+-   10 items
+    -   In Qualtrics, asked 13 items
+    -   Dropped items 2, 9, 10 based on scoring instructions
+-   1-4 Likert scale
+    -   1 = Not at all/Never
+    -   4 = Very much/A lot of the time
+-   Mean score
+    -   Higher score = higher anxiety about pregnancy
+-   No subscales
+-   Reverse score: 1, 2, 3
+-   Other notes:
+    -   Lumped in with PAS in Qualtrics
+
+
+```{r}
+#| echo: false
+#| tbl-cap: "Means"
+mean_PAS <- tibble::tibble(
+  `Subscale` = c('Total Score'),
+  `0pn` = c(1.80)
+)
+mean_PAS %>% knitr::kable()
+```
+
+```{r}
+#| echo: false
+#| tbl-cap: "Number of Missing Values"
+missing_PAS <- tibble::tibble(
+  `Subscale` = c('Total Score'),
+  `0pn` = c(2)
+)
+missing_PAS %>% knitr::kable()
+```
+
+```{r}
+#| echo: false
+#| tbl-cap: "Reliability"
+alpha_PAS <- tibble::tibble(
+  `Subscale` = c('Total Score'),
+  `0pn` = c(0.83)
+)
+alpha_PAS %>% knitr::kable()
+```
+
+# PAT: Parental Attribution Test
+## Notes
+
+-   Bugental, 2011
+-   18 items
+-   1-7 Likert scale
+    -   1 = Not at all important
+    -   7 = Very important
+-   Mean scores
+    -   Higher ACF scores = parent tends to blame themselves more
+    -   Higher CCF scores = parent tends to blame the child more
+    -   Higher US scores = parent tends to blame
+        uncontrollable/situational factors more
+    -   Higher PCF scores = parent tends to blame themselves more than
+        the child
+-   3 subscales
+    -   Adult Controlled Factors (ACF): 2d, 2i, 2k, 2m, 2u, 2z
+    -   Child Controlled Factors (CCF): 2b, 2c, 2f, 2j, 2q, 2t
+    -   Uncontrollable/Situational (US): 1a-1f
+    -   Parent Centered Focus (PCF): ACF - CCF
+-   Reverse code: none
+    -   The scoring instructions say to reverse score these items: 2c,
+        2f, 2m, 2q, 2u, 2z
+    -   However, when you reverse score them, the cronbach's alpha
+        become negative. When you don't reverse them, they are \>.8
+    -   My conclusion is that the items the scoring instructions use are
+        worded differently than the items we have
+-   Other notes:
+    -   Authors "have never found [US] scale to be predictive of
+        parenting practices and advise against its use"
+    -   The item numbers (1a-1f and 2a-2l) on our item list do not
+        correspond to the author scoring information
+        -   Doesn't matter for US scale, where all 6 items are from #1
+            and are direct coded
+        -   Fixed in `Rename` file based on SPSS syntax and reading
+            through items
+
+
+```{r}
+#| echo: false
+#| tbl-cap: "Means"
+mean_PAT <- tibble::tibble(
+  `Variable` = c('PAT_ACF', 'PAT_CCF', 'PAT_PCF', 'PAT_US'),
+  `12pp` = c(4.80, 5.10, -0.20, 5.20)
+)
+mean_PAT %>% knitr::kable()
+```
+
+```{r}
+#| echo: false
+#| tbl-cap: "Number of Missing Values"
+missing_PAT <- tibble::tibble(
+  `Variable` = c('PAT_ACF', 'PAT_CCF', 'PAT_PCF', 'PAT_US'),
+  `12pp` = c(31, 31, 31, 31)
+)
+missing_PAT %>% knitr::kable()
+```
+
+```{r}
+#| echo: false
+#| tbl-cap: "Reliability"
+alpha_PAT <- tibble::tibble(
+  `Subscale` = c('ACF', 'CCF', 'US'),
+  `12pp` = c(0.89, 0.81, 0.85)
+)
+alpha_PAT %>% knitr::kable()
+```
+
+# PBQ: Postpartum Bonding Questionnaire
+## Notes
+
+-   Brockington et al., 2001
+-   25 items
+-   0-5 Likert Scale
+    -   0 = Always/Never
+    -   5 = Never/Always
+-   Sum score
+    -   Higher scores = more impaired bonding Darby's SPSS script, it's
+        a mean. but scoring instructions say to take a sum
+-   Subscales:
+    -   Impaired bonding: 1, 2, 6, 7, 8, 9, 10, 12, 13, 15, 16, 17
+    -   Rejection and pathological anger: 3, 4, 5, 11, 14, 21, 23
+    -   Anxiety about the infant: 19, 20, 22, 25 cipient abuse: 18, 24
+-   Reverse score: 1, 4, 8, 9, 11, 16, 22, 25
+
+
+```{r}
+#| echo: false
+#| tbl-cap: "Means"
+mean_PBQ <- tibble::tibble(
+  `Variable` = c('PBQ_abuse', 'PBQ_anger', 'PBQ_anxiety', 'PBQ_impaired'),
+  `6pp` = c(0.10, 2.00, 2.50, 5.00),
+  `12pp` = c(0.10, 2.40, 2.60, 5.40),
+  `3pp` = c(0.00, 2.10, 2.60, 5.60)
+)
+mean_PBQ %>% knitr::kable()
+```
+
+```{r}
+#| echo: false
+#| tbl-cap: "Number of Missing Values"
+missing_PBQ <- tibble::tibble(
+  `Variable` = c('PBQ_abuse', 'PBQ_anger', 'PBQ_anxiety', 'PBQ_impaired'),
+  `6pp` = c(25, 25, 25, 31),
+  `12pp` = c(28, 28, 28, 33),
+  `3pp` = c(45, 45, 45, 49)
+)
+missing_PBQ %>% knitr::kable()
+```
+
+```{r}
+#| echo: false
+#| tbl-cap: "Reliability"
+alpha_PBQ <- tibble::tibble(
+  `Subscale` = c('Anxiety about the infant', 'Impaired Bonding', 'Incipient abuse', 'Rejection and pathological anger', 'Total Score'),
+  `3pp` = c(NA, NA, NA, NA, 0.87),
+  `6pp` = c(0.55, 0.71, 0.93, 0.79, NA),
+  `12pp` = c(0.51, 0.77, 0.06, 0.72, NA)
+)
+alpha_PBQ %>% knitr::kable()
+```
+
+# PingSS: Parenting Stress Scale
+## Notes
+
+-   Berry & Jones, 1995
+-   18 items
+-   1-5 Likert scale:
+    -   1 = Strongly disagree
+    -   5 = Strongly agree
+-   Sum score
+    -   Higher score = more stress
+    -   But SPSS syntax calculated a mean
+-   No subscales
+-   Reverse score: 1, 2, 5, 6, 7, 8, 17, 18
+
+
+```{r}
+#| echo: false
+#| tbl-cap: "Means"
+mean_PingSS <- tibble::tibble(
+  `Subscale` = c('Total Score'),
+  `0pn` = c(2.30)
+)
+mean_PingSS %>% knitr::kable()
+```
+
+```{r}
+#| echo: false
+#| tbl-cap: "Number of Missing Values"
+missing_PingSS <- tibble::tibble(
+  `Subscale` = c('Total Score'),
+  `0pn` = c(2)
+)
+missing_PingSS %>% knitr::kable()
+```
+
+```{r}
+#| echo: false
+#| tbl-cap: "Reliability"
+alpha_PingSS <- tibble::tibble(
+  `Subscale` = c('Total Score'),
+  `3pp` = c(0.84),
+  `6pp` = c(0.85),
+  `12pp` = c(0.88)
+)
+alpha_PingSS %>% knitr::kable()
+```
+
+# Pregnancy/Couvade Syndrome Symptoms
+## Notes
+
+-   Brennan
+-   44 symptoms, each with 4 questions
+-   Likert scale varies by question
+    -   Presence/Absence: 0-1 binary
+        -   0 = not present
+        -   1 = present
+    -   Severity: 1-9 Likert
+        -   1 = not at all severe
+        -   9 = the most severe
+    -   Distress: 1-9 Likert
+        -   1 = not at all distressing
+        -   9 = the most distressing
+    -   Frequency: removed
+-   Mean scores
+    -   Higher scores = more/worse symptoms
+-   3 subscales:
+    -   Number of symptoms
+    -   Severity
+    -   Distress
+-   Reverse score: none
+
+
+```{r}
+#| echo: false
+#| tbl-cap: "Means"
+mean_Pregnancy <- tibble::tibble(
+  `Variable` = c('PSI_dc', 'PSI_dr', 'PSI_pcdi', 'PSI_pd', 'PSI_tot'),
+  `6pp` = c(19.80, 15.00, 16.30, 25.90, 62.00),
+  `12pp` = c(21.70, 15.20, 17.30, 26.20, 65.20),
+  `3pp` = c(20.40, 14.60, 17.70, 25.40, 63.60)
+)
+mean_Pregnancy %>% knitr::kable()
+```
+
+```{r}
+#| echo: false
+#| tbl-cap: "Number of Missing Values"
+missing_Pregnancy <- tibble::tibble(
+  `Variable` = c('PSI_dc', 'PSI_dr', 'PSI_pcdi', 'PSI_pd', 'PSI_tot'),
+  `6pp` = c(15, 15, 15, 15, 15),
+  `12pp` = c(28, 28, 29, 28, 29),
+  `3pp` = c(40, 40, 40, 40, 40)
+)
+missing_Pregnancy %>% knitr::kable()
+```
+
+# PSAM: Pregnancy Specific Anxiety Measure
+## Notes
+
+-   Guardino & Dunkel Schetter, 2014
+-   13 items
+    -   Only 4 items included in total score
+    -   1 (Anxious), 5 (Concerned), 9 (Afraid), 11 (Panicky)
+-   1-5 Likert scale
+    -   1 = Never
+    -   5 = Always
+-   Mean score
+    -   Higher score = higher pregnancy anxiety
+-   No subscales
+-   Reverse score: none
+-   Other notes:
+    -   Lumped in with PAS in Qualtrics
+
+
+```{r}
+#| echo: false
+#| tbl-cap: "Means"
+mean_PSAM <- tibble::tibble(
+  `Subscale` = c('Total Score'),
+  `0pn` = c(5.60),
+  `6pp` = c(6.80),
+  `12pp` = c(6.10),
+  `3pp` = c(6.80)
+)
+mean_PSAM %>% knitr::kable()
+```
+
+```{r}
+#| echo: false
+#| tbl-cap: "Number of Missing Values"
+missing_PSAM <- tibble::tibble(
+  `Subscale` = c('Total Score'),
+  `0pn` = c(55),
+  `6pp` = c(36),
+  `12pp` = c(38),
+  `3pp` = c(63)
+)
+missing_PSAM %>% knitr::kable()
+```
+
+```{r}
+#| echo: false
+#| tbl-cap: "Reliability"
+alpha_PSAM <- tibble::tibble(
+  `Subscale` = c('Total Score'),
+  `0pn` = c(0.83)
+)
+alpha_PSAM %>% knitr::kable()
+```
+
+# PSI: Parenting Stress Index
+## Notes
+
+-   Abidin, 2012
+-   36 items
+-   1-5 Likert scale:
+    -   1 = Strongly disagree
+    -   5 = Strongly agree
+    -   The scoring instructions seem to be reversed
+-   Sum score
+    -   Higher scores for PD, PCDI, DC= more parenting stress
+    -   Higher scores for DR = increased social desirability bias
+-   Subscales:
+    -   Defensive responding (DR): 1, 2, 3, 7, 8, 9, 11
+    -   Parental distress (PD): 1-12
+    -   Parent-Child Dysfunctional Interaction (PCDI): 13-24
+    -   Difficult Child (DC): 25-36
+    -   Total score: PD+PCDI+DC
+-   Reverse score: all
+
+
+```{r}
+#| echo: false
+#| tbl-cap: "Means"
+mean_PSI <- tibble::tibble(
+  `Subscale` = c('Total Score'),
+  `0pn` = c(21.30),
+  `6pp` = c(20.40),
+  `12pp` = c(20.80),
+  `3pp` = c(19.60)
+)
+mean_PSI %>% knitr::kable()
+```
+
+```{r}
+#| echo: false
+#| tbl-cap: "Number of Missing Values"
+missing_PSI <- tibble::tibble(
+  `Subscale` = c('Total Score'),
+  `0pn` = c(1),
+  `6pp` = c(15),
+  `12pp` = c(28),
+  `3pp` = c(41)
+)
+missing_PSI %>% knitr::kable()
+```
+
+```{r}
+#| echo: false
+#| tbl-cap: "Reliability"
+alpha_PSI <- tibble::tibble(
+  `Subscale` = c('Total Score'),
+  `3pp` = c(0.92),
+  `6pp` = c(0.92),
+  `12pp` = c(0.94)
+)
+alpha_PSI %>% knitr::kable()
+```
+
+# PSQI: Pittsburgh Sleep Quality Index
+## Notes
+
+-   Buysee et al., 1989
+-   9 items (item 5 has A-J)
+-   0-3 Likert scale
+    -   Items 1-4 are open-ended
+    -   Items 5-8: 0 = not during the past month; 3 = three or more
+        times a week
+    -   Item 9: 0 = very good; 3 = very bad
+-   Sum score of "components"
+    -   For global PSQI, a score over 5 indicates poor sleep quality
+    -   See below for component score calculations
+-   No reverse scores
+-   Other notes:
+    -   Item 1: if they listed a range of times, we took the average
+    -   Item 2: if they listed a range of times, we took the average
+    -   Item 3: if they listed a range of times, we took the average
+    -   Item 4: if they listed a range of times, we took the average
+    -   Component 5: I replaced missing values in 5b-5j with the mean of
+        5b-5j and then took the sum before recoding
+
+
+```{r}
+#| echo: false
+#| tbl-cap: "Means"
+mean_PSQI <- tibble::tibble(
+  `Variable` = c('PYB_pa', 'PYB_se', 'PYB_tot'),
+  `6pp` = c(6.20, 6.10, 6.10)
+)
+mean_PSQI %>% knitr::kable()
+```
+
+```{r}
+#| echo: false
+#| tbl-cap: "Number of Missing Values"
+missing_PSQI <- tibble::tibble(
+  `Variable` = c('PYB_pa', 'PYB_se', 'PYB_tot'),
+  `6pp` = c(25, 25, 25)
+)
+missing_PSQI %>% knitr::kable()
+```
+
+```{r}
+#| echo: false
+#| tbl-cap: "Reliability"
+alpha_PSQI <- tibble::tibble(
+  `Subscale` = c('Total Score'),
+  `0pn` = c(0.66),
+  `3pp` = c(0.62),
+  `6pp` = c(0.70),
+  `12pp` = c(0.67)
+)
+alpha_PSQI %>% knitr::kable()
+```
+
+# PSS: Perceived Stress Scale
+## Notes
+
+-   Cohen et al., 1983
+-   14 items
+-   0-4 Likert Scale
+    -   0 = Never
+    -   4 = Very often
+-   Sum score
+    -   Higher scores = increased stress level
+-   No subscale
+-   Reverse score: 4, 5, 6, 7, 9, 10, 13
+
+
+```{r}
+#| echo: false
+#| tbl-cap: "Means"
+mean_PSS <- tibble::tibble(
+  `Subscale` = c('Total Score'),
+  `6pp` = c(34.00),
+  `12pp` = c(35.00),
+  `3pp` = c(35.00)
+)
+mean_PSS %>% knitr::kable()
+```
+
+```{r}
+#| echo: false
+#| tbl-cap: "Number of Missing Values"
+missing_PSS <- tibble::tibble(
+  `Subscale` = c('Total Score'),
+  `6pp` = c(15),
+  `12pp` = c(28),
+  `3pp` = c(40)
+)
+missing_PSS %>% knitr::kable()
+```
+
+```{r}
+#| echo: false
+#| tbl-cap: "Reliability"
+alpha_PSS <- tibble::tibble(
+  `Subscale` = c('Total Score'),
+  `0pn` = c(0.83),
+  `3pp` = c(0.87),
+  `6pp` = c(0.86),
+  `12pp` = c(0.86)
+)
+alpha_PSS %>% knitr::kable()
+```
+
+# PYB: Parenting Your Baby
+## Notes
+
+-   Formerly "PARYC: Parenting Young Children"
+-   Guyon-Harris et al., 2023
+-   16 items + 2 "desire for change" items
+-   1-7 Likert
+    -   1 = Not at all
+    -   7 = Most of the time
+-   Mean score
+    -   Higher scores = More frequent positive parenting behaviors
+    -   "Desire for change": higher scores = greater desire for change
+-   Subscales:
+    -   Supporting and enjoying your baby (se)
+    -   Planning ahead with your baby (pa)
+    -   Change items not included in either subscale
+-   Reverse score: both change items
+
+
+```{r}
+#| echo: false
+#| tbl-cap: "Means"
+mean_PYB <- tibble::tibble(
+  `Subscale` = c('Overall Mean', 'Planning Ahead', 'Support/Enjoy'),
+  `0pn` = c(12.50, 2.40, 2.40)
+)
+mean_PYB %>% knitr::kable()
+```
+
+```{r}
+#| echo: false
+#| tbl-cap: "Number of Missing Values"
+missing_PYB <- tibble::tibble(
+  `Subscale` = c('Overall Mean', 'Planning Ahead', 'Support/Enjoy'),
+  `0pn` = c(0, 19, 4)
+)
+missing_PYB %>% knitr::kable()
+```
+
+```{r}
+#| echo: false
+#| tbl-cap: "Reliability"
+alpha_PYB <- tibble::tibble(
+  `Subscale` = c('Overall Mean', 'Planning Ahead', 'Support/Enjoy'),
+  `6pp` = c(0.90, 0.82, 0.86)
+)
+alpha_PYB %>% knitr::kable()
+```
+
+# RF: Risky Families
+## Notes
+
+-   Taylor et al., 2004
+-   11 items
+-   1-5 Likert scale
+    -   1 = Not at all
+    -   5 = Very often
+-   Sum score
+    -   Higher score = riskier family environment
+-   No subscales
+-   Reverse score: 1, 3, 6
+
+
+```{r}
+#| echo: false
+#| tbl-cap: "Means"
+mean_RF <- tibble::tibble(
+  `Subscale` = c('Total Score'),
+  `0pn` = c(22.10)
+)
+mean_RF %>% knitr::kable()
+```
+
+```{r}
+#| echo: false
+#| tbl-cap: "Number of Missing Values"
+missing_RF <- tibble::tibble(
+  `Subscale` = c('Total Score'),
+  `0pn` = c(2)
+)
+missing_RF %>% knitr::kable()
+```
+
+```{r}
+#| echo: false
+#| tbl-cap: "Reliability"
+alpha_RF <- tibble::tibble(
+  `Subscale` = c('Total Score'),
+  `0pn` = c(0.88)
+)
+alpha_RF %>% knitr::kable()
+```
+
+# SCL: Symptom Checklist-90
+## Notes
+
+-   Derogatis et al., 1973
+-   90 items
+    -   HATCH only includes 87 items
+    -   2 suicidality items omitted:
+        -   "Thoughts of ending your life" (#15) - depression subscale
+        -   "Thoughts of death or dying" (#59) - additional items
+    -   1 aggression item omitted:
+        -   "Having urges to beat, injure, or harm someone." (#63) -
+            anger-hostility subscale
+-   0-4 Likert Scale
+    -   0 = Not at all
+    -   4 = Extremely
+-   Mean scores
+    -   Higher scores = higher distress
+-   9 subscales, 3 global scales, and an "additional items" category:
+    -   Subscales:
+        -   Somatization (1, 4, 12, 27, 40, 42, 48, 49, 52, 53, 56, and
+            58) 
+        -   Obsessive-Compulsive (3, 9, 10, 28, 38, 45, 46, 51, 55, and
+            65) terpersonal Sensitivity (6, 21, 34, 36, 37, 41, 61, 69,
+                and 73)
+        -   Depression (5, 14, 20, 22, 26, 29, 30, 31, 32, 54, 71, and
+            79) 
+        -   Anxiety (17, 23, 33, 39, 57, 72, 78, 80, and 86)
+        -   Hostility (11, 24, 63, 67, 74, and 81)
+        -   Phobic-Anxiety (13, 25, 47, 50, 70, 75, and 82)
+        -   Paranoid Ideation (8, 18, 43, 68, 76, and 83)
+        -   Psychoticism (7, 16, 35, 62, 77, 84, 85, 87, 88, and 90)
+    -   Global scales:
+        -   Global Severity Index (All items)
+        -   Positive Symptom Distress Index (Mean of non-zero responses)
+        -   Positive Symptom Total (Count of non-zero items)
+    -   "Additional Items" category (19, 44, 59, 60, 64, and 89)
+-   Reverse scored items: none
+-   Other notes: Add .005 based on most recent scoring instructions in
+    QGlobal
+
+
+```{r}
+#| echo: false
+#| tbl-cap: "Means"
+mean_SCL <- tibble::tibble(
+  `Variable` = c('SCL_add', 'SCL_anx', 'SCL_dep', 'SCL_gsi', 'SCL_hos', 'SCL_is', 'SCL_oc', 'SCL_par', 'SCL_phob', 'SCL_psdi', 'SCL_pst', 'SCL_psy', 'SCL_som'),
+  `6pp` = c(0.60, 0.20, 0.50, 0.40, 0.40, 0.30, 0.70, 0.20, 0.10, 1.20, 20.80, 0.10, 0.30),
+  `12pp` = c(0.50, 0.20, 0.50, 0.30, 0.40, 0.40, 0.60, 0.20, 0.10, 1.20, 20.40, 0.10, 0.30)
+)
+mean_SCL %>% knitr::kable()
+```
+
+```{r}
+#| echo: false
+#| tbl-cap: "Number of Missing Values"
+missing_SCL <- tibble::tibble(
+  `Variable` = c('SCL_add', 'SCL_anx', 'SCL_dep', 'SCL_gsi', 'SCL_hos', 'SCL_is', 'SCL_oc', 'SCL_par', 'SCL_phob', 'SCL_psdi', 'SCL_pst', 'SCL_psy', 'SCL_som'),
+  `6pp` = c(16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16),
+  `12pp` = c(28, 28, 28, 28, 28, 28, 28, 28, 28, 28, 28, 28, 28)
+)
+missing_SCL %>% knitr::kable()
+```
+
+```{r}
+#| echo: false
+#| tbl-cap: "Reliability"
+alpha_SCL <- tibble::tibble(
+  `Subscale` = c('Total Score'),
+  `6pp` = c(0.96),
+  `12pp` = c(0.96)
+)
+alpha_SCL %>% knitr::kable()
+```
+
+# SCL: Symptom Checklist—90
+## Notes
+
+-   Derogatis et al., 1973
+-   90 items
+    -   HATCH only includes 87 items
+    -   2 suicidality items omitted:
+        -   "Thoughts of ending your life" (#15) - depression subscale
+        -   "Thoughts of death or dying" (#59) - additional items
+    -   1 aggression item omitted:
+        -   "Having urges to beat, injure, or harm someone." (#63) -
+            anger-hostility subscale
+-   0-4 Likert Scale
+    -   0 = Not at all
+    -   4 = Extremely
+-   Mean scores
+    -   Higher scores = higher distress
+-   9 subscales, 3 global scales, and an "additional items" category:
+    -   Subscales:
+        -   Somatization (1, 4, 12, 27, 40, 42, 48, 49, 52, 53, 56, and
+            58) 
+        -   Obsessive-Compulsive (3, 9, 10, 28, 38, 45, 46, 51, 55, and
+            65) terpersonal Sensitivity (6, 21, 34, 36, 37, 41, 61, 69,
+                and 73)
+        -   Depression (5, 14, 20, 22, 26, 29, 30, 31, 32, 54, 71, and
+            79) 
+        -   Anxiety (17, 23, 33, 39, 57, 72, 78, 80, and 86)
+        -   Hostility (11, 24, 63, 67, 74, and 81)
+        -   Phobic-Anxiety (13, 25, 47, 50, 70, 75, and 82)
+        -   Paranoid Ideation (8, 18, 43, 68, 76, and 83)
+        -   Psychoticism (7, 16, 35, 62, 77, 84, 85, 87, 88, and 90)
+    -   Global scales:
+        -   Global Severity Index (All items)
+        -   Positive Symptom Distress Index (Mean of non-zero responses)
+        -   Positive Symptom Total (Count of non-zero items)
+    -   "Additional Items" category (19, 44, 59, 60, 64, and 89)
+-   Reverse scored items: none
+-   Other notes: Add .005 based on most recent scoring instructions in
+    QGlobal
+
+
+```{r}
+#| echo: false
+#| tbl-cap: "Means"
+mean_SCL <- tibble::tibble(
+  `Variable` = c('SCL_add', 'SCL_anx', 'SCL_dep', 'SCL_gsi', 'SCL_hos', 'SCL_is', 'SCL_oc', 'SCL_par', 'SCL_phob', 'SCL_psdi', 'SCL_pst', 'SCL_psy', 'SCL_som'),
+  `0pn` = c(0.60, 0.30, 0.50, 0.40, 0.40, 0.40, 0.70, 0.30, 0.10, 1.40, 22.80, 0.10, 0.40),
+  `3pp` = c(0.60, 0.20, 0.50, 0.30, 0.40, 0.40, 0.60, 0.20, 0.10, 1.00, 17.10, 0.10, 0.30)
+)
+mean_SCL %>% knitr::kable()
+```
+
+```{r}
+#| echo: false
+#| tbl-cap: "Number of Missing Values"
+missing_SCL <- tibble::tibble(
+  `Variable` = c('SCL_add', 'SCL_anx', 'SCL_dep', 'SCL_gsi', 'SCL_hos', 'SCL_is', 'SCL_oc', 'SCL_par', 'SCL_phob', 'SCL_psdi', 'SCL_pst', 'SCL_psy', 'SCL_som'),
+  `0pn` = c(1, 1, 1, 1, 1, 1, 1, 1, 1, 3, 0, 1, 1),
+  `3pp` = c(40, 40, 40, 0, 40, 40, 40, 40, 40, 0, 0, 40, 40)
+)
+missing_SCL %>% knitr::kable()
+```
+
+```{r}
+#| echo: false
+#| tbl-cap: "Reliability"
+alpha_SCL <- tibble::tibble(
+  `Subscale` = c('Total Score'),
+  `0pn` = c(0.97),
+  `3pp` = c(0.97)
+)
+alpha_SCL %>% knitr::kable()
+```
+
+# STAI: State-Trait Anxiety Inventory
+## Notes
+
+-   Speilberger et al., 1993
+-   20 items per scale (state/trait)
+-   1-4 Likert Scale
+    -   1 = Not at all
+    -   4 = Very much so
+-   Sum score
+    -   Higher scores = increased levels of anxiety
+-   No subscales within state/trait scales
+-   Reverse item scores:
+    -   State: 1, 2, 5, 8, 10, 11, 15, 16, 19, 20
+    -   Trait: 1, 3, 6, 7, 10, 13, 14, 16, 19
+
+
+```{r}
+#| echo: false
+#| tbl-cap: "Means"
+mean_STAI <- tibble::tibble(
+  `Subscale` = c('State', 'Trait'),
+  `0pn` = c(30.90, 34.70),
+  `6pp` = c(30.50, NA)
+)
+mean_STAI %>% knitr::kable()
+```
+
+```{r}
+#| echo: false
+#| tbl-cap: "Number of Missing Values"
+missing_STAI <- tibble::tibble(
+  `Subscale` = c('State', 'Trait'),
+  `0pn` = c(2, 2),
+  `6pp` = c(16, NA)
+)
+missing_STAI %>% knitr::kable()
+```
+
+```{r}
+#| echo: false
+#| tbl-cap: "Reliability"
+alpha_STAI <- tibble::tibble(
+  `Subscale` = c('State', 'Trait'),
+  `0pn` = c(0.93, 0.92),
+  `6pp` = c(0.92, NA)
+)
+alpha_STAI %>% knitr::kable()
+```
+
+# WIAF: What is a Father
+## Notes
+
+-   Schoppe, 2001
+-   15 items
+-   1-5 Likert scale
+    -   1 = strongly disagree
+    -   5 = strongly agree
+-   Sum score
+    -   Higher scores = more progressive/nontraditional beliefs
+-   No subscales
+-   Reverse score: 3, 4, 8, 12, 14
+
+
+```{r}
+#| echo: false
+#| tbl-cap: "Reliability"
+alpha_WIAF <- tibble::tibble(
+  `Subscale` = c('Total Score'),
+  `0pn` = c(0.62)
+)
+alpha_WIAF %>% knitr::kable()
+```
+
+
