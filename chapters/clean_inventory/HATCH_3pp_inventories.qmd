@@ -1694,305 +1694,268 @@ print_slice(df, contains("MOS"))
 :::
 :::
 
-## MPAS/PPAS: Maternal/Paternal Postnatal Attachment Scale
+# MPAS/PPAS: Maternal/Paternal Postnatal Attachment Scale
 
 ::: panel-tabset
-### Notes
-
--   Condon & Corkindale, 1998
-
-#### MPAS
-
--   19 items
--   Varying Likert Scales
-    -   Recode 2- and 4-option items to be comparable to a 5-point
-        likert scale
-    -   1 = nevere
-    -   5 = very frequently
--   Sum scores
-    -   Higher scores = higher attachment
--   3 subscales:
-    -   Quality of attachment: 3, 4, 5, 6, 7, 10, 14, 18, 19
-    -   Absence of hostility: 1, 2, 15, 16, 17
-    -   Pleasure in interaction: 8, 9, 11, 12, 13
--   Reverse score: 7-14
-
-#### PPAS
-
--   19 items
--   Varying Likert Scales
-    -   Recode 2- and 4-option items to be comparable to a 5-point
-        likert scale
-    -   1 = nevere
-    -   5 = very frequently
--   Sum scores
-    -   Higher scores = higher attachment
--   3 subscales:
-    -   Patience and tolerance: 1, 2, 6, 11, 13, 17, 18, 19
-    -   Pleasure in interaction:4, 5, 8, 9, 10, 12, 15
-    -   Affection and pride: 3, 7, 14, 16
--   Reverse score: 4, 5, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16
-
-### Script
-
+### MPAS
 ::: panel-tabset
-#### Recode item scores
+#### Notes
 
-##### MPAS
+- Condon & Corkindale, 1998  
+- 19 items  
+- Varying Likert scales  
+  - Recode 2- and 4-option items to 5-point scale  
+  - 1 = never, 5 = very frequently  
+- Sum scores  
+  - Higher scores = higher attachment  
+- Subscales:  
+  - Quality of attachment: 3, 4, 5, 6, 7, 10, 14, 18, 19  
+  - Absence of hostility: 1, 2, 15, 16, 17  
+  - Pleasure in interaction: 8, 9, 11, 12, 13  
+- Reverse score: 7–14  
+
+#### Script
+##### Recode item scores
 
 ```{r}
 df <- df %>%
-  # 5-option items (direct): MPAS1, MPAS2, MPAS3
-  # 5-option items (reverse): MPAS9, MPAS11, MPAS13
-  mutate(across(c(MPAS9.3pp, MPAS11.3pp, MPAS13.3pp), 
-                ~ case_when(
-                  . == 1 ~ 5, 
-                  . == 2 ~ 4, 
-                  . == 3 ~ 3, 
-                  . == 4 ~ 2,
-                  . == 5 ~ 1,
-                  .default = NA))) %>%
-  
-  # 4-option items (direct): MPAS4-MPAS6, MPAS15-MPAS19
-  mutate(across(c(MPAS4.3pp:MPAS6.3pp, MPAS15.3pp:MPAS19.3pp), 
-                ~ case_when(
-                  . == 1 ~ 1, 
-                  . == 2 ~ 2.3, 
-                  . == 3 ~ 3.6, 
-                  . == 4 ~ 5, 
-                  .default = NA))) %>%
-  
-  # 4-option items (reverse): MPAS7, MPAS10
+  mutate(across(c(MPAS9.3pp, MPAS11.3pp, MPAS13.3pp),
+                ~ case_when(. == 1 ~ 5, . == 2 ~ 4, . == 3 ~ 3,
+                            . == 4 ~ 2, . == 5 ~ 1, .default = NA))) %>%
+  mutate(across(c(MPAS4.3pp:MPAS6.3pp, MPAS15.3pp:MPAS19.3pp),
+                ~ case_when(. == 1 ~ 1, . == 2 ~ 2.3, . == 3 ~ 3.6,
+                            . == 4 ~ 5, .default = NA))) %>%
   mutate(across(c(MPAS7.3pp, MPAS10.3pp),
-                ~ case_when(
-                  . == 1 ~ 5, 
-                  . == 2 ~ 3.6, 
-                  . == 3 ~ 2.3, 
-                  . == 4 ~ 1, 
-                  .default = NA))) %>%
-  
-  # 3-option items (reverse): MPAS14
+                ~ case_when(. == 1 ~ 5, . == 2 ~ 3.6, . == 3 ~ 2.3,
+                            . == 4 ~ 1, .default = NA))) %>%
   mutate(MPAS14.3pp = case_when(
-                  MPAS14.3pp == 1 ~ 5, 
-                  MPAS14.3pp == 2 ~ 3, 
-                  MPAS14.3pp == 3 ~ 1,
-                  .default = NA)) %>%
-                
-  # 2-option items (reverse): MPAS8, MPAS12
-  mutate(across(c(MPAS8.3pp, MPAS12.3pp), 
-                ~ case_when(
-                  . == 1 ~ 5, 
-                  . == 2 ~ 1, 
-                  .default = NA))) 
-  
+           MPAS14.3pp == 1 ~ 5, MPAS14.3pp == 2 ~ 3,
+           MPAS14.3pp == 3 ~ 1, .default = NA)) %>%
+  mutate(across(c(MPAS8.3pp, MPAS12.3pp),
+                ~ case_when(. == 1 ~ 5, . == 2 ~ 1, .default = NA)))
 ```
 
-##### PPAS
+##### Rename reverse scored items
+
+```{r}
+setnames(df,
+  old = c("MPAS7.3pp", "MPAS8.3pp", "MPAS9.3pp", "MPAS10.3pp", 
+          "MPAS11.3pp", "MPAS12.3pp", "MPAS13.3pp", "MPAS14.3pp"),
+  new = gsub(".3pp", "_r.3pp", 
+             c("MPAS7.3pp", "MPAS8.3pp", "MPAS9.3pp", "MPAS10.3pp",
+               "MPAS11.3pp", "MPAS12.3pp", "MPAS13.3pp", "MPAS14.3pp"))
+)
+```
+
+##### Calculate summary scores
 
 ```{r}
 df <- df %>%
-  # 5-option items (direct): PPAS1, PPAS2, PPAS3
-  # 5-option items (reverse): PPAS4.3pp, PPAS5.3pp, PPAS10.3pp, PPAS12.3pp, PPAS14.3pp
-  mutate(across(c(PPAS4.3pp, PPAS5.3pp, PPAS10.3pp, PPAS12.3pp, PPAS14.3pp), 
-                ~ case_when(
-                  . == 1 ~ 5, 
-                  . == 2 ~ 4, 
-                  . == 3 ~ 3, 
-                  . == 4 ~ 2,
-                  . == 5 ~ 1,
-                  .default = NA))) %>%
-  
-  # 4-option items (direct): PPAS6, PPAS17, PPAS18, PPAS19
-  mutate(across(c(PPAS6.3pp, PPAS17.3pp, PPAS18.3pp, PPAS19.3pp), 
-                ~ case_when(
-                  . == 1 ~ 1, 
-                  . == 2 ~ 2.3, 
-                  . == 3 ~ 3.6, 
-                  . == 4 ~ 5, 
-                  .default = NA))) %>%
-  
-  # 4-option items (reverse): PPAS7.3pp, PPAS9.3pp, PPAS11.3pp, PPAS15.3pp
-  mutate(across(c(PPAS7.3pp, PPAS9.3pp, PPAS11.3pp, PPAS15.3pp),
-                ~ case_when(
-                  . == 1 ~ 5, 
-                  . == 2 ~ 3.6, 
-                  . == 3 ~ 2.3, 
-                  . == 4 ~ 1, 
-                  .default = NA))) %>%
-  
-  # 3-option items (reverse): PPAS13.3pp, PPAS16.3pp
-  mutate(across(c(PPAS13.3pp, PPAS16.3pp),
-                ~ case_when(
-                  . == 1 ~ 5, 
-                  . == 2 ~ 3, 
-                  . == 3 ~ 1,
-                  .default = NA))) %>%
-                
-  # 2-option items (reverse): PPAS8.3pp
-  mutate(PPAS8.3pp = case_when(
-                  PPAS8.3pp == 1 ~ 5, 
-                  PPAS8.3pp == 2 ~ 1, 
-                  .default = NA))
-  
-```
-
-#### Rename reverse scored items
-
-```{r}
-setnames(x = df, 
-         old = c("MPAS7.3pp", "MPAS8.3pp", "MPAS9.3pp", "MPAS10.3pp", "MPAS11.3pp", "MPAS12.3pp", "MPAS13.3pp", "MPAS14.3pp"), 
-         new = gsub(pattern = ".3pp", 
-                    replacement = "_r.3pp", 
-                    x = c("MPAS7.3pp", "MPAS8.3pp", "MPAS9.3pp", "MPAS10.3pp", "MPAS11.3pp", "MPAS12.3pp", "MPAS13.3pp", "MPAS14.3pp")))
-
-setnames(x = df, 
-         old = c("PPAS4.3pp", "PPAS5.3pp", "PPAS7.3pp", "PPAS8.3pp", "PPAS9.3pp",
-                 "PPAS10.3pp", "PPAS11.3pp", "PPAS12.3pp", "PPAS13.3pp", "PPAS14.3pp", "PPAS15.3pp", "PPAS16.3pp"), 
-         new = gsub(pattern = ".3pp", 
-                    replacement = "_r.3pp", 
-                    x = c("PPAS4.3pp", "PPAS5.3pp", "PPAS7.3pp", "PPAS8.3pp", "PPAS9.3pp", 
-                          "PPAS10.3pp", "PPAS11.3pp", "PPAS12.3pp", "PPAS13.3pp", "PPAS14.3pp", "PPAS15.3pp", "PPAS16.3pp")))
-```
-
-#### Calculate summary scores
-
-```{r}
-df <- df %>% 
-  
-  # Tell R that we want to take the mean across a row
   rowwise() %>%
-  
-  # Calculate total scores/subscales (MPAS)
-  mutate(MPAS_attach.3pp = sum(c(c_across(MPAS3.3pp:MPAS7_r.3pp), 
-                                 MPAS10_r.3pp, MPAS14_r.3pp, MPAS18.3pp, MPAS19.3pp), na.rm = F),
-         MPAS_host.3pp = sum(c(MPAS1.3pp, MPAS2.3pp, c_across(MPAS15.3pp:MPAS17.3pp)), na.rm = F), 
-         MPAS_pleasure.3pp = sum(c(MPAS8_r.3pp, MPAS9_r.3pp, c_across(MPAS11_r.3pp:MPAS13_r.3pp)), na.rm = F)) %>%
-  
-  
-  # Calculate total scores/subscales (PPAS)
-  mutate(PPAS_patience.3pp = sum(c(PPAS1.3pp, PPAS2.3pp, PPAS6.3pp, PPAS11_r.3pp, PPAS13_r.3pp, 
-                                   PPAS17.3pp, PPAS18.3pp, PPAS19.3pp), na.rm = F),
-         PPAS_pleasure.3pp = sum(c(PPAS4_r.3pp, PPAS5_r.3pp, PPAS8_r.3pp, PPAS9_r.3pp, PPAS10_r.3pp, PPAS12_r.3pp, PPAS15_r.3pp), na.rm = F), 
-         PPAS_affection.3pp = sum(c(PPAS3.3pp, PPAS7_r.3pp, PPAS14_r.3pp, PPAS16_r.3pp), na.rm = F)) %>%
-  
-  # Move the total score/subscales so they come immediately after the measures
-  relocate(MPAS_attach.3pp:MPAS_pleasure.3pp, .after = MPAS19.3pp) %>%
-  relocate(PPAS_patience.3pp:PPAS_affection.3pp, .after = PPAS19.3pp)
+  mutate(MPAS_attach.3pp = sum(c(c_across(MPAS3.3pp:MPAS7_r.3pp),
+                                 MPAS10_r.3pp, MPAS14_r.3pp, 
+                                 MPAS18.3pp, MPAS19.3pp), na.rm = F),
+         MPAS_host.3pp = sum(c(MPAS1.3pp, MPAS2.3pp,
+                               c_across(MPAS15.3pp:MPAS17.3pp)), na.rm = F),
+         MPAS_pleasure.3pp = sum(c(MPAS8_r.3pp, MPAS9_r.3pp,
+                                   c_across(MPAS11_r.3pp:MPAS13_r.3pp)), na.rm = F)) %>%
+  relocate(MPAS_attach.3pp:MPAS_pleasure.3pp, .after = MPAS19.3pp)
 ```
-:::
 
-### Label
+#### Label
 
 ```{r}
-df <- df %>% 
-  # Direct
+df <- df %>%
   mutate(across(contains("MPAS") & !contains("_"),
-            ~ labelled(., label = "Maternal Postnatal Attachment Scale"))) %>%
-  mutate(across(contains("PPAS") & !contains("_"),
-            ~ labelled(., label = "Paternal Postnatal Attachment Scale"))) %>%
-  
-  # Reverse
+         ~ labelled(., label = "Maternal Postnatal Attachment Scale"))) %>%
   mutate(across(contains("MPAS") & contains("_r"),
-            ~ labelled(., label = "Maternal Postnatal Attachment Scale (reverse-scored)"))) %>%
-  mutate(across(contains("PPAS") & contains("_r"),
-            ~ labelled(., label = "Paternal Postnatal Attachment Scale (reverse-scored)"))) %>%
-  
-  # MPAS Summary
-  mutate(MPAS_attach.3pp = labelled(MPAS_attach.3pp, label = "MPAS: Quality of Attachment Scale"), 
-         MPAS_host.3pp = labelled(MPAS_host.3pp, label = "MPAS: Absence of Hostility Scale"), 
-         MPAS_pleasure.3pp = labelled(MPAS_pleasure.3pp, label = "MPAS: Pleasure in Interaction Scale")) %>%
-  
-  # PPAS Summary
-  mutate(PPAS_patience.3pp = labelled(MPAS_attach.3pp, label = "PPAS: Patience and Tolerance Scale"), 
-         PPAS_pleasure.3pp = labelled(MPAS_pleasure.3pp, label = "PPAS: Pleasure in Interaction Scale"),
-         PPAS_affection.3pp = labelled(MPAS_host.3pp, label = "PPAS: Affection and Pride Scale"))
+         ~ labelled(., label = "Maternal Postnatal Attachment Scale (reverse-scored)"))) %>%
+  mutate(MPAS_attach.3pp = labelled(MPAS_attach.3pp, label = "MPAS: Quality of Attachment"),
+         MPAS_host.3pp = labelled(MPAS_host.3pp, label = "MPAS: Absence of Hostility"),
+         MPAS_pleasure.3pp = labelled(MPAS_pleasure.3pp, label = "MPAS: Pleasure in Interaction"))
 ```
 
-### Check and Print
+#### Check and Print
+::: panel-tabset
+##### Check
 
 ::: panel-tabset
-#### Check
-
-::: panel-tabset
-##### Check Counts
-
+###### Check Counts
 ```{r}
 #| echo: false
-# Direct Score
 check_categorical(df, contains("MPAS") & !contains("_")) %>% arrange(value) %>% knitr::kable()
-check_categorical(df, contains("PPAS") & !contains("_")) %>% arrange(value) %>% knitr::kable()
-# Reverse Score
 check_categorical(df, contains("MPAS") & contains("_r")) %>% arrange(value) %>% knitr::kable()
-check_categorical(df, contains("PPAS") & contains("_r")) %>% arrange(value) %>% knitr::kable()
 ```
 
-##### Check Numbers
-
+###### Check Numbers
 ```{r}
 #| echo: false
-check_continuous(df, c(MPAS_attach.3pp:MPAS_pleasure.3pp, PPAS_patience.3pp:PPAS_affection.3pp)) %>% knitr::kable()
+check_continuous(df, MPAS_attach.3pp:MPAS_pleasure.3pp) %>% knitr::kable()
 ```
 
-##### Check Reliability
-
-::: panel-tabset
-###### MPAS
-####### MPAS Attach
+###### Check Reliability
+####### Quality of Attachment
 ```{r}
 #| echo: false
-ltm::cronbach.alpha(data = select(df, MPAS3.3pp:MPAS7_r.3pp, MPAS10_r.3pp, MPAS14_r.3pp, MPAS18.3pp, MPAS19.3pp), na.rm = T)
+ltm::cronbach.alpha(select(df, MPAS3.3pp:MPAS7_r.3pp, MPAS10_r.3pp, MPAS14_r.3pp, MPAS18.3pp, MPAS19.3pp), na.rm = T)
 ```
 
-####### MPAS Absence of Hostility
+####### Absence of Hostility
 ```{r}
 #| echo: false
-ltm::cronbach.alpha(data = select(df, MPAS1.3pp, MPAS2.3pp, MPAS15.3pp:MPAS17.3pp), na.rm = T)
-```
-####### MPAS: Pleasure in Interaction
-```{r}
-#| echo: false
-ltm::cronbach.alpha(data = select(df, MPAS8_r.3pp, MPAS9_r.3pp, MPAS11_r.3pp:MPAS13_r.3pp), na.rm = T)
+ltm::cronbach.alpha(select(df, MPAS1.3pp, MPAS2.3pp, MPAS15.3pp:MPAS17.3pp), na.rm = T)
 ```
 
-###### PPAS
-####### PPAS Patience
+####### Pleasure in Interaction
 ```{r}
 #| echo: false
-ltm::cronbach.alpha(data = select(df, PPAS1.3pp, PPAS2.3pp, PPAS6.3pp, PPAS11_r.3pp, PPAS13_r.3pp, 
-                                   PPAS17.3pp, PPAS18.3pp, PPAS19.3pp), na.rm = T)
+ltm::cronbach.alpha(select(df, MPAS8_r.3pp, MPAS9_r.3pp, MPAS11_r.3pp:MPAS13_r.3pp), na.rm = T)
 ```
 
-####### PPAS Pleasure
+###### Check Variable Labels
 ```{r}
 #| echo: false
-ltm::cronbach.alpha(data = select(df, PPAS4_r.3pp, PPAS5_r.3pp, PPAS8_r.3pp, PPAS9_r.3pp, PPAS10_r.3pp, PPAS12_r.3pp, PPAS15_r.3pp), na.rm = T)
-```
-
-####### PPAS Affection
-```{r}
-#| echo: false
-ltm::cronbach.alpha(data = select(df, PPAS3.3pp, PPAS7_r.3pp, PPAS14_r.3pp, PPAS16_r.3pp), na.rm = T)
+inspect_labels(df, contains("MPAS"))
 ```
 :::
 
-##### Check Variable Labels
-
-```{r}
-#| echo: false
-inspect_labels(df, contains("MPAS")) 
-inspect_labels(df, contains("PPAS")) 
-```
-:::
-
-#### Print
-
+##### Print
 ```{r}
 #| echo: false
 print_slice(df, contains("MPAS"))
+```
+:::
+:::
+
+### PPAS
+::: panel-tabset
+#### Notes
+
+- Condon & Corkindale, 1998  
+- 19 items  
+- Varying Likert scales  
+  - Recode 2- and 4-option items to 5-point scale  
+- Subscales:  
+  - Patience and tolerance: 1, 2, 6, 11, 13, 17, 18, 19  
+  - Pleasure in interaction: 4, 5, 8, 9, 10, 12, 15  
+  - Affection and pride: 3, 7, 14, 16  
+- Reverse score: 4–16  
+
+#### Script
+##### Recode item scores
+
+```{r}
+df <- df %>%
+  mutate(across(c(PPAS4.3pp, PPAS5.3pp, PPAS10.3pp, PPAS12.3pp, PPAS14.3pp),
+                ~ case_when(. == 1 ~ 5, . == 2 ~ 4, . == 3 ~ 3,
+                            . == 4 ~ 2, . == 5 ~ 1, .default = NA))) %>%
+  mutate(across(c(PPAS6.3pp, PPAS17.3pp, PPAS18.3pp, PPAS19.3pp),
+                ~ case_when(. == 1 ~ 1, . == 2 ~ 2.3, . == 3 ~ 3.6,
+                            . == 4 ~ 5, .default = NA))) %>%
+  mutate(across(c(PPAS7.3pp, PPAS9.3pp, PPAS11.3pp, PPAS15.3pp),
+                ~ case_when(. == 1 ~ 5, . == 2 ~ 3.6, . == 3 ~ 2.3,
+                            . == 4 ~ 1, .default = NA))) %>%
+  mutate(across(c(PPAS13.3pp, PPAS16.3pp),
+                ~ case_when(. == 1 ~ 5, . == 2 ~ 3, . == 3 ~ 1,
+                            .default = NA))) %>%
+  mutate(PPAS8.3pp = case_when(PPAS8.3pp == 1 ~ 5,
+                               PPAS8.3pp == 2 ~ 1, .default = NA))
+```
+
+##### Rename reverse scored items
+
+```{r}
+setnames(df,
+  old = c("PPAS4.3pp", "PPAS5.3pp", "PPAS7.3pp", "PPAS8.3pp", "PPAS9.3pp",
+          "PPAS10.3pp", "PPAS11.3pp", "PPAS12.3pp", "PPAS13.3pp", "PPAS14.3pp",
+          "PPAS15.3pp", "PPAS16.3pp"),
+  new = gsub(".3pp", "_r.3pp",
+             c("PPAS4.3pp", "PPAS5.3pp", "PPAS7.3pp", "PPAS8.3pp", "PPAS9.3pp",
+               "PPAS10.3pp", "PPAS11.3pp", "PPAS12.3pp", "PPAS13.3pp", "PPAS14.3pp",
+               "PPAS15.3pp", "PPAS16.3pp"))
+)
+```
+
+##### Calculate summary scores
+
+```{r}
+df <- df %>%
+  rowwise() %>%
+  mutate(PPAS_patience.3pp = sum(c(PPAS1.3pp, PPAS2.3pp, PPAS6.3pp, PPAS11_r.3pp, PPAS13_r.3pp,
+                                   PPAS17.3pp, PPAS18.3pp, PPAS19.3pp), na.rm = F),
+         PPAS_pleasure.3pp = sum(c(PPAS4_r.3pp, PPAS5_r.3pp, PPAS8_r.3pp, PPAS9_r.3pp, PPAS10_r.3pp,
+                                   PPAS12_r.3pp, PPAS15_r.3pp), na.rm = F),
+         PPAS_affection.3pp = sum(c(PPAS3.3pp, PPAS7_r.3pp, PPAS14_r.3pp, PPAS16_r.3pp), na.rm = F)) %>%
+  relocate(PPAS_patience.3pp:PPAS_affection.3pp, .after = PPAS19.3pp)
+```
+
+#### Label
+
+```{r}
+df <- df %>%
+  mutate(across(contains("PPAS") & !contains("_"),
+         ~ labelled(., label = "Paternal Postnatal Attachment Scale"))) %>%
+  mutate(across(contains("PPAS") & contains("_r"),
+         ~ labelled(., label = "Paternal Postnatal Attachment Scale (reverse-scored)"))) %>%
+  mutate(PPAS_patience.3pp = labelled(PPAS_patience.3pp, label = "PPAS: Patience and Tolerance"),
+         PPAS_pleasure.3pp = labelled(PPAS_pleasure.3pp, label = "PPAS: Pleasure in Interaction"),
+         PPAS_affection.3pp = labelled(PPAS_affection.3pp, label = "PPAS: Affection and Pride"))
+```
+
+#### Check and Print
+::: panel-tabset
+##### Check
+
+::: panel-tabset
+###### Check Counts
+```{r}
+#| echo: false
+check_categorical(df, contains("PPAS") & !contains("_")) %>% arrange(value) %>% knitr::kable()
+check_categorical(df, contains("PPAS") & contains("_r")) %>% arrange(value) %>% knitr::kable()
+```
+
+###### Check Numbers
+```{r}
+#| echo: false
+check_continuous(df, PPAS_patience.3pp:PPAS_affection.3pp) %>% knitr::kable()
+```
+
+###### Check Reliability
+####### Patience and Tolerance
+```{r}
+#| echo: false
+ltm::cronbach.alpha(select(df, PPAS1.3pp, PPAS2.3pp, PPAS6.3pp, PPAS11_r.3pp, PPAS13_r.3pp,
+                           PPAS17.3pp, PPAS18.3pp, PPAS19.3pp), na.rm = T)
+```
+####### Pleasure in Interaction
+```{r}
+#| echo: false
+ltm::cronbach.alpha(select(df, PPAS4_r.3pp, PPAS5_r.3pp, PPAS8_r.3pp, PPAS9_r.3pp, PPAS10_r.3pp,
+                           PPAS12_r.3pp, PPAS15_r.3pp), na.rm = T)
+```
+
+####### Affection and Pride
+```{r}
+#| echo: false
+ltm::cronbach.alpha(select(df, PPAS3.3pp, PPAS7_r.3pp, PPAS14_r.3pp, PPAS16_r.3pp), na.rm = T)
+```
+
+###### Check Variable Labels
+```{r}
+#| echo: false
+inspect_labels(df, contains("PPAS"))
+```
+:::
+
+##### Print
+```{r}
+#| echo: false
 print_slice(df, contains("PPAS"))
 ```
 :::
 :::
+:::
+
 
 ## PBQ: Postpartum Bonding Questionnaire
 
@@ -3116,7 +3079,7 @@ print_slice(df, contains("PSS"))
 :::
 :::
 
-## SCL: Symptom Checklist—90
+## SCL: Symptom Checklist
 
 ::: panel-tabset
 ### Notes

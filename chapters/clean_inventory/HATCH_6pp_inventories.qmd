@@ -3230,7 +3230,7 @@ print_slice(df, contains("PYB") & !contains("MRI"))
 ::::
 :::::
 
-## SCL: Symptom Checklist-90
+## SCL: Symptom Checklist
 
 :::::: panel-tabset
 ### Notes

@@ -3486,7 +3486,7 @@ print_slice(df, contains("PSS"))
 ::::
 :::::
 
-## SCL: Symptom Checklist-90
+## SCL: Symptom Checklist
 
 :::::: panel-tabset
 ### Notes

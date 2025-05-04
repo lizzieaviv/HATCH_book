@@ -1787,15 +1787,14 @@ print_slice(df, contains("LES"))
 ::::
 :::::
 
+
 ## MAAS/PAAS: Maternal/Paternal Antenatal Attachment Scale
 
-:::::: panel-tabset
-### Notes
-
+::: panel-tabset
+### MAAS
+::: panel-tabset
+#### Notes
 -   Condon, 1993
-
-#### MAAS
-
 -   19 items
 -   1-5 Likert scale (different anchor labels for each question)
 -   Sum scores
@@ -1805,22 +1804,7 @@ print_slice(df, contains("LES"))
     -   Preoccupation: 1, 2, 4, 5, 8, 14, 17, 18
 -   Reverse score: 1, 3, 5, 6, 7, 9, 10, 12, 15, 16, 18
 
-#### PAAS
-
--   16 items
--   1-5 Likert scale (different anchor labels for each question)
--   Sum scores
-    -   Higher scores = strong antenatal attachment
--   Subscales:
-    -   Quality: 1, 2, 3, 6, 7, 9, 11, 12, 13, 16
-    -   Preoccupation: 4, 5, 8, 10, 14, 15
--   Reverse score: 1, 3, 5, 6, 7, 8, 12, 13, 15
-
-### Script
-
-::: panel-tabset
-#### MAAS
-
+#### Script
 ##### Reverse item scores
 
 ```{r}
@@ -1877,8 +1861,85 @@ df <- df %>%
   relocate(c(MAAS_qual.pn, MAAS_pre.pn, MAAS_tot.pn), .after = MAAS19.pn)
 ```
 
-#### PAAS
+#### Label
 
+```{r}
+df <- df %>% 
+  # Create value and variable labels
+  mutate(across(contains("MAAS") & !contains("_"),
+            ~ labelled(.,
+                     label = "Maternal Antenatal Attachment Scale")))  %>%
+  mutate(across(contains("MAAS") & contains("_r"),
+            ~ labelled(.,
+                     label = "Maternal Antenatal Attachment Scale (reverse-scored)"))) %>%
+  mutate(MAAS_tot.pn = labelled(MAAS_tot.pn, label = "Maternal Antenatal Attachment: Total Score"),
+         MAAS_qual.pn = labelled(MAAS_qual.pn, label = "Maternal Antenatal Attachment: Quality Scale"),
+         MAAS_pre.pn = labelled(MAAS_pre.pn, label = "Maternal Antenatal Attachment: Preoccupation Scale"))
+```
+
+
+#### Check and Print
+:::: panel-tabset
+##### Check
+
+::: panel-tabset
+###### Check Counts
+
+```{r}
+#| echo: false
+# Direct Score
+check_categorical(df, contains("MAAS") & !contains("_")) %>% select(-label) %>% arrange(value) %>% knitr::kable()
+# Reverse Score
+check_categorical(df, contains("MAAS") & contains("_r")) %>% select(-label) %>% arrange(value) %>% knitr::kable()
+```
+
+###### Check Numbers
+
+```{r}
+#| echo: false
+check_continuous(df, MAAS_tot.pn) %>% knitr::kable()
+```
+
+###### Check Reliability
+
+```{r}
+#| echo: false
+ltm::cronbach.alpha(data = select(df, MAAS1_r.pn:MAAS19.pn), 
+                    CI = T, 
+                    na.rm = T)
+```
+
+###### Check Variable Labels
+
+```{r}
+#| echo: false
+inspect_labels(df, contains("MAAS")) 
+```
+:::
+
+##### Print
+
+```{r}
+#| echo: false
+print_slice(df, contains("MAAS"))
+```
+:::
+::::
+
+### PAAS
+::: panel-tabset
+#### Notes
+-   Condon, 1993
+-   16 items
+-   1-5 Likert scale (different anchor labels for each question)
+-   Sum scores
+    -   Higher scores = strong antenatal attachment
+-   Subscales:
+    -   Quality: 1, 2, 3, 6, 7, 9, 11, 12, 13, 16
+    -   Preoccupation: 4, 5, 8, 10, 14, 15
+-   Reverse score: 1, 3, 5, 6, 7, 8, 12, 13, 15
+
+#### Script
 ##### Reverse item scores
 
 ```{r}
@@ -1902,7 +1963,6 @@ setnames(x = df,
 ```
 
 ##### Calculate summary scores
-
 ```{r}
 df <- df %>% 
   
@@ -1930,9 +1990,8 @@ df <- df %>%
   # Move the total score/subscales so they come immediately after the measures
   relocate(c(PAAS_qual.pn, PAAS_pre.pn, PAAS_tot.pn), .after = PAAS16.pn)
 ```
-:::
 
-### Label
+#### Label
 
 ```{r}
 df <- df %>% 
@@ -1949,34 +2008,18 @@ df <- df %>%
   mutate(across(contains("PAAS") & contains("_r"),
             ~ labelled(.,
                      label = "Paternal Antenatal Attachment Scale (reverse-scored)"))) %>%
-  mutate(MAAS_tot.pn = labelled(MAAS_tot.pn, label = "Maternal Antenatal Attachment: Total Score"),
-         MAAS_qual.pn = labelled(MAAS_qual.pn, label = "Maternal Antenatal Attachment: Quality Scale"),
-         MAAS_pre.pn = labelled(MAAS_pre.pn, label = "Maternal Antenatal Attachment: Preoccupation Scale"),
-         PAAS_tot.pn = labelled(PAAS_tot.pn, label = "Paternal Antenatal Attachment: Total Score"),
+  mutate(PAAS_tot.pn = labelled(PAAS_tot.pn, label = "Paternal Antenatal Attachment: Total Score"),
          PAAS_qual.pn = labelled(PAAS_qual.pn, label = "Paternal Antenatal Attachment: Quality Scale"),
          PAAS_pre.pn = labelled(PAAS_pre.pn, label = "Paternal Antenatal Attachment: Preoccupation Scale"))
 ```
 
-### Check and Print
-
-:::: panel-tabset
-#### Check
+#### Check and Print
 
 ::: panel-tabset
-##### Check Counts
+##### Check
 
-###### Moms
-
-```{r}
-#| echo: false
-# Direct Score
-check_categorical(df, contains("MAAS") & !contains("_")) %>% select(-label) %>% arrange(value) %>% knitr::kable()
-# Reverse Score
-check_categorical(df, contains("MAAS") & contains("_r")) %>% select(-label) %>% arrange(value) %>% knitr::kable()
-```
-
-###### Dads
-
+::: panel-tabset
+###### Check Counts
 ```{r}
 # Direct Score
 check_categorical(df, contains("PAAS") & !contains("_")) %>% select(-label) %>% arrange(value) %>% knitr::kable()
@@ -1984,26 +2027,14 @@ check_categorical(df, contains("PAAS") & !contains("_")) %>% select(-label) %>% 
 check_categorical(df, contains("PAAS") & contains("_r")) %>% select(-label) %>% arrange(value) %>% knitr::kable()
 ```
 
-##### Check Numbers
+###### Check Numbers
 
 ```{r}
 #| echo: false
-check_continuous(df, c(MAAS_tot.pn:MAAS_qual.pn, PAAS_tot.pn:PAAS_qual.pn)) %>% knitr::kable()
+check_continuous(df, PAAS_tot.pn) %>% knitr::kable()
 ```
 
-##### Check Reliability
-
-###### Moms
-
-```{r}
-#| echo: false
-ltm::cronbach.alpha(data = select(df, MAAS1_r.pn:MAAS19.pn), 
-                    CI = T, 
-                    na.rm = T)
-```
-
-###### Dads
-
+###### Check Reliability
 ```{r}
 #| echo: false
 ltm::cronbach.alpha(data = select(df, PAAS1_r.pn:PAAS16.pn), 
@@ -2011,31 +2042,24 @@ ltm::cronbach.alpha(data = select(df, PAAS1_r.pn:PAAS16.pn),
                     na.rm = T)
 ```
 
-##### Check Variable Labels
+###### Check Variable Labels
 
 ```{r}
 #| echo: false
-inspect_labels(df, contains("MAAS") | contains("PAAS")) 
+inspect_labels(df, contains("PAAS")) 
 ```
 :::
 
-#### Print
+##### Print
 
-###### Moms
-
-```{r}
-#| echo: false
-print_slice(df, contains("MAAS"))
-```
-
-###### Dads
 
 ```{r}
 #| echo: false
 print_slice(df, contains("PAAS"))
 ```
-::::
-::::::
+:::
+:::
+:::
 
 ## MAT: Marital Adjustment Test
 
@@ -3542,7 +3566,7 @@ print_slice(df, contains("RF"))
 ::::
 :::::
 
-## SCL: Symptom Checklist—90
+## SCL: Symptom Checklist
 
 ::::: panel-tabset
 ### Notes
