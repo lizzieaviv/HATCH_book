@@ -25,7 +25,7 @@ Data files can be found at \[INSERT URL\]
 -   Inventory Cleaning: How we scored the included measures.
 -   Demographics Cleaning: How we scored the demographics and basic information items.
 -   Rename: The scripts used to rename Qualtrics items (e.g., Q105 to BDI1)
--   The scripts used to compile raw Qualtrics data are not included for participant privacy
+-   Compile raw data: The scripts used to compile raw Qualtrics data are not included for participant privacy
 
 # Included Measures
 
@@ -57,13 +57,13 @@ Data files can be found at \[INSERT URL\]
 | PAS: Pregnancy Anxiety Scale | x |  |  |  |
 | PAT: Parental Attribution Test |  |  |  | x |
 | PBQ: Postpartum Bonding Questionnaire |  | x | x | x |
+| PingSS: Parenting Stress Scale |  | x | x | x |
+| Pregnancy/Couvade Syndrome Symptoms | x |  |  |  |
 | PSAM: Pregnancy Specific Anxiety Measure | x |  |  |  |
 | PSI: Parenting Stress Index |  | x | x | x |
 | PSQI: Pittsburgh Sleep Quality Index | x | x | x | x |
 | PSS: Perceived Stress Scale | x | x | x | x |
 | PYB: Parenting Your Baby |  |  | x |  |
-| PingSS: Parenting Stress Scale |  | x | x | x |
-| Pregnancy/Couvade Syndrome Symptoms | x |  |  |  |
 | RF: Risky Families | x |  |  |  |
 | SCL: Symptom Checklist—90 | x | x | x | x |
 | STAI: State-Trait Anxiety Inventory | x |  | x |  |
