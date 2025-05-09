@@ -441,11 +441,11 @@ setnames(df,
 ```{r }
 # Get Column Numbers
 cols <- which(colnames(df)=="Q108.1_1.6pp"):which(colnames(df)=="Q112_1.6pp")
+
 # Set new names
 setnames(df, 
          old = colnames(df[,cols]), 
          new = c(
-           # Supporting and Enjoying
            paste("PYB_se", 1:8, ".6pp", sep = ""),
            paste("PYB_se", "_change", ".6pp", sep = ""),
            paste("PYB_pa", 1:5, ".6pp", sep = ""),

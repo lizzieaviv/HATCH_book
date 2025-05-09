@@ -111,7 +111,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 
 <link rel="stylesheet" href="../../assets/styles.css">
-<link rel="stylesheet" href="ache">
 </head>
 
 <body class="nav-sidebar floating quarto-light">
@@ -1038,11 +1037,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell" data-layout-align="center">
 <div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Get Column Numbers</span></span>
 <span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>cols <span class="ot">&lt;-</span> <span class="fu">which</span>(<span class="fu">colnames</span>(df)<span class="sc">==</span><span class="st">"Q108.1_1.6pp"</span>)<span class="sc">:</span><span class="fu">which</span>(<span class="fu">colnames</span>(df)<span class="sc">==</span><span class="st">"Q112_1.6pp"</span>)</span>
-<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Set new names</span></span>
-<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a><span class="fu">setnames</span>(df, </span>
-<span id="cb37-5"><a href="#cb37-5" aria-hidden="true" tabindex="-1"></a>         <span class="at">old =</span> <span class="fu">colnames</span>(df[,cols]), </span>
-<span id="cb37-6"><a href="#cb37-6" aria-hidden="true" tabindex="-1"></a>         <span class="at">new =</span> <span class="fu">c</span>(</span>
-<span id="cb37-7"><a href="#cb37-7" aria-hidden="true" tabindex="-1"></a>           <span class="co"># Supporting and Enjoying</span></span>
+<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Set new names</span></span>
+<span id="cb37-5"><a href="#cb37-5" aria-hidden="true" tabindex="-1"></a><span class="fu">setnames</span>(df, </span>
+<span id="cb37-6"><a href="#cb37-6" aria-hidden="true" tabindex="-1"></a>         <span class="at">old =</span> <span class="fu">colnames</span>(df[,cols]), </span>
+<span id="cb37-7"><a href="#cb37-7" aria-hidden="true" tabindex="-1"></a>         <span class="at">new =</span> <span class="fu">c</span>(</span>
 <span id="cb37-8"><a href="#cb37-8" aria-hidden="true" tabindex="-1"></a>           <span class="fu">paste</span>(<span class="st">"PYB_se"</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">8</span>, <span class="st">".6pp"</span>, <span class="at">sep =</span> <span class="st">""</span>),</span>
 <span id="cb37-9"><a href="#cb37-9" aria-hidden="true" tabindex="-1"></a>           <span class="fu">paste</span>(<span class="st">"PYB_se"</span>, <span class="st">"_change"</span>, <span class="st">".6pp"</span>, <span class="at">sep =</span> <span class="st">""</span>),</span>
 <span id="cb37-10"><a href="#cb37-10" aria-hidden="true" tabindex="-1"></a>           <span class="fu">paste</span>(<span class="st">"PYB_pa"</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>, <span class="st">".6pp"</span>, <span class="at">sep =</span> <span class="st">""</span>),</span>

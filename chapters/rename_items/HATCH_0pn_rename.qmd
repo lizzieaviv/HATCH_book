@@ -305,7 +305,7 @@ setnames(df,
 
 ## MAAS/PAAS: Maternal/Paternal Antenatal Attachment Scale
 
-##### Rename `MAAS` columns
+### Rename `MAAS` columns
 
 ```{r MAAS-rename,}
 # Get Column Numbers
@@ -316,7 +316,7 @@ setnames(df,
          new = paste("MAAS", 1:19, ".pn", sep = ""))
 ```
 
-##### Rename `PAAS` columns
+### Rename `PAAS` columns
 
 ```{r PAAS-rename,}
 # Get Column Numbers
@@ -415,9 +415,6 @@ df <- select(df, -c(starts_with("PregSymp.4")))
 ```
 
 ## PSAM: Pregnancy Specific Anxiety Scale
-
-#### Rename `PSAM` Columns
-
 ```{r PSAM-rename}
 # Get Column Numbers
 cols <- which(colnames(df)=="PSAM_1.pn"):which(colnames(df)=="PSAM_13.pn")
@@ -450,8 +447,6 @@ df <- df %>%
 ```
 
 ## PSS: Perceived Stress Scale
-
-#### Rename `PSS` columns
 
 ```{r PSS-rename}
 # Get Column Numbers

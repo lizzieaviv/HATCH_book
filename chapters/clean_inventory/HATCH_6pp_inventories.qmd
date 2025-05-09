@@ -246,7 +246,7 @@ print_slice(df, AAS1.6pp:AAS_anx.6pp)
     -   Fine motor
     -   Problem solving
     -   Personal/social
-    -   Overall
+    -   Overall questions do not produce a subscale score
 -   No reverse scores
 -   Other scores notes:
     -   If three or more items are missing, do not score the

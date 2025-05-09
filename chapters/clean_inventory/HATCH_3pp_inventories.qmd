@@ -89,7 +89,7 @@ df.old <- read_sav(here("data/3_renamed", "3pp_renamed.sav")) %>%
     -   Fine motor
     -   Problem solving
     -   Personal/social
-    -   Overall
+    -  Overall questions do not produce a subscale score
 -   No reverse scores
 -   Other scores notes:
     -   If three or more items are missing, do not score the
@@ -242,7 +242,6 @@ check_continuous(df, ASQ2_comm.3pp:ASQ2_social.3pp) %>% knitr::kable()
 ```
 
 ##### Check Reliability
-##### Check Reliability
 
 ###### Communication Subscale
 
@@ -319,7 +318,7 @@ print_slice(df, contains("ASQ2"))
     -   Fine motor
     -   Problem solving
     -   Personal/social
-    -   Overall
+    -  Overall questions do not produce a subscale score
 -   No reverse scores
 -   Other scores notes:
     -   If three or more items are missing, do not score the
@@ -468,7 +467,6 @@ check_categorical(df, c(ASQ4_o1.3pp:ASQ4_o8.3pp))  %>% knitr::kable()
 check_continuous(df, c(ASQ4_comm.3pp:ASQ4_social.3pp)) %>% knitr::kable()
 ```
 
-##### Check Reliability
 ##### Check Reliability
 
 ###### Communication Subscale
@@ -1694,7 +1692,7 @@ print_slice(df, contains("MOS"))
 :::
 :::
 
-# MPAS/PPAS: Maternal/Paternal Postnatal Attachment Scale
+## MPAS/PPAS: Maternal/Paternal Postnatal Attachment Scale
 
 ::: panel-tabset
 ### MPAS

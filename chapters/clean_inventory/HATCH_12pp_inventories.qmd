@@ -83,7 +83,7 @@ df.old <- df # so that I can refresh df quickly without scrolling back to top
     -   Fine motor
     -   Problem solving
     -   Personal/social
-    -   Overall
+    -   Overall questions do not produce a subscale score
 -   No reverse scores
 -   Other scores notes:
     -   If three or more items are missing, do not score the
